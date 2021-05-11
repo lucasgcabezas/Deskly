@@ -6,7 +6,6 @@ const boardSchema = new mongoose.Schema({
     admins: [String],
     users: [String],
     owner: { type: mongoose.Types.ObjectId, ref: 'user', required: true }
-
 })
 
 const BoardModel = mongoose.model('board', boardSchema)

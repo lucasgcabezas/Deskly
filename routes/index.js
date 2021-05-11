@@ -16,7 +16,7 @@ router.route('/board')
 
 router.route('/board/:id')
 .get(getFromUser)
-.post(editBoard)
+.put(editBoard)
 .delete(deleteBoard)
 
 // routes scheduleControllers

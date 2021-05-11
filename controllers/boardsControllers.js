@@ -8,7 +8,7 @@ const boardsControllers = {
 
         // Con passport
         try {
-            const selectedBoards = await BoardModel.find({ "users": req.user._id })
+            const selectedBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.params.id  } } })
             response = selectedBoards
 
         } catch {
@@ -24,7 +24,7 @@ const boardsControllers = {
 
         try {
             const boardToAdd = new BoardModel(req.body)
-            await BoardModel.save()
+            await boardToAdd.save()
             // const allItineraries = await ItineraryModel.find()
             response = boardToAdd
 
@@ -40,8 +40,7 @@ const boardsControllers = {
         let error;
 
         try {
-            await BoardModel.findOneAndUpdate({ _id: req.params.id }, { ...req.body }, { new: true })
-            const boardEdited = BoardModel.findById(req.params.id)
+            const boardEdited = await BoardModel.findOneAndUpdate({ _id: req.params.id }, { ...req.body }, { new: true })
             response = boardEdited
 
         } catch {
