@@ -7,6 +7,7 @@ const userScheema = mongoose.Schema({
     img: {type: String, required: true},
     role: {type: String, required: true},
     password: {type: String, required: true},
+    google:{type:Boolean, default:false},
   }) 
 
 const User = mongoose.model("user", userScheema)
