@@ -55,6 +55,6 @@ router.route('/task/:id')
 router.route('/task/comment/:id')
 .post(addComment)
 .put(editComment)
-.put(deleteComment)
+.delete(deleteComment)
 
 module.exports = router
