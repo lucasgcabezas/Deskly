@@ -1,4 +1,4 @@
-const Schedule = require('../models/Schedule')
+const Schedule = require('../models/ScheduleModel')
 
 const scheduleControllers = {
     addSchedule: async(req,res) =>{
@@ -31,7 +31,7 @@ const scheduleControllers = {
     },
     getScheduleFromBoard: async(req,res) => {
         try{
-            const schedule = await Schedule.find({idBoard: req.params.id})
+            const schedule = await Schedule.find({boardId: req.params.id})
             res.json({success: true, respuesta: schedule})
         }catch(error){
             res.json({success: false, respuesta: 'An error has occurred'})

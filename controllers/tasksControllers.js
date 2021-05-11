@@ -1,4 +1,4 @@
-const Task = require('../models/Task')
+const Task = require('../models/TaskModel')
 const tasksControllers = {
     getAllTasks: async (req, res) => {
         try {
@@ -12,7 +12,7 @@ const tasksControllers = {
         try {
             const addNewTask = new Task(req.body)
             await addNewTask.save()
-            const allTask = await Task.find()
+            // const allTask = await Task.find()
             res.json({response: allTask, success:true})
         } catch (error) {
             res.json({response: 'Ha ocurrido un error en el servidor', success:false})
@@ -39,18 +39,19 @@ const tasksControllers = {
     tasksFromSchedule: async (req, res) => {
         const id = req.params.id
         try {
-            const tasksFromSchedule = await Task.find({idSchedule: id})
+            const tasksFromSchedule = await Task.find({scheduleId: id})
             await res.json({response: tasksFromSchedule, success: true})
         } catch (error) {
             res.json({response: 'Internal server error', success:false})
         }
     },
     addComment: async (req, res) => {
-        const taskId = req.params.id
-        const userId = req.user._id
-        const comment = req.body.comment
+        console.log(req.body)
+        // const taskId = req.params.id
+        // const userId = req.user._id
+        // const comment = req.body.comment
         try {
-            const addComment = await Task.findOneAndUpdate({ _id: taskId }, { $push: { comments: { comment: comment, userId: userId} } }, { new: true })
+            const addComment = await Task.findOneAndUpdate({ _id: req.params.id}, { $push: { comments: { userId: req.body.userId,userCompleteName: req.body.userCompleteName,message: req.body.message} } }, { new: true })
             res.json({ response: addComment, success: true })
         } catch (error) {
             res.json({ response: 'Internal server error', success: false })
@@ -69,10 +70,9 @@ const tasksControllers = {
         }
     },
     deleteComment: async (req, res) => {
-        const taskId = req.params.id
-        const idComment = req.body.idComment
+        console.log(req.body)
         try {
-            const deleteComment = await Task.findOneAndUpdate({ _id: taskId, "comments._id": idComment},
+            const deleteComment = await Task.findOneAndUpdate({ _id: req.params.id, "comments._id": idComment},
                 {$pull: {comments: {_id: idComment}}}, { new: true })
             res.json({ response: deleteComment, success: true })
         } catch (error) {
