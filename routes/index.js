@@ -4,6 +4,7 @@ const scheduleControllers = require('../controllers/scheduleControllers')
 const boardsControllers= require('../controllers/boardsControllers')
 const userControllers = require ('../controllers/userControllers')
 const tasksControllers = require ('../controllers/tasksControllers')
+const passport = require("passport")
 
 const { newUser, login, reLogin } = userControllers
 const { getAllSchedule, getSchedule, getScheduleFromBoard, addSchedule, putSchedule, deleteSchedule } = scheduleControllers
@@ -39,8 +40,8 @@ router.route("/newuser")
 router.route("/login")
 .post(login)
 
-// router.route("/relogin")
-// .get(passport.authenticate('jwt', {session: false}), reLogin)
+router.route("/relogin")
+.get(passport.authenticate('jwt', {session: false}), reLogin)
 
 // routes userControllers
 router.route('/task')

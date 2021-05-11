@@ -1,4 +1,4 @@
-const User = require ("../models/User")
+const User = require ("../models/UserModel")
 const bcryptjs = require ("bcryptjs")
 const jwt = require("jsonwebtoken")
 
@@ -12,8 +12,9 @@ const userControllers={
             if (!emailExist) {
                 try {
                     const passwordHashed= bcryptjs.hashSync(password,10)
-                    var newUserToAdd = new User ({firstName,lastName,email,img,role,google,password: passwordHashed})  
-                    var newUserSaved = await newUserToAdd.save() 
+                    var newUserToAdd = new User({firstName,lastName,email,img,role,google,password: passwordHashed})  
+                    const newUserSaved = await newUserToAdd.save() 
+                    var response = newUserSaved
                     const token = jwt.sign({...newUserSaved},process.env.SECRET_KEY)
                     var response = token
                 } catch (e){
@@ -26,11 +27,7 @@ const userControllers={
             error = "No se pudo acceder a la base de usuario. Intenta nuevamente"
         }
 
-       res.json({
-        success: !error ? true : false,
-        response: {token: response, name:newUserSaved.firstName, lastName:newUserSaved.lastName, email:newUserSaved.email, img:newUserSaved.img, role: newUserSaved.role, google: newUserSaved.google },
-        error: error
-    })   
+       res.json({success: !error ? true:false, response ,error})   
     },
 
     login:async (req,res)=>{
@@ -40,11 +37,11 @@ const userControllers={
         try{ 
             const userOK = await User.findOne({email: email})
             if (userOK) {
-                if (userOK.google === google ){
+                if (userOK.google === google ){                   
                     const passwordOk = bcryptjs.compareSync(password, userOK.password)
                     if (passwordOk) {
                         const token = jwt.sign({...userOK}, process.env.SECRET_KEY)
-                        response = token
+                        response ={token: token, name:userOK.firstName, lastName:userOK.lastName, email:userOK.email, img:userOK.img, role: userOK.role, goolge: userOK,google }
                     } else {
                         error = "El usuario y/o la contraseña es incorrecta"
                     }
@@ -57,12 +54,7 @@ const userControllers={
         } catch(e) {
             error = "No se pudo acceder a la base de usuario. Intenta nuevamente"
         }
-      
-        res.json({
-            success: !error ? true : false,
-            response: !error && {token: response, name:userOK.firstName, email:userOK.email, img:userOK.img, role: userOK.role },
-            error: error
-        })
+        res.json({success: !error ? true : false, response, error})
     },
     reLogin: (req, res) => {
           res.json({
