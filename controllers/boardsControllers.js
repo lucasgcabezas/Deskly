@@ -24,7 +24,7 @@ const boardsControllers = {
 
         try {
             const boardToAdd = new BoardModel(req.body)
-            await BoardModel.save()
+            await boardToAdd.save()
             // const allItineraries = await ItineraryModel.find()
             response = boardToAdd
 
