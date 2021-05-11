@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const scheduleControllers = require('../controllers/scheduleControllers')
 const boardsControllers= require('../controllers/boardsControllers')
-const userControllers = require ('../controllers/scheduleControllers')
+const userControllers = require ('../controllers/userControllers')
 const tasksControllers = require ('../controllers/tasksControllers')
 
 const { newUser, login, reLogin } = userControllers
