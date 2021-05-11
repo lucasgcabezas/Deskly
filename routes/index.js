@@ -3,7 +3,7 @@ const router = express.Router()
 
 const scheduleControllers = require('../controllers/scheduleControllers')
 
-const {getAllSchedule, getSchedule, getScheduleByBoard, addSchedule, putSchedule, deleteSchedule} = scheduleControllers
+const {getAllSchedule, getSchedule, getScheduleFromBoard, addSchedule, putSchedule, deleteSchedule} = scheduleControllers
 
 router.route('/schedule')
 .get(getAllSchedule)
@@ -14,5 +14,5 @@ router.route('/schedule/:id')
 .post(putSchedule)
 .delete(deleteSchedule)
 
-router.route('/scheduleByBoard/:id')
-.get(getScheduleByBoard)
+router.route('/scheduleFromBoard/:id')
+.get(getScheduleFromBoard)

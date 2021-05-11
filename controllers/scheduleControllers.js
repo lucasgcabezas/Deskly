@@ -29,7 +29,7 @@ const scheduleControllers = {
             console.log(error)
         }
     },
-    getScheduleByBoard: async(req,res) => {
+    getScheduleFromBoard: async(req,res) => {
         try{
             const schedule = await Schedule.find({idBoard: req.params.id})
             res.json({success: true, respuesta: schedule})
