@@ -8,6 +8,6 @@ const taskSchema = new mongoose.Schema({
     verify: {type: Boolean, default: false},
     scheduleId: {type:mongoose.Types.ObjectId, ref: 'schedule', required: true}
 })
-const Task = mongoose.model('task', taskSchema)
-module.exports = Task	
+const TaskModel = mongoose.model('task', taskSchema)
+module.exports = TaskModel
 
