@@ -1,21 +1,38 @@
 import { useState } from "react";
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import commentActions from '../redux/actions/commentActions'
 
-const TaskModal = ({addComment}) => {
-    const [newComment, setNewComment] = useState('')
-    const [show, setShow] = useState(true)
-    let display = !show ? 'none' : 'block'
+const TaskModal = (props) => {
+    
+    const{ addComment } = props
 
+    const [newComment, setNewComment] = useState({ userId: '', userCompleteName: '', message: '' })
+    const [show, setShow] = useState(true)
+    const [comments, setComments] = useState([])
+    let display = !show ? 'none' : 'block'
+    let userId = '609c18aad4020c529018f542'
+
+
+    const readDataNewComment = (e) => {
+        let value = e.target.value;
+        setNewComment({
+            message: value,
+            userId: userId,//aca va el userid cuando lo reciba 
+            userCompleteName: 'Kevin Kalen' //aca va el username cuando lo reciba 
+
+        })
+    }
     const sendComment = async () => {
-        if (newComment === '') {
+        if (Object.values(newComment).some(valor => valor === "")) {
             alert('comentario vacio')
             return false
         }
-        let taskId= '609be485d3f81948bc8b48dd'
-        await addComment(taskId, newComment)
-        setNewComment('')
+        let taskId = '609be485d3f81948bc8b48dd'
+        let response = await addComment(taskId, newComment)
+        setComments(response)
+        setNewComment({ userId: '', userCompleteName: '', message: '' })
     }
+
     return (
         <>
             <button onClick={() => setShow(true)}>Show</button>
@@ -36,15 +53,22 @@ const TaskModal = ({addComment}) => {
                     </div>
                     <div>
                         <h3>Actividad</h3>
-                        <div>
-                            <h1>comment del usuario</h1>
-                        </div>
+                        {comments.length === 0
+                            ? <h2>Sin comentarios</h2>
+                            : comments.map((comment, index) => {
+                                return (<div key={index}>
+                                            <h4>{comment.userCompleteName}</h4>
+                                            <h4>{comment.message}</h4>
+                                        </div>
+                                )
+                            })
+                        }
                         <div>
                             <div>
                                 <p>foto user</p>
                             </div>
                             <div>
-                                <input placeholder="Escriba un comentario..." value={newComment} onChange={(e) => setNewComment(e.target.value)}></input>
+                                <input placeholder="Escriba un comentario..." name="message" value={newComment.message} onChange={readDataNewComment}></input>
                                 <button onClick={sendComment}>Guardar</button>
                             </div>
                         </div>
