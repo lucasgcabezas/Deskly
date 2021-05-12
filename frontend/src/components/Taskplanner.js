@@ -1,6 +1,5 @@
 import React, {useState} from "react"
 import taskActions from "../redux/actions/taskActions"
-import React, {useState} from "react"
 import {connect} from "react-redux"
 
 
@@ -55,4 +54,4 @@ const mapDispatchToProps = {
     editTaskPlanner: taskActions.editTaskPlanner
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskPlanner)
+export default connect(null, mapDispatchToProps)(TaskPlanner)
