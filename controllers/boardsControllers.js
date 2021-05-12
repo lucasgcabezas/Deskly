@@ -21,15 +21,10 @@ const boardsControllers = {
     addBoard: async (req, res) => {
         let response;
         let error;
-
         try {
-            const boardToAdd = new BoardModel({ ...req.body, owner: req.user._id, user: [...user, req.user._id] })
-            console.log(req.body, req.user._id)
+            const boardToAdd = new BoardModel({ ...req.body, owner: req.user._id, users: [req.user._id] })
             await boardToAdd.save()
-
-            // const allItineraries = await ItineraryModel.find()
             response = boardToAdd
-
         } catch {
             error = "An error occurred during process, please try later."
             console.log('ERROR: The controller addBoard has failed')
