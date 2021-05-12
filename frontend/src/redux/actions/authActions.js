@@ -18,7 +18,6 @@ const authActions = {
                 // }
             } catch {
                 alert('Error','Internal server error, please try later!', 'danger')
-
             }
         }
     },

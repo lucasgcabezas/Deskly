@@ -10,15 +10,16 @@ const { newUser, login, reLogin } = userControllers
 
 const { getAllTaskplanner, getTaskplanner, getTaskplannerFromBoard, addTaskplanner, putTaskplanner, deleteTaskplanner } = taskplannerControllers
 
-const { getFromUser, addBoard, editBoard, deleteBoard } = boardsControllers
+const { getFromUser, addBoard, editBoard, deleteBoard} = boardsControllers
 const {getAllTasks, addTask, editTask, deleteTask, tasksFromTaskplanner, addComment, editComment, deleteComment} = tasksControllers
 
 // routes boardsControllers 
 router.route('/board')
-.post(addBoard)
+.post(passport.authenticate('jwt', {session: false}),addBoard)
+.get(passport.authenticate('jwt', {session: false}),getFromUser)
 
 router.route('/board/:id')
-.get(getFromUser)
+
 .put(editBoard)
 .delete(deleteBoard)
 
