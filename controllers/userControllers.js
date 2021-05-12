@@ -31,7 +31,11 @@ const userControllers={
     },
 
     login:async (req,res)=>{
-        const {email, password, google} = req.body
+        
+         //    agregar google al array
+        const {email, password} = req.body
+        var google = false
+        console.log(email, password, google)
         var response;
         var error;
         try{ 
@@ -41,7 +45,7 @@ const userControllers={
                     const passwordOk = bcryptjs.compareSync(password, userOK.password)
                     if (passwordOk) {
                         const token = jwt.sign({...userOK}, process.env.SECRET_KEY)
-                        response ={token: token, name:userOK.firstName, lastName:userOK.lastName, email:userOK.email, img:userOK.img, role: userOK.role, goolge: userOK,google }
+                        response ={token: token, firstName:userOK.firstName, lastName:userOK.lastName, email:userOK.email, img:userOK.img, role: userOK.role, goolge: userOK,google }
                     } else {
                         error = "El usuario y/o la contraseña es incorrecta"
                     }
@@ -57,9 +61,10 @@ const userControllers={
         res.json({success: !error ? true : false, response, error})
     },
     reLogin: (req, res) => {
+        
           res.json({
           success: true, 
-          response: {name: req.user.firstName, email: req.user.email, img: req.user.img, role: req.user.role }
+          response: {firstName: req.user.firstName, email: req.user.email, img: req.user.img, role: req.user.role }
     })
     },
 

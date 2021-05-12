@@ -4,7 +4,21 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import MyDesk from './pages/MyDesk'
 import Sign from './pages/Sign'
-const App = () => {
+import { connect } from 'react-redux'
+import authActions from "./redux/actions/authActions"
+import { PromiseProvider } from 'mongoose'
+const App = (props) => {
+ 
+  if(props.userLogged){
+    // aca van links de logueados
+  }
+    else if(localStorage.getItem('token')){
+    props.reLoad(localStorage.getItem('token'))      
+    return null
+    }else {
+      // aca van links de deslogueados
+    }
+
   return (
     <>
       <BrowserRouter>
@@ -22,4 +36,13 @@ const App = () => {
 
 }
 
-export default App
+
+const mapStateToProps= state =>{
+  return{ 
+      userLogged: state.authReducer.userLogged,
+    }
+}
+const mapDispatchToProps= {
+  reLoad: authActions.signInLocalStorage
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App)

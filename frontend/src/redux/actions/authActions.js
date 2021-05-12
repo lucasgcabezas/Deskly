@@ -31,7 +31,7 @@ const authActions = {
                 //     alert('Oops',response.data.error, 'danger')
                 // } else {
                     dispatch({ type: 'LOG_USER', payload: response.data.response })
-                    alert(response.data.response.firstName,`Welcome to Mytinerary!`, 'success')
+                    alert(response.data.response.firstName + ` Welcome to Mytinerary!` + ' success')
                 // }
             } catch {
                 alert('Error','Internal server error, please try later!', 'danger')
@@ -43,10 +43,9 @@ const authActions = {
         return async (dispatch, getState) => {
             try {
                 const response = await axios.get('http://localhost:4000/api/relogin', {
-                    headers: { 'Authorization': 'Bearer ' + userLocalStorage.token }
+                    headers: { 'Authorization': 'Bearer ' + userLocalStorage }
                 })
-                dispatch({ type: 'LOG_USER', payload: { ...response.data.response, token: userLocalStorage.token } })
-
+                dispatch({ type: 'LOG_USER', payload: { ...response.data.response, token: userLocalStorage } })
             } catch (err) {
                 if (err.response.status === 401) {
                     alert("Me parece que me estás queriendo cagar con un token falso...")
