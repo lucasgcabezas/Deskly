@@ -75,7 +75,7 @@ const Board = (props) => {
                     <button onClick={sendValues}></button>
                 </div>
             }
-            <div>
+            <div style={{display: 'flex'}}>
                 {
                 
                 allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner}/>)}
