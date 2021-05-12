@@ -13,7 +13,7 @@ const TaskPlanner = (props) => {
             sendValues()
         }
     }
-    const sendValues = () => {
+    const sendValues = async () => {
         if(newTitle.trim() !== ""){
             await props.addTask({title: newTitle, taskplannerId: props.taskplannerId._id})
             const tasks = await props.tasksFromTaskplanner(props.taskplannerId._id)
