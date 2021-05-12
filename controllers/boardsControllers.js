@@ -21,9 +21,10 @@ const boardsControllers = {
     addBoard: async (req, res) => {
         let response;
         let error;
+        console.log(req.body,req.user)
 
         try {
-            const boardToAdd = new BoardModel({ ...req.body, owner: req.user._id, user: [...user, req.user._id] })
+            const boardToAdd = new BoardModel({ ...req.body, owner: req.user._id, users: [req.user._id] })
             console.log(req.body, req.user._id)
             await boardToAdd.save()
 
