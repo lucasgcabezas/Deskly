@@ -10,7 +10,7 @@ const TaskPlanner = (props) => {
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [editTitle, setEditTitle] = useState(true)
-
+    console.log(props)
     useEffect(() => { fetchAllTasks() }, [])
 
     const fetchAllTasks = async () => {
