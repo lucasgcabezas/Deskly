@@ -86,6 +86,6 @@ const mapDispatchToProps = {
     deleteTaskPlanner: taskPlannerActions.deleteTaskPlanner
 
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Board)
 
+export default connect(mapStateToProps, mapDispatchToProps)(Board)
 

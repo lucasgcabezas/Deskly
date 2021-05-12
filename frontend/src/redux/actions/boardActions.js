@@ -40,7 +40,7 @@ const boardActions = {
             const response = await axios.get("http://localhost:4000/api/board" , {headers: {
                 'Authorization': 'Bearer ' + token
             }})
-            return response.data.response
+            dispatch({type:'GET_BOARDS', payload:response.data.response})
         }
     },
 }
