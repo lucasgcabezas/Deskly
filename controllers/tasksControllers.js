@@ -35,11 +35,11 @@ const tasksControllers = {
             res.json({ success: false, response: 'Internal server error' })
         }
     },
-    tasksFromSchedule: async (req, res) => {
+    tasksFromTaskplanner: async (req, res) => {
         const id = req.params.id
         try {
-            const tasksFromSchedule = await TaskModel.find({scheduleId: id})
-            await res.json({response: tasksFromSchedule, success: true})
+            const tasksFromTaskplanner = await TaskModel.find({taskplannerId: id})
+            await res.json({response: tasksFromTaskplanner, success: true})
         } catch (error) {
             res.json({response: 'Internal server error', success:false})
         }

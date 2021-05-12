@@ -1,15 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const scheduleControllers = require('../controllers/scheduleControllers')
+const taskplannerControllers = require('../controllers/taskplannerControllers')
 const boardsControllers= require('../controllers/boardsControllers')
 const userControllers = require ('../controllers/userControllers')
 const tasksControllers = require ('../controllers/tasksControllers')
 const passport = require("passport")
 
 const { newUser, login, reLogin } = userControllers
-const { getAllSchedule, getSchedule, getScheduleFromBoard, addSchedule, putSchedule, deleteSchedule } = scheduleControllers
+
+const { getAllTaskplanner, getTaskplanner, getTaskplannerFromBoard, addTaskplanner, putTaskplanner, deleteTaskplanner } = taskplannerControllers
+
 const { getFromUser, addBoard, editBoard, deleteBoard } = boardsControllers
-const {getAllTasks, addTask, editTask, deleteTask, tasksFromSchedule, addComment, editComment, deleteComment} = tasksControllers
+const {getAllTasks, addTask, editTask, deleteTask, tasksFromTaskplanner, addComment, editComment, deleteComment} = tasksControllers
 
 // routes boardsControllers 
 router.route('/board')
@@ -20,18 +22,18 @@ router.route('/board/:id')
 .put(editBoard)
 .delete(deleteBoard)
 
-// routes scheduleControllers
-router.route('/schedule')
-.get(getAllSchedule)
-.post(addSchedule)
+// routes taskplannerControllers
+router.route('/taskplanner')
+.get(getAllTaskplanner)
+.post(addTaskplanner)
 
-router.route('/schedule/:id')
-.get(getSchedule)
-.put(putSchedule)
-.delete(deleteSchedule)
+router.route('/taskplanner/:id')
+.get(getTaskplanner)
+.put(putTaskplanner)
+.delete(deleteTaskplanner)
 
-router.route('/scheduleFromBoard/:id')
-.get(getScheduleFromBoard)
+router.route('/taskplannerFromBoard/:id')
+.get(getTaskplannerFromBoard)
 
 // routes userControllers
 router.route("/newuser")
@@ -49,7 +51,7 @@ router.route('/task')
 .post(addTask)
 
 router.route('/task/:id')
-.get(tasksFromSchedule)
+.get(tasksFromTaskplanner)
 .put(editTask)
 .delete(deleteTask)
 
