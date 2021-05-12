@@ -33,7 +33,6 @@ const TaskModal = (props) => {
         setNewComment({ userId: '', userCompleteName: '', message: '' })
     }
 
-
     return (
         <>
             <button onClick={() => setShow(true)}>Show</button>
