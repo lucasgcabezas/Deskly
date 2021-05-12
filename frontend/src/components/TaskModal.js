@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import commentActions from '../redux/actions/commentActions'
 
 const TaskModal = ({addComment}) => {
+
+    
     const [newComment, setNewComment] = useState('')
     const [show, setShow] = useState(true)
     let display = !show ? 'none' : 'block'
@@ -16,6 +18,7 @@ const TaskModal = ({addComment}) => {
         await addComment(taskId, newComment)
         setNewComment('')
     }
+
     return (
         <>
             <button onClick={() => setShow(true)}>Show</button>
