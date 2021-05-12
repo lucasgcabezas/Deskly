@@ -7,11 +7,9 @@ const boardsControllers = {
         let error;
         // Con passport
         try {
-            const selectedBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.user._id  } } })
+            const selectedBoards = await BoardModel.find({ users: { $elemMatch: { $eq:req.user._id  } } })
             console.log(selectedBoards)
             response = selectedBoards
-
-            console.log(response)
 
         } catch {
             error = "An error occurred during process, please try later."
@@ -22,8 +20,7 @@ const boardsControllers = {
 
     addBoard: async (req, res) => {
         let response;
-        let error;
-        
+        let error;       
 
         try {         
             const boardToAdd = new BoardModel({...req.body,owner:req.user._id})
