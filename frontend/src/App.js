@@ -6,7 +6,6 @@ import MyDesk from './pages/MyDesk'
 import Sign from './pages/Sign'
 import { connect } from 'react-redux'
 import authActions from "./redux/actions/authActions"
-
 const App = (props) => {
  
   if(props.userLogged){
