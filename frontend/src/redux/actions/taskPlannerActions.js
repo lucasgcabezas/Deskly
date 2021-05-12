@@ -3,9 +3,11 @@ import axios from 'axios'
 const taskPlannerActions = {
 
     getTaskPlannerFromBoard: (idBoard) => {
+        console.log(idBoard)
         return async (dispatch, getState) => {
             try{
                 const response = await axios.get('http://localhost:4000/api/taskplannerFromBoard/'+idBoard)
+                console.log(response)
                 return response.data.response
             }catch(error){
                 console.log(error)
