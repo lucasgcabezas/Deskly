@@ -5,18 +5,18 @@ const taskplannerControllers = {
         const newTaskplanner = new Taskplanner(req.body)
         try{
             await newTaskplanner.save()
-            res.json({success: true, respuesta: newTaskplanner})
+            res.json({success: true, response: newTaskplanner})
         }catch(error){
-            res.json({success: false, respuesta: 'An error has ocurred'})
+            res.json({success: false, response: 'An error has ocurred'})
             console.log(error)
         }
     },
     putTaskplanner: async(req, res) => {
         try{
             const taskplanner = await Taskplanner.findOneAndUpdate({_id: req.params.id}, {...req.body}, {new: true})
-            res.json({success: true, respuesta: taskplanner})
+            res.json({success: true, response: taskplanner})
         }catch(error){
-            res.json({success: false, respuesta: 'An error has occurred'})
+            res.json({success: false, response: 'An error has occurred'})
             console.log(error)
         }
     },
@@ -24,9 +24,9 @@ const taskplannerControllers = {
     deleteTaskplanner: async (req, res) => {
         try{
             const taskplanner = await Taskplanner.findOneAndDelete({_id: req.params.id})
-            res.json({success: true, respuesta: taskplanner})
+            res.json({success: true, response: taskplanner})
         }catch(error){
-            res.json({success: false, respuesta: 'An error has occurred'})
+            res.json({success: false, response: 'An error has occurred'})
             console.log(error)
         }
     },
@@ -34,9 +34,9 @@ const taskplannerControllers = {
     getTaskplannerFromBoard: async(req,res) => {
         try{
             const taskplanner = await Taskplanner.find({boardId: req.params.id})
-            res.json({success: true, respuesta: taskplanner})
+            res.json({success: true, response: taskplanner})
         }catch(error){
-            res.json({success: false, respuesta: 'An error has occurred'})
+            res.json({success: false, response: 'An error has occurred'})
             console.log(error)
         }
     },
@@ -44,9 +44,9 @@ const taskplannerControllers = {
     getAllTaskplanner: async (req,res) => {
         try{
             const taskplanner = await Taskplanner.find()
-            res.json({success: true, respuesta: taskplanner})
+            res.json({success: true, response: taskplanner})
         }catch(error){
-            res.json({success: false, respuesta: 'An error has occurred'})
+            res.json({success: false, response: 'An error has occurred'})
             console.log(error)
         }
     },
@@ -54,9 +54,9 @@ const taskplannerControllers = {
     getTaskplanner: async (req, res) => {
         try{
             const taskplanner = await Taskplanner.find({_id: req.params.id})
-            res.json({success: true, respuesta: taskplanner})
+            res.json({success: true, response: taskplanner})
         }catch(error){
-            res.json({success: false, respuesta: 'An error has occurred'})
+            res.json({success: false, response: 'An error has occurred'})
             console.log(error)
         }
     }
