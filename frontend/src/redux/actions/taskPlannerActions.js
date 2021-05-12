@@ -22,10 +22,10 @@ const taskPlannerActions = {
             }
         }
     },
-    editTaskPlanner: (idTaskPlanner) => {
+    editTaskPlanner: (idTaskPlanner, title) => {
         return async (dispatch, getState) => {
             try{
-                const response = await axios.put('http://localhost:4000/api/taskplannerFromBoard/'+idTaskPlanner)
+                const response = await axios.put('http://localhost:4000/api/taskplannerFromBoard/'+idTaskPlanner, {title})
                 return response.data.response
             }catch(error){
                 console.log(error)
