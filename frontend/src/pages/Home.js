@@ -1,5 +1,10 @@
+import Task from "../components/Task";
+import TaskModal from "../components/TaskModal";
+
 const Home = () => {
-    return ( <h1>Soy la Home</h1> );
+    return ( 
+        <Task />
+     );
 }
  
 export default Home;
