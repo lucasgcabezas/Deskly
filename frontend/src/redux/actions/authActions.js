@@ -31,7 +31,7 @@ const authActions = {
                 //     alert('Oops',response.data.error, 'danger')
                 // } else {
                     dispatch({ type: 'LOG_USER', payload: response.data.response })
-                    alert(response.data.response.firstName + ` Welcome to Mytinerary!` + ' success')
+                    alert(response.data.response.firstName + 'Welcome to Mytinerary! success')
                 // }
             } catch {
                 alert('Error','Internal server error, please try later!', 'danger')
