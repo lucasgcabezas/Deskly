@@ -6,7 +6,7 @@ import MyDesk from './pages/MyDesk'
 import Sign from './pages/Sign'
 import { connect } from 'react-redux'
 import authActions from "./redux/actions/authActions"
-import { PromiseProvider } from 'mongoose'
+
 const App = (props) => {
  
   if(props.userLogged){
