@@ -5,34 +5,19 @@ import taskPlannerActions from '../redux/actions/taskPlannerActions'
 import TaskPlanner from './Taskplanner'
 
 const Board = (props) => {
-    // recibir por props del padre el board, para poder editar.
-
-    console.log(props)
-
-    // const [contentBoard, setContentBoard] = useState(board)
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
-    // const editBoard = () => {
-    //     props.editBoard(idBoard, contentBoard)
-    // }
+    const idParams = props.match.params.id
+    const [board, setBoard] = useState({})
 
-
-    // const idParams = props.match.params.id
-
-    const [board, setBoard] = useState([])
-    
-
-    if (props.boards.length === 0) {
-        props.history.push('/myDesk')
-    } else {
-        // setBoard({
-        //     board: boards.find(board => boards._id === idParams)
-        // })
-        
-    }
-
-
+    useEffect(()=>{
+        if (props.boards.length === 0) {
+            props.history.push('/myDesk')
+        } else {
+            setBoard(props.boards.find(board => board._id === idParams))
+        }
+    },[])
 
     const enter = (e) => {
         if(e.key === 'Enter'){
@@ -69,6 +54,11 @@ const Board = (props) => {
     }
     
     return(
+        <>
+        <div>
+            <h1>{board.title}</h1>
+            <span>{board.description}</span>
+        </div>
         <div>
              <button onClick={setOpen(!open)}>Add list</button>
             {
@@ -80,7 +70,13 @@ const Board = (props) => {
                 {allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner}/>)}
             </div>
         </div> 
+        </>
     )
+}
+const mapStateToProps = state => {
+    return{
+        boards: state.boardReducer.boards
+    }
 }
 const mapDispatchToProps = {
     editBoard: boardActions.editBoard,
@@ -90,4 +86,6 @@ const mapDispatchToProps = {
     deleteTaskPlanner: taskPlannerActions.deleteTaskPlanner
 
 }
-export default connect(null, mapDispatchToProps)(Board)
+export default connect(mapStateToProps, mapDispatchToProps)(Board)
+
+
