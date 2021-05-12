@@ -5,11 +5,13 @@ const boardsControllers = {
     getFromUser: async (req, res) => {
         let response;
         let error;
-
         // Con passport
         try {
-            const selectedBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.params.id  } } })
+            const selectedBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.user._id  } } })
+            console.log(selectedBoards)
             response = selectedBoards
+
+            console.log(response)
 
         } catch {
             error = "An error occurred during process, please try later."
@@ -21,10 +23,13 @@ const boardsControllers = {
     addBoard: async (req, res) => {
         let response;
         let error;
+        
 
-        try {
-            const boardToAdd = new BoardModel(req.body)
+        try {         
+            const boardToAdd = new BoardModel({...req.body,owner:req.user._id})
+            console.log(req.body,req.user._id)
             await boardToAdd.save()
+           
             // const allItineraries = await ItineraryModel.find()
             response = boardToAdd
 
@@ -38,9 +43,9 @@ const boardsControllers = {
     editBoard: async (req, res) => {
         let response;
         let error;
-
+        console.log(req.params.id,req.body)
         try {
-            const boardEdited = await BoardModel.findOneAndUpdate({ _id: req.params.id }, { ...req.body }, { new: true })
+            const boardEdited = await BoardModel.findOneAndUpdate({ _id: req.params.id }, {...req.body}, { new: true })
             response = boardEdited
 
         } catch {
@@ -53,7 +58,7 @@ const boardsControllers = {
     deleteBoard: async (req, res) => {
         let response;
         let error;
-
+        console.log(req.params.id)
         try {
             const deletedBoard = await BoardModel.findByIdAndDelete(req.params.id)
             response = deletedBoard
