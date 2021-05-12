@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react'
 import taskActions from "../redux/actions/taskActions"
-import {connect} from "react-redux"
-
+// import React, { useState } from "react"
+import { connect } from "react-redux"
+import Task from "./Task"
 
 const TaskPlanner = (props) => {
     const [allTasks, setAllTasks] = useState([])
+    const [preloader, setPreloader] = useState(true)
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [editTitle, setEditTitle] = useState(true)
 
-   
     useEffect(() => { fetchAllTasks() }, [])
 
     const fetchAllTasks = async () => {
         const response = await props.tasksFromTaskplanner
         setAllTasks(response)
+        setPreloader(false)
     }
 
     const enter = (e, condition) => {
@@ -53,8 +55,15 @@ const TaskPlanner = (props) => {
                     <button onClick={sendValues}>Send</button>
                 </div>
             }
-            
-        </div>      
+
+            <div>
+                {preloader
+                    ? <span>cargando</span>
+                    : allTasks.map(task => <Task key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
+                }
+            </div>
+
+        </div>
     )
 }
 
