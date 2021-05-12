@@ -1,19 +1,26 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 const Board = (props) => {
-    console.log(props)
     const idParams = props.match.params.id
-    console.log(idParams)
-    const [board, setBoard] = useState([])
-    if (props.boards.length === 0) {
-        props.history.push('/myDesk')
-    } else {
-        setBoard({
-            board: boards.find(board => boards._id === idParams)
-        })
-    }
+    const [board, setBoard] = useState({})
+    useEffect(()=>{
+        if (props.boards.length === 0) {
+            props.history.push('/myDesk')
+        } else {
+            setBoard(props.boards.find(board => board._id === idParams))
+        }
+    },[])
     return(
-        <h1>aunq sea tirame un hola pa</h1>
+        <>
+            <h1>{board.title}</h1>
+            <span>{board.description}</span>
+        </>
     )
 }
+const mapStateToProps = state => {
+    return{
+        boards: state.boardReducer.boards
+    }
+}
 
-export default Board
+export default connect(mapStateToProps)(Board)

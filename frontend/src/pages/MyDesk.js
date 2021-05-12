@@ -33,12 +33,8 @@ const MyDesk = (props) => {
     const edit = () => {
         props.editBoard(idBoard, title  )
     }
-    const get = async() =>{        
-        const response = await props.getBoards(props.userLogged.token)
-        setBoards(response)
-    }
     useEffect(() => {
-        get()
+        props.getBoards(props.userLogged.token)
     },[])
     return ( 
         <div>
@@ -52,16 +48,8 @@ const MyDesk = (props) => {
                 <button  onClick={deletee} > <h2>Borrar</h2></button> 
                 <button onClick={edit}><h2>editBoard</h2></button>
                 {
-                    boards.map(board => {
-                    return (
-                        <>
-                            <BoardIndividual key={board._id} board={board}/> 
-                            <Board board={board}/>
-                        </>
-                    )
-                    })
+                    props.boards.map(board => <BoardIndividual key={board._id} board={board}/>)
                 }
-                
             </>
             }
         </div>
@@ -71,6 +59,7 @@ const MyDesk = (props) => {
 const mapStateToProps= state =>{
     return{ 
         userLogged: state.authReducer.userLogged,
+        boards: state.boardReducer.boards
     }
 }
 
