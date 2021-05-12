@@ -11,8 +11,25 @@ const Board = (props) => {
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const editBoard = () => {
-        props.editBoard(idBoard, contentBoard)
-    }
+        props.editBoard(idBoard, contentBoard)}
+
+
+    const idParams = props.match.params.id
+
+    const [board, setBoard] = useState([])
+    
+
+    // if (props.boards.length === 0) {
+    //     props.history.push('/myDesk')
+    // } else {
+    //     setBoard({
+    //         board: boards.find(board => boards._id === idParams)
+    //     })
+        
+    // }
+
+
+
     const enter = (e) => {
         if(e.key === 'Enter'){
             sendValues()
@@ -36,6 +53,7 @@ const Board = (props) => {
             setNewTitle('')
         }
     }
+
     const edit = async (idTaskPlanner,titleTaskPlanner) => {
         await props.editTaskPlanner(idTaskPlanner, titleTaskPlanner)
         tasksFetch()
@@ -45,6 +63,7 @@ const Board = (props) => {
         await props.deleteTaskPlanner(idTaskPlanner)
         tasksFetch()
     }
+    
     return(
         <div>
              <button onClick={setOpen(!open)}>Add list</button>

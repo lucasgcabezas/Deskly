@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import MyDesk from './pages/MyDesk'
 import Sign from './pages/Sign'
+import BoardIndividual from './components/BoardIndividual'
 import { connect } from 'react-redux'
 import authActions from "./redux/actions/authActions"
 const App = (props) => {
@@ -25,6 +26,7 @@ const App = (props) => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/mydesk" component={MyDesk} />
+          <Route path="/board/:id" component={BoardIndividual} />
           <Route path="/sign" component={Sign} />
           <Redirect to="/" />
         </Switch>
