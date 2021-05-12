@@ -23,7 +23,12 @@ const TaskPlanner = (props) => {
     }
     return(
         <div>
+            <div>
+                <button>Edit</button>
+                <button>Delete</button>
+            </div>
             <h1>titulo</h1>
+
             <button onClick={setOpen(!open)}></button>
             {
                 open && <div>
