@@ -40,15 +40,15 @@ const TaskPlanner = (props) => {
     return(
         <div>
             <div>
-                <button onClick={props.erase(props.taskplanner._id)}>Delete</button>
+                <button onClick={() => props.erase(props.taskplanner._id)}>Delete</button>
             </div>
-            {editTitle && <h1 onClick={setEditTitle(!editTitle)}>{props.taskplanner.title}</h1>}
+            {editTitle && <h1 onClick={() => setEditTitle(!editTitle)}>{props.taskplanner.title}</h1>}
             {!editTitle && <div>
                 <input onKeyDown={(e)=>enter(e,'edit')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)}/>
-                <button onClick={newTitle.trim() && props.edit(props.taskplanner._id, newTitle)}>Send</button>
+                <button onClick={newTitle.trim() && (() =>props.edit(props.taskplanner._id, newTitle))}>Send</button>
             </div> 
             }
-            <button onClick={setOpen(!open)}></button>
+            <button onClick={() => setOpen(!open)}></button>
             {
                 open && <div>
                     <input onKeyDown={(e)=>enter(e,'task')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)}/>

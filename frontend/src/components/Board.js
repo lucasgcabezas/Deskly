@@ -8,7 +8,7 @@ const Board = (props) => {
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     // const idParams = props.match.params.id
-    const idParams = "609c215b8660732dc428acd2"
+    const idParams = "609ad5f4044c2227b8664147"
     const [board, setBoard] = useState({})
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
 
@@ -28,7 +28,7 @@ const Board = (props) => {
     const tasksFetch = async () => {
 
         const tasks = await props.getTaskPlannerFromBoard(idParams)
-        
+        console.log(tasks)
         setAllTasksPlanner(tasks)
     } 
 
