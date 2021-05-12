@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react"
 import taskActions from "../redux/actions/taskActions"
-import React, { useState } from "react"
+// import React, { useState } from "react"
 import { connect } from "react-redux"
 import Task from "./Task"
 
 
 const TaskPlanner = (props) => {
     const [allTasks, setAllTasks] = useState([])
+    const [preloader, setPreloader] = useState(true)
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [editTitle, setEditTitle] = useState(true)
 
 
-    useEffect(() => { fetchAllTasks }, [])
+    useEffect(() => { fetchAllTasks() }, [])
 
     const fetchAllTasks = async () => {
         const response = await props.tasksFromTaskplanner
         setAllTasks(response)
+        setPreloader(false)
     }
 
     const enter = (e, condition) => {
@@ -56,10 +58,9 @@ const TaskPlanner = (props) => {
             }
 
             <div>
-                {
-                    allTasks.map(task => {
-                        return <Task key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />
-                    })
+                {preloader
+                    ? <span>cargando</span>
+                    : allTasks.map(task => <Task key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
                 }
             </div>
 
@@ -73,4 +74,4 @@ const mapDispatchToProps = {
     editTaskPlanner: taskActions.editTaskPlanner
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskPlanner)
+export default connect(null, mapDispatchToProps)(TaskPlanner)
