@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const myDeskActions = {
+const boardActions = {
 
     deleteBoard: (id) => {
         return async (dispatch, getState) => {
@@ -48,5 +48,5 @@ const myDeskActions = {
 }
 
 
-export default myDeskActions
+export default boardActions
 
