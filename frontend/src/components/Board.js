@@ -6,29 +6,9 @@ import TaskPlanner from './Taskplanner'
 
 const Board = (props) => {
     //recibir por props del padre el board, para poder editar.
-    const [contentBoard, setContentBoard] = useState(board)
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
-    const editBoard = () => {
-        props.editBoard(idBoard, contentBoard)}
-
-
-    const idParams = props.match.params.id
-
-    const [board, setBoard] = useState([])
-    
-
-    // if (props.boards.length === 0) {
-    //     props.history.push('/myDesk')
-    // } else {
-    //     setBoard({
-    //         board: boards.find(board => boards._id === idParams)
-    //     })
-        
-    // }
-
-
 
     const enter = (e) => {
         if(e.key === 'Enter'){

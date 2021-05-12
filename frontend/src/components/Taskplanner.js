@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import { useEffect, useState } from 'react'
 import taskActions from "../redux/actions/taskActions"
 import {connect} from "react-redux"
 
@@ -9,21 +9,31 @@ const TaskPlanner = (props) => {
     const [newTitle, setNewTitle] = useState('')
     const [editTitle, setEditTitle] = useState(true)
 
-    const enter = (e, condition) => {
-        if(condition === 'task' && e.key === 'Enter'){
-            sendValues()
-        }else if(condition === 'edit' && e.key === 'Enter'){
+   
+    useEffect(() => { fetchAllTasks() }, [])
 
+    const fetchAllTasks = async () => {
+        const response = await props.tasksFromTaskplanner
+        setAllTasks(response)
+    }
+
+    const enter = (e, condition) => {
+        if (condition === 'task' && e.key === 'Enter') {
+            sendValues()
+        } else if (condition === 'edit' && e.key === 'Enter') {
+            props.edit(props.taskplanner._id, newTitle)
         }
     }
+
     const sendValues = async () => {
-        if(newTitle.trim() !== ""){
-            await props.addTask({title: newTitle, taskplannerId: props.taskplanner._id})
-            const tasks = await props.tasksFromTaskplanner(props.taskplanner._id)
+        if (newTitle.trim() !== "") {
+            await props.addTask({ title: newTitle, taskplannerId: props.taskplannerId._id })
+            const tasks = await props.tasksFromTaskplanner(props.taskplannerId._id)
             setAllTasks(tasks)
             setNewTitle('')
         }
     }
+
     
     return(
         <div>
