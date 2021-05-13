@@ -8,8 +8,30 @@ const Board = (props) => {
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
-    const idParams = props.match.params.id
+    // const idParams = props.match.params.id
+    const idParams = "609c215b8660732dc428acd2"
     const [board, setBoard] = useState({})
+
+    
+    useEffect(()=>{
+        if (props.boards.length === 0) {
+            props.history.push('/myDesk')
+        } else {
+            setBoard(props.boards.find(board =>{ 
+                
+                return board._id === idParams}))
+        }
+    },[])
+
+    useEffect(() => { tasksFetch() }, [])
+    
+    const tasksFetch = async () => {
+
+        const tasks = await props.getTaskPlannerFromBoard(idParams)
+        
+        setAllTasksPlanner(tasks)
+    } 
+
 
     useEffect(()=>{
         if (props.boards.length === 0) {
@@ -24,15 +46,7 @@ const Board = (props) => {
             sendValues()
         }
     }
-
-    const tasksFetch = async () => {
-        const tasks = await props.getTaskPlannerFromBoard(board._id)
-        setAllTasksPlanner(tasks)
-    } 
-
-    useEffect(() =>{
-        tasksFetch()
-    },[])
+    
 
     const sendValues = async () => {
         if(newTitle.trim() !== ""){
@@ -60,14 +74,17 @@ const Board = (props) => {
             <span>{board.description}</span>
         </div>
         <div>
-             <button onClick={setOpen(!open)}>Add list</button>
+             <button onClick={()=>setOpen(!open)}>Add list</button>
             {
                 open && <div>
                     <input onKeyDown={(e)=>enter(e)} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)}/>
+                    <button onClick={sendValues}></button>
                 </div>
             }
-            <div>
-                {allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner}/>)}
+            <div style={{display: 'flex'}}>
+                {
+                
+                allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner}/>)}
             </div>
         </div> 
         </>
@@ -87,5 +104,3 @@ const mapDispatchToProps = {
 
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Board)
-
-
