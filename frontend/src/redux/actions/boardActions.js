@@ -20,7 +20,8 @@ const boardActions = {
                         'Authorization': 'Bearer ' +token
                     }
                 })
-                dispatch({type: 'ADD_BOARDS', payload:response.data.respuesta})
+                dispatch({type: 'ADD_BOARDS', payload:response.data.response})
+                console.log(response)
             }           
         } catch (error) {
             console.log(error)

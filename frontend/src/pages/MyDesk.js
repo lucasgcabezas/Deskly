@@ -4,7 +4,7 @@ import boardActions from "../redux/actions/boardActions"
 import BoardIndividual from '../components/BoardIndividual'
 
 const MyDesk = (props) => {
-    const {userLogged, boards} = props
+    const {userLogged} = props
     const [title, setTitle] = useState()
     const [idBoard, setIdBoard] = useState({})
     const [inputBoard, setInputBoard] = useState({ title: '', description:'', token: '' })
@@ -23,7 +23,6 @@ const MyDesk = (props) => {
             [field]: value,
             token: userLogged.token
         })
-        // console.log(inputBoard)
     }
     const addBoard = async () => {
        await props.addBoard(inputBoard)
@@ -31,6 +30,7 @@ const MyDesk = (props) => {
     useEffect(() => {
         props.getBoards(props.userLogged.token)
     },[])
+    console.log(props.boards)
     return ( 
         <div>
             <h1>soy myDesk</h1>
@@ -40,7 +40,7 @@ const MyDesk = (props) => {
                 <div style={{border: "1px solid black", width: "40vw", display:"flex"}}>
                     <input type="text" name="title" placeholder="title" onChange={readInputBoard}/>
                     <input type="text" name="description" placeholder="description..." onChange={readInputBoard}/>
-                    <button onClick={addBoard} >Create a new board</button>
+                    <button onClick={addBoard}>Create a new board</button>
                 </div>
                 {
                     props.boards.map(board => <BoardIndividual key={board._id} board={board}/>)

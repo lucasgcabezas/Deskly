@@ -59,7 +59,8 @@ const Board = (props) => {
         console.log(updateInput)
     }
     const deleteBoard = async () => {
-        props.deleteBoard(board._id)
+        await props.deleteBoard(board._id)
+        props.history.push('/myDesk')
     }
     // const editBoard = () => {
     //     props.editBoard(board._id, bo)
@@ -73,8 +74,8 @@ const Board = (props) => {
         <div>
             <button onClick={deleteBoard}>Delete</button> 
             {/* <button onClick={editBoard}>Edit</button> */}
-            <input type="text" name="title" value={board.title} onChange={readUpdateInput}/>
-            <input type="text" name="description" value={board.description} onChange={readUpdateInput}/>
+            {/* <input type="text" name="title" value={board.title} onChange={readUpdateInput}/>
+            <input type="text" name="description" value={board.description} onChange={readUpdateInput}/> */}
         </div>
         <div>
              <button onClick={()=>setOpen(!open)}>Add list</button>

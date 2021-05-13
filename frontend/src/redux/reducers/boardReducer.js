@@ -8,9 +8,13 @@ const boardReducer = (state=initialState, action) => {
                 boards: action.payload
             }
         case 'ADD_BOARDS':
+            // console.log(state.boards.map(board => board._id !== action.payload._id && state.boards.push(action.payload)))
             return{
                 ...state,
-                boards: action.payload
+                // state.boards.map(board => board._id !== action.payload._id && state.boards.push(action.payload))
+                // boards: state.boards.push(action.payload)
+                boards: state.boards.push(action.payload._id !== state.boards._id)
+                
             }
         case 'DELETE_BOARDS':
             return{
