@@ -7,7 +7,9 @@ const Task = (props) => {
     const { task, allTasks, setAllTasks, editTask, deleteTask } = props
     const { _id, title, verify } = task
     const [show, setShow] = useState(false)
+
     const [editionTask, setEditionTask] = useState({ title, verify })
+
     const [editButton, setEditButton] = useState(false)
 
     const getInput = e => { setEditionTask({ ...editionTask, title: e.target.value }) }
@@ -36,22 +38,26 @@ const Task = (props) => {
         setAllTasks(arrayFiltered)
     }
     return (
-        <div style={{ backgroundColor: verify ? 'green' : 'red', border: 'solid 1px black', padding: '2vh 1vw' }}>
-            <div>
-                <span style={{ display: editButton ? 'none' : 'block' }}>{title}</span>
-                <input type="text" onChange={getInput} value={editionTask.title} style={{ display: editButton ? 'block' : 'none' }}></input>
-                <input type="checkbox" onChange={verifyTask} checked={editionTask.verify}></input>
-
+        <>
+            <div style={{ backgroundColor: verify ? 'lightgreen' : 'white', border: 'solid 1px black', padding: '2vh 1vw' }}>
                 <div>
-                    <button onClick={() => setEditButton(!editButton)}>Editar</button>
-                    <button onClick={sendDeleteTask}>Borrar</button>
-                    <button onClick={()=> setShow(!show)}>modal</button>
-                </div>
-            </div>
+                    <span style={{ display: editButton ? 'none' : 'block' }}>{title}</span>
+                    <input type="text" onChange={getInput} value={editionTask.title} style={{ display: editButton ? 'block' : 'none' }}></input>
+                    <input type="checkbox" onChange={verifyTask} checked={editionTask.verify}></input>
 
-            <button onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }}>Confirmar</button>
-            {show && <TaskModal task={task} setShow={setShow} show={show}/>}
-        </div>
+                    <div>
+                        <button onClick={() => setEditButton(!editButton)}>Editar</button>
+                        <button onClick={sendDeleteTask}>Borrar</button>
+                        <button onClick={() => setShow(!show)}>modal</button>
+                    </div>
+                </div>
+
+                <button onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }}>Confirmar</button>
+                {/* {show && <TaskModal task={task} setShow={setShow} show={show} />} */}
+
+            <TaskModal task={task} setShow={setShow} show={show} />
+            </div>
+        </>
     )
 }
 
