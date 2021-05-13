@@ -11,6 +11,7 @@ const Board = (props) => {
     const idParams = props.match.params.id
     const [board, setBoard] = useState({})
     const [updateInput, setUpdateInput] = useState()
+
     useEffect(() => {
         if (props.boards.length === 0) {
             props.history.push('/myDesk')
@@ -31,6 +32,7 @@ const Board = (props) => {
             sendValues()
         }
     }
+
     const sendValues = async () => {
         if (newTitle.trim() !== "") {
             await props.addTaskPlanner({ title: newTitle, boardId: board._id })
@@ -50,6 +52,7 @@ const Board = (props) => {
         await props.deleteTaskPlanner(idTaskPlanner)
         tasksFetch()
     }
+
     const readUpdateInput = (e) => {
         const field = e.target.name
         const value = e.target.value
@@ -59,13 +62,11 @@ const Board = (props) => {
         })
         console.log(updateInput)
     }
+
     const deleteBoard = async () => {
         await props.deleteBoard(board._id)
         props.history.push('/myDesk')
     }
-    // const editBoard = () => {
-    //     props.editBoard(board._id, bo)
-    // }
 
     return (
         <>
