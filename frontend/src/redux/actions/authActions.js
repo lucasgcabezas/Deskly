@@ -24,17 +24,17 @@ const authActions = {
         }
     },
 
-    signInUSer: (userToSignIn, googleFlag) => {
+    signInUSer: (userToSignIn) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.post('http://localhost:4000/api/login', userToSignIn, googleFlag )
-                console.log(response)
+                const response = await axios.post('http://localhost:4000/api/login', userToSignIn)
+               
                 // if (!response.data.success) {
                 //     alert('Oops',response.data.error, 'danger')
                 // } else {
                     console.log(response)
                     dispatch({ type: 'LOG_USER', payload: response.data.response })
-                    alert(response.data.response.firstName + 'Welcome to Mytinerary! success')
+                    alert(response.data.response.firstName + 'Welcome to Deskly! success')
                 // }
             } catch (error){
                 // alert('ricardo','Internal server error, please try later!', 'danger')
@@ -51,10 +51,8 @@ const authActions = {
                 })
                 dispatch({ type: 'LOG_USER', payload: { ...response.data.response, token: userLocalStorage } })
             } catch (err) {
-                if (err.response.status === 401) {
-                    
-                    alert("Me parece que me estás queriendo cagar con un token falso...")
-                }
+                alert({err})
+                dispatch({ type: 'LOGOUT_USER' })
             }
         }
     },
