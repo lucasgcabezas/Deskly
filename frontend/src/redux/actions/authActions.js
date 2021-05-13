@@ -50,6 +50,7 @@ const authActions = {
                 })
                 dispatch({ type: 'LOG_USER', payload: { ...response.data.response, token: userLocalStorage } })
             } catch (err) {
+                alert({err})
                 dispatch({ type: 'LOGOUT_USER' })
             }
         }

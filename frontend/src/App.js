@@ -28,8 +28,8 @@ const App = (props) => {
           <Route exact path="/" component={Home} />
          {props.userLogged &&  <Route path="/mydesk" component={MyDesk} />}
           <Route path="/board/:id" component={Board}/>
-          <Route path="/sign" component={Sign} />
-          <Route path="/signup" component={SignUp} />
+          {!props.userLogged &&<Route path="/sign" component={Sign} />}
+          {!props.userLogged && <Route path="/signup" component={SignUp} />}
           <Redirect to="/" />
         </Switch>
       <Footer />
