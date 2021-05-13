@@ -69,6 +69,12 @@ const userControllers={
           response: {firstName: req.user.firstName, email: req.user.email, img: req.user.img, role: req.user.role }
     })
     },
+    existUser : async (req, res) => {
+        console.log(req.params.email)
+        const userOK = await User.findOne({email: req.params.email})
+        console.log(userOK)
+        res.json({success: userOK ? true : false})
+    }
 
 }
 

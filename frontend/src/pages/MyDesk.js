@@ -42,6 +42,7 @@ const MyDesk = (props) => {
                     <input type="text" name="description" placeholder="description..." onChange={readInputBoard}/>
                     <button onClick={addBoard}>Create a new board</button>
                 </div>
+                <h2>owner of...</h2>
                 {
                     props.boards.map(board => <BoardIndividual key={board._id} board={board}/>)
                 }

@@ -20,6 +20,7 @@ const boardActions = {
                         'Authorization': 'Bearer ' +token
                     }
                 })
+                console.log(response)
                 dispatch({type: 'ADD_BOARDS', payload:response.data.response})
                 console.log(response)
             }           
@@ -49,6 +50,15 @@ const boardActions = {
             console.log(error)
         }
     },
+    addUserToBoard: (idBoard, admin, email) => {
+        try {
+            return async (dispatch, getState) => {
+                await axios.put("http://localhost:4000/api/addUserToBoard/" +idBoard, {admin, email})
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 

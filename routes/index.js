@@ -6,11 +6,11 @@ const userControllers = require('../controllers/userControllers')
 const tasksControllers = require('../controllers/tasksControllers')
 const passport = require("passport")
 
-const { newUser, login, reLogin } = userControllers
+const { newUser, login, reLogin, existUser } = userControllers
 
 const { getAllTaskplanner, getTaskplanner, getTaskplannerFromBoard, addTaskplanner, putTaskplanner, deleteTaskplanner } = taskplannerControllers
 
-const { getFromUser, addBoard, editBoard, deleteBoard} = boardsControllers
+const { getFromUser, addBoard, editBoard, deleteBoard, addUserToBoard} = boardsControllers
 const {getAllTasks, addTask, editTask, deleteTask, tasksFromTaskplanner, addComment, editComment, deleteComment} = tasksControllers
 
 // routes boardsControllers 
@@ -23,6 +23,8 @@ router.route('/board/:id')
 .put(editBoard)
 .delete(deleteBoard)
 
+router.route('/addUserToBoard/:id')
+.put(addUserToBoard)
 // routes taskplannerControllers
 router.route('/taskplanner')
     .get(getAllTaskplanner)
@@ -40,6 +42,8 @@ router.route('/taskplannerFromBoard/:id')
 router.route("/newuser")
     .post(newUser)
 
+router.route("/existuser/:email")
+    .get(existUser)
 router.route("/login")
     .post(login)
 

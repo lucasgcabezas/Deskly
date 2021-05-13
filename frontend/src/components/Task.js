@@ -11,39 +11,6 @@ const Task = (props) => {
     const [editionTask, setEditionTask] = useState({ title, verify })
     const [editButton, setEditButton] = useState(false)
 
-    const sendEdit = async () => {
-        if (editTask.title.length > 0) {
-            const response = await editTask(_id, editTask)
-            const editedTasks = allTasks.map(task => {
-                if (task._id === response._id) {
-                    return { ...task, title: response.title }
-                }
-                return task
-            })
-            setAllTasks(editedTasks)
-        }
-    }
-
-
-    useEffect(() => { sendEdit("verify") }, [editionTask.verify])
-
-    const verifyTask = async (e) => { setEditionTask({ ...editionTask, verify: e.target.checked }) }
-
-    const sendEdit = async (elementToEdit) => {
-        if (editionTask.title.length > 0) {
-            const response = await editTask(_id, editionTask)
-            const editedTasks = allTasks.map(task => {
-                if (task._id === response._id) {
-                    return { ...task, [elementToEdit]: response[elementToEdit] }
-                }
-                return task
-            })
-            setAllTasks(editedTasks)
-            setEditButton(false)
-        }
-    }
-
-
     const getInput = e => { setEditionTask({ ...editionTask, title: e.target.value }) }
 
     useEffect(() => { sendEdit("verify") }, [editionTask.verify])

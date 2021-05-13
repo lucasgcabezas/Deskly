@@ -65,6 +65,17 @@ const authActions = {
             dispatch({ type: 'LOGOUT_USER' })
 
         }
+    },
+    existUser:  (email) => {
+        return async (dispatch, getSate) => {
+            try {
+                const response = await axios.get('http://localhost:4000/api/existuser/'+email)
+                console.log(response)
+                return response.data.success
+            } catch (err) {
+                console.log(err)
+            }
+        }
     }
 }
 

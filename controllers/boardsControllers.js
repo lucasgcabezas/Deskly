@@ -35,7 +35,6 @@ const boardsControllers = {
     editBoard: async (req, res) => {
         let response;
         let error;
-        console.log(req.params.id, req.body)
         try {
             const boardEdited = await BoardModel.findOneAndUpdate({ _id: req.params.id }, { ...req.body }, { new: true })
             response = boardEdited
@@ -59,6 +58,20 @@ const boardsControllers = {
             console.log('ERROR: The controller deleteBoard has failed')
         }
         res.json({ success: !error ? true : false, response, error })
+    },
+    addUserToBoard: async (req, res) => {
+        try{
+            let {admin, email} = req.body
+
+            if(admin){
+                await BoardModel.findOneAndUpdate({_id:req.params.id},{$push: {'users': email, 'admins': email}})
+            }else{
+                await BoardModel.findOneAndUpdate({_id:req.params.id},{$push: {'users': email}})
+            }
+
+        }catch(error){
+            console.log(error)
+        }
     }
 }
 
