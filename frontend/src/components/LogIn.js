@@ -18,7 +18,7 @@ const SignIn = (props) =>{
 
     const  log = async () => {
         // Agregar googleFlag
-        props.logIn(logIn)
+        props.logIn(logIn, false)
     }
 
     return (

@@ -28,6 +28,7 @@ const authActions = {
         return async (dispatch, getState) => {
             try {
                 const response = await axios.post('http://localhost:4000/api/login', userToSignIn, googleFlag )
+                console.log(response)
                 // if (!response.data.success) {
                 //     alert('Oops',response.data.error, 'danger')
                 // } else {
@@ -35,8 +36,9 @@ const authActions = {
                     dispatch({ type: 'LOG_USER', payload: response.data.response })
                     alert(response.data.response.firstName + 'Welcome to Mytinerary! success')
                 // }
-            } catch {
-                alert('Error','Internal server error, please try later!', 'danger')
+            } catch (error){
+                // alert('ricardo','Internal server error, please try later!', 'danger')
+                alert(error)
             }
         }
     },

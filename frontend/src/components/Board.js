@@ -79,32 +79,22 @@ const Board = (props) => {
                 {/* <input type="text" name="title" value={board.title} onChange={readUpdateInput}/>
             <input type="text" name="description" value={board.description} onChange={readUpdateInput}/> */}
             </div>
+
             <div>
                 <button onClick={() => setOpen(!open)}>Add list</button>
                 {
                     open && <div>
                         <input onKeyDown={(e) => enter(e)} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                        <button onClick={sendValues}></button>
+                        <button onClick={sendValues}>send</button>
                     </div>
                 }
-                <div style={{ display: 'flex' }}>
+                <div style={{ display: 'flex', margin: '20px' }}>
                     {
-
-                        allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)}
-                </div>
-                <div>
-                    <button onClick={() => setOpen(!open)}>Add list</button>
-                    {
-                        open && <div>
-                            <input onKeyDown={(e) => enter(e)} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                            <button onClick={sendValues}>send</button>
-                        </div>
+                        allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
                     }
-                    <div style={{ display: 'flex', margin: '20px' }}>
-                        {allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)}
-                    </div>
                 </div>
             </div>
+
         </>
 
 
