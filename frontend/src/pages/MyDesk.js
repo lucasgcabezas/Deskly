@@ -24,13 +24,16 @@ const MyDesk = (props) => {
             token: userLogged.token
         })
     }
+
     const addBoard = async () => {
        await props.addBoard(inputBoard)
     }
+
     useEffect(() => {
         props.getBoards(props.userLogged.token)
     },[])
-    console.log(props.boards)
+
+    // console.log(props.boards)
     return ( 
         <div>
             <h1>soy myDesk</h1>

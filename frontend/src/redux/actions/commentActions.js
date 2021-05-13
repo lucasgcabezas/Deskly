@@ -34,10 +34,10 @@ const commentActions = {
         }
     },
 
-    deleteComment: (taskId) => {
+    deleteComment: (commentId) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.delete('http://localhost:4000/api/task/comment/' + taskId)
+                const response = await axios.delete('http://localhost:4000/api/task/comment/' + commentId)
                 
                 return response.data.response.comments // Array de todos los comentarios si el borrado
 
