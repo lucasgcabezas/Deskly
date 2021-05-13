@@ -50,7 +50,6 @@ const boardsControllers = {
     deleteBoard: async (req, res) => {
         let response;
         let error;
-        console.log(req.params.id)
         try {
             const deletedBoard = await BoardModel.findByIdAndDelete(req.params.id)
             response = deletedBoard

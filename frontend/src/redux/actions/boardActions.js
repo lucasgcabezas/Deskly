@@ -4,22 +4,24 @@ const boardActions = {
     deleteBoard: (id) => {
         return async (dispatch, getState) => {
             try {
-            const response = await axios.delete("http://localhost:4000/api/board/" +id.idBoard)
+                const response = await axios.delete("http://localhost:4000/api/board/"+id)
+                dispatch({type: 'DELETE_BOARDS', payload:response.data.response._id})
             } catch {
-            alert('Error','Internal server error, please try later!', 'danger')
+                alert('Error','Internal server error, please try later!', 'danger')
             }
-
         }
     },
-    addBoard: (title, description,  token) => {    
+    addBoard: (board) => {
+        const {title, description, token} = board
         try {
             return async (dispatch, getState) => {
-                const response = await axios.post('http://localhost:4000/api/board', { title,description}, {
+                const response = await axios.post('http://localhost:4000/api/board', {title, description}, {
                     headers: {
-                        'Authorization': 'Bearer ' + token
+                        'Authorization': 'Bearer ' +token
                     }
                 })
-                return response.data.respuesta
+                dispatch({type: 'ADD_BOARDS', payload:response.data.response})
+                console.log(response)
             }           
         } catch (error) {
             console.log(error)
@@ -29,18 +31,22 @@ const boardActions = {
         try {
             return async (dispatch, getState) => {
                 const response = await axios.put("http://localhost:4000/api/board/" +id.idBoard, {description})
-                return response.data.respuesta
+                dispatch({type: 'EDIT_BOARDS', payload:response.data.respuesta})
             }
         } catch (error) {
             console.log(error)
         }
     },
     getBoards: (token) => {
-        return async (dispatch, getState) => {
-            const response = await axios.get("http://localhost:4000/api/board" , {headers: {
-                'Authorization': 'Bearer ' + token
-            }})
-            dispatch({type:'GET_BOARDS', payload:response.data.response})
+        try {
+            return async (dispatch, getState) => {
+                const response = await axios.get("http://localhost:4000/api/board", {headers: {
+                    'Authorization': 'Bearer ' +token
+                }})
+                dispatch({type:'GET_BOARDS', payload:response.data.response})
+            }  
+        } catch (error) {
+            console.log(error)
         }
     },
 }
