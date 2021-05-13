@@ -16,7 +16,7 @@ const TaskPlanner = (props) => {
 
     const fetchAllTasks = async () => {
         const response = await props.tasksFromTaskplanner(props.taskplanner._id)
-        console.log(response)
+        // console.log(response)
         setAllTasks(response)
         setPreloader(false)
     }
@@ -44,7 +44,7 @@ const TaskPlanner = (props) => {
     // console.log(props.taskplanner._id)
 
     return (
-        <div >
+        <div style={{width: '25vw'}}>
             <div>
                 <button onClick={() => props.erase(props.taskplanner._id)}>Delete</button>
             </div>
