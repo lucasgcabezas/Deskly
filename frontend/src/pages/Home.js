@@ -3,7 +3,7 @@ import TaskModal from "../components/TaskModal";
 
 const Home = () => {
     return ( 
-        <Task />
+    <h1>hola</h1>
      );
 }
  

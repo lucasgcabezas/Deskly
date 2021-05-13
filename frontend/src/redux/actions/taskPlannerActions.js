@@ -13,7 +13,7 @@ const taskPlannerActions = {
                 console.log(error)
             }
         }
-    },
+    },  
     deleteTaskPlanner: (idTaskPlanner) => {
         return async (dispatch, getState) => {
             try{

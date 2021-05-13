@@ -67,8 +67,9 @@ const Board = (props) => {
         tasksFetch()
     }
     
-    return(
+    return(  
         <>
+      
         <div>
             <h1>{board.title}</h1>
             <span>{board.description}</span>
@@ -86,12 +87,14 @@ const Board = (props) => {
                 
                 allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner}/>)}
             </div>
-        </div> 
-        </>
+        </div> </> 
+        
+      
     )
 }
 const mapStateToProps = state => {
     return{
+        userLogged: state.authReducer.userLogged,
         boards: state.boardReducer.boards
     }
 }

@@ -52,7 +52,7 @@ const Task = (props) => {
         </div>
     )
 
-    // return <span>hola</span>
+    return <span>hola</span>
 }
 
 
