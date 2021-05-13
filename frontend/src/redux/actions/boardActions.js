@@ -22,17 +22,20 @@ const boardActions = {
                 })
                 console.log(response)
                 dispatch({type: 'ADD_BOARDS', payload:response.data.response})
-                console.log(response)
+                console.log(response.data.response)
             }           
         } catch (error) {
             console.log(error)
         }
     },
-    editBoard:(id, description) => {
+    editBoard:(id, updateInput) => {
+        const {title, description} = updateInput
+        console.log({id, updateInput})
         try {
             return async (dispatch, getState) => {
-                const response = await axios.put("http://localhost:4000/api/board/" +id.idBoard, {description})
-                dispatch({type: 'EDIT_BOARDS', payload:response.data.respuesta})
+                const response = await axios.put("http://localhost:4000/api/board/"+id, {title, description})
+                // console.log(response.data.response.title)
+                return (response.data.response)
             }
         } catch (error) {
             console.log(error)

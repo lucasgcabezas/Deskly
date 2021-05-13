@@ -5,16 +5,8 @@ import BoardIndividual from '../components/BoardIndividual'
 
 const MyDesk = (props) => {
     const {userLogged} = props
-    const [title, setTitle] = useState()
-    const [idBoard, setIdBoard] = useState({})
     const [inputBoard, setInputBoard] = useState({ title: '', description:'', token: '' })
-    // const inputAdd = e => {
-    //     var value = e.target.value
-    //     var prop = e.target.name
-    //     setTitle(
-    //         value           
-    //     )
-    // }
+
     const readInputBoard = (e) => {
         const field = e.target.name
         const value = e.target.value
@@ -24,13 +16,11 @@ const MyDesk = (props) => {
             token: userLogged.token
         })
     }
-    const addBoard = async () => {
-       await props.addBoard(inputBoard)
-    }
-    useEffect(() => {
-        props.getBoards(props.userLogged.token)
-    },[])
-    console.log(props.boards)
+    
+    const addBoard = async () => {await props.addBoard(inputBoard)}
+
+    useEffect(() => {props.getBoards(props.userLogged.token)}, [])
+
     return ( 
         <div>
             <h1>soy myDesk</h1>
