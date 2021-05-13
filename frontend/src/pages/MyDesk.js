@@ -30,7 +30,6 @@ const MyDesk = (props) => {
     useEffect(() => {
         props.getBoards(props.userLogged.token)
     },[])
-    console.log(props.boards)
     return ( 
         <div>
             <h1>soy myDesk</h1>

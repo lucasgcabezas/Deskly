@@ -7,7 +7,6 @@ const Task = (props) => {
     const { task, allTasks, setAllTasks, editTask, deleteTask } = props
     const { _id, title, verify } = task
     const [show, setShow] = useState(false)
-
     const [editionTask, setEditionTask] = useState({ title, verify })
     const [editButton, setEditButton] = useState(false)
 
@@ -23,7 +22,6 @@ const Task = (props) => {
     //         setAllTasks(editedTasks)
     //     }
     // }
-
 
     const getInput = e => { setEditionTask({ ...editionTask, title: e.target.value }) }
 
@@ -50,8 +48,6 @@ const Task = (props) => {
         let arrayFiltered = allTasks.filter(task => task._id != response._id)
         setAllTasks(arrayFiltered)
     }
-
-
     return (
         <div style={{ backgroundColor: verify ? 'green' : 'red', border: 'solid 1px black', padding: '2vh 1vw' }}>
             <div>
@@ -62,6 +58,7 @@ const Task = (props) => {
                 <div>
                     <button onClick={() => setEditButton(!editButton)}>Editar</button>
                     <button onClick={sendDeleteTask}>Borrar</button>
+                    <button onClick={()=> setShow(!show)}>modal</button>
                 </div>
             </div>
 
