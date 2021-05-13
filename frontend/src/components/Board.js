@@ -1,3 +1,4 @@
+import { set } from 'mongoose'
 import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import boardActions from '../redux/actions/boardActions'
@@ -5,17 +6,20 @@ import taskPlannerActions from '../redux/actions/taskPlannerActions'
 import TaskPlanner from './Taskplanner'
 
 const Board = (props) => {
+    const {boards} = props
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
     const [open, setOpen] = useState(false)
+    const [update, setUpdate] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const idParams = props.match.params.id
     const [board, setBoard] = useState({})
-    const [updateInput, setUpdateInput] = useState()
+    const [updateInput, setUpdateInput] = useState({title:'', description:''})
+ 
     useEffect(() => {
         if (props.boards.length === 0) {
             props.history.push('/myDesk')
         } else {
-            setBoard(props.boards.find(board => board._id === idParams))
+            setBoard(boards.find(board => board._id === idParams))
         }
     }, [])
 
@@ -57,15 +61,17 @@ const Board = (props) => {
             ...updateInput,
             [field]: value
         })
-        console.log(updateInput)
     }
+
     const deleteBoard = async () => {
         await props.deleteBoard(board._id)
         props.history.push('/myDesk')
     }
-    // const editBoard = () => {
-    //     props.editBoard(board._id, bo)
-    // }
+    const editBoard = async() => {
+        const response = await props.editBoard(board._id, updateInput)
+        setBoard(response)
+        setUpdate(false)
+    }
 
     return (
         <>
@@ -75,9 +81,14 @@ const Board = (props) => {
             </div>
             <div>
                 <button onClick={deleteBoard}>Delete</button>
-                {/* <button onClick={editBoard}>Edit</button> */}
-                {/* <input type="text" name="title" value={board.title} onChange={readUpdateInput}/>
-            <input type="text" name="description" value={board.description} onChange={readUpdateInput}/> */}
+                <button onClick={()=>{setUpdate(!update); setUpdateInput({title:board.title, description:board.description})}}>{update ? 'Cancel' : 'Edit'}</button>
+                { update && 
+                    <>
+                    <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput}/>
+                    <input type="text" name="description" value={updateInput.description} onChange={readUpdateInput}/>
+                    <button onClick={editBoard}>Send</button>
+                    </>
+                }
             </div>
 
             <div>
