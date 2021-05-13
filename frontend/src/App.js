@@ -19,7 +19,6 @@ const App = (props) => {
     }else {
       // aca van links de deslogueados
     }
-
   return (
     <>
       <BrowserRouter>

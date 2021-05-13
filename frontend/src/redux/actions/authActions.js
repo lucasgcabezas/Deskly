@@ -31,6 +31,7 @@ const authActions = {
                 // if (!response.data.success) {
                 //     alert('Oops',response.data.error, 'danger')
                 // } else {
+                    console.log(response)
                     dispatch({ type: 'LOG_USER', payload: response.data.response })
                     alert(response.data.response.firstName + 'Welcome to Mytinerary! success')
                 // }
