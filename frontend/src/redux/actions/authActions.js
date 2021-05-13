@@ -6,6 +6,7 @@ const authActions = {
 
             try {
                 const response = await axios.post('http://localhost:4000/api/newuser', user)
+                
                 // if (response.data.errorsValidator) {
                 //     return response.data.errorsValidator
 
@@ -13,10 +14,11 @@ const authActions = {
                 //     alert('Error',response.data.error, 'danger')
 
                 // } else {
-                    dispatch({ type: 'LOG_USER', payload: response.data.response })
-                    alert(response.data.response.firstName,`Welcome to Mytinerary!`, 'success')
+                    dispatch({ type: 'LOG_USER', payload: response.data })
+                    // alert(response.data.response.firstName,`Welcome to Mytinerary!`, 'success')
                 // }
             } catch {
+                
                 alert('Error','Internal server error, please try later!', 'danger')
             }
         }

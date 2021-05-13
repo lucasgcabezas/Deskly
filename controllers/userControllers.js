@@ -12,11 +12,9 @@ const userControllers={
             if (!emailExist) {
                 try {
                     const passwordHashed= bcryptjs.hashSync(password,10)
-                    var newUserToAdd = new User({firstName,lastName,email,img,role,google,password: passwordHashed})  
-                    const newUserSaved = await newUserToAdd.save() 
-                    var response = newUserSaved
-                    const token = jwt.sign({...newUserSaved},process.env.SECRET_KEY)
-                    var response = token
+                    var response = new User({firstName,lastName,email,img,role,google,password: passwordHashed})  
+                    await response.save() 
+                    var token = jwt.sign({...response},process.env.SECRET_KEY)
                 } catch (e){
                     error = "Hubo un error en el grabado del usuario. Intenta nuevamente"
                 }                  
@@ -26,8 +24,12 @@ const userControllers={
         } catch (e) {
             error = "No se pudo acceder a la base de usuario. Intenta nuevamente"
         }
-
-       res.json({success: !error ? true:false, response ,error})   
+        if(error){
+            
+            return res.json({success: false, error})
+        }
+        
+        res.json({success:true, token, response})   
     },
 
     login:async (req,res)=>{
