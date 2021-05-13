@@ -36,7 +36,7 @@ const taskPlannerActions = {
     addTaskPlanner: (taskPlanner) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.post('http://localhost:4000/api/task', taskPlanner)
+                const response = await axios.post('http://localhost:4000/api/taskplanner', taskPlanner)
                 return response.data.response 
 
             } catch(error) {

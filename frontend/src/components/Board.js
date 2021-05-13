@@ -69,7 +69,7 @@ const Board = (props) => {
             {
                 open && <div>
                     <input onKeyDown={(e)=>enter(e)} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)}/>
-                    <button onClick={sendValues}></button>
+                    <button onClick={sendValues}>send</button>
                 </div>
             }
             <div style={{display: 'flex', margin: '20px'}}>
