@@ -55,7 +55,7 @@ const TaskModal = (props) => {
                     <button onClick={() => setShow(false)}>X</button>
                 </div>
                 <div>
-                    {editDescription && <h1 style={{ cursor: 'pointer' }} onClick={() => {setEditDescription(!editDescription)}}>{descriptionText}</h1>}
+                    {editDescription && <h4 style={{ cursor: 'pointer' }} onClick={() => {setEditDescription(!editDescription)}}>{descriptionText}</h4>}
                     {!editDescription && <div>
                         <input  type="text" value={newDescription.description} onChange={(e) => setNewDescription({description: e.target.value})}/>
                         <button onClick={sendDescription} >guardar</button>
