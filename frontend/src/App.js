@@ -26,7 +26,7 @@ const App = (props) => {
       <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/mydesk" component={MyDesk} />
+         {props.userLogged &&  <Route path="/mydesk" component={MyDesk} />}
           <Route path="/board/:id" component={Board}/>
           <Route path="/sign" component={Sign} />
           <Route path="/signup" component={SignUp} />

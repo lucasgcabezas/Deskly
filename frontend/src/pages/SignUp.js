@@ -3,7 +3,8 @@ import { useState } from "react"
 // import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined'
 import {connect} from "react-redux"
 import authActions from '../redux/actions/authActions'
-// import GoogleLogin from 'react-google-login'
+import GoogleLogin from 'react-google-login'
+import { NavLink } from 'react-router-dom'
 // import GoogleButton from 'react-google-button'
 
 const SignUp = (props) => { 
@@ -44,10 +45,11 @@ const SignUp = (props) => {
             
         // }
     }
-    // const responseGoogle = (response) => {
-    //     const {givenName, familyName, email, googleId, imageUrl} = response.profileObj
-    //     sendValueUser(null, {firstName: givenName, lastName: familyName , email, password: "a"+googleId, userImage: imageUrl, google: true})
-    // }
+    const responseGoogle = (response) => {
+        console.log(response.profileObj)
+        const {givenName, familyName, email, googleId, imageUrl} = response.profileObj
+        sendValueUser(null, {firstName: givenName, lastName: familyName , email, password: "a"+googleId, img: imageUrl, google: true})
+    }
     return(
         <> 
             <div>
@@ -73,20 +75,20 @@ const SignUp = (props) => {
                         onChange={readInputUser} value={user.img} name="img" />
                         {mistakes.img ? <h6>{mistakes.img}</h6> : null} 
                         <button className="boton" onClick={sendValueUser}>Sign up!</button>
-                        {/* <div >
+                        <div >
                             <h6>Already have an account?  <NavLink to='/signin' className="navLink sign">Sign in here!</NavLink></h6>
                             <h6>Or you can sign up with Google</h6>
                         </div>
                         <GoogleLogin
-                            clientId="974935643152-8625so4e5v3mclin608djtcmp27s608o.apps.googleusercontent.com"
-                            render={renderProps => (
-                                <GoogleButton onClick={renderProps.onClick} disabled={renderProps.disabled}>Sign up with Google</GoogleButton>
-                            )}
+                            clientId="81825591921-124e4vl2b4i29jpfrf8k1vpnj84qb0fq.apps.googleusercontent.com"
+                            // render={renderProps => (
+                            //     <GoogleButton onClick={renderProps.onClick} disabled={renderProps.disabled}>Sign up with Google</GoogleButton>
+                            // )}
                             buttonText="Sign up with google"
                             onSuccess={responseGoogle}
                             onFailure={responseGoogle}
                             cookiePolicy={'single_host_origin'}
-                        /> */}
+                        />
                     </form>
                 </div>
             </div>
@@ -96,6 +98,7 @@ const SignUp = (props) => {
 
 const mapDispatchToProps = {
     signUpUser: authActions.signUpUser
+
 }
 
 export default connect(null ,mapDispatchToProps)(SignUp)

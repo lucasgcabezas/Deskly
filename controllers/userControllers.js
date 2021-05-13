@@ -6,13 +6,13 @@ const jwt = require("jsonwebtoken")
 const userControllers={
     newUser: async (req, res) => {
         var error
-        var {firstName,lastName,email,img,role,password,google} = req.body 
+        var {firstName,lastName,email,img,password,google} = req.body 
         try {
             const emailExist = await User.findOne({email})  
             if (!emailExist) {
                 try {
                     const passwordHashed= bcryptjs.hashSync(password,10)
-                    var response = new User({firstName,lastName,email,img,role,google,password: passwordHashed})  
+                    var response = new User({firstName,lastName,email,img,google,password: passwordHashed})  
                     await response.save() 
                     var token = jwt.sign({...response},process.env.SECRET_KEY)
                 } catch (e){
@@ -33,11 +33,8 @@ const userControllers={
     },
 
     login:async (req,res)=>{
-        
-         //    agregar google al array
-        const {email, password} = req.body
-        var google = false
-        console.log(email, password, google)
+        console.log(req.body)
+        const {email, password, google} = req.body  
         var response;
         var error;
         try{ 
@@ -47,7 +44,7 @@ const userControllers={
                     const passwordOk = bcryptjs.compareSync(password, userOK.password)
                     if (passwordOk) {
                         const token = jwt.sign({...userOK}, process.env.SECRET_KEY)
-                        response ={token: token, firstName:userOK.firstName, lastName:userOK.lastName, email:userOK.email, img:userOK.img, role: userOK.role, goolge: userOK,google }
+                        response ={token: token, firstName:userOK.firstName, lastName:userOK.lastName, email:userOK.email, img:userOK.img, goolge: userOK.google }
                     } else {
                         error = "El usuario y/o la contraseña es incorrecta"
                     }
@@ -66,7 +63,7 @@ const userControllers={
         
           res.json({
           success: true, 
-          response: {firstName: req.user.firstName, email: req.user.email, img: req.user.img, role: req.user.role }
+          response: {firstName: req.user.firstName, lastName:req.user.lastName, email: req.user.email, img: req.user.img, goolge:  req.user.google }
     })
     },
 
