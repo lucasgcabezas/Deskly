@@ -7,8 +7,8 @@ import TaskPlanner from './Taskplanner'
 const Board = (props) => {
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
-    // const idParams = props.match.params.id
-    const idParams = "609ad5f4044c2227b8664147"
+    const idParams = props.match.params.id
+    // const idParams = "609ad5f4044c2227b8664147"
     const [board, setBoard] = useState({})
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
 
@@ -32,20 +32,17 @@ const Board = (props) => {
         setAllTasksPlanner(tasks)
     } 
 
-
-
     const enter = (e) => {
         if(e.key === 'Enter'){
             sendValues()
         }
     }
-    
-
 
     const sendValues = async () => {
         if(newTitle.trim() !== ""){
             await props.addTaskPlanner({title: newTitle, boardId: board._id})
             const tasks = await props.getTaskPlannerFromBoard(board._id)
+            console.log(tasks)
             setAllTasksPlanner(tasks)
             setNewTitle('')
         }
@@ -75,10 +72,8 @@ const Board = (props) => {
                     <button onClick={sendValues}></button>
                 </div>
             }
-            <div style={{display: 'flex'}}>
-                {
-                
-                allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner}/>)}
+            <div style={{display: 'flex', margin: '20px'}}>
+                { allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner}/>)}
             </div>
         </div> 
         </>

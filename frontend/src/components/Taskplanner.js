@@ -54,7 +54,7 @@ const TaskPlanner = (props) => {
                 <button onClick={newTitle.trim() && (() => props.edit(props.taskplanner._id, newTitle))}>Send</button>
             </div>
             }
-            <button onClick={()=>setOpen(!open)}></button>
+            <button onClick={()=>setOpen(!open)}>add task</button>
             {
                 open && <div>
                     <input onKeyDown={(e) => enter(e, 'task')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
@@ -64,9 +64,9 @@ const TaskPlanner = (props) => {
 
             <div>
                 {
-                preloader 
-                    ? <span>cargando</span>
-                    : allTasks.map(task => <Task key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
+                // preloader
+                    // ? <span>cargando</span>
+                    // : allTasks.map(task => <Task key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
                 }
             </div>
 
