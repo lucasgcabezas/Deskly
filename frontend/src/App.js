@@ -8,7 +8,7 @@ import Board from './components/Board'
 import { connect } from 'react-redux'
 import authActions from "./redux/actions/authActions"
 const App = (props) => {
- 
+ console.log(props.userLogged);
   if(props.userLogged){
     // aca van links de logueados
   }

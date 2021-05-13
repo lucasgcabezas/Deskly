@@ -41,7 +41,6 @@ const TaskPlanner = (props) => {
     }
 
 
-    // console.log(props.taskplanner._id)
 
     return (
         <div >

@@ -64,8 +64,8 @@ const Board = (props) => {
     return(
         <>
         <div>
-            <h1>{board.title}</h1>
-            <span>{board.description}</span>
+            {/* <h1>{board.title}</h1>
+            <span>{board.description}</span> */}
         </div>
         <div>
              <button onClick={()=>setOpen(!open)}>Add list</button>
