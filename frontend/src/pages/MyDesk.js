@@ -2,51 +2,46 @@ import React, {useEffect, useState} from "react"
 import {connect} from "react-redux"
 import boardActions from "../redux/actions/boardActions"
 import BoardIndividual from '../components/BoardIndividual'
-import Board from "../components/Board"
+
 const MyDesk = (props) => {
+    const {userLogged} = props
     const [title, setTitle] = useState()
     const [idBoard, setIdBoard] = useState({})
-    const description = "descripcion generica"
-    const [boards, setBoards] = useState([])
-    const inputAdd = e => {
-        var value = e.target.value
-        var prop = e.target.name
-        setTitle(
-            value           
-        )
-    }
-    const  add = async () => {
-       await props.addBoard(title,description,props.userLogged.token)
-    }
-    const inputDelete = e => {
-        var valueId = e.target.value
-        var propId = e.target.name
-        setIdBoard({
-            ...idBoard,
-            [propId]: valueId,
+    const [inputBoard, setInputBoard] = useState({ title: '', description:'', token: '' })
+    // const inputAdd = e => {
+    //     var value = e.target.value
+    //     var prop = e.target.name
+    //     setTitle(
+    //         value           
+    //     )
+    // }
+    const readInputBoard = (e) => {
+        const field = e.target.name
+        const value = e.target.value
+        setInputBoard({
+            ...inputBoard,
+            [field]: value,
+            token: userLogged.token
         })
     }
-    const  deletee = async () => {
-        console.log(idBoard)
-        props.deleteBoard(idBoard)
-    }
-    const edit = () => {
-        props.editBoard(idBoard, title  )
+    const addBoard = async () => {
+       await props.addBoard(inputBoard)
     }
     useEffect(() => {
         props.getBoards(props.userLogged.token)
     },[])
+    console.log(props.boards)
     return ( 
         <div>
             <h1>soy myDesk</h1>
             {props.userLogged &&
             <>
                 <h1>Estas logueado con  {props.userLogged ? props.userLogged.firstName : "nadie"} </h1>
-                <input type="text" name="title" placeholder="nombre" onChange={inputAdd}/>
-                <button  onClick={add} > <h2>Crear</h2></button>
-                <input type="text" name="idBoard" placeholder="id" onChange={inputDelete}/>
-                <button  onClick={deletee} > <h2>Borrar</h2></button> 
-                <button onClick={edit}><h2>editBoard</h2></button>
+                <div style={{border: "1px solid black", width: "40vw", display:"flex"}}>
+                    <input type="text" name="title" placeholder="title" onChange={readInputBoard}/>
+                    <input type="text" name="description" placeholder="description..." onChange={readInputBoard}/>
+                    <button onClick={addBoard}>Create a new board</button>
+                </div>
                 {
                     props.boards.map(board => <BoardIndividual key={board._id} board={board}/>)
                 }
@@ -65,8 +60,6 @@ const mapStateToProps= state =>{
 
 const mapDispatchToProps= {   
     addBoard: boardActions.addBoard,
-    deleteBoard:boardActions.deleteBoard,
-    editBoard:boardActions.editBoard,
     getBoards:boardActions.getBoards
 }
 

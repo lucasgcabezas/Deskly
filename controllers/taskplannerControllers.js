@@ -32,8 +32,10 @@ const taskplannerControllers = {
     },
     
     getTaskplannerFromBoard: async(req,res) => {
+     
         try{
             const taskplanner = await Taskplanner.find({boardId: req.params.id})
+            console.log(taskplanner)
             res.json({success: true, response: taskplanner})
         }catch(error){
             res.json({success: false, response: 'An error has occurred'})

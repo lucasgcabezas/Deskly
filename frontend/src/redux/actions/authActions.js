@@ -50,6 +50,7 @@ const authActions = {
                 dispatch({ type: 'LOG_USER', payload: { ...response.data.response, token: userLocalStorage } })
             } catch (err) {
                 if (err.response.status === 401) {
+                    
                     alert("Me parece que me estás queriendo cagar con un token falso...")
                 }
             }
