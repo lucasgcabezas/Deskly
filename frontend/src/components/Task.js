@@ -25,6 +25,8 @@ const Task = (props) => {
     // }
 
 
+    const getInput = e => { setEditionTask({ ...editionTask, title: e.target.value }) }
+
     useEffect(() => { sendEdit("verify") }, [editionTask.verify])
 
     const verifyTask = async (e) => { setEditionTask({ ...editionTask, verify: e.target.checked }) }
