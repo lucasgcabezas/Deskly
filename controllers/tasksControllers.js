@@ -48,7 +48,7 @@ const tasksControllers = {
         const taskId = req.params.id
         try {
             const addComment = await TaskModel.findOneAndUpdate({ _id: taskId }, 
-                { $push: { comments: req.body}}, { new: true })
+                { $push: { comments: {...req.body, userId: req.user._id}}}, { new: true })
             res.json({ response: addComment, success: true })
         } catch (error) {
             res.json({ response: 'Internal server error', success: false })

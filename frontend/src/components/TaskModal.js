@@ -52,7 +52,6 @@ const TaskModal = (props) => {
     }
 
     let descriptionText = newDescription.description === '' ? 'Añadir una descripción mas detallada' : newDescription.description
-
     return (
         <>
             <div style={{ display: display }}>
