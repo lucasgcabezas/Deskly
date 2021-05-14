@@ -6,11 +6,13 @@ import taskPlannerActions from '../redux/actions/taskPlannerActions'
 import TaskPlanner from './Taskplanner'
 
 const Board = (props) => {
+    console.log(props)
     const { boards, inviteUserToBoard } = props
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
     const [open, setOpen] = useState(false)
     const [update, setUpdate] = useState(false)
     const [newTitle, setNewTitle] = useState('')
+    const [newInvite, setNewInvite] = useState('')
     const idParams = props.match.params.id
     const [board, setBoard] = useState({})
     const [updateInput, setUpdateInput] = useState()
@@ -36,7 +38,7 @@ const Board = (props) => {
         if (e.key === 'Enter' && condition === 'title') {
             sendValues()
         } else if (e.key === 'Enter' && condition === 'invite') {
-            addUser(newTitle)
+            addUser()
         }
     }
 
@@ -44,40 +46,15 @@ const Board = (props) => {
         if (newTitle.trim() !== "") {
             await props.addTaskPlanner({ title: newTitle, boardId: board._id })
             const tasks = await props.getTaskPlannerFromBoard(board._id)
-            console.log(tasks)
             setAllTasksPlanner(tasks)
             setNewTitle('')
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-    const addUser = async (email) => {
-        const response = await inviteUserToBoard(email, board._id)
-        if (response) {
-            props.addUserToBoard(board._id, admin, email)
-        }
+    const addUser = () => {
+        inviteUserToBoard(newInvite, board._id)
+        setNewInvite('')
     }
-
-
-
-
-
-
-
-
-
-
-
 
     const edit = async (idTaskPlanner, titleTaskPlanner) => {
         await props.editTaskPlanner(idTaskPlanner, titleTaskPlanner)
@@ -99,12 +76,12 @@ const Board = (props) => {
     }
 
     const deleteBoard = async () => {
-        await props.deleteBoard(board._id)
+        await props.deleteBoard(board._id,props.userLogged.token)
         props.history.push('/myDesk')
     }
     
     const editBoard = async () => {
-        const response = await props.editBoard(board._id, updateInput)
+        const response = await props.editBoard(board._id, updateInput, props.userLogged.token)
         setBoard(response)
         setUpdate(false)
     }
@@ -129,12 +106,12 @@ const Board = (props) => {
                 <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>
                 {
                     openInvite && <div>
-                        <input onKeyDown={(e) => enter(e, 'invite')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                        <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />
                         <div>
                             <input type='checkbox' onClick={() => setAdmin(!admin)}></input>
                             <h2>Admin</h2>
                         </div>
-                        <button onClick={sendValues}>send</button>
+                        <button onClick={newInvite.trim() && addUser}>send</button>
                     </div>
                 }
             </div>
@@ -166,6 +143,7 @@ const mapStateToProps = state => {
         boards: state.boardReducer.boards
     }
 }
+
 const mapDispatchToProps = {
     editBoard: boardActions.editBoard,
     deleteBoard: boardActions.deleteBoard,
@@ -174,6 +152,7 @@ const mapDispatchToProps = {
     editTaskPlanner: taskPlannerActions.editTaskPlanner,
     deleteTaskPlanner: taskPlannerActions.deleteTaskPlanner,
     inviteUserToBoard: authActions.inviteUserToBoard,
-    addUserToBoard: boardActions.addUserToBoard
+    addUserToBoard: boardActions.addUserToBoard,
+    deleteBoardOwner: boardActions.deleteBoardOwner
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Board)

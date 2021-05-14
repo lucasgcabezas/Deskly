@@ -67,12 +67,8 @@ const authActions = {
 
     inviteUserToBoard: (email, boardId) => {
         return async (dispatch, getSate) => {
-            console.log(email)
             try {
-                const response = await axios.put('http://localhost:4000/api/inviteuser/' + email, {boardId})
-
-                console.log(response)
-                return response.data.success
+                await axios.put('http://localhost:4000/api/inviteuser/' + email, {boardId})
             } catch (err) {
                 console.log(err)
             }

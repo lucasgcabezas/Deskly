@@ -37,8 +37,12 @@ const boardsControllers = {
         let response;
         let error;
         try {
-            const boardEdited = await BoardModel.findOneAndUpdate({ _id: req.params.id }, { ...req.body }, { new: true })
-            response = boardEdited
+            const board = await BoardModel.findById(req.params.id)
+            if(String(board.owner) === req.user.id){
+                response = await BoardModel.findOneAndUpdate({ _id: req.params.id }, { ...req.body }, { new: true })                
+            }else{
+                response = board
+            }
 
         } catch {
             error = "An error occurred during process, please try later."
@@ -51,16 +55,29 @@ const boardsControllers = {
         let response;
         let error;
         try {
-            const deletedBoard = await BoardModel.findByIdAndDelete(req.params.id)
-            response = deletedBoard
+            const board = await BoardModel.findById(req.params.id)
+            if(String(board.owner) === req.user.id){
+                console.log("ENTRO")
+                response = await BoardModel.findByIdAndDelete(req.params.id)
+            }
+            // const deletedBoard = await BoardModel.findByIdAndDelete(req.params.id)
+            // response = deletedBoard
 
         } catch {
             error = "An error occurred during process, please try later."
             console.log('ERROR: The controller deleteBoard has failed')
         }
         res.json({ success: !error ? true : false, response, error })
-    }
-
+    },
+    // rolOwner: async (req, res) => {
+    //     try{
+    //         console.log(req.user)
+    //         const board = await BoardModel.findById(req.params.id)
+    //         console.log(board)
+    //     }catch(error){
+    //         console.log(error)
+    //     }
+    // }
 }
 
 module.exports = boardsControllers
