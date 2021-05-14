@@ -18,16 +18,19 @@ const Board = (props) => {
     const [openInvite, setOpenInvite] = useState(false)
     const [admin, setAdmin] = useState(false)
     const [boardUsers, setBoardUsers] = useState([])
-    
+
     useEffect(() => {
+        if (props.userLogged) {
+            props.setUserComponents(props.userLogged.token)
+        }
         if (props.boards.length === 0) {
             props.history.push('/myDesk')
         } else {
             setBoard(boards.find(board => board._id === idParams))
         }
-        tasksFetch() 
+        tasksFetch()
         usersFetch()
-        
+
         const reloadTaskPlanner = setInterval(() => {
             tasksFetch()
         }, 5000)
@@ -54,7 +57,7 @@ const Board = (props) => {
 
     const sendValues = async () => {
         if (newTitle.trim() !== "") {
-            await props.addTaskPlanner({ title: newTitle, boardId: board._id },props.userLogged.token)
+            await props.addTaskPlanner({ title: newTitle, boardId: board._id }, props.userLogged.token)
             const tasks = await props.getTaskPlannerFromBoard(board._id)
             setAllTasksPlanner(tasks)
             setNewTitle('')
@@ -86,7 +89,7 @@ const Board = (props) => {
     }
 
     const deleteBoard = async () => {
-        await props.deleteBoard(board._id,props.userLogged.token)
+        await props.deleteBoard(board._id, props.userLogged.token)
         props.history.push('/myDesk')
     }
     const editBoard = async () => {
@@ -94,13 +97,17 @@ const Board = (props) => {
         setBoard(response)
         setUpdate(false)
     }
+    let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
+    let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
+    
 
     return (
         <>
             <div>
                 {
-                    boardUsers.map((user,i) => {
-                    return <div key={i} style={{display:"flex"}}><input type='checkbox' onClick={() => setAdmin(!admin)}></input><h2>{'Admin ' + user.firstName + ' ' + user.lastName}</h2><h2></h2></div>})
+                    boardUsers.map((user, i) => {
+                        return <div key={i} style={{ display: "flex" }}><input type='checkbox' onClick={() => setAdmin(!admin)}></input><h2>{'Admin ' + user.firstName + ' ' + user.lastName}</h2><h2></h2></div>
+                    })
                 }
             </div>
             <div>
@@ -108,16 +115,20 @@ const Board = (props) => {
                 <span>{board.description}</span>
             </div>
             <div>
-                <button onClick={deleteBoard}>Delete</button>
-                <button onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}>{update ? 'Cancel' : 'Edit'}</button>
-                {update &&
+                {imOwner &&
                     <>
-                        <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
-                        <input type="text" name="description" value={updateInput.description} onChange={readUpdateInput} />
-                        <button onClick={editBoard}>Send</button>
+                        <button onClick={deleteBoard}>Delete</button>
+                        <button onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}>{update ? 'Cancel' : 'Edit'}</button>
+                        {update &&
+                            <>
+                                <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
+                                <input type="text" name="description" value={updateInput.description} onChange={readUpdateInput} />
+                                <button onClick={editBoard}>Send</button>
+                            </>
+                        }
                     </>
-                }
 
+                }
                 <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>
                 {
                     openInvite && <div>
@@ -130,21 +141,27 @@ const Board = (props) => {
                     </div>
                 }
             </div>
+                <div>
+            {imOwner || imAdmin &&
+                    <>
+                        <button onClick={() => setOpen(!open)}>Add list</button>
+                        {
+                            open && <div>
+                                <input onKeyDown={(e) => enter(e, 'title')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                <button onClick={sendValues}>send</button>
+                            </div>
+                        }
+                    </>
+            }
 
-            <div>
-                <button onClick={() => setOpen(!open)}>Add list</button>
-                {
-                    open && <div>
-                        <input onKeyDown={(e) => enter(e, 'title')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                        <button onClick={sendValues}>send</button>
+                    <div style={{ display: 'flex', margin: '20px' }}>
+                        {
+                            allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
+                        }
                     </div>
-                }
-                <div style={{ display: 'flex', margin: '20px' }}>
-                    {
-                        allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
-                    }
                 </div>
-            </div>
+
+
 
         </>
     )
@@ -153,7 +170,11 @@ const Board = (props) => {
 const mapStateToProps = state => {
     return {
         userLogged: state.authReducer.userLogged,
-        boards: state.boardReducer.boards
+        boards: state.boardReducer.boards,
+        boardsAdminArray: state.authReducer.boardsAdminArray,
+        boardsOwnerArray: state.authReducer.boardsOwnerArray,
+        commentsUserArray: state.authReducer.commentsUserArray,
+        taskPlannersArray: state.authReducer.taskPlannersArray,
     }
 }
 
@@ -167,6 +188,7 @@ const mapDispatchToProps = {
     inviteUserToBoard: authActions.inviteUserToBoard,
     addUserToBoard: boardActions.addUserToBoard,
     deleteBoardOwner: boardActions.deleteBoardOwner,
-    getUsersFromBoard: boardActions.getUsersFromBoard
+    getUsersFromBoard: boardActions.getUsersFromBoard,
+    setUserComponents: authActions.setUserComponents
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Board)

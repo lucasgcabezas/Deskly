@@ -22,7 +22,7 @@ const taskActions = {
                 }})
                 return response.data.response // Object que contiene solo la task agregada
 
-            } catch {
+            } catch(error) {
                 console.log('error en tasks actions ')
             }
         }

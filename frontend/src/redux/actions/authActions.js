@@ -119,7 +119,9 @@ const authActions = {
                 })
                 console.log(response)
                 dispatch({ type: 'USER_COMPONENTS', payload: { ...response.data.response } })
-            } catch { }
+            } catch(error){ 
+                console.log(error);
+            }
         }
     },
 }
