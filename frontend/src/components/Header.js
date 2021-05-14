@@ -18,7 +18,6 @@ const Header = (props) => {
         if (props.userLogged) {
             const response = await checkNotifications(userLogged)
             setNotificationsState(response)
-            console.log(response)
         }
     }
 

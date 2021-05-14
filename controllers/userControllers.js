@@ -6,13 +6,13 @@ const jwt = require("jsonwebtoken")
 const userControllers = {
     newUser: async (req, res) => {
         var error
-        var { firstName, lastName, email, img, password, google } = req.body
+        var { firstName, lastName, email, img, password, google, facebook} = req.body
         try {
             const emailExist = await User.findOne({ email })
             if (!emailExist) {
                 try {
                     const passwordHashed = bcryptjs.hashSync(password, 10)
-                    var response = new User({ firstName, lastName, email, img, google, password: passwordHashed })
+                    var response = new User({ firstName, lastName, email, img, google, facebook, password: passwordHashed })
                     await response.save()
                     var token = jwt.sign({ ...response }, process.env.SECRET_KEY)
                 } catch (e) {
@@ -33,14 +33,13 @@ const userControllers = {
     },
 
     login: async (req, res) => {
-        // console.log(req.body)
-        const { email, password, google } = req.body
+        const { email, password, google, facebook} = req.body
         var response;
         var error;
         try {
             const userOK = await User.findOne({ email: email })
             if (userOK) {
-                if (userOK.google === google) {
+                if (userOK.google === google || userOK.facebook === facebook) {
                     const passwordOk = bcryptjs.compareSync(password, userOK.password)
                     if (passwordOk) {
                         const token = jwt.sign({ ...userOK }, process.env.SECRET_KEY)

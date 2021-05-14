@@ -20,25 +20,26 @@ const SignUp = (props) => {
         })
     }
 
-    const sendValueUser = async (e = null, googleUser = null) => {
+    const sendValueUser = async (e = null, googleUser = null, userFacebook = null) => {
         setMistakes({ firstName: '', lastName: '', email: '', password: '', img: '' })
         e && e.preventDefault()
-        let userGen = e ? user : googleUser
+        let userGen = e ? user : googleUser || userFacebook
 
         // if(Object.values(userGen).some(value => value === "")){
         // return toast.error('Fill in the fields')
         // }
         const response = await props.signUpUser(userGen)
         if (response) {
+            alert(response)
             if (response.controllers) {
                 // if(response.controllers === "There was an error in the user engraving. Retry"){
                 // return toast.error(response.controllers)
                 // }
                 return setMistakes({ 'email': response.controllers })
             }
-            response.map(error => setMistakes((prevState) => {
-                return { ...prevState, [error.context.label]: error.message }
-            }))
+            // response.map(error => setMistakes((prevState) => {
+            //     return { ...prevState, [error.context.label]: error.message }
+            // }))
         }
         // else{
         //     toast.success(`Welcome ${userGen.firstName}`)
@@ -47,16 +48,13 @@ const SignUp = (props) => {
         // }
     }
     const responseGoogle = (response) => {
-        console.log(response.profileObj)
         const { givenName, familyName, email, googleId, imageUrl } = response.profileObj
         sendValueUser(null, { firstName: givenName, lastName: familyName, email, password: "a" + googleId, img: imageUrl, google: true })
     }
     const responseFacebook = (response) => {
-        console.log(response);
+        const {name, email, id, picture} = response
+        sendValueUser(null, {firstName: name, lastName:name, email, password: "a"+ id, img: picture.data.url, facebook:true})
     }
-    // const componentClicked = () => {
-    //     // alert()
-    // }
 
     return (
         <>
@@ -101,7 +99,9 @@ const SignUp = (props) => {
                             appId="525627921786555"
                             autoLoad={false}
                             fields="name,email,picture"
-                            callback={responseFacebook} 
+                            callback={responseFacebook}
+                            textButton="Sign Up with Facebook"
+                            icon="fa-facebook"
                         />
                     </form>
                 </div>

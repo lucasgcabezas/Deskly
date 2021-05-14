@@ -6,7 +6,9 @@ const authActions = {
 
             try {
                 const response = await axios.post('http://localhost:4000/api/newuser', user)
-
+                if (!response.data.success) {
+                    return response.data.error
+                }
                 // if (response.data.errorsValidator) {
                 //     return response.data.errorsValidator
 
@@ -28,17 +30,21 @@ const authActions = {
         return async (dispatch, getState) => {
             try {
                 const response = await axios.post('http://localhost:4000/api/login', userToSignIn)
-
+                if (!response.data.success) {
+                    alert(response.data.error)
+                    return false
+                }
                 // if (!response.data.success) {
                 //     alert('Oops',response.data.error, 'danger')
                 // } else {
-                console.log(response)
                 dispatch({ type: 'LOG_USER', payload: response.data.response })
-                alert(response.data.response.firstName + 'Welcome to Deskly! success')
+                alert("Bienvenido a Deskly")
+                // alert(response.data.response.firstName + 'Welcome to Deskly! success')
                 // }
             } catch (error) {
+                console.log(error)
                 // alert('ricardo','Internal server error, please try later!', 'danger')
-                alert(error)
+                // alert(error)
             }
         }
     },
