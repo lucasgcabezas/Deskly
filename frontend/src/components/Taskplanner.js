@@ -9,6 +9,8 @@ const TaskPlanner = (props) => {
     const [preloader, setPreloader] = useState(true)
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
+    const [newTask, setNewTask] = useState('')
+
     const [editTitle, setEditTitle] = useState(true)
     // console.log(props)
 
@@ -30,11 +32,11 @@ const TaskPlanner = (props) => {
     }
 
     const sendValues = async () => {
-        if (newTitle.trim() !== "") {
-            await props.addTask({ title: newTitle, taskplannerId: props.taskplanner._id },props.userLogged.token)
+        if (newTask.trim() !== "") {
+            await props.addTask({ title: newTask, taskplannerId: props.taskplanner._id })
             const tasks = await props.tasksFromTaskplanner(props.taskplanner._id)
             setAllTasks(tasks)
-            setNewTitle('')
+            setNewTask('')
         }
     }
 
@@ -44,15 +46,18 @@ const TaskPlanner = (props) => {
                 <button onClick={() => props.erase(props.taskplanner._id)}>Delete</button>
             </div>
             {editTitle && <h1 style={{cursor:'pointer'}} onClick={() => {setEditTitle(!editTitle); setNewTitle(props.taskplanner.title)}}>{props.taskplanner.title}</h1>}
-            {!editTitle && <div>
-                <input onKeyDown={(e) => enter(e, 'edit')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+            {!editTitle && <div style={{display:'flex'}}>
+                <input onKeyDown={(e) =>{newTitle.trim() && enter(e, 'edit')}} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                
                 <button onClick={newTitle.trim() && (() => props.edit(props.taskplanner._id, newTitle))}>Send</button>
+                <h2 style={{cursor:'pointer'}} onClick={() => setEditTitle(!editTitle)}>x</h2>
+                
             </div>
             }
             <button onClick={()=>setOpen(!open)}>add task</button>
             {
                 open && <div>
-                    <input onKeyDown={(e) => enter(e, 'task')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                    <input onKeyDown={(e) => enter(e, 'task')} type="text" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
                     <button onClick={sendValues}>Send</button>
                 </div>
             }

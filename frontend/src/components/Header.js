@@ -10,8 +10,7 @@ const Header = (props) => {
     const { userLogged, checkNotifications, acceptJoinToBoard } = props
 
     useEffect(() => { activeCheckNotifications() }, [props])
-    // useEffect(() => { activeCheckNotifications() }, [])
-
+    
     const [notificationsState, setNotificationsState] = useState([])
 
     const activeCheckNotifications = async () => {

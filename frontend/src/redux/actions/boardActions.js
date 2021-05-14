@@ -1,13 +1,16 @@
 import axios from "axios"
 
 const boardActions = {
-    deleteBoard: (id) => {
+    deleteBoard: (id,token) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.delete("http://localhost:4000/api/board/"+id)
+                const response = await axios.delete("http://localhost:4000/api/board/" + id, {headers: {
+                    'Authorization': 'Bearer ' + token
+                }})
                 dispatch({type: 'DELETE_BOARDS', payload:response.data.response._id})
-            } catch {
+            } catch (error){
                 alert('Error','Internal server error, please try later!', 'danger')
+                console.log(error)
             }
         }
     },
@@ -28,13 +31,13 @@ const boardActions = {
             console.log(error)
         }
     },
-    editBoard:(id, updateInput) => {
+    editBoard:(id, updateInput, token) => {
         const {title, description} = updateInput
-        console.log({id, updateInput})
         try {
             return async (dispatch, getState) => {
-                const response = await axios.put("http://localhost:4000/api/board/"+id, {title, description})
-                // console.log(response.data.response.title)
+                const response = await axios.put("http://localhost:4000/api/board/" + id, {title, description} ,{headers: {
+                    'Authorization': 'Bearer ' + token
+                }})
                 return (response.data.response)
             }
         } catch (error) {
@@ -53,10 +56,21 @@ const boardActions = {
             console.log(error)
         }
     },
-    addUserToBoard: (idBoard, admin, email) => {
+    // addUserToBoard: (idBoard, admin, email) => {
+    //     try {
+    //         return async (dispatch, getState) => {
+    //             await axios.put("http://localhost:4000/api/addUserToBoard/" +idBoard, {admin, email})
+    //         }
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // },
+    getUsersFromBoard: (idBoard) => {
         try {
             return async (dispatch, getState) => {
-                await axios.put("http://localhost:4000/api/addUserToBoard/" +idBoard, {admin, email})
+                console.log('adsadsasdasdadsads')
+                const response = await axios.get("http://localhost:4000/api/board/" +idBoard)
+                return response.data.users
             }
         } catch (error) {
             console.log(error)
@@ -64,6 +78,4 @@ const boardActions = {
     }
 }
 
-
 export default boardActions
-

@@ -12,7 +12,7 @@ const { acceptBoard, getComponents } = notificationsControllers
 
 const { getAllTaskplanner, getTaskplanner, getTaskplannerFromBoard, addTaskplanner, putTaskplanner, deleteTaskplanner } = taskplannerControllers
 
-const { getFromUser, addBoard, editBoard, deleteBoard } = boardsControllers
+const { getFromUser, addBoard, editBoard, deleteBoard, getUsersFromBoard} = boardsControllers
 const { getAllTasks, addTask, editTask, deleteTask, tasksFromTaskplanner, addComment, editComment, deleteComment } = tasksControllers
 
 // routes boardsControllers 
@@ -21,9 +21,9 @@ router.route('/board')
     .get(passport.authenticate('jwt', { session: false }), getFromUser)
 
 router.route('/board/:id')
-    .put(editBoard)
-    .delete(deleteBoard)
-
+    .put(passport.authenticate('jwt', { session: false }),editBoard)
+    .delete(passport.authenticate('jwt', { session: false }),deleteBoard)
+    .get(getUsersFromBoard)
 // routes taskplannerControllers
 router.route('/taskplanner')
     .get(getAllTaskplanner)
@@ -46,7 +46,6 @@ router.route("/checkNotifications")
 
 router.route("/notification/:idBoard")
     .get(passport.authenticate('jwt', { session: false }), acceptBoard)
-
 
 router.route("/inviteuser/:email")
     .put(inviteUserToBoard)

@@ -11,11 +11,13 @@ const Board = (props) => {
     const [open, setOpen] = useState(false)
     const [update, setUpdate] = useState(false)
     const [newTitle, setNewTitle] = useState('')
+    const [newInvite, setNewInvite] = useState('')
     const idParams = props.match.params.id
     const [board, setBoard] = useState({})
     const [updateInput, setUpdateInput] = useState()
     const [openInvite, setOpenInvite] = useState(false)
     const [admin, setAdmin] = useState(false)
+    const [boardUsers, setBoardUsers] = useState([])
     
     useEffect(() => {
         if (props.boards.length === 0) {
@@ -25,18 +27,25 @@ const Board = (props) => {
         }
     }, [])
 
-    useEffect(() => { tasksFetch() }, [])
+    useEffect(() => { 
+        tasksFetch()
+        usersFetch()
+    }, [])
 
     const tasksFetch = async () => {
         const tasks = await props.getTaskPlannerFromBoard(idParams)
         setAllTasksPlanner(tasks)
     }
 
+    const usersFetch = async () => {
+        const users = await props.getUsersFromBoard(idParams)
+        setBoardUsers(users)
+    }
     const enter = (e, condition) => {
         if (e.key === 'Enter' && condition === 'title') {
             sendValues()
         } else if (e.key === 'Enter' && condition === 'invite') {
-            addUser(newTitle)
+            addUser()
         }
     }
 
@@ -44,40 +53,15 @@ const Board = (props) => {
         if (newTitle.trim() !== "") {
             await props.addTaskPlanner({ title: newTitle, boardId: board._id },props.userLogged.token)
             const tasks = await props.getTaskPlannerFromBoard(board._id)
-            console.log(tasks)
             setAllTasksPlanner(tasks)
             setNewTitle('')
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-    const addUser = async (email) => {
-        const response = await inviteUserToBoard(email, board._id)
-        if (response) {
-            props.addUserToBoard(board._id, admin, email)
-        }
+    const addUser = () => {
+        inviteUserToBoard(newInvite, board._id)
+        setNewInvite('')
     }
-
-
-
-
-
-
-
-
-
-
-
 
     const edit = async (idTaskPlanner, titleTaskPlanner) => {
         await props.editTaskPlanner(idTaskPlanner, titleTaskPlanner)
@@ -99,18 +83,24 @@ const Board = (props) => {
     }
 
     const deleteBoard = async () => {
-        await props.deleteBoard(board._id)
+        await props.deleteBoard(board._id,props.userLogged.token)
         props.history.push('/myDesk')
     }
     
     const editBoard = async () => {
-        const response = await props.editBoard(board._id, updateInput)
+        const response = await props.editBoard(board._id, updateInput, props.userLogged.token)
         setBoard(response)
         setUpdate(false)
     }
 
     return (
         <>
+            <div>
+                {
+                    boardUsers.map((user,i) => {
+                    return <div key={i} style={{display:"flex"}}><input type='checkbox' onClick={() => setAdmin(!admin)}></input><h2>{'Admin ' + user.firstName + ' ' + user.lastName}</h2><h2></h2></div>})
+                }
+            </div>
             <div>
                 <h1>{board.title}</h1>
                 <span>{board.description}</span>
@@ -129,12 +119,12 @@ const Board = (props) => {
                 <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>
                 {
                     openInvite && <div>
-                        <input onKeyDown={(e) => enter(e, 'invite')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                        <div>
+                        <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />
+                        {/* <div>
                             <input type='checkbox' onClick={() => setAdmin(!admin)}></input>
                             <h2>Admin</h2>
-                        </div>
-                        <button onClick={sendValues}>send</button>
+                        </div> */}
+                        <button onClick={newInvite.trim() && addUser}>send</button>
                     </div>
                 }
             </div>
@@ -149,7 +139,7 @@ const Board = (props) => {
                 }
                 <div style={{ display: 'flex', margin: '20px' }}>
                     {
-                        allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
+                        allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
                     }
                 </div>
             </div>
@@ -166,6 +156,7 @@ const mapStateToProps = state => {
         boards: state.boardReducer.boards
     }
 }
+
 const mapDispatchToProps = {
     editBoard: boardActions.editBoard,
     deleteBoard: boardActions.deleteBoard,
@@ -174,6 +165,8 @@ const mapDispatchToProps = {
     editTaskPlanner: taskPlannerActions.editTaskPlanner,
     deleteTaskPlanner: taskPlannerActions.deleteTaskPlanner,
     inviteUserToBoard: authActions.inviteUserToBoard,
-    addUserToBoard: boardActions.addUserToBoard
+    addUserToBoard: boardActions.addUserToBoard,
+    deleteBoardOwner: boardActions.deleteBoardOwner,
+    getUsersFromBoard: boardActions.getUsersFromBoard
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Board)
