@@ -56,37 +56,26 @@ const boardActions = {
             console.log(error)
         }
     },
-    addUserToBoard: (idBoard, admin, email) => {
-        try {
-            return async (dispatch, getState) => {
-                await axios.put("http://localhost:4000/api/addUserToBoard/" +idBoard, {admin, email})
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    },
-    // rolToBoard: (token,id) => {        
+    // addUserToBoard: (idBoard, admin, email) => {
     //     try {
     //         return async (dispatch, getState) => {
-    //             const response = await axios.get("http://localhost:4000/api/roles/" + id, {headers: {
-    //                 'Authorization': 'Bearer ' + token
-    //             }})
-    //         }  
+    //             await axios.put("http://localhost:4000/api/addUserToBoard/" +idBoard, {admin, email})
+    //         }
     //     } catch (error) {
     //         console.log(error)
     //     }
     // },
-    // deleteBoardOwner: (token,id) => {        
-    //     try {
-    //         return async (dispatch, getState) => {
-    //             const response = await axios.get("http://localhost:4000/api/rolesOwne/" + id, {headers: {
-    //                 'Authorization': 'Bearer ' + token
-    //             }})
-    //         }  
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    getUsersFromBoard: (idBoard) => {
+        try {
+            return async (dispatch, getState) => {
+                console.log('adsadsasdasdadsads')
+                const response = await axios.get("http://localhost:4000/api/board/" +idBoard)
+                return response.data.users
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export default boardActions

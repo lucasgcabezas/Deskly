@@ -6,7 +6,6 @@ import taskPlannerActions from '../redux/actions/taskPlannerActions'
 import TaskPlanner from './Taskplanner'
 
 const Board = (props) => {
-    console.log(props)
     const { boards, inviteUserToBoard } = props
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
     const [open, setOpen] = useState(false)
@@ -18,7 +17,7 @@ const Board = (props) => {
     const [updateInput, setUpdateInput] = useState()
     const [openInvite, setOpenInvite] = useState(false)
     const [admin, setAdmin] = useState(false)
-
+    const [boardUsers, setBoardUsers] = useState([])
     useEffect(() => {
         if (props.boards.length === 0) {
             props.history.push('/myDesk')
@@ -27,13 +26,20 @@ const Board = (props) => {
         }
     }, [])
 
-    useEffect(() => { tasksFetch() }, [])
+    useEffect(() => { 
+        tasksFetch()
+        usersFetch()
+    }, [])
 
     const tasksFetch = async () => {
         const tasks = await props.getTaskPlannerFromBoard(idParams)
         setAllTasksPlanner(tasks)
     }
 
+    const usersFetch = async () => {
+        const users = await props.getUsersFromBoard(idParams)
+        setBoardUsers(users)
+    }
     const enter = (e, condition) => {
         if (e.key === 'Enter' && condition === 'title') {
             sendValues()
@@ -89,6 +95,12 @@ const Board = (props) => {
     return (
         <>
             <div>
+                {
+                    boardUsers.map((user,i) => {
+                    return <div key={i} style={{display:"flex"}}><input type='checkbox' onClick={() => setAdmin(!admin)}></input><h2>{'Admin ' + user.firstName + ' ' + user.lastName}</h2><h2></h2></div>})
+                }
+            </div>
+            <div>
                 <h1>{board.title}</h1>
                 <span>{board.description}</span>
             </div>
@@ -107,10 +119,10 @@ const Board = (props) => {
                 {
                     openInvite && <div>
                         <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />
-                        <div>
+                        {/* <div>
                             <input type='checkbox' onClick={() => setAdmin(!admin)}></input>
                             <h2>Admin</h2>
-                        </div>
+                        </div> */}
                         <button onClick={newInvite.trim() && addUser}>send</button>
                     </div>
                 }
@@ -126,7 +138,7 @@ const Board = (props) => {
                 }
                 <div style={{ display: 'flex', margin: '20px' }}>
                     {
-                        allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner.title} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
+                        allTasksPlanner.map(taskplanner => <TaskPlanner erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
                     }
                 </div>
             </div>
@@ -153,6 +165,7 @@ const mapDispatchToProps = {
     deleteTaskPlanner: taskPlannerActions.deleteTaskPlanner,
     inviteUserToBoard: authActions.inviteUserToBoard,
     addUserToBoard: boardActions.addUserToBoard,
-    deleteBoardOwner: boardActions.deleteBoardOwner
+    deleteBoardOwner: boardActions.deleteBoardOwner,
+    getUsersFromBoard: boardActions.getUsersFromBoard
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Board)

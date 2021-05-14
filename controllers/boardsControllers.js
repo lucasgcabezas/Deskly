@@ -60,8 +60,6 @@ const boardsControllers = {
                 console.log("ENTRO")
                 response = await BoardModel.findByIdAndDelete(req.params.id)
             }
-            // const deletedBoard = await BoardModel.findByIdAndDelete(req.params.id)
-            // response = deletedBoard
 
         } catch {
             error = "An error occurred during process, please try later."
@@ -69,6 +67,14 @@ const boardsControllers = {
         }
         res.json({ success: !error ? true : false, response, error })
     },
+    getUsersFromBoard: async (req, res) => {
+        try{
+            const board = await BoardModel.findById(req.params.id).populate({path:"users",select:{ "firstName":1 ,"lastName":1,"email":1,"img":1}})
+            res.json({success: true, users: board.users})
+        }catch(error){
+            console.log(error)
+        }
+    }
     // rolOwner: async (req, res) => {
     //     try{
     //         console.log(req.user)
