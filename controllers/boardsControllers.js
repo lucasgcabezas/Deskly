@@ -1,4 +1,5 @@
 const BoardModel = require('../models/BoardModel')
+const User = require("../models/UserModel")
 
 const boardsControllers = {
 
@@ -8,7 +9,7 @@ const boardsControllers = {
         // Con passport
         try {
             const selectedBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.user._id } } })
-            console.log(selectedBoards)
+            // console.log(selectedBoards)
             response = selectedBoards
 
         } catch {
@@ -35,7 +36,6 @@ const boardsControllers = {
     editBoard: async (req, res) => {
         let response;
         let error;
-        console.log(req.params.id, req.body)
         try {
             const boardEdited = await BoardModel.findOneAndUpdate({ _id: req.params.id }, { ...req.body }, { new: true })
             response = boardEdited
@@ -60,6 +60,7 @@ const boardsControllers = {
         }
         res.json({ success: !error ? true : false, response, error })
     }
+
 }
 
 module.exports = boardsControllers

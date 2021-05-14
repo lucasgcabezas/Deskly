@@ -9,7 +9,7 @@ import Board from './components/Board'
 import { connect } from 'react-redux'
 import authActions from "./redux/actions/authActions"
 const App = (props) => {
- console.log(props.userLogged);
+//  console.log(props.userLogged);
   if(props.userLogged){
     // aca van links de logueados
   }
@@ -25,10 +25,10 @@ const App = (props) => {
       <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/mydesk" component={MyDesk} />
+         {props.userLogged &&  <Route path="/mydesk" component={MyDesk} />}
           <Route path="/board/:id" component={Board}/>
-          <Route path="/sign" component={Sign} />
-          <Route path="/signup" component={SignUp} />
+          {!props.userLogged &&<Route path="/sign" component={Sign} />}
+          {!props.userLogged && <Route path="/signup" component={SignUp} />}
           <Redirect to="/" />
         </Switch>
       <Footer />
