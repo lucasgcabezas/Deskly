@@ -6,11 +6,10 @@ import TaskModal from './TaskModal'
 const Task = (props) => {
     const { task, allTasks, setAllTasks, editTask, deleteTask } = props
     const { _id, title, verify } = task
+    
     const [show, setShow] = useState(false)
 
-
     const [editionTask, setEditionTask] = useState({ title, verify })
-
 
     const [editButton, setEditButton] = useState(false)
 
@@ -39,8 +38,6 @@ const Task = (props) => {
         let arrayFiltered = allTasks.filter(task => task._id != response._id)
         setAllTasks(arrayFiltered)
     }
-
-
     return (
         <>
             <div style={{ backgroundColor: verify ? 'lightgreen' : 'white', border: 'solid 1px black', padding: '2vh 1vw' }}>
@@ -63,7 +60,6 @@ const Task = (props) => {
             </div>
         </>
     )
-
 }
 
 const mapDispatchToProps = {

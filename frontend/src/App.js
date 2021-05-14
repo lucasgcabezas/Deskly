@@ -19,17 +19,16 @@ const App = (props) => {
     }else {
       // aca van links de deslogueados
     }
-
   return (
     <>
       <BrowserRouter>
       <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/mydesk" component={MyDesk} />
+         {props.userLogged &&  <Route path="/mydesk" component={MyDesk} />}
           <Route path="/board/:id" component={Board}/>
-          <Route path="/sign" component={Sign} />
-          <Route path="/signup" component={SignUp} />
+          {!props.userLogged &&<Route path="/sign" component={Sign} />}
+          {!props.userLogged && <Route path="/signup" component={SignUp} />}
           <Redirect to="/" />
         </Switch>
       <Footer />

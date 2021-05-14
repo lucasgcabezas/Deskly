@@ -31,7 +31,6 @@ const taskActions = {
             try {
                 const response = await axios.put('http://localhost:4000/api/task/' + taskEditId, taskEdit)
                 return response.data.response // Object que contiene solo la task editada
-
             } catch {
                 console.log('error en tasks actions ')
             }

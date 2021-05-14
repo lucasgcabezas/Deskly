@@ -1,26 +1,25 @@
 import { useState, useEffect } from "react"
 import { connect } from 'react-redux'
 import commentActions from '../redux/actions/commentActions'
+import taskActions from '../redux/actions/taskActions'
 import Comment from './Comment'
 
 const TaskModal = (props) => {
 
     const { title, description, _id } = props.task
-    const { addComment, setShow, show, userLogged } = props
+    const { addComment, setShow, show, userLogged, editTask } = props
 
     const [newComment, setNewComment] = useState({ userId: '', userCompleteName: '', message: '' })
-
     const [commentsState, setCommentsState] = useState([])
-
-    // const [show, setShow] = useState(false)
-
+    const [editDescription, setEditDescription] = useState(true)
+    const [newDescription, setNewDescription] = useState({ description: '' })
 
     let display = !show ? 'none' : 'block'
     let userId = '609c18aad4020c529018f542'
     let userName;
 
     if (userLogged) {
-        userName = userLogged.firstName
+        userName = `${userLogged.firstName} ${userLogged.lastName}`
     }
 
     useEffect(() => { setCommentsState(props.task.comments) }, [])
@@ -43,7 +42,13 @@ const TaskModal = (props) => {
         setCommentsState(response)
         setNewComment({ userId: '', userCompleteName: '', message: '' })
     }
+    const sendDescription = async () => {
+        const response = await editTask(props.task._id, newDescription)
+        setNewDescription({ description: response.description })
+        setEditDescription(!editDescription)
+    }
 
+    let descriptionText = newDescription.description === '' ? props.task.description : newDescription.description
     return (
         <>
             <div style={{ display: display }}>
@@ -55,10 +60,13 @@ const TaskModal = (props) => {
                     <button onClick={() => setShow(false)}>X</button>
                 </div>
                 <div>
-                    <h3>{description}</h3>
-                    {/* <div>
-                        <input placeholder="Añadir una descripcion"></input>
-                    </div> */}
+                    {editDescription && <h4 style={{ cursor: 'pointer' }} onClick={() => { setEditDescription(!editDescription) }}>{descriptionText}</h4>}
+                    {!editDescription && <div>
+                        <input type="text" value={newDescription.description} onChange={(e) => setNewDescription({ description: e.target.value })} />
+                        <button onClick={sendDescription} >guardar</button>
+                        <button onClick={() => setEditDescription(!editDescription)}>cancelar</button>
+                    </div>
+                    }
                 </div>
                 <div>
                     <h3>Actividad</h3>
@@ -90,7 +98,8 @@ const mapStateToProps = state => {
     }
 }
 const mapDispatchToProps = {
-    addComment: commentActions.addComment
+    addComment: commentActions.addComment,
+    editTask: taskActions.editTask
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskModal)
