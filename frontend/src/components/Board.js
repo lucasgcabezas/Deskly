@@ -4,6 +4,7 @@ import boardActions from '../redux/actions/boardActions'
 import authActions from '../redux/actions/authActions'
 import taskPlannerActions from '../redux/actions/taskPlannerActions'
 import TaskPlanner from './Taskplanner'
+import UserAdmin from './UserAdmin'
 
 const Board = (props) => {
     const { boards, inviteUserToBoard } = props
@@ -16,9 +17,9 @@ const Board = (props) => {
     const [board, setBoard] = useState({})
     const [updateInput, setUpdateInput] = useState()
     const [openInvite, setOpenInvite] = useState(false)
-    const [admin, setAdmin] = useState(false)
     const [boardUsers, setBoardUsers] = useState([])
-    
+    const [admins, setAdmins] = useState([])
+      
     useEffect(() => {
         if (props.boards.length === 0) {
             props.history.push('/myDesk')
@@ -94,13 +95,17 @@ const Board = (props) => {
         setBoard(response)
         setUpdate(false)
     }
-
+    const userAdmin = (admin,email) => {
+        console.log(admin)  
+        const admins = props.userAdmin(email, admin, idParams)
+        setAdmins(admins)
+        console.log(email)
+    }
     return (
         <>
             <div>
                 {
-                    boardUsers.map((user,i) => {
-                    return <div key={i} style={{display:"flex"}}><input type='checkbox' onClick={() => setAdmin(!admin)}></input><h2>{'Admin ' + user.firstName + ' ' + user.lastName}</h2><h2></h2></div>})
+                    boardUsers.map((user,i) => <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user}/>)
                 }
             </div>
             <div>
@@ -122,10 +127,6 @@ const Board = (props) => {
                 {
                     openInvite && <div>
                         <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />
-                        {/* <div>
-                            <input type='checkbox' onClick={() => setAdmin(!admin)}></input>
-                            <h2>Admin</h2>
-                        </div> */}
                         <button onClick={newInvite.trim() && addUser}>send</button>
                     </div>
                 }
@@ -167,6 +168,7 @@ const mapDispatchToProps = {
     inviteUserToBoard: authActions.inviteUserToBoard,
     addUserToBoard: boardActions.addUserToBoard,
     deleteBoardOwner: boardActions.deleteBoardOwner,
-    getUsersFromBoard: boardActions.getUsersFromBoard
+    getUsersFromBoard: boardActions.getUsersFromBoard,
+    userAdmin: boardActions.userAdmin
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Board)

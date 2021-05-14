@@ -74,16 +74,32 @@ const boardsControllers = {
         }catch(error){
             console.log(error)
         }
+    },
+    userAdmin: async (req,res) => {
+        try{
+            let user = props.userAdmin(admin,props.user.email)
+            let admins = ''
+            if(req.body.admin){
+                console.log('se agrego')
+                admins = await BoardModel.findOneAndUpdate({_id:req.body.id},{$push: {'admins': user._id}}).populate({path:"admins",select:{"email":1}})
+            }else{
+                admins = await BoardModel.findOneAndUpdate({_id:req.body.id},{$pull: {'admins': user._id}}).populate({path:"admins",select:{"email":1}})
+                console.log('no se agrego')
+            }
+            res.json({success: true, admins}) 
+
+        }catch(error){
+            console.log(error)
+        }
+    },
+    getAdminsFromBoard: async (req, res) => {
+        try{
+            const response = await BoardModel.findById(req.params.email).populate({path:"admins",select:{"email":1}})
+            res.json({response})
+        }catch(error){
+            console.log(error)
+        }
     }
-    // rolOwner: async (req, res) => {
-    //     try{
-    //         console.log(req.user)
-    //         const board = await BoardModel.findById(req.params.id)
-    //         console.log(board)
-    //     }catch(error){
-    //         console.log(error)
-    //     }
-    // }
 }
 
 module.exports = boardsControllers
