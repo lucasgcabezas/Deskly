@@ -11,12 +11,12 @@ const Header = (props) => {
 
     useEffect(() => {
         activeCheckNotifications()
-        const reloadTaskPlanner = setInterval(() => {
+        
+        const reloadNotifications = setInterval(() => {
             activeCheckNotifications()
-            // console.log('Check')
-        }, 5000)
+        }, 4000)
 
-        return () => { clearInterval(reloadTaskPlanner) }
+        return () => { clearInterval(reloadNotifications) }
     }, [])
 
     const [notificationsState, setNotificationsState] = useState([])
