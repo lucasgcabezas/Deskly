@@ -103,25 +103,21 @@ const notificationsControllers = {
         const taskPlanners = await Taskplanner.find({userId: req.user._id} )
         const userTask = await Task.find({"comments.userId": "609dc494ae8e9b400c4ebb8a"})
         
-        // console.log(idComents)
-    let idComents = userTask.map(task =>{
-           let aa =  task.filter((jose)=>{
-            jose.userId.toString() === req.user._id.toString()
-            return "hola"
-        }) 
-        // return aa          
-    })
-   console.log(idComents)
-    //     let aa = userTask.map(task => {
+    
+    let idComents = userTask.map(tasks =>{  
+            let  comments = tasks.comments.filter(comment =>{
+                comment.userId.toString() === req.user._id.toString()
+                return comment._id
+            }) 
+            let commentsId = comments.map(userId=> userId.userId )
+                return {commentsId}
             
-    //         let commentsOwnerArray = task.comments.map(comment => {
-    //         if (comment.userId.toString() === req.user._id.toString()) {
-    //             return comment._id
-    //         }
-    //         return commentsOwnerArray
-    //     })
-    // })
-    // console.log(aa)
+            
+        }
+        )
+    
+     let final = idComents.map(id=>id.commentsId)
+    console.log(...final)
         
         // res.json({ success: true, response:{boardsOwner, adminBoards,usersBoards,taskPlanners,userTask } })
     }
