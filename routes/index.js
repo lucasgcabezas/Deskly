@@ -9,11 +9,9 @@ const passport = require("passport")
 
 const { newUser, login, reLogin, inviteUserToBoard, checkNotifications } = userControllers
 const { acceptBoard, getComponents } = notificationsControllers
-
 const { getAllTaskplanner, getTaskplanner, getTaskplannerFromBoard, addTaskplanner, putTaskplanner, deleteTaskplanner } = taskplannerControllers
-
-const { getFromUser, addBoard, editBoard, deleteBoard, getUsersFromBoard} = boardsControllers
-const { getAllTasks, addTask, editTask, deleteTask, tasksFromTaskplanner, addComment, editComment, deleteComment } = tasksControllers
+const { getFromUser, addBoard, editBoard, deleteBoard, getUsersFromBoard } = boardsControllers
+const { getAllTasks, addTask, editTask, deleteTask, tasksFromTaskplanner,getAllComments,  addComment, editComment, deleteComment } = tasksControllers
 
 // routes boardsControllers 
 router.route('/board')
@@ -68,6 +66,7 @@ router.route('/task/:id')
 
 // TASK COMMENTS
 router.route('/task/comment/:id')
+    .get(getAllComments)
     .post(passport.authenticate('jwt', {session: false}) , addComment)
     .put(editComment)
     .delete(deleteComment)

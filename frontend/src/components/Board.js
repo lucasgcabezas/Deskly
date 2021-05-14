@@ -25,11 +25,14 @@ const Board = (props) => {
         } else {
             setBoard(boards.find(board => board._id === idParams))
         }
-    }, [])
-
-    useEffect(() => { 
-        tasksFetch()
+        tasksFetch() 
         usersFetch()
+        
+        const reloadTaskPlanner = setInterval(() => {
+            tasksFetch()
+        }, 5000)
+
+        return () => { clearInterval(reloadTaskPlanner) }
     }, [])
 
     const tasksFetch = async () => {
@@ -86,7 +89,6 @@ const Board = (props) => {
         await props.deleteBoard(board._id,props.userLogged.token)
         props.history.push('/myDesk')
     }
-    
     const editBoard = async () => {
         const response = await props.editBoard(board._id, updateInput, props.userLogged.token)
         setBoard(response)
@@ -145,8 +147,6 @@ const Board = (props) => {
             </div>
 
         </>
-
-
     )
 }
 

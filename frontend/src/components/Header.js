@@ -9,8 +9,16 @@ const Header = (props) => {
 
     const { userLogged, checkNotifications, acceptJoinToBoard } = props
 
-    useEffect(() => { activeCheckNotifications() }, [props])
-    
+    useEffect(() => {
+        activeCheckNotifications()
+        const reloadTaskPlanner = setInterval(() => {
+            activeCheckNotifications()
+            // console.log('Check')
+        }, 5000)
+
+        return () => { clearInterval(reloadTaskPlanner) }
+    }, [])
+
     const [notificationsState, setNotificationsState] = useState([])
 
     const activeCheckNotifications = async () => {

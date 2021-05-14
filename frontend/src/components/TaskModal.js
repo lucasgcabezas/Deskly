@@ -6,8 +6,8 @@ import Comment from './Comment'
 
 const TaskModal = (props) => {
 
-    const { title, _id } = props.task
-    const { addComment, setShow, show, userLogged, editTask } = props
+    const { title, description, _id } = props.task
+    const { addComment, setShow, show, userLogged, editTask, getComments } = props
 
     const [newComment, setNewComment] = useState({ userId: '', userCompleteName: '', message: '' })
     const [commentsState, setCommentsState] = useState([])
@@ -22,10 +22,21 @@ const TaskModal = (props) => {
         userName = `${userLogged.firstName} ${userLogged.lastName}`
     }
 
-    useEffect(() => { 
-        setCommentsState(props.task.comments) 
+    useEffect(() => {
+        setCommentsState(props.task.comments)
         setNewDescription({ description: props.task.description })
+
+        const reloadTaskPlanner = setInterval(() => {
+            getAllComments()
+        }, 2000)
+        return () => { clearInterval(reloadTaskPlanner) }
     }, [])
+
+    const getAllComments = async () => {
+        const response = await getComments(_id) 
+        setCommentsState(response)
+    }
+
 
     const readDataNewComment = (e) => {
         let value = e.target.value;
@@ -105,7 +116,9 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = {
     addComment: commentActions.addComment,
-    editTask: taskActions.editTask
+    getComments: commentActions.getComments,
+    editTask: taskActions.editTask,
+    
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskModal)
