@@ -32,10 +32,12 @@ const taskPlannerActions = {
             }
         }
     },
-    addTaskPlanner: (taskPlanner) => {
+    addTaskPlanner: (taskPlanner, token) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.post('http://localhost:4000/api/taskplanner', taskPlanner)
+                const response = await axios.post('http://localhost:4000/api/taskplanner', taskPlanner , {headers: {
+                    'Authorization': 'Bearer ' +token
+                }})
                 return response.data.response 
 
             } catch(error) {
@@ -43,7 +45,7 @@ const taskPlannerActions = {
             }
         }
     }
-
+  
 }
 
 export default taskPlannerActions

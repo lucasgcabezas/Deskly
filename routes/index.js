@@ -8,7 +8,7 @@ const notificationsControllers = require('../controllers/notificationsController
 const passport = require("passport")
 
 const { newUser, login, reLogin, inviteUserToBoard, checkNotifications } = userControllers
-const { acceptBoard } = notificationsControllers
+const { acceptBoard, getComponents } = notificationsControllers
 
 const { getAllTaskplanner, getTaskplanner, getTaskplannerFromBoard, addTaskplanner, putTaskplanner, deleteTaskplanner } = taskplannerControllers
 
@@ -27,7 +27,7 @@ router.route('/board/:id')
 // routes taskplannerControllers
 router.route('/taskplanner')
     .get(getAllTaskplanner)
-    .post(addTaskplanner)
+    .post(passport.authenticate('jwt', { session: false }),addTaskplanner)
 
 router.route('/taskplanner/:id')
     .get(getTaskplanner)
@@ -60,7 +60,7 @@ router.route("/relogin")
 // TASKS
 router.route('/task')
     .get(getAllTasks)
-    .post(addTask)
+    .post(passport.authenticate('jwt', { session: false }),addTask)
 
 router.route('/task/:id')
     .get(tasksFromTaskplanner)
@@ -72,5 +72,9 @@ router.route('/task/comment/:id')
     .post(passport.authenticate('jwt', {session: false}) , addComment)
     .put(editComment)
     .delete(deleteComment)
+   
+
+router.route("/usercomponents")
+    .get(passport.authenticate('jwt', { session: false }), getComponents)
 
 module.exports = router

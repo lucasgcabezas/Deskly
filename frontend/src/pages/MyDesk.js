@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import {connect} from "react-redux"
 import boardActions from "../redux/actions/boardActions"
 import BoardIndividual from '../components/BoardIndividual'
+import authActions from '../redux/actions/authActions'
 
 const MyDesk = (props) => {
     const {userLogged} = props
@@ -33,6 +34,9 @@ const MyDesk = (props) => {
                     <button onClick={addBoard}>Create a new board</button>
                 </div>
                 <h2>owner of...</h2>
+
+                <button style={{margin:"0rem 0rem 2rem 1rem "}}  onClick={() => props.setUserComponents(userLogged.token)}>Cargar redux</button>
+                <button style={{margin:"0rem 0rem 2rem 1rem "}}  onClick={() =>console.log(props.components)}>Console.log</button>
                 {
                     props.boards.map(board => <BoardIndividual key={board._id} board={board}/>)
                 }
@@ -45,13 +49,15 @@ const MyDesk = (props) => {
 const mapStateToProps= state =>{
     return{ 
         userLogged: state.authReducer.userLogged,
-        boards: state.boardReducer.boards
+        boards: state.boardReducer.boards,
+        components: state.authReducer.components,
     }
 }
 
 const mapDispatchToProps= {   
     addBoard: boardActions.addBoard,
-    getBoards:boardActions.getBoards
+    getBoards:boardActions.getBoards,
+    setUserComponents: authActions.setUserComponents
 }
 
 

@@ -113,7 +113,19 @@ const authActions = {
                 console.log(err)
             }
         }
-    }
+    },
+
+    setUserComponents: (token) => {
+        return async (dispatch, getState) => {
+            try {
+                const response = await axios.get('http://localhost:4000/api/usercomponents', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                })
+                console.log(response)
+                dispatch({ type: 'USER_COMPONENTS', payload: { ...response.data.response } })
+            } catch { }
+        }
+    },
 }
 
 export default authActions

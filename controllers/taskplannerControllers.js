@@ -2,6 +2,7 @@ const Taskplanner = require('../models/TaskplannerModel')
 
 const taskplannerControllers = {
     addTaskplanner: async(req,res) =>{
+       
         const newTaskplanner = new Taskplanner(req.body)
         try{
             await newTaskplanner.save()
