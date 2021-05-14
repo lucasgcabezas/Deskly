@@ -1,4 +1,3 @@
-import { set } from 'mongoose'
 import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import boardActions from '../redux/actions/boardActions'
