@@ -6,7 +6,7 @@ const authActions = {
 
             try {
                 const response = await axios.post('http://localhost:4000/api/newuser', user)
-                
+
                 // if (response.data.errorsValidator) {
                 //     return response.data.errorsValidator
 
@@ -14,12 +14,12 @@ const authActions = {
                 //     alert('Error',response.data.error, 'danger')
 
                 // } else {
-                    dispatch({ type: 'LOG_USER', payload: response.data })
-                    // alert(response.data.response.firstName,`Welcome to Mytinerary!`, 'success')
+                dispatch({ type: 'LOG_USER', payload: response.data })
+                // alert(response.data.response.firstName,`Welcome to Mytinerary!`, 'success')
                 // }
             } catch {
-                
-                alert('Error','Internal server error, please try later!', 'danger')
+
+                alert('Error', 'Internal server error, please try later!', 'danger')
             }
         }
     },
@@ -28,15 +28,15 @@ const authActions = {
         return async (dispatch, getState) => {
             try {
                 const response = await axios.post('http://localhost:4000/api/login', userToSignIn)
-               
+
                 // if (!response.data.success) {
                 //     alert('Oops',response.data.error, 'danger')
                 // } else {
-                    console.log(response)
-                    dispatch({ type: 'LOG_USER', payload: response.data.response })
-                    alert(response.data.response.firstName + 'Welcome to Deskly! success')
+                console.log(response)
+                dispatch({ type: 'LOG_USER', payload: response.data.response })
+                alert(response.data.response.firstName + 'Welcome to Deskly! success')
                 // }
-            } catch (error){
+            } catch (error) {
                 // alert('ricardo','Internal server error, please try later!', 'danger')
                 alert(error)
             }
@@ -51,7 +51,7 @@ const authActions = {
                 })
                 dispatch({ type: 'LOG_USER', payload: { ...response.data.response, token: userLocalStorage } })
             } catch (err) {
-                alert({err})
+                alert({ err })
                 dispatch({ type: 'LOGOUT_USER' })
             }
         }
@@ -64,12 +64,45 @@ const authActions = {
 
         }
     },
-    existUser:  (email) => {
+
+    inviteUserToBoard: (email, boardId) => {
         return async (dispatch, getSate) => {
+            console.log(email)
             try {
-                const response = await axios.get('http://localhost:4000/api/existuser/'+email)
+                const response = await axios.put('http://localhost:4000/api/inviteuser/' + email, {boardId})
+
                 console.log(response)
                 return response.data.success
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    },
+
+    checkNotifications: (userLs) => {
+        return async (dispatch, getSate) => {
+            try {
+                const response = await axios.get('http://localhost:4000/api/checkNotifications' , {
+                    headers: { 'Authorization': 'Bearer ' + userLs.token }
+                })
+                return response.data.response
+
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    },
+
+    acceptJoinToBoard: (boardId, userLs) => {
+        return async (dispatch, getSate) => {
+            try {
+                const response = await axios.get('http://localhost:4000/api/notification/'+ boardId , {
+                    headers: { 'Authorization': 'Bearer ' + userLs.token }
+                })
+                // console.log(response)
+                dispatch({ type: 'ADD_BOARDS', payload: response.data.response.board })
+                return response.data.response.notification
+
             } catch (err) {
                 console.log(err)
             }

@@ -6,7 +6,7 @@ import taskPlannerActions from '../redux/actions/taskPlannerActions'
 import TaskPlanner from './Taskplanner'
 
 const Board = (props) => {
-    const { boards } = props
+    const { boards, inviteUserToBoard } = props
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
     const [open, setOpen] = useState(false)
     const [update, setUpdate] = useState(false)
@@ -39,6 +39,7 @@ const Board = (props) => {
             addUser(newTitle)
         }
     }
+
     const sendValues = async () => {
         if (newTitle.trim() !== "") {
             await props.addTaskPlanner({ title: newTitle, boardId: board._id })
@@ -49,12 +50,34 @@ const Board = (props) => {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
     const addUser = async (email) => {
-        const response = await props.existUser(email)
+        const response = await inviteUserToBoard(email, board._id)
         if (response) {
             props.addUserToBoard(board._id, admin, email)
         }
     }
+
+
+
+
+
+
+
+
+
+
+
 
     const edit = async (idTaskPlanner, titleTaskPlanner) => {
         await props.editTaskPlanner(idTaskPlanner, titleTaskPlanner)
@@ -65,6 +88,7 @@ const Board = (props) => {
         await props.deleteTaskPlanner(idTaskPlanner)
         tasksFetch()
     }
+
     const readUpdateInput = (e) => {
         const field = e.target.name
         const value = e.target.value
@@ -78,6 +102,7 @@ const Board = (props) => {
         await props.deleteBoard(board._id)
         props.history.push('/myDesk')
     }
+    
     const editBoard = async () => {
         const response = await props.editBoard(board._id, updateInput)
         setBoard(response)
@@ -148,7 +173,7 @@ const mapDispatchToProps = {
     getTaskPlannerFromBoard: taskPlannerActions.getTaskPlannerFromBoard,
     editTaskPlanner: taskPlannerActions.editTaskPlanner,
     deleteTaskPlanner: taskPlannerActions.deleteTaskPlanner,
-    existUser: authActions.existUser,
+    inviteUserToBoard: authActions.inviteUserToBoard,
     addUserToBoard: boardActions.addUserToBoard
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Board)

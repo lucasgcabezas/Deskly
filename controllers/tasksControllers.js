@@ -68,7 +68,7 @@ const tasksControllers = {
     },
     deleteComment: async (req, res) => {
         const {id} = req.params
-        console.log(id)
+        // console.log(id)
         try {
             const deleteComment = await TaskModel.findOneAndUpdate({"comments._id": id}, {$pull: {comments: {_id: id}}}, { new: true })
             res.json({ response: deleteComment, success: true })

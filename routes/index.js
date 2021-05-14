@@ -4,27 +4,26 @@ const taskplannerControllers = require('../controllers/taskplannerControllers')
 const boardsControllers = require('../controllers/boardsControllers')
 const userControllers = require('../controllers/userControllers')
 const tasksControllers = require('../controllers/tasksControllers')
+const notificationsControllers = require('../controllers/notificationsControllers')
 const passport = require("passport")
 
-const { newUser, login, reLogin, existUser } = userControllers
+const { newUser, login, reLogin, inviteUserToBoard, checkNotifications } = userControllers
+const { acceptBoard } = notificationsControllers
 
 const { getAllTaskplanner, getTaskplanner, getTaskplannerFromBoard, addTaskplanner, putTaskplanner, deleteTaskplanner } = taskplannerControllers
 
-const { getFromUser, addBoard, editBoard, deleteBoard, addUserToBoard} = boardsControllers
-const {getAllTasks, addTask, editTask, deleteTask, tasksFromTaskplanner, addComment, editComment, deleteComment} = tasksControllers
+const { getFromUser, addBoard, editBoard, deleteBoard } = boardsControllers
+const { getAllTasks, addTask, editTask, deleteTask, tasksFromTaskplanner, addComment, editComment, deleteComment } = tasksControllers
 
 // routes boardsControllers 
 router.route('/board')
-.post(passport.authenticate('jwt', {session: false}),addBoard)
-.get(passport.authenticate('jwt', {session: false}),getFromUser)
+    .post(passport.authenticate('jwt', { session: false }), addBoard)
+    .get(passport.authenticate('jwt', { session: false }), getFromUser)
 
 router.route('/board/:id')
+    .put(editBoard)
+    .delete(deleteBoard)
 
-.put(editBoard)
-.delete(deleteBoard)
-
-router.route('/addUserToBoard/:id')
-.put(addUserToBoard)
 // routes taskplannerControllers
 router.route('/taskplanner')
     .get(getAllTaskplanner)
@@ -42,8 +41,16 @@ router.route('/taskplannerFromBoard/:id')
 router.route("/newuser")
     .post(newUser)
 
-router.route("/existuser/:email")
-    .get(existUser)
+router.route("/checkNotifications")
+    .get(passport.authenticate('jwt', { session: false }), checkNotifications)
+
+router.route("/notification/:idBoard")
+    .get(passport.authenticate('jwt', { session: false }), acceptBoard)
+
+
+router.route("/inviteuser/:email")
+    .put(inviteUserToBoard)
+
 router.route("/login")
     .post(login)
 

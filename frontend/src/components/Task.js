@@ -6,6 +6,7 @@ import TaskModal from './TaskModal'
 const Task = (props) => {
     const { task, allTasks, setAllTasks, editTask, deleteTask } = props
     const { _id, title, verify } = task
+    
     const [show, setShow] = useState(false)
 
     const [editionTask, setEditionTask] = useState({ title, verify })

@@ -1,4 +1,5 @@
 const BoardModel = require('../models/BoardModel')
+const User = require("../models/UserModel")
 
 const boardsControllers = {
 
@@ -8,7 +9,7 @@ const boardsControllers = {
         // Con passport
         try {
             const selectedBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.user._id } } })
-            console.log(selectedBoards)
+            // console.log(selectedBoards)
             response = selectedBoards
 
         } catch {
@@ -58,21 +59,8 @@ const boardsControllers = {
             console.log('ERROR: The controller deleteBoard has failed')
         }
         res.json({ success: !error ? true : false, response, error })
-    },
-    addUserToBoard: async (req, res) => {
-        try{
-            let {admin, email} = req.body
-
-            if(admin){
-                await BoardModel.findOneAndUpdate({_id:req.params.id},{$push: {'users': email, 'admins': email}})
-            }else{
-                await BoardModel.findOneAndUpdate({_id:req.params.id},{$push: {'users': email}})
-            }
-
-        }catch(error){
-            console.log(error)
-        }
     }
+
 }
 
 module.exports = boardsControllers
