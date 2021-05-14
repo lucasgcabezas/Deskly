@@ -66,6 +66,26 @@ const boardActions = {
             console.log(error)
         }
     },
+    userAdmin: (email, admin, id) => {
+        try{
+            return async (dispatch, getState) => {
+                const response = await axios.put("http://localhost:4000/api/boardAdmins/" +email, {admin,id})
+                return response.data.admins
+            }
+        }catch(error){
+            console.log(error)
+        }
+    },
+    getAdminsFromBoard: (email) => {
+        try{
+            return async (dispatch, getState) => {
+                const response = await axios.get("http://localhost:4000/api/boardAdmins/" +email)
+                return response.data.response.admins
+            }
+        }catch(error){
+            console.log(error)
+        }
+    } 
 }
 
 export default boardActions

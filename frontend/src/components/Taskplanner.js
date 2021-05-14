@@ -41,6 +41,7 @@ const TaskPlanner = (props) => {
             setAllTasks(tasks)
             setNewTask('')
         }
+        console.log(allTasks)
     }
 
     return (
@@ -67,6 +68,7 @@ const TaskPlanner = (props) => {
 
             <div>
                 {
+                    
                     preloader
                         ? <span>cargando</span>
                         : allTasks.map(task => <Task key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)

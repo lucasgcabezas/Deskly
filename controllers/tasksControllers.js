@@ -12,6 +12,7 @@ const tasksControllers = {
         try {
             const addNewTask = new TaskModel(req.body)
             await addNewTask.save()
+            
             res.json({ response: addNewTask, success: true })
         } catch (error) {
             res.json({ response: 'Internal server error', success: false })
