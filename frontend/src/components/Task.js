@@ -38,6 +38,7 @@ const Task = (props) => {
         let arrayFiltered = allTasks.filter(task => task._id != response._id)
         setAllTasks(arrayFiltered)
     }
+    
     return (
         <>
             <div style={{ backgroundColor: verify ? 'lightgreen' : 'white', border: 'solid 1px black', padding: '2vh 1vw' }}>

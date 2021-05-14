@@ -3,18 +3,18 @@ const tasksControllers = {
     getAllTasks: async (req, res) => {
         try {
             const allTasks = await TaskModel.find()
-            res.json({response: allTasks , success: true})
+            res.json({ response: allTasks, success: true })
         } catch (error) {
-            res.json({response: 'Internal server error', success: false})
+            res.json({ response: 'Internal server error', success: false })
         }
     },
     addTask: async (req, res) => {
         try {
             const addNewTask = new TaskModel(req.body)
             await addNewTask.save()
-            res.json({response: addNewTask, success:true})
+            res.json({ response: addNewTask, success: true })
         } catch (error) {
-            res.json({response: 'Internal server error', success:false})
+            res.json({ response: 'Internal server error', success: false })
         }
     },
     editTask: async (req, res) => {
@@ -38,12 +38,23 @@ const tasksControllers = {
     tasksFromTaskplanner: async (req, res) => {
         const id = req.params.id
         try {
-            const tasksFromTaskplanner = await TaskModel.find({taskplannerId: id})
-            await res.json({response: tasksFromTaskplanner, success: true})
+            const tasksFromTaskplanner = await TaskModel.find({ taskplannerId: id })
+            await res.json({ response: tasksFromTaskplanner, success: true })
         } catch (error) {
-            res.json({response: 'Internal server error', success:false})
+            res.json({ response: 'Internal server error', success: false })
         }
     },
+
+    getAllComments: async (req, res) => {
+        const taskId = req.params.id
+        try {
+            const allComments = await TaskModel.findById(taskId)
+            res.json({ response: allComments, success: true })
+        } catch (error) {
+            res.json({ response: 'Internal server error', success: false })
+        }
+    },
+
     addComment: async (req, res) => {
         const taskId = req.params.id
         try {
@@ -60,21 +71,21 @@ const tasksControllers = {
         const idComment = req.body.idComment
         try {
             const editComment = await TaskModel.findOneAndUpdate({ _id: taskId, "comments._id": idComment },
-            { $set: { "comments.$.message": message}}, { new: true })
+                { $set: { "comments.$.message": message } }, { new: true })
             res.json({ response: editComment, success: true })
         } catch (error) {
             res.json({ response: 'Internal server error', success: false })
         }
     },
     deleteComment: async (req, res) => {
-        const {id} = req.params
+        const { id } = req.params
         // console.log(id)
         try {
-            const deleteComment = await TaskModel.findOneAndUpdate({"comments._id": id}, {$pull: {comments: {_id: id}}}, { new: true })
+            const deleteComment = await TaskModel.findOneAndUpdate({ "comments._id": id }, { $pull: { comments: { _id: id } } }, { new: true })
             res.json({ response: deleteComment, success: true })
         } catch (error) {
             res.json({ response: 'Internal server error', success: false })
         }
     }
 }
-module.exports = tasksControllers                                                                                                                                                                                                                                                                                                                 
+module.exports = tasksControllers

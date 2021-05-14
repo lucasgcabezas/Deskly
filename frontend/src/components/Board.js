@@ -23,9 +23,14 @@ const Board = (props) => {
         } else {
             setBoard(boards.find(board => board._id === idParams))
         }
-    }, [])
+        tasksFetch() 
 
-    useEffect(() => { tasksFetch() }, [])
+        const reloadTaskPlanner = setInterval(() => {
+            tasksFetch()
+        }, 5000)
+
+        return () => { clearInterval(reloadTaskPlanner) }
+    }, [])
 
     const tasksFetch = async () => {
         const tasks = await props.getTaskPlannerFromBoard(idParams)
@@ -50,34 +55,12 @@ const Board = (props) => {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
     const addUser = async (email) => {
         const response = await inviteUserToBoard(email, board._id)
         if (response) {
             props.addUserToBoard(board._id, admin, email)
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
     const edit = async (idTaskPlanner, titleTaskPlanner) => {
         await props.editTaskPlanner(idTaskPlanner, titleTaskPlanner)
@@ -102,7 +85,6 @@ const Board = (props) => {
         await props.deleteBoard(board._id)
         props.history.push('/myDesk')
     }
-    
     const editBoard = async () => {
         const response = await props.editBoard(board._id, updateInput)
         setBoard(response)
@@ -155,8 +137,6 @@ const Board = (props) => {
             </div>
 
         </>
-
-
     )
 }
 
@@ -174,6 +154,6 @@ const mapDispatchToProps = {
     editTaskPlanner: taskPlannerActions.editTaskPlanner,
     deleteTaskPlanner: taskPlannerActions.deleteTaskPlanner,
     inviteUserToBoard: authActions.inviteUserToBoard,
-    addUserToBoard: boardActions.addUserToBoard
+    addUserToBoard: boardActions.addUserToBoard,
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Board)

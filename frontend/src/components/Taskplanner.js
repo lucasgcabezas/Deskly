@@ -10,13 +10,17 @@ const TaskPlanner = (props) => {
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [editTitle, setEditTitle] = useState(true)
-    // console.log(props)
 
-    useEffect(() => { fetchAllTasks() }, [])
+    useEffect(() => {
+        fetchAllTasks()
+        const reloadTaskPlanner = setInterval(() => {
+            fetchAllTasks()
+        }, 5000)
+        return () => { clearInterval(reloadTaskPlanner) }
+    }, [])
 
     const fetchAllTasks = async () => {
         const response = await props.tasksFromTaskplanner(props.taskplanner._id)
-        // console.log(response)
         setAllTasks(response)
         setPreloader(false)
     }
@@ -39,17 +43,17 @@ const TaskPlanner = (props) => {
     }
 
     return (
-        <div style={{width: '25vw'}}>
+        <div style={{ width: '25vw' }}>
             <div>
                 <button onClick={() => props.erase(props.taskplanner._id)}>Delete</button>
             </div>
-            {editTitle && <h1 style={{cursor:'pointer'}} onClick={() => {setEditTitle(!editTitle); setNewTitle(props.taskplanner.title)}}>{props.taskplanner.title}</h1>}
+            {editTitle && <h1 style={{ cursor: 'pointer' }} onClick={() => { setEditTitle(!editTitle); setNewTitle(props.taskplanner.title) }}>{props.taskplanner.title}</h1>}
             {!editTitle && <div>
                 <input onKeyDown={(e) => enter(e, 'edit')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
                 <button onClick={newTitle.trim() && (() => props.edit(props.taskplanner._id, newTitle))}>Send</button>
             </div>
             }
-            <button onClick={()=>setOpen(!open)}>add task</button>
+            <button onClick={() => setOpen(!open)}>add task</button>
             {
                 open && <div>
                     <input onKeyDown={(e) => enter(e, 'task')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
@@ -59,9 +63,9 @@ const TaskPlanner = (props) => {
 
             <div>
                 {
-                preloader
-                    ? <span>cargando</span>
-                    : allTasks.map(task => <Task key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
+                    preloader
+                        ? <span>cargando</span>
+                        : allTasks.map(task => <Task key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
                 }
             </div>
 
