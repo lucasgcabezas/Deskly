@@ -11,7 +11,7 @@ const TaskModal = (props) => {
     const [newComment, setNewComment] = useState({ userId: '', userCompleteName: '', message: '' })
     const [comments, setComments] = useState([])
     const [editDescription, setEditDescription] = useState(true)
-    const [newDescription, setNewDescription] = useState({description: ''})
+    const [newDescription, setNewDescription] = useState({ description: '' })
 
     let display = !show ? 'none' : 'block'
     let userId = '609c18aad4020c529018f542'
@@ -39,11 +39,11 @@ const TaskModal = (props) => {
     }
     const sendDescription = async () => {
         const response = await editTask(props.task._id, newDescription)
-        setNewDescription({description: response.description})
+        setNewDescription({ description: response.description })
         setEditDescription(!editDescription)
     }
-    
-    let descriptionText = newDescription.description === ''?props.task.description : newDescription.description
+    console.log(props.task.description);
+    let descriptionText = newDescription.description === '' ? props.task.description : newDescription.description
     return (
         <>
             <div style={{ display: display }}>
@@ -55,11 +55,18 @@ const TaskModal = (props) => {
                     <button onClick={() => setShow(false)}>X</button>
                 </div>
                 <div>
-                    {editDescription && <h4 style={{ cursor: 'pointer' }} onClick={() => {setEditDescription(!editDescription)}}>{descriptionText}</h4>}
+                    {!props.task.description
+                        && <div>
+                            <input type="text" value={newDescription.description} onChange={(e) => setNewDescription({ description: e.target.value })} />
+                            <button onClick={sendDescription} >guardar</button>
+                            <button onClick={() => setEditDescription(!editDescription)}>cancelar</button>
+                        </div>
+                    }
+                    {editDescription && <h4 style={{ cursor: 'pointer' }} onClick={() => { setEditDescription(!editDescription) }}>{descriptionText}</h4>}
                     {!editDescription && <div>
-                        <input  type="text" value={newDescription.description} onChange={(e) => setNewDescription({description: e.target.value})}/>
+                        <input type="text" value={newDescription.description} onChange={(e) => setNewDescription({ description: e.target.value })} />
                         <button onClick={sendDescription} >guardar</button>
-                        <button onClick={()=>setEditDescription(!editDescription)}>cancelar</button>
+                        <button onClick={() => setEditDescription(!editDescription)}>cancelar</button>
                     </div>
                     }
                 </div>
