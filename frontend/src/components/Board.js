@@ -16,7 +16,7 @@ const Board = (props) => {
     const [updateInput, setUpdateInput] = useState()
     const [openInvite, setOpenInvite] = useState(false)
     const [admin, setAdmin] = useState(false)
-
+    console.log(board)
     useEffect(() => {
         if (props.boards.length === 0) {
             props.history.push('/myDesk')
