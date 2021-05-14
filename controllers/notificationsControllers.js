@@ -110,14 +110,11 @@ const notificationsControllers = {
                 return comment._id
             }) 
             let commentsId = comments.map(userId=> userId.userId )
-                return {commentsId}
-            
-            
+                return commentsId  
         }
-        )
-    
-     let final = idComents.map(id=>id.commentsId)
-    console.log(...final)
+        )    
+   
+    console.log(idComents)
         
         // res.json({ success: true, response:{boardsOwner, adminBoards,usersBoards,taskPlanners,userTask } })
     }
