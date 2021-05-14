@@ -1,5 +1,17 @@
 import axios from "axios"
-
+import { store } from 'react-notifications-component'
+const desklyAlert = async (alertTitle, alertMessage, alertType) => {
+    await store.addNotification({
+        title: alertTitle,
+        message: alertMessage,
+        type: alertType,
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__flipInX"],
+        animationOut: ["animate__animated", "animate__fadeOutDown"],
+        dismiss: { duration: 3000, onScreen: true, pauseOnHover: true, showIcon: true }
+    })
+}
 const boardActions = {
     deleteBoard: (id,token) => {
         return async (dispatch, getState) => {
@@ -7,9 +19,13 @@ const boardActions = {
                 const response = await axios.delete("http://localhost:4000/api/board/" + id, {headers: {
                     'Authorization': 'Bearer ' + token
                 }})
-                dispatch({type: 'DELETE_BOARDS', payload:response.data.response._id})
+                if (!response.data.success) {
+                    desklyAlert('Oops', response.data.error, 'danger')
+                } else {
+                    dispatch({type: 'DELETE_BOARDS', payload:response.data.response._id})
+                }
             } catch (error){
-                alert('Error','Internal server error, please try later!', 'danger')
+                desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
                 console.log(error)
             }
         }
@@ -23,9 +39,14 @@ const boardActions = {
                         'Authorization': 'Bearer ' + token
                     }
                 })
-                dispatch({ type: 'ADD_BOARDS', payload: response.data.response })
+                if (!response.data.success) {
+                    desklyAlert('Oops', response.data.error, 'danger')
+                } else {
+                    dispatch({ type: 'ADD_BOARDS', payload: response.data.response })
+                }
             }
         } catch (error) {
+            desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
             console.log(error)
         }
     },
@@ -36,13 +57,18 @@ const boardActions = {
                 const response = await axios.put("http://localhost:4000/api/board/" + id, {title, description} ,{headers: {
                     'Authorization': 'Bearer ' + token
                 }})
-                return (response.data.response)
+                if (!response.data.success) {
+                    desklyAlert('Oops', response.data.error, 'danger')
+                } else {
+                    return response.data.response
+                }
             }
         } catch (error) {
+            desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
             console.log(error)
         }
     },
-    getBoards: (token) => {
+    getBoardsFromUser: (token) => {
         try {
             return async (dispatch, getState) => {
                 const response = await axios.get("http://localhost:4000/api/board", {
@@ -50,9 +76,14 @@ const boardActions = {
                         'Authorization': 'Bearer ' + token
                     }
                 })
-                dispatch({ type: 'GET_BOARDS', payload: response.data.response })
+                if (!response.data.success) {
+                    desklyAlert('Oops', response.data.error, 'danger')
+                } else {
+                    dispatch({ type: 'GET_BOARDS', payload: response.data.response })
+                }
             }
         } catch (error) {
+            desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
             console.log(error)
         }
     },
@@ -60,9 +91,14 @@ const boardActions = {
         try {
             return async (dispatch, getState) => {
                 const response = await axios.get("http://localhost:4000/api/board/" +idBoard)
-                return response.data.users
+                if (!response.data.success) {
+                    desklyAlert('Error', response.data.response, 'danger')
+                } else {
+                    return response.data.users
+                }
             }
         } catch (error) {
+            desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
             console.log(error)
         }
     },

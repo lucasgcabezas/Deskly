@@ -6,15 +6,12 @@ const boardsControllers = {
     getFromUser: async (req, res) => {
         let response;
         let error;
-        // Con passport
         try {
             const selectedBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.user._id } } })
-            // console.log(selectedBoards)
             response = selectedBoards
-
         } catch {
-            error = "An error occurred during process, please try later."
-            console.log('ERROR: The controller getForUser has failed')
+            error = "Ha ocurrido un error en el servidor, intente más tarde!"
+            console.log('ERROR: El controlador getFromUser está fallando')
         }
         res.json({ success: !error ? true : false, response, error })
     },
@@ -27,8 +24,8 @@ const boardsControllers = {
             await boardToAdd.save()
             response = boardToAdd
         } catch {
-            error = "An error occurred during process, please try later."
-            console.log('ERROR: The controller addBoard has failed')
+            error = "Ha ocurrido un error en el servidor, intente más tarde!"
+            console.log('ERROR: El controlador addBoard está fallando')
         }
         res.json({ success: !error ? true : false, response, error })
     },
@@ -45,8 +42,8 @@ const boardsControllers = {
             }
 
         } catch {
-            error = "An error occurred during process, please try later."
-            console.log('ERROR: The controller editBoard has failed')
+            error = "Ha ocurrido un error en el servidor, intente más tarde!"
+            console.log('ERROR: El controlador editBoard está fallando')
         }
         res.json({ success: !error ? true : false, response, error })
     },
@@ -57,13 +54,11 @@ const boardsControllers = {
         try {
             const board = await BoardModel.findById(req.params.id)
             if(String(board.owner) === req.user.id){
-                console.log("ENTRO")
                 response = await BoardModel.findByIdAndDelete(req.params.id)
             }
-
         } catch {
-            error = "An error occurred during process, please try later."
-            console.log('ERROR: The controller deleteBoard has failed')
+            error = "Ha ocurrido un error en el servidor, intente más tarde!"
+            console.log('ERROR: El controlador deleteBoard está fallando')
         }
         res.json({ success: !error ? true : false, response, error })
     },
@@ -72,7 +67,7 @@ const boardsControllers = {
             const board = await BoardModel.findById(req.params.id).populate({path:"users",select:{ "firstName":1 ,"lastName":1,"email":1,"img":1}})
             res.json({success: true, users: board.users})
         }catch(error){
-            console.log(error)
+            res.json({success: false, response:'Ha ocurrido un error en el servidor, intente más tarde!'})
         }
     }
     // rolOwner: async (req, res) => {

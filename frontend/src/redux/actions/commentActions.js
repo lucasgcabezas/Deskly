@@ -1,14 +1,31 @@
 import axios from 'axios'
-
-
+import { store } from 'react-notifications-component'
+const desklyAlert = async (alertTitle, alertMessage, alertType) => {
+    await store.addNotification({
+        title: alertTitle,
+        message: alertMessage,
+        type: alertType,
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__flipInX"],
+        animationOut: ["animate__animated", "animate__fadeOutDown"],
+        dismiss: { duration: 3000, onScreen: true, pauseOnHover: true, showIcon: true }
+    })
+}
 const commentActions = {
+    
     getComments: (taskId) => {
         return async (dispatch, getState) => {
             try {
                 const response = await axios.get('http://localhost:4000/api/task/comment/' + taskId)
-                return response.data.response.comments // Array de todos los comentarios con el nuevo
+                if (!response.data.success) {
+                    desklyAlert('Error', response.data.response, 'danger')
+                } else {
+                    return response.data.response.comments
+                }
             } catch (error) {
-                console.log('error en tasks actions ', error)
+                console.log(error)
+                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
             }
         }
     },
@@ -16,15 +33,17 @@ const commentActions = {
     addComment: (taskId, newComment, userToken) => {
         return async (dispatch, getState) => {
             try {
-                console.log(taskId, newComment);
                 const response = await axios.post('http://localhost:4000/api/task/comment/' + taskId, newComment, {
                     headers: { 'Authorization': 'Bearer ' + userToken }
                 })
-                // newComment : {objectId del usuario , nombre del usuario , mensaje}
-                return response.data.response.comments // Array de todos los comentarios con el nuevo
-                
+                if (!response.data.success) {
+                    desklyAlert('Error', response.data.response, 'danger')
+                } else{
+                    return response.data.response.comments
+                }
             } catch (error) {
-                console.log('error en tasks actions ', error)
+                console.log(error)
+                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
             }
         }
     },
@@ -33,11 +52,15 @@ const commentActions = {
         return async (dispatch, getState) => {
             try {
                 const response = await axios.put('http://localhost:4000/api/task/comment/' + taskId, editedComment)
-                // editedComment : {id fel comentario , mensaje}
-                return response.data.response.comments // Array de todos los comentarios con el editado
+                if (!response.data.success) {
+                    desklyAlert('Error', response.data.response, 'danger')
+                } else{
+                    return response.data.response.comments
+                }
+            } catch (error) {
+                console.log(error)
+                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
 
-            } catch {
-                console.log('error en tasks actions ')
             }
         }
     },
@@ -46,10 +69,14 @@ const commentActions = {
         return async (dispatch, getState) => {
             try {
                 const response = await axios.delete('http://localhost:4000/api/task/comment/' + commentId)
-                return response.data.response.comments // Array de todos los comentarios si el borrado
-
-            } catch {
-                console.log('error en tasks actions ')
+                if (!response.data.success) {
+                    desklyAlert('Error', response.data.response, 'danger')
+                } else{
+                    return response.data.response.comments
+                }
+            } catch (error) {
+                console.log(error)
+                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
             }
         }
     }
