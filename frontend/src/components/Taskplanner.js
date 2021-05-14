@@ -36,7 +36,7 @@ const TaskPlanner = (props) => {
 
     const sendValues = async () => {
         if (newTask.trim() !== "") {
-            await props.addTask({ title: newTask, taskplannerId: props.taskplanner._id })
+            await props.addTask({ title: newTask, taskplannerId: props.taskplanner._id }, props.userLogged.token)
             const tasks = await props.tasksFromTaskplanner(props.taskplanner._id)
             setAllTasks(tasks)
             setNewTask('')

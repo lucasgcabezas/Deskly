@@ -53,7 +53,7 @@ const SignUp = (props) => {
     }
     const responseFacebook = (response) => {
         const {name, email, id, picture} = response
-        sendValueUser(null, {firstName: name, lastName:name, email, password: "a"+ id, img: picture.data.url, facebook:true})
+        sendValueUser(null, {firstName: name, lastName:null, email, password: "a"+ id, img: picture.data.url, facebook:true})
     }
 
     return (
