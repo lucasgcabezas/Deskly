@@ -5,7 +5,6 @@ const taskplannerSchema = new mongoose.Schema({
     description: {type: String},
     archived: {type: Boolean, default: false},
     boardId: {type: mongoose.Types.ObjectId, ref: 'board'},
-    userId: {type: mongoose.Types.ObjectId, ref: 'user'}
 })
 
 const Taskplanner = mongoose.model('taskplanner',taskplannerSchema)

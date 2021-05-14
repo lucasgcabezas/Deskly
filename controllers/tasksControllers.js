@@ -9,10 +9,9 @@ const tasksControllers = {
         }
     },
     addTask: async (req, res) => {
-        const{ title, taskplannerId}= req.body
-        console.log(req.body)
+     
         try {
-            const addNewTask = new TaskModel({title, taskplannerId, userId:req.user._id})
+            const addNewTask = new TaskModel(req.body)
             await addNewTask.save()
             res.json({response: addNewTask, success:true})
         } catch (error) {

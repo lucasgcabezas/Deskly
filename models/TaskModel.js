@@ -7,7 +7,6 @@ const taskSchema = new mongoose.Schema({
     comments: [{userId:{type: mongoose.Types.ObjectId, ref:'user'}, userCompleteName: {type: String}, message:{type: String}}],
     verify: {type: Boolean, default: false},
     taskplannerId: {type:mongoose.Types.ObjectId, ref: 'taskplanner', required: true},
-    userId: {type: mongoose.Types.ObjectId, ref: 'user'}
 })
 const TaskModel = mongoose.model('task', taskSchema)
 module.exports = TaskModel
