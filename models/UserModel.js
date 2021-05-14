@@ -7,7 +7,8 @@ const userScheema = mongoose.Schema({
   img: { type: String, required: true },
   invitations: [String],
   password: { type: String, required: true },
-  google: { type: Boolean, default: false }
+  google: { type: Boolean, default: false },
+  facebook: {type: Boolean, default: false}
 })
 
 const User = mongoose.model("user", userScheema)
