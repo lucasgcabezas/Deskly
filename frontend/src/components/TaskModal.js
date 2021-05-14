@@ -48,11 +48,10 @@ const TaskModal = (props) => {
 
     const sendDescription = async () => {
         const response = await editTask(props.task._id, newDescription)
-        console.log(response)
         setNewDescription({ description: response.description })
         setEditDescription(!editDescription)
     }
-    
+
     let descriptionText = newDescription.description === '' ? 'Añadir una descripción mas detallada' : newDescription.description
 
     return (
