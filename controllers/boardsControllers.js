@@ -77,8 +77,8 @@ const boardsControllers = {
     },
     userAdmin: async (req,res) => {
         try{
-            let user = props.userAdmin(admin,props.user.email)
-            let admins = ''
+            let user = await User.findOne({email: req.params.email})
+            let admins = null
             if(req.body.admin){
                 console.log('se agrego')
                 admins = await BoardModel.findOneAndUpdate({_id:req.body.id},{$push: {'admins': user._id}}).populate({path:"admins",select:{"email":1}})
