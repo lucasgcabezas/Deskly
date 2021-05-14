@@ -17,7 +17,7 @@ const TaskModal = (props) => {
     let display = !show ? 'none' : 'block'
     let userId = '609c18aad4020c529018f542'
     let userName;
-
+    let token = props.userLogged && props.userLogged.token
     if (userLogged) {
         userName = `${userLogged.firstName} ${userLogged.lastName}`
     }
@@ -31,7 +31,6 @@ const TaskModal = (props) => {
         let value = e.target.value;
         setNewComment({
             message: value,
-            userId: userId,//aca va el userid cuando lo reciba 
             userCompleteName: userName //aca va el username cuando lo reciba 
         })
     }
@@ -41,7 +40,7 @@ const TaskModal = (props) => {
             alert('comentario vacio')
             return false
         }
-        let response = await addComment(_id, newComment)
+        let response = await addComment(_id, newComment, token)
         setCommentsState(response)
         setNewComment({ userId: '', userCompleteName: '', message: '' })
     }
@@ -64,12 +63,12 @@ const TaskModal = (props) => {
                     </div>
                     <button onClick={() => setShow(false)}>X</button>
                 </div>
-                <div>
+                <div> 
                     <h3>Descripción</h3>
                         <>
-                            {editDescription && <p style={{ cursor: 'pointer' }} onClick={() => { setEditDescription(!editDescription) }}>{descriptionText}</p>}
+                            {editDescription && <p style={{ cursor: 'pointer' }} onClick={() => { setEditDescription(!editDescription) }}>{descriptionText ?descriptionText :'Añadir una descripción mas detallada'}</p>}
                             {!editDescription && <div>
-                                <textarea type="text" value={newDescription.description} onChange={(e) => setNewDescription({ description: e.target.value })} />
+                                <textarea placeholder='Añadir una descripción mas detallada' type="text" value={newDescription.description} onChange={(e) => setNewDescription({ description: e.target.value })} />
                                 <button onClick={sendDescription} >guardar</button>
                                 <button onClick={() => setEditDescription(!editDescription)}>cancelar</button>
                             </div>

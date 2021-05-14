@@ -69,7 +69,7 @@ router.route('/task/:id')
 
 // TASK COMMENTS
 router.route('/task/comment/:id')
-    .post(addComment)
+    .post(passport.authenticate('jwt', {session: false}) , addComment)
     .put(editComment)
     .delete(deleteComment)
 
