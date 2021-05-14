@@ -1,4 +1,5 @@
 const User = require("../models/UserModel")
+const BoardModel = require('../models/BoardModel')
 const bcryptjs = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
@@ -6,7 +7,7 @@ const jwt = require("jsonwebtoken")
 const userControllers = {
     newUser: async (req, res) => {
         var error
-        var { firstName, lastName, email, img, password, google, facebook} = req.body
+        var { firstName, lastName, email, img, password, google, facebook } = req.body
         try {
             const emailExist = await User.findOne({ email })
             if (!emailExist) {
@@ -33,7 +34,7 @@ const userControllers = {
     },
 
     login: async (req, res) => {
-        const { email, password, google, facebook} = req.body
+        const { email, password, google, facebook } = req.body
         var response;
         var error;
         try {
@@ -66,14 +67,23 @@ const userControllers = {
     },
 
     inviteUserToBoard: async (req, res) => {
-        await User.findOneAndUpdate({ email: req.params.email }, { $addToSet: { 'invitations': req.body.boardId } })
+        const userInvited = await User.findOne({ email: req.params.email })
+        let chekInvitation = userInvited.invitations.some(inv => req.body.boardId)
+
+        const userInBoard = await BoardModel.findOne({ _id: req.body.boardId})
+        let checkAlredyInBoard = userInBoard.users.some(userId => userId === userInvited._id )
+
+        if (!chekInvitation && checkAlredyInBoard) {
+            await userInvited.updateOne({ $push: { 'invitations': req.body.boardId } })
+        }else {
+            console.log('ya está')
+        }
     },
 
     checkNotifications: async (req, res) => {
         const userNotificated = await User.findById(req.user._id)
-        res.json({response : userNotificated.invitations })
+        res.json({ response: userNotificated.invitations })
     }
-
 }
 
 module.exports = userControllers

@@ -111,6 +111,19 @@ const authActions = {
         }
     },
 
+    rejectJoinToBoard: (boardId, userLs) => {
+        return async (dispatch, getSate) => {
+            try {
+                const response = await axios.get('http://localhost:4000/api/reject/'+ boardId , {
+                    headers: { 'Authorization': 'Bearer ' + userLs.token }
+                })
+                return response.data.response.notification
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    },
+
     setUserComponents: (token) => {
         return async (dispatch, getState) => {
             try {
