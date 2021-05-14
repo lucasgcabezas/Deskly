@@ -6,7 +6,7 @@ import Comment from './Comment'
 
 const TaskModal = (props) => {
 
-    const { title, description, _id } = props.task
+    const { title, _id } = props.task
     const { addComment, setShow, show, userLogged, editTask } = props
 
     const [newComment, setNewComment] = useState({ userId: '', userCompleteName: '', message: '' })
@@ -22,7 +22,10 @@ const TaskModal = (props) => {
         userName = `${userLogged.firstName} ${userLogged.lastName}`
     }
 
-    useEffect(() => { setCommentsState(props.task.comments) }, [])
+    useEffect(() => { 
+        setCommentsState(props.task.comments) 
+        setNewDescription({ description: props.task.description })
+    }, [])
 
     const readDataNewComment = (e) => {
         let value = e.target.value;
@@ -42,17 +45,16 @@ const TaskModal = (props) => {
         setCommentsState(response)
         setNewComment({ userId: '', userCompleteName: '', message: '' })
     }
+
     const sendDescription = async () => {
         const response = await editTask(props.task._id, newDescription)
+        console.log(response)
         setNewDescription({ description: response.description })
         setEditDescription(!editDescription)
     }
-<<<<<<< HEAD
-    console.log(props.task.description);
-=======
+    
+    let descriptionText = newDescription.description === '' ? 'Añadir una descripción mas detallada' : newDescription.description
 
->>>>>>> 3490d71cca0b76d1248129396be70d2bb9c8027b
-    let descriptionText = newDescription.description === '' ? props.task.description : newDescription.description
     return (
         <>
             <div style={{ display: display }}>
@@ -64,28 +66,21 @@ const TaskModal = (props) => {
                     <button onClick={() => setShow(false)}>X</button>
                 </div>
                 <div>
-<<<<<<< HEAD
-                    {!props.task.description
-                        && <div>
-                            <input type="text" value={newDescription.description} onChange={(e) => setNewDescription({ description: e.target.value })} />
-                            <button onClick={sendDescription} >guardar</button>
-                            <button onClick={() => setEditDescription(!editDescription)}>cancelar</button>
-                        </div>
-                    }
-=======
->>>>>>> 3490d71cca0b76d1248129396be70d2bb9c8027b
-                    {editDescription && <h4 style={{ cursor: 'pointer' }} onClick={() => { setEditDescription(!editDescription) }}>{descriptionText}</h4>}
-                    {!editDescription && <div>
-                        <input type="text" value={newDescription.description} onChange={(e) => setNewDescription({ description: e.target.value })} />
-                        <button onClick={sendDescription} >guardar</button>
-                        <button onClick={() => setEditDescription(!editDescription)}>cancelar</button>
-                    </div>
-                    }
+                    <h3>Descripción</h3>
+                        <>
+                            {editDescription && <p style={{ cursor: 'pointer' }} onClick={() => { setEditDescription(!editDescription) }}>{descriptionText}</p>}
+                            {!editDescription && <div>
+                                <textarea type="text" value={newDescription.description} onChange={(e) => setNewDescription({ description: e.target.value })} />
+                                <button onClick={sendDescription} >guardar</button>
+                                <button onClick={() => setEditDescription(!editDescription)}>cancelar</button>
+                            </div>
+                            }
+                        </>
                 </div>
                 <div>
                     <h3>Actividad</h3>
                     {commentsState.length === 0
-                        ? <h2>Sin comentarios</h2>
+                        ? <h3>Sin comentarios</h3>
                         : commentsState.map(comment => {
                             return <Comment key={comment._id} comment={comment} setCommentsState={setCommentsState} idTask={_id} />
                         })
