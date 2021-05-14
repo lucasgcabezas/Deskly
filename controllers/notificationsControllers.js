@@ -101,8 +101,11 @@ const notificationsControllers = {
         const adminBoards = await BoardModel.find({ admins: { $elemMatch: { $eq: req.user._id } } })
         const usersBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.user._id } } })
         const taskPlanners = await Taskplanner.find({userId: req.user._id} )
-        const userTask = await Task.find({userId: req.user._id} )
-        res.json({ success: true, response:{boardsOwner, adminBoards,usersBoards,taskPlanners,userTask } })
+        const userTask = await Task.find({"comments.userId": "609dc494ae8e9b400c4ebb8a"})
+
+        console.log(userTask)
+        
+        // res.json({ success: true, response:{boardsOwner, adminBoards,usersBoards,taskPlanners,userTask } })
     }
 
 
