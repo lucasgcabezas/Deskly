@@ -14,10 +14,12 @@ const taskActions = {
         }
     },
 
-    addTask: (taskToAdd) => {
+    addTask: (taskToAdd , token) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.post('http://localhost:4000/api/task', taskToAdd)
+                const response = await axios.post('http://localhost:4000/api/task', taskToAdd, {headers: {
+                    'Authorization': 'Bearer ' +token
+                }})
                 return response.data.response // Object que contiene solo la task agregada
 
             } catch {

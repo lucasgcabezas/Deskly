@@ -2,7 +2,8 @@ const Taskplanner = require('../models/TaskplannerModel')
 
 const taskplannerControllers = {
     addTaskplanner: async(req,res) =>{
-        const newTaskplanner = new Taskplanner(req.body)
+        const  {title , boardId } = req.body
+        const newTaskplanner = new Taskplanner({title , boardId , userId: req.user._id})
         try{
             await newTaskplanner.save()
             res.json({success: true, response: newTaskplanner})

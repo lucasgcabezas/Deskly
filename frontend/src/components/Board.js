@@ -42,7 +42,7 @@ const Board = (props) => {
 
     const sendValues = async () => {
         if (newTitle.trim() !== "") {
-            await props.addTaskPlanner({ title: newTitle, boardId: board._id })
+            await props.addTaskPlanner({ title: newTitle, boardId: board._id },props.userLogged.token)
             const tasks = await props.getTaskPlannerFromBoard(board._id)
             console.log(tasks)
             setAllTasksPlanner(tasks)

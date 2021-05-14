@@ -1,5 +1,7 @@
 const BoardModel = require('../models/BoardModel')
 const User = require("../models/UserModel")
+const Taskplanner = require("../models/TaskplannerModel")
+const Task = require("../models/TaskModel")
 
 const notificationsControllers = {
 
@@ -34,32 +36,6 @@ const notificationsControllers = {
             }
             res.json({ success: !error ? true : false, response, error })
         },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         addBoard: async (req, res) => {
@@ -118,6 +94,16 @@ const notificationsControllers = {
                             console.log(error)
                         }
                     },
+
+     getComponents: async (req, res) => {
+       
+        const boardsOwner = await BoardModel.find({owner:req.user._id} )
+        const adminBoards = await BoardModel.find({ admins: { $elemMatch: { $eq: req.user._id } } })
+        const usersBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.user._id } } })
+        const taskPlanners = await Taskplanner.find({userId: req.user._id} )
+        const userTask = await Task.find({userId: req.user._id} )
+        res.json({ success: true, response:{boardsOwner, adminBoards,usersBoards,taskPlanners,userTask } })
+    }
 
 
 }

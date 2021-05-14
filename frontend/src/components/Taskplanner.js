@@ -31,7 +31,7 @@ const TaskPlanner = (props) => {
 
     const sendValues = async () => {
         if (newTitle.trim() !== "") {
-            await props.addTask({ title: newTitle, taskplannerId: props.taskplanner._id })
+            await props.addTask({ title: newTitle, taskplannerId: props.taskplanner._id },props.userLogged.token)
             const tasks = await props.tasksFromTaskplanner(props.taskplanner._id)
             setAllTasks(tasks)
             setNewTitle('')
@@ -69,10 +69,16 @@ const TaskPlanner = (props) => {
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        userLogged: state.authReducer.userLogged,
+    }
+}
+
 const mapDispatchToProps = {
     addTask: taskActions.addTask,
     tasksFromTaskplanner: taskActions.tasksFromTaskplanner,
     editTaskPlanner: taskActions.editTaskPlanner
 }
 
-export default connect(null, mapDispatchToProps)(TaskPlanner)
+export default connect(mapStateToProps, mapDispatchToProps)(TaskPlanner)
