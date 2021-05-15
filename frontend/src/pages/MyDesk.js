@@ -4,14 +4,15 @@ import boardActions from "../redux/actions/boardActions"
 import BoardIndividual from '../components/BoardIndividual'
 import authActions from '../redux/actions/authActions'
 import Nav from "../components/Nav"
+import LateralMenu from "../components/LateralMenu"
 
 const MyDesk = (props) => {
     const { userLogged } = props
     const [inputBoard, setInputBoard] = useState({ title: '', description: '', token: '' })
     const [newBoardModal, setNewBoardModal] = useState(false)
+
     const [menuLateral, setMenuLateral] = useState(false)
 
-    let classMenuLateral = menuLateral ? 'lateralMenuOpen' : 'lateralMenuClose'
 
     const readInputBoard = (e) => {
         const field = e.target.name
@@ -35,20 +36,17 @@ const MyDesk = (props) => {
 
     return (
         <div className="myDesk">
-            <div className={classMenuLateral}>
-                <span className="fas fa-bars"></span>
-                {/* <button onClick={() => setMenuLateral(!menuLateral)}>Open</button> */}
-                <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
-                
-                <div className="menuLateralInfo" style={{ display: menuLateral ? 'flex' : 'none' }}>
-                    <div className="userPic" style={{ backgroundImage : `url('${userLogged.img}')`}}></div>
-                    <span className="userCompleteName">{userLogged.firstName + ' ' + (userLogged.lastName || '')}</span>
-                    <Nav />
 
-                </div>
-            </div>
+            <LateralMenu setMenuLateral={setMenuLateral} menuLateral={menuLateral}/>
 
             <div className="mydeskContainer">
+
+                <div className="headerMyDesk">
+                    <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
+                </div>
+
+                <div className="boardsContainerMyDesk">
+
                 {/* <h1>soy myDesk</h1> */}
                 {props.userLogged &&
                     <>
@@ -60,12 +58,13 @@ const MyDesk = (props) => {
 
                         <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
                             Agregar nuevo tablero...
-                    </div>
+                        </div>
                         <div className="newBoardModal" style={{ display: newBoardModal ? 'flex' : 'none' }}>
                             <div className="newBoard"  >
                                 <input type="text" name="title" placeholder="title" onChange={readInputBoard} />
                                 <input type="text" name="description" placeholder="description..." onChange={readInputBoard} />
                                 <button onClick={addBoard}>Create a new board</button>
+
                                 <span onClick={() => setNewBoardModal(false)} className="closeNewBoardModal">X</span>
                             </div>
                         </div>
@@ -77,12 +76,11 @@ const MyDesk = (props) => {
             <button style={{margin:"0rem 0rem 2rem 1rem "}}  onClick={() =>console.log(props.components)}>Console.log</button> */}
 
 
-
-
-
                     </>
                 }
+                </div>
             </div>
+
         </div>
     );
 }

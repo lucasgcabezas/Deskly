@@ -17,13 +17,19 @@ body {
     min-height: 100vh;
 }
 
+.material-icons-outlined {
+    display: none;
+}
+
 .myDesk{
     display: flex;
 }
 
+
+
 .lateralMenuClose{
-    position: absolute;
-    height: 100%;
+    /* position: absolute; */
+    /* height: 100%; */
     width: 4vw;
     background-color: var(--fcolor);
     display: flex;
@@ -33,23 +39,27 @@ body {
 }
 
 .lateralMenuOpen{
-    position: absolute;
-    height: 100%;
+    /* position: absolute; */
+    height: 100vh;
     width: 20vw;
     background-color: var(--fcolor);
     display: flex;
     flex-direction: column;
-    z-index: 20;
+    /* z-index: 20; */
     transition: .3s;
 }
 
 .lateralMenuClose .menuLateralInfo{
+    visibility: visible;
+}
+
+.lateralMenuClose .linkMenu {
     visibility: hidden;
 }
 
 
 .lateralMenuOpen .menuLateralInfo{
-    opacity: 0;
+    /* opacity: 0; */
     flex-direction: column;
     height: 90%;
     justify-content: space-around;
@@ -63,7 +73,7 @@ body {
 
 @keyframes showMenu {
     0% {
-        opacity: 0;
+        opacity: 1;
     }
     100% {
         opacity: 1;
@@ -84,27 +94,34 @@ body {
     margin-bottom: 10vh;
 }
 
-.lateralMenuOpen .link {
+.myDesk .link {
     color: white;
     text-decoration: none;
     width: 100%;
     display: flex;
-    justify-content: center;
+}
+
+.myDesk .link .linkMenu {
+    justify-content: center; 
     align-items: center;
     height: 9vh;
-    /* background-color: #ffffff22; */
+    background-color: #ffffff22;
     font-size: 1.2rem;
 
 }
+
 
 .lateralMenuOpen .logOut {
     margin-top: 18vh;
 }
 
+
+
+
 .hamburguerIcon{
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     font-size: 2.2rem;
     font-weight: bold;
     width: 4vw;
@@ -114,6 +131,7 @@ body {
     cursor: pointer;
 }
 
+
 .hamburguerIcon:hover{
     background-color: #ffffff22;
     transition: .4s;
@@ -121,14 +139,36 @@ body {
 
 
 
+
+
+
+
+
+
 .mydeskContainer{
     background-color: rgb(221, 114, 114);
+    flex-direction: column;
     flex-grow: 1;
     min-height: 100vh;
     display: flex;
-    margin-left: 4vw ;
+    /* margin-left: 4vw ; */
     /* padding: 2vh 1vw; */
 }
+
+.headerMyDesk{
+    background-color: var(--fcolor);
+    height: 10vh;
+    display: flex;
+    align-items: center;
+}
+
+.boardsContainerMyDesk{
+display: flex;
+}
+
+
+
+
 
 .newBoardButton{
     display: flex;
@@ -190,4 +230,10 @@ body {
     /* border: solid 1px black; */
     margin: 2vh 1vw;
     /* background-color: lightgray; */
+}
+
+.myDesk .homeIconMenu{
+    display: block;
+    color: white;
+    font-size: 2.5rem;
 }
