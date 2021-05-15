@@ -23,10 +23,10 @@ const MyDesk = (props) => {
         if (userLogged.token) {
             props.setUserComponents(userLogged.token)
         }
-        props.getBoards(props.userLogged.token)
+        props.getBoardsFromUser(props.userLogged.token)
     }, [])
 
-    useEffect(() => {props.getBoardsFromUser(props.userLogged.token)}, [])
+    // useEffect(() => {props.getBoardsFromUser(props.userLogged.token)}, [])
 
     return ( 
         <div>

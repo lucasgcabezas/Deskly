@@ -20,30 +20,34 @@ const notificationsControllers = {
         }
         res.json({ success: !error ? true : false, response, error })
     },
-    
-    addUserToBoard: async (req, res) => {
+
+    rejectBoard: async (req, res) => {
+        let response;
+        let error;
         try {
-            let { admin, email } = req.body
+            await User.findOneAndUpdate({ _id: req.user._id }, { $pull: { invitations: req.params.idBoard } }, { new: true })
             response = { board: selectedBoard, notification: req.params.idBoard }
 
-            if (admin) {
-                await BoardModel.findOneAndUpdate({ _id: req.params.id }, { $push: { 'users': email, 'admins': email } })
-            } else {
-                await BoardModel.findOneAndUpdate({ _id: req.params.id }, { $push: { 'users': email } })
-            }
-
-        } catch (error) {
-            console.log(error)
+        } catch {
+            error = "An error occurred during process, please try later."
+            console.log('ERROR: The controller rejectBoard has failed')
         }
+        res.json({ success: !error ? true : false, response, error })
     },
 
     getComponents: async (req, res) => {
-        const boardsOwner = await BoardModel.find({ owner: req.user._id })
-        const adminBoards = await BoardModel.find({ admins: { $elemMatch: { $eq: req.user._id } } })
-        // const usersBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.user._id } } })
-        const taskPlanners = await Taskplanner.find({ userId: req.user._id })
-        const userTask = await Task.find({ "comments.userId": req.user._id })
+
         try {
+
+            const boardsOwner = await BoardModel.find({ owner: req.user._id })
+            let boardOwnerId = boardsOwner.map(board => board._id)
+
+            const adminBoards = await BoardModel.find({ admins: { $elemMatch: { $eq: req.user._id } } })
+            let boardAdminArray = adminBoards.map(board => board._id)
+
+            const taskPlanners = await Taskplanner.find({ userId: req.user._id })
+
+            const userTask = await Task.find({ "comments.userId": req.user._id })
             let idComents = userTask.flatMap(tasks => {
                 let comments = tasks.comments.filter(comment => {
                     comment.userId.toString() === req.user._id.toString()
@@ -52,9 +56,13 @@ const notificationsControllers = {
                 let commentsId = comments.map(userId => userId._id)
                 return commentsId
             })
-            res.json({ success: true, response: { boardsOwner, adminBoards, taskPlanners, idComents } })           
+
+            // console.log(boardAdminArray)
+
+            res.json({ success: true, response: { boardOwnerId, boardAdminArray, taskPlanners, idComents } })
+
         } catch (error) {
-            res.json({ success: false, response:'Ha ocurrido un error en el servidor, intente más tarde!'})
+            res.json({ success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!' })
         }
     }
 }

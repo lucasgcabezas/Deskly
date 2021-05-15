@@ -9,7 +9,7 @@ const notificationsControllers = require('../controllers/notificationsController
 const passport = require("passport")
 
 const { newUser, login, reLogin, inviteUserToBoard, checkNotifications } = userControllers
-const { acceptBoard, getComponents } = notificationsControllers
+const { acceptBoard, rejectBoard, getComponents } = notificationsControllers
 const { getAllTaskplanner, getTaskplanner, getTaskplannerFromBoard, addTaskplanner, putTaskplanner, deleteTaskplanner } = taskplannerControllers
 const { getFromUser, addBoard, editBoard, deleteBoard, getUsersFromBoard, userAdmin, getAdminsFromBoard} = boardsControllers
 const { getAllTasks, addTask, editTask, deleteTask, tasksFromTaskplanner,getAllComments,  addComment, editComment, deleteComment } = tasksControllers
@@ -20,8 +20,8 @@ router.route('/board')
     .get(passport.authenticate('jwt', { session: false }), getFromUser)
 
 router.route('/board/:id')
-    .put(passport.authenticate('jwt', { session: false }),editBoard)
-    .delete(passport.authenticate('jwt', { session: false }),deleteBoard)
+    .put(passport.authenticate('jwt', { session: false }), editBoard)
+    .delete(passport.authenticate('jwt', { session: false }), deleteBoard)
     .get(getUsersFromBoard)
 // routes taskplannerControllers
 router.route('/boardAdmins/:email')
@@ -30,7 +30,7 @@ router.route('/boardAdmins/:email')
     
 router.route('/taskplanner')
     .get(getAllTaskplanner)
-    .post(passport.authenticate('jwt', { session: false }),addTaskplanner)
+    .post(passport.authenticate('jwt', { session: false }), addTaskplanner)
 
 router.route('/taskplanner/:id')
     .get(getTaskplanner)
@@ -50,6 +50,10 @@ router.route("/checkNotifications")
 router.route("/notification/:idBoard")
     .get(passport.authenticate('jwt', { session: false }), acceptBoard)
 
+router.route("/reject/:idBoard")
+    .get(passport.authenticate('jwt', { session: false }), rejectBoard)
+
+
 router.route("/inviteuser/:email")
     .put(inviteUserToBoard)
 
@@ -62,7 +66,7 @@ router.route("/relogin")
 // TASKS
 router.route('/task')
     .get(getAllTasks)
-    .post(passport.authenticate('jwt', { session: false }),addTask)
+    .post(passport.authenticate('jwt', { session: false }), addTask)
 
 router.route('/task/:id')
     .get(tasksFromTaskplanner)
@@ -72,10 +76,10 @@ router.route('/task/:id')
 // TASK COMMENTS
 router.route('/task/comment/:id')
     .get(getAllComments)
-    .post(passport.authenticate('jwt', {session: false}) , addComment)
+    .post(passport.authenticate('jwt', { session: false }), addComment)
     .put(editComment)
     .delete(deleteComment)
-   
+
 
 router.route("/usercomponents")
     .get(passport.authenticate('jwt', { session: false }), getComponents)

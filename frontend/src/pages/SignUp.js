@@ -37,10 +37,10 @@ const SignUp = (props) => {
             })
         } else {
             const response = await props.signUpUser(userGen)
-            if (response.details) {
+            if (response) {
                 response.details.map(error => setMistakes((prevState) => {
                     return { ...prevState, [error.context.label]: error.message }
-                }))              
+                }))
             }
         }
     }
