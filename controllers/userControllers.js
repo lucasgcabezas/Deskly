@@ -72,7 +72,7 @@ const userControllers = {
         let checkAlredyInBoard = userInBoard.users.some(userId => userId === userInvited._id )
 
         if (!chekInvitation) {
-            await userInvited.updateOne({ $push: { 'invitations': req.body.boardId } })
+            await userInvited.updateOne({ $addToSet: { 'invitations': req.body.boardId } })
         }else {
             console.log('ya está')
         }

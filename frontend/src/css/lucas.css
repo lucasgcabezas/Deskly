@@ -1,0 +1,193 @@
+:root {
+    --fcolor: #2d003d;
+    --scolor: #d88d1d;
+}
+
+html * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.myDesk{
+    display: flex;
+}
+
+.lateralMenuClose{
+    position: absolute;
+    height: 100%;
+    width: 4vw;
+    background-color: var(--fcolor);
+    display: flex;
+    flex-direction: column;
+    transition: .5s;
+
+}
+
+.lateralMenuOpen{
+    position: absolute;
+    height: 100%;
+    width: 20vw;
+    background-color: var(--fcolor);
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+    transition: .3s;
+}
+
+.lateralMenuClose .menuLateralInfo{
+    visibility: hidden;
+}
+
+
+.lateralMenuOpen .menuLateralInfo{
+    opacity: 0;
+    flex-direction: column;
+    height: 90%;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 7vh;
+    animation-name: showMenu;
+    animation-duration: 1.5s;
+    animation-fill-mode: forwards ;
+
+}
+
+@keyframes showMenu {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.lateralMenuOpen .userPic{
+    height: 120px;
+    width: 120px;
+    background-size: cover;
+    margin-bottom: 3vh;
+    border-radius: 5px;
+}
+
+.lateralMenuOpen .userCompleteName{
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 10vh;
+}
+
+.lateralMenuOpen .link {
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 9vh;
+    /* background-color: #ffffff22; */
+    font-size: 1.2rem;
+
+}
+
+.lateralMenuOpen .logOut {
+    margin-top: 18vh;
+}
+
+.hamburguerIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2rem;
+    font-weight: bold;
+    width: 4vw;
+    height: 7vh;
+    color: white;
+    transition: .4s;
+    cursor: pointer;
+}
+
+.hamburguerIcon:hover{
+    background-color: #ffffff22;
+    transition: .4s;
+}
+
+
+
+.mydeskContainer{
+    background-color: rgb(221, 114, 114);
+    flex-grow: 1;
+    min-height: 100vh;
+    display: flex;
+    margin-left: 4vw ;
+    /* padding: 2vh 1vw; */
+}
+
+.newBoardButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15vw;
+    height: 20vh;
+    background-color: white;
+    margin: 2vh 1vw;
+    color: #00000088;
+}
+
+.newBoardButton:hover{
+    background-color: #eeeeee;
+    color: black;
+}
+
+.newBoardModal{
+    position: absolute;
+    top: 0;
+    /* flex-grow: 100%; */
+    width: 96vw;
+    height: 100%;
+    background-color: #000000aa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+}
+
+.newBoard{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 40vw;
+    height: 40vh;
+    background-color: white;
+    border: solid 1px black;
+}
+
+.closeNewBoardModal{
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    z-index: 10;
+}
+
+.boardMyDesk{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15vw;
+    height: 20vh;
+    /* border: solid 1px black; */
+    margin: 2vh 1vw;
+    /* background-color: lightgray; */
+}

@@ -19,7 +19,7 @@ const Board = (props) => {
     const [openInvite, setOpenInvite] = useState(false)
     const [boardUsers, setBoardUsers] = useState([])
     const [admins, setAdmins] = useState([])
-      
+
     useEffect(() => {
         if (props.userLogged) {
             props.setUserComponents(props.userLogged.token)
@@ -99,22 +99,22 @@ const Board = (props) => {
         setUpdate(false)
     }
 
-    const userAdmin = (admin,email) => {
-        console.log(admin)  
+    const userAdmin = (admin, email) => {
+        console.log(admin)
         const admins = props.userAdmin(email, admin, idParams)
         setAdmins(admins)
         console.log(email)
     }
-    
+
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
-    
+
 
     return (
         <>
             <div>
                 {
-                    boardUsers.map((user,i) => <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user}/>)
+                    boardUsers.map((user, i) => <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} />)
 
                     // boardUsers.map((user, i) => {
                     //     return <div key={i} style={{ display: "flex" }}><input type='checkbox' onClick={() => setAdmin(!admin)}></input><h2>{'Admin ' + user.firstName + ' ' + user.lastName}</h2><h2></h2></div>
@@ -129,7 +129,8 @@ const Board = (props) => {
                 <span>{board.description}</span>
             </div>
             <div>
-                {imOwner &&
+                {
+                    imOwner &&
                     <>
                         <button onClick={deleteBoard}>Delete</button>
                         <button onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}>{update ? 'Cancel' : 'Edit'}</button>
@@ -151,8 +152,8 @@ const Board = (props) => {
                     </div>
                 }
             </div>
-                <div>
-            {imOwner || imAdmin &&
+            <div>
+                {imOwner || imAdmin &&
                     <>
                         <button onClick={() => setOpen(!open)}>Add list</button>
                         {
@@ -162,14 +163,14 @@ const Board = (props) => {
                             </div>
                         }
                     </>
-            }
+                }
 
-                    <div style={{ display: 'flex', margin: '20px' }}>
-                        {
-                            allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
-                        }
-                    </div>
+                <div style={{ display: 'flex', margin: '20px' }}>
+                    {
+                        allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
+                    }
                 </div>
+            </div>
 
 
 
