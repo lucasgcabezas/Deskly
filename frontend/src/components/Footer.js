@@ -1,7 +1,9 @@
 import Nav from '../components/Nav'
 const Footer = () => {
     return(
-        <Nav/>
+        <footer>
+            <Nav/>
+        </footer>
     )
 }
 export default Footer

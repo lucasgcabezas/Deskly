@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import authActions from "./redux/actions/authActions"
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import './sofia.css'
 const App = (props) => {
   const {userLogged} = props
   //  console.log(props.userLogged);

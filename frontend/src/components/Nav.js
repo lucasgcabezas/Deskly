@@ -5,10 +5,10 @@ const Nav = (props) => {
     return (
         <>
             <NavLink exact to="/">Home</NavLink>
-          {props.userLogged && <>
+            {props.userLogged && <>
                 <NavLink to="/mydesk">MyDesk</NavLink>
                 <button onClick={()=>props.signOut()}> Log out</button></>}
-           {!props.userLogged && <>
+            {!props.userLogged && <>
                 <NavLink to="/sign">Sign</NavLink>
                 <NavLink to="/signup">Sign Up</NavLink></>}
         </>
