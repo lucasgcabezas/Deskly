@@ -28,23 +28,43 @@ const Home = () => {
                 <div className="contenedorSemiCirculo">
                     <div className="elipse"><h2>DESKLY Herramientas</h2></div>
                 </div>
-                {/* <div className="contenedorHerramientas"> */}
-                    <div className="contenedorCirculosHerramientas">
-                        <div className="desklyHerramientas1">
-                            <div></div>
-                            <div></div>
-                            <div></div>
+                <div className="contenedorCirculosHerramientas">
+                    <div className="desklyHerramientas1">
+                        <div>
+                            <span class="material-icons-outlined">dashboard</span>
+                            <h3>Boards:</h3>
+                            <p>Te permite ver el panorama general</p>
                         </div>
-                        <div className="desklyHerramientas2">
-                            <div></div>
-                            <div></div>
+                        <div>
+                            <span class="material-icons-outlined">add</span>
+                            <h3>Add:</h3>
+                            <p>Podrás capturar y organizar las tareas en segundos</p>
                         </div>
-                        {/* <div className="desklyHerramientas3">
-
-
-                        </div> */}
+                        <div>
+                            <span class="material-icons-outlined">task_alt</span>
+                            <h3>Tasks:</h3>
+                            <p>Retrata cómo los pequeños pasos se suman hasta llegar a grandes logros</p>
+                        </div>
                     </div>
-                {/* </div> */}
+                    <div className="desklyHerramientas2">
+                        <div>
+                            <span class="material-icons-outlined">edit</span>
+                            <h3>Edit:</h3>
+                            <p>Si te has confundido, puedes editar todas tus tareas tantas veces como necesites</p>
+                        </div>
+                        <div>
+                            <span class="material-icons-outlined">delete</span>
+                            <h3>Delete:</h3>
+                            <p>Desecha cualquier contenido que ya no uses con un solo clic</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="contenedorElipse2">
+                    <div className="elipse2"></div>
+                    <div className="contenedorSemiCirculo">
+                        <div className="fabrica" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/1f4f68b7-593b-4377-80e6-d661aade7263.png')" }}></div>
+                    </div>
+                </div>
             </div>
         </>
     );

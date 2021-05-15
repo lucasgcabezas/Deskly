@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import {connect} from "react-redux"
 import authActions from '../redux/actions/authActions'
 const Nav = (props) => {
@@ -7,7 +7,7 @@ const Nav = (props) => {
             <NavLink exact to="/">Home</NavLink>
             {props.userLogged && <>
                 <NavLink to="/mydesk">MyDesk</NavLink>
-                <button onClick={()=>props.signOut()}> Log out</button></>}
+                <Link onClick={()=>props.signOut()}> Log out</Link></>}
             {!props.userLogged && <>
                 <NavLink to="/sign">Sign</NavLink>
                 <NavLink to="/signup">Sign Up</NavLink></>}

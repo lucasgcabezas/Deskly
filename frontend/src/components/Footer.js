@@ -1,8 +1,11 @@
 import Nav from '../components/Nav'
 const Footer = () => {
-    return(
+    return (
         <footer>
-            <Nav/>
+            <div className="contenedorNavigationFooter">
+                <h1>Navigation</h1>
+                <Nav />
+            </div>
         </footer>
     )
 }
