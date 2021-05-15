@@ -25,7 +25,7 @@ const UserAdmin = (props) => {
                 {admin ? 'es admin' : 'no es admin'}
             </button>
             
-            <h2>{'Admin ' + props.user.firstName + ' ' + props.user.lastName}</h2>
+            <h2>{'Admin ' + props.user.firstName + ' ' + (props.user.lastName === null ? '' : props.user.lastName)}</h2>
         
         </div>
     )
