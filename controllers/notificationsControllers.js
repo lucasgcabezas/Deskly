@@ -8,12 +8,12 @@ const notificationsControllers = {
     acceptBoard: async (req, res) => {
         let response;
         let error;
+        
         try {
             const selectedBoard = await BoardModel.findOneAndUpdate({ _id: req.params.idBoard }, { $addToSet: { 'users': req.user._id } }, { new: true })
-            await User.findOneAndUpdate({ _id: req.user._id }, { $pull: { invitations: req.params.idBoard } }, { new: true })
-
+            const rest = await User.findOneAndUpdate({ _id: req.user._id }, { $pull: { invitations: req.params.idBoard } }, { new: true })
             response = { board: selectedBoard, notification: req.params.idBoard }
-
+            
         } catch {
             error = "Ha ocurrido un error en el servidor, intente más tarde!"
             console.log('ERROR: El controlador acceptBoard está fallando')
@@ -26,7 +26,7 @@ const notificationsControllers = {
         let error;
         try {
             await User.findOneAndUpdate({ _id: req.user._id }, { $pull: { invitations: req.params.idBoard } }, { new: true })
-            response = { board: selectedBoard, notification: req.params.idBoard }
+            response = {notification: req.params.idBoard }
 
         } catch {
             error = "An error occurred during process, please try later."
@@ -56,8 +56,6 @@ const notificationsControllers = {
                 let commentsId = comments.map(userId => userId._id)
                 return commentsId
             })
-
-            // console.log(boardAdminArray)
 
             res.json({ success: true, response: { boardOwnerId, boardAdminArray, taskPlanners, idComents } })
 

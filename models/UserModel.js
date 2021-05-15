@@ -5,7 +5,7 @@ const userScheema = mongoose.Schema({
   lastName: { type: String },
   email: { type: String, required: true },
   img: { type: String, required: true },
-  invitations: [String],
+  invitations: [{type: mongoose.Types.ObjectId, ref: 'board'}],
   password: { type: String, required: true },
   google: { type: Boolean, default: false },
   facebook: {type: Boolean, default: false}

@@ -79,7 +79,7 @@ const userControllers = {
     },
 
     checkNotifications: async (req, res) => {
-        const userNotificated = await User.findById(req.user._id)
+        const userNotificated = await User.findById(req.user._id).populate({ path:"invitations", populate:{ path:"owner", select:{ "firstName":1 ,"lastName":1,"img":1} } })
         res.json({ response: userNotificated.invitations })
     }
 }

@@ -12,20 +12,21 @@ const Notification = (props) => {
         let response;
         if (resp) {
             response = await acceptJoinToBoard(idNotif, userLogged)
-            var notificationsFiltered = notificationsState.filter(notif => notif != response)
+            console.log(response)
+            var notificationsFiltered = notificationsState.filter(notif => notif._id != response)
         } else {
-            var notificationsFiltered = notificationsState.filter(notif => notif != notif)
+            var notificationsFiltered = notificationsState.filter(notif => notif._id != notif)
             response = await rejectJoinToBoard(idNotif, userLogged)
             // VER SI FUNCIONA
         }
+        console.log(notificationsFiltered)
         setNotificationsState(notificationsFiltered)
     }
-
     return (
         <div style={{ border: 'solid 1px black ', padding: ' 10px' }}>
-            <span>Te invitaron a un tablero id:{notif}</span>
-            <button onClick={() => sendAcceptNotification(notif, true)}>Aceptar</button>
-            <button onClick={() => sendAcceptNotification(notif, false)}>Rechazar</button>
+            <span>Tienes una invitación al tablero "{notif.title}" de {notif.owner.firstName + ' ' + notif.owner.lastName} </span>
+            <button onClick={() => sendAcceptNotification(notif._id, true)}>Aceptar</button>
+            <button onClick={() => sendAcceptNotification(notif._id, false)}>Rechazar</button>
         </div>
     )
 }

@@ -104,6 +104,7 @@ const authActions = {
     },
 
     acceptJoinToBoard: (boardId, userLs) => {
+        
         return async (dispatch, getSate) => {
             try {
                 const response = await axios.get('http://localhost:4000/api/notification/' + boardId, {
