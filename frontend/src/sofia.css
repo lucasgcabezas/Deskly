@@ -1,0 +1,221 @@
+html *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', sans-serif;
+}
+:root{
+    --first-color: #615ee1;
+    --second-color: #f9d85f;
+    --third-color:#ec9acf;
+    --fourth-color:#545454;
+    --fifth-color:#e0e0e0;
+}
+.desklyLogo{
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 10vw;
+    height: 40vh;
+}
+.contenedorHome{
+    display: flex;
+}
+.contenedorHeroHome{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.contenedorHeroHome div{
+    display: flex;
+    align-items: center;
+    height: 30vh;
+    margin-top: 6vh;
+    margin-left: 1vw;
+}
+.contenedorHeroHome div h1{
+    font-size: 8em;
+    color: var(--fourth-color);
+}
+.contenedorHeroHome p{
+    width: 40vw;
+    font-size: 2em;
+    margin: 0;
+    color: var(--fourth-color);
+}
+.imageHero{
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 85vw;
+    height: 95vh;
+    z-index: 1;
+}
+.div2 {
+    margin-top: -150px;
+    background: var(--second-color);
+    height: 100vh;
+    clip-path: url(#wave);
+    display: flex;
+    flex-direction: column;
+}
+.div2 h2{
+    text-align: center;
+    margin-top: 20vh;
+    font-size: 5em;
+    color: var(--fourth-color);
+    margin-bottom: 3vh;
+}
+.fraseHero2{
+    display: flex;
+    justify-content: space-between;
+    text-align: end;
+    font-size: 2em;
+    color: var(--fourth-color);
+}
+.fraseHero2 p{
+    width: 40vw;
+    margin-right: 5vw;
+}
+.semicirculo{
+    height: 20vh;
+    width: 25vw;
+    background: var(--first-color);
+    border-radius: 50% / 0 0 100% 100%;
+    position: absolute;
+    right: 10vw;
+}
+.contenedorSemiCirculo{
+    position: relative;
+}
+.elipse{
+    height: 100px;
+    width: 100%;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 16.5vh;
+}
+.elipse h2{
+    margin-top: 10vh;
+    font-size: 5em;
+    text-align: center;
+    color: var(--fourth-color);
+}
+.hands{
+    width: 50vw;
+    height: 70vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 115vh;
+}
+.circulo{
+    width: 26vw;
+    height: 50vh;
+    background: var(--first-color);
+    border-radius: 50%;
+    z-index: -1;
+}
+.contenedorHeader{
+    display: flex;
+    height: 10vh;
+}
+.contenedorCirculosHerramientas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.desklyHerramientas1{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+.desklyHerramientas2{
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+}
+.material-icons-outlined{
+    font-size: 4em;
+}
+.desklyHerramientas1 div, .desklyHerramientas2 div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+.desklyHerramientas1 div span, .desklyHerramientas2 div span{
+    margin-top: 3vh;
+}
+.desklyHerramientas1 div h3, .desklyHerramientas2 div h3{
+    font-size: 3em;
+}
+.desklyHerramientas1 div p, .desklyHerramientas2 div p{
+    font-size: 1.5em;
+    width: inherit;
+    height: 5vh;
+    text-align: center;
+    padding: 0 1vw;
+}
+.desklyHerramientas1 div:nth-child(1){
+    width: 22vw;
+    height: 45vh;
+    background: var(--first-color);
+    border-radius: 50%;
+}
+.desklyHerramientas1 div:nth-child(2){
+    background-color: var(--third-color);
+    width: 22vw;
+    height: 45vh;
+    border-radius: 50%;
+}
+.desklyHerramientas1 div:nth-child(3){
+    background-color: var(--second-color);
+    width: 22vw;
+    height: 45vh;
+    border-radius: 50%;
+}
+.desklyHerramientas2 div:nth-child(1){
+    width: 22vw;
+    height: 45vh;
+    background: var(--second-color);
+    border-radius: 50%;
+}
+.desklyHerramientas2 div:nth-child(2){
+    background-color: var(--first-color);
+    width: 22vw;
+    height: 45vh;
+    border-radius: 50%;
+}
+.contenedorElipse2{
+    margin-top: 26vh;
+}
+.elipse2{
+    margin-top: 6vh;
+    height: 30vh;
+    width: 100%;
+    background: var(--first-color);
+    border-radius: 50%;
+}
+.fabrica{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60vw 80vh;
+    width: 60vw;
+    height: 60vh;
+    position: absolute;
+    left: 10vw;
+    bottom: 10px;
+}
+footer{
+    height: 40vh;
+    background-color: var(--fifth-color);
+}
+
+.contenedorNavigationFooter{
+    display: flex;
+    flex-direction: column;
+}

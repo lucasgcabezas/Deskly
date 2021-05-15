@@ -18,7 +18,7 @@ const TaskModal = (props) => {
     let userName;
     let token = props.userLogged && props.userLogged.token
     if (userLogged) {
-        userName = `${userLogged.firstName} ${userLogged.lastName}`
+        userName = `${userLogged.firstName} ${userLogged.lastName || ''}`
     }
 
     useEffect(() => {
