@@ -50,6 +50,7 @@ const taskPlannerActions = {
         return async (dispatch, getState) => {
             try {
                 const response = await axios.put('http://localhost:4000/api/taskplanner/' + idTaskPlanner, { title })
+                
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
                 } else {

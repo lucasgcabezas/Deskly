@@ -76,11 +76,12 @@ const boardsControllers = {
             let admins = null
             if(req.body.admin){
                 console.log('se agrego')
-                admins = await BoardModel.findOneAndUpdate({_id:req.body.id},{$push: {'admins': user._id}}).populate({path:"admins",select:{"email":1}})
+                admins = await BoardModel.findOneAndUpdate({_id:req.body.id},{$addToSet: {'admins': user._id}}).populate("admins","email")
             }else{
-                admins = await BoardModel.findOneAndUpdate({_id:req.body.id},{$pull: {'admins': user._id}}).populate({path:"admins",select:{"email":1}})
+                admins = await BoardModel.findOneAndUpdate({_id:req.body.id},{$pull: {'admins': user._id}}).populate("admins","email")
                 console.log('no se agrego')
             }
+            console.log(admins)
             res.json({success: true, admins}) 
 
         }catch(error){

@@ -99,11 +99,9 @@ const Board = (props) => {
         setUpdate(false)
     }
 
-    const userAdmin = (admin,email) => {
-        console.log(admin)  
-        const admins = props.userAdmin(email, admin, idParams)
+    const userAdmin = async (admin,email) => {
+        const admins = await props.userAdmin(email, admin, idParams)
         setAdmins(admins)
-        console.log(email)
     }
     
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
@@ -152,7 +150,7 @@ const Board = (props) => {
                 }
             </div>
                 <div>
-            {imOwner || imAdmin &&
+            {(imOwner || imAdmin) &&
                     <>
                         <button onClick={() => setOpen(!open)}>Add list</button>
                         {
@@ -202,4 +200,5 @@ const mapDispatchToProps = {
     userAdmin: boardActions.userAdmin,
     setUserComponents: authActions.setUserComponents
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Board)

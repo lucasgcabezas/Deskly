@@ -31,6 +31,7 @@ const TaskPlanner = (props) => {
             sendValues()
         } else if (condition === 'edit' && e.key === 'Enter') {
             props.edit(props.taskplanner._id, newTitle)
+            setEditTitle(!editTitle)
         }
     }
 
@@ -41,19 +42,19 @@ const TaskPlanner = (props) => {
             setAllTasks(tasks)
             setNewTask('')
         }
-        console.log(allTasks)
     }
 
     return (
         <div style={{ width: '25vw' }}>
             <div>
-                <button onClick={() => props.erase(props.taskplanner._id)}>Delete</button>
+
+                {( props.imOwner || props.imAdmin) && <button onClick={() => props.erase(props.taskplanner._id)}>Delete</button>}
             </div>
-            {editTitle && <h1 style={{cursor:'pointer'}} onClick={( props.imOwner || props.imAdmin) && (() => {setEditTitle(!editTitle); setNewTitle(props.taskplanner.title)})}>{props.taskplanner.title}</h1>}
+            {editTitle && <h1 style={{cursor:'pointer'}} onClick={(props.imOwner || props.imAdmin) && (() => {setEditTitle(!editTitle); setNewTitle(props.taskplanner.title)})}>{props.taskplanner.title}</h1>}
             {!editTitle && <div style={{display:'flex'}}>
                 <input onKeyDown={(e) =>{newTitle.trim() && enter(e, 'edit')}} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
                 
-                <button onClick={newTitle.trim() && (() => props.edit(props.taskplanner._id, newTitle))}>Send</button>
+                <button onClick={newTitle.trim() && (() => {props.edit(props.taskplanner._id, newTitle); setEditTitle(!editTitle)})}>Send</button>
                 <h2 style={{cursor:'pointer'}} onClick={() => setEditTitle(!editTitle)}>x</h2>
                 
             </div>
@@ -68,7 +69,6 @@ const TaskPlanner = (props) => {
 
             <div>
                 {
-                    
                     preloader
                         ? <span>cargando</span>
                         : allTasks.map(task => <Task imAdmin={props.imAdmin} imOwner={props.imOwner} key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
