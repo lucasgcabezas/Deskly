@@ -102,10 +102,10 @@ const boardActions = {
             console.log(error)
         }
     },
-    userAdmin: (email, admin, id) => {
+    userAdmin: (email,id) => {
         try{
             return async (dispatch, getState) => {
-                const response = await axios.put("http://localhost:4000/api/boardAdmins/" +email, {admin,id})
+                const response = await axios.put("http://localhost:4000/api/boardAdmins/" +email, {id})
                 return response.data.admins.admins
             }
         }catch(error){

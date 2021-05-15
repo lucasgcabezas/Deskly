@@ -98,20 +98,16 @@ const Board = (props) => {
     const usersFetch = async () => {
         const users = await props.getUsersFromBoard(idParams)
         const admins = await props.getAdminsFromBoard(idParams)
-        console.log(users)
         setBoardUsers(users)
         setAdmins(admins)
-        console.log(board.admins)
     }
 
-    const userAdmin = async (admin,email) => {
-        const admins = await props.userAdmin(email, admin, idParams)
-        console.log(admins)
+    const userAdmin = async (email) => {
+        const admins = await props.userAdmin(email,idParams)
         setAdmins(admins)
         return admins
     }
 
-    // console.log(board.admins)
     
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
@@ -119,14 +115,12 @@ const Board = (props) => {
         <>
             <div>
                 {
-                    boardUsers.map((user,i) => <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user}/>)
+                    boardUsers.map((user,i) => {
+                    if(i){
+                        return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user}/>
+                    }
+                })
 
-                    // boardUsers.map((user, i) => {
-                    //     return <div key={i} style={{ display: "flex" }}><input type='checkbox' onClick={() => setAdmin(!admin)}></input><h2>{'Admin ' + user.firstName + ' ' + user.lastName}</h2><h2></h2></div>
-                    // })
-
-                    // boardUsers.map((user,i) => {
-                    // return <div key={i} style={{display:"flex"}}><input type='checkbox' onClick={() => setAdmin(!admin)}></input><h2>{'Admin ' + user.firstName + ' ' + (user.lastName === null ? '' : user.firstName)}</h2><h2></h2></div>})
                 }
             </div>
             <div>

@@ -21,7 +21,6 @@ const authReducer = (state = initialState, action) => {
             return { ...state, userLogged: null }
         
         case 'USER_COMPONENTS': 
-        console.log(action.payload);
             return { 
                 ...state, 
                 boardsAdminArray: action.payload.boardAdminArray, 

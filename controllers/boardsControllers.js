@@ -73,15 +73,13 @@ const boardsControllers = {
     userAdmin: async (req,res) => {
         try{
             let user = await User.findOne({email: req.params.email})
+            let board = await BoardModel.findOne({_id: req.body.id})
             let admins = null
-            if(req.body.admin){
-                console.log('se agrego')
-                admins = await BoardModel.findOneAndUpdate({_id:req.body.id},{$addToSet: {'admins': user._id}}).populate("admins","email")
+            if(board.admins.indexOf(user._id) !== -1){
+                admins = await BoardModel.findOneAndUpdate({_id:req.body.id},{$pull: {'admins': user._id}},{new: true}).populate("admins","email")
             }else{
-                admins = await BoardModel.findOneAndUpdate({_id:req.body.id},{$pull: {'admins': user._id}}).populate("admins","email")
-                console.log('no se agrego')
-            }
-            console.log(admins)
+                admins = await BoardModel.findOneAndUpdate({_id:req.body.id},{$addToSet: {'admins': user._id}},{new: true}).populate("admins","email")
+            }            
             res.json({success: true, admins}) 
 
         }catch(error){

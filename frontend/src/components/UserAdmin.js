@@ -5,17 +5,18 @@ import boardActions from '../redux/actions/boardActions'
 const UserAdmin = (props) => {
     const [loading, setLoading] = useState(true)
     const [admin, setAdmin] = useState(false)
-    const [validationAdmin, setValidationAdmin] = useState([])
     useEffect(() => {
-        console.log(props.admins)
         const array = props.admins.map(admin => admin.email)
-        console.log(array)
-        setValidationAdmin(array)
+        if(array.indexOf(props.user.email) !== -1){
+            setAdmin(false)
+        }else{
+            setAdmin(true)
+        }
     }, [props.admins])
 
     const confirmAdmin = async () => {
         setLoading(false)
-        const algo = await props.userAdmin(admin,props.user.email)
+        await props.userAdmin(props.user.email)
         setAdmin(!admin)
         setLoading(true)
     }
@@ -23,7 +24,7 @@ const UserAdmin = (props) => {
     return(
         <div style={{display:"flex", margin:'50px'}}>
             <button onClick={loading ? (() => confirmAdmin()) : null}>
-                {validationAdmin.includes(props.user.email) ? 'ADMIN' : 'USUARIO'}
+                {admin ? 'ADMIN' : 'USUARIO'}
             </button>
             
             <h2>{props.user.firstName + ' ' + props.user.lastName}</h2>
