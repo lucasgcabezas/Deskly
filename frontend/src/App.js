@@ -8,30 +8,34 @@ import SignUp from './pages/SignUp'
 import Board from './components/Board'
 import { connect } from 'react-redux'
 import authActions from "./redux/actions/authActions"
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 const App = (props) => {
-//  console.log(props.userLogged);
-  if(props.userLogged){
+  const {userLogged} = props
+  //  console.log(props.userLogged);
+  if (userLogged) {
     // aca van links de logueados
   }
-    else if(localStorage.getItem('token')){
-    props.reLoad(localStorage.getItem('token'))      
+  else if (localStorage.getItem('token')) {
+    props.reLoad(localStorage.getItem('token'))
     return null
-    }else {
-      // aca van links de deslogueados
-    }
+  } else {
+    // aca van links de deslogueados
+  }
   return (
     <>
+      <ReactNotification />
       <BrowserRouter>
-      <Header />
+        <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-         {props.userLogged &&  <Route path="/mydesk" component={MyDesk} />}
-          <Route path="/board/:id" component={Board}/>
-          {!props.userLogged &&<Route path="/sign" component={Sign} />}
-          {!props.userLogged && <Route path="/signup" component={SignUp} />}
+          {userLogged && <Route path="/mydesk" component={MyDesk} />}
+          <Route path="/board/:id" component={Board} />
+          {!userLogged && <Route path="/sign" component={Sign} />}
+          {!userLogged && <Route path="/signup" component={SignUp} />}
           <Redirect to="/" />
         </Switch>
-      <Footer />
+        <Footer />
       </BrowserRouter>
     </>
   )
@@ -39,12 +43,12 @@ const App = (props) => {
 }
 
 
-const mapStateToProps= state =>{
-  return{ 
-      userLogged: state.authReducer.userLogged,
-    }
+const mapStateToProps = state => {
+  return {
+    userLogged: state.authReducer.userLogged,
+  }
 }
-const mapDispatchToProps= {
+const mapDispatchToProps = {
   reLoad: authActions.signInLocalStorage
 }
 export default connect(mapStateToProps, mapDispatchToProps)(App)

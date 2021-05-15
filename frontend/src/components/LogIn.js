@@ -30,12 +30,8 @@ const SignIn = (props) => {
     }
 
     const respuestaGoogle = (response) => {
-        // if (response) {
-            log(null, { email: response.profileObj.email, password: 'a' + response.profileObj.googleId, google: true })
-            // alert("Bienvenido a Deskly")
-        // } else {
-        //     alert("Something is wrong. Try again later")
-        // }
+        const { email, googleId } = response.profileObj
+        log(null, { email: email, password: 'a' + googleId, google: true })
     }
 
     const responseFacebook = (response) => {
@@ -44,7 +40,7 @@ const SignIn = (props) => {
     }
 
     return (
-
+        
         <div>
             <h1>hola {userLogged ? userLogged.firstName : "nadie"}</h1>
             <input type="text" name="email" placeholder="e-mail" onChange={input} />
@@ -68,6 +64,7 @@ const SignIn = (props) => {
         </div>
     )
 }
+
 const mapStateToProps = state => {
     return {
         userLogged: state.authReducer.userLogged,
@@ -77,6 +74,5 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     logIn: authActions.signInUSer
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

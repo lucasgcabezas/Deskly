@@ -120,6 +120,8 @@ const Board = (props) => {
                     //     return <div key={i} style={{ display: "flex" }}><input type='checkbox' onClick={() => setAdmin(!admin)}></input><h2>{'Admin ' + user.firstName + ' ' + user.lastName}</h2><h2></h2></div>
                     // })
 
+                    // boardUsers.map((user,i) => {
+                    // return <div key={i} style={{display:"flex"}}><input type='checkbox' onClick={() => setAdmin(!admin)}></input><h2>{'Admin ' + user.firstName + ' ' + (user.lastName === null ? '' : user.firstName)}</h2><h2></h2></div>})
                 }
             </div>
             <div>

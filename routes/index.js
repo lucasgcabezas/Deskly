@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const validator = require('../config/validator')
 const taskplannerControllers = require('../controllers/taskplannerControllers')
 const boardsControllers = require('../controllers/boardsControllers')
 const userControllers = require('../controllers/userControllers')
@@ -41,7 +42,7 @@ router.route('/taskplannerFromBoard/:id')
 
 // routes userControllers
 router.route("/newuser")
-    .post(newUser)
+    .post(validator, newUser)
 
 router.route("/checkNotifications")
     .get(passport.authenticate('jwt', { session: false }), checkNotifications)

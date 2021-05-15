@@ -20,11 +20,13 @@ const MyDesk = (props) => {
     const addBoard = async () => {await props.addBoard(inputBoard)}
 
     useEffect(() => {
-        if (userLogged.toke) {
+        if (userLogged.token) {
             props.setUserComponents(userLogged.token)
         }
         props.getBoards(props.userLogged.token)
     }, [])
+
+    useEffect(() => {props.getBoardsFromUser(props.userLogged.token)}, [])
 
     return ( 
         <div>
@@ -59,7 +61,7 @@ const mapStateToProps= state =>{
 
 const mapDispatchToProps= {   
     addBoard: boardActions.addBoard,
-    getBoards:boardActions.getBoards,
+    getBoardsFromUser:boardActions.getBoardsFromUser,
     setUserComponents: authActions.setUserComponents
 }
 

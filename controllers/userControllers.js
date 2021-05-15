@@ -2,7 +2,6 @@ const User = require("../models/UserModel")
 const bcryptjs = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
-
 const userControllers = {
     newUser: async (req, res) => {
         var error
@@ -25,7 +24,6 @@ const userControllers = {
             error = "No se pudo acceder a la base de usuario. Intenta nuevamente"
         }
         if (error) {
-
             return res.json({ success: false, error })
         }
 
