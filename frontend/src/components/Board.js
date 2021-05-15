@@ -44,10 +44,6 @@ const Board = (props) => {
         setAllTasksPlanner(tasks)
     }
 
-    const usersFetch = async () => {
-        const users = await props.getUsersFromBoard(idParams)
-        setBoardUsers(users)
-    }
     const enter = (e, condition) => {
         if (e.key === 'Enter' && condition === 'title') {
             sendValues()
@@ -93,21 +89,32 @@ const Board = (props) => {
         await props.deleteBoard(board._id, props.userLogged.token)
         props.history.push('/myDesk')
     }
+
     const editBoard = async () => {
         const response = await props.editBoard(board._id, updateInput, props.userLogged.token)
         setBoard(response)
         setUpdate(false)
     }
+    const usersFetch = async () => {
+        const users = await props.getUsersFromBoard(idParams)
+        const admins = await props.getAdminsFromBoard(idParams)
+        console.log(users)
+        setBoardUsers(users)
+        setAdmins(admins)
+        console.log(board.admins)
+    }
 
     const userAdmin = async (admin,email) => {
         const admins = await props.userAdmin(email, admin, idParams)
+        console.log(admins)
         setAdmins(admins)
+        return admins
     }
+
+    // console.log(board.admins)
     
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
-    
-
     return (
         <>
             <div>
@@ -198,7 +205,8 @@ const mapDispatchToProps = {
     deleteBoardOwner: boardActions.deleteBoardOwner,
     getUsersFromBoard: boardActions.getUsersFromBoard,
     userAdmin: boardActions.userAdmin,
-    setUserComponents: authActions.setUserComponents
+    setUserComponents: authActions.setUserComponents,
+    getAdminsFromBoard: boardActions.getAdminsFromBoard
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board)
