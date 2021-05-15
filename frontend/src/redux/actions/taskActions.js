@@ -32,7 +32,6 @@ const taskActions = {
     addTask: (taskToAdd , token) => {
         return async (dispatch, getState) => {
             try {
-                
                 const response = await axios.post('http://localhost:4000/api/task', taskToAdd, {headers: {
                     'Authorization': 'Bearer ' + token
                 }})

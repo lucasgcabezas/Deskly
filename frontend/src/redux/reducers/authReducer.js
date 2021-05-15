@@ -27,8 +27,6 @@ const authReducer = (state = initialState, action) => {
                 commentsUserArray: action.payload.idComents, 
                 taskPlannersArray: action.payload.taskPlanners, 
             }
-            
-
         default:
             return state
     }

@@ -111,6 +111,7 @@ const Board = (props) => {
     
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
+    
     return (
         <>
             <div>
@@ -162,7 +163,6 @@ const Board = (props) => {
                         }
                     </>
             }
-
                     <div style={{ display: 'flex', margin: '20px' }}>
                         {
                             allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
