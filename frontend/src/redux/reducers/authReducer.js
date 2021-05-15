@@ -1,6 +1,9 @@
 const initialState = {
     userLogged: null,
-    components: null,
+    boardsAdminArray:[],
+    boardsOwnerArray:[],
+    commentsUserArray:[],
+    taskPlannersArray:[],
 }
 
 const authReducer = (state = initialState, action) => {
@@ -17,9 +20,15 @@ const authReducer = (state = initialState, action) => {
            
             return { ...state, userLogged: null }
         
-        case 'USER_COMPONENTS':
-           
-            return { ...state, components: action.payload }
+        case 'USER_COMPONENTS': 
+        console.log(action.payload);
+            return { 
+                ...state, 
+                boardsAdminArray: action.payload.boardAdminArray, 
+                boardsOwnerArray: action.payload.boardOwnerId, 
+                commentsUserArray: action.payload.idComents, 
+                taskPlannersArray: action.payload.taskPlanners, 
+            }
             
 
         default:

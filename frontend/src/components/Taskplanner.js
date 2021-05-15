@@ -49,7 +49,7 @@ const TaskPlanner = (props) => {
             <div>
                 <button onClick={() => props.erase(props.taskplanner._id)}>Delete</button>
             </div>
-            {editTitle && <h1 style={{cursor:'pointer'}} onClick={() => {setEditTitle(!editTitle); setNewTitle(props.taskplanner.title)}}>{props.taskplanner.title}</h1>}
+            {editTitle && <h1 style={{cursor:'pointer'}} onClick={( props.imOwner || props.imAdmin) && (() => {setEditTitle(!editTitle); setNewTitle(props.taskplanner.title)})}>{props.taskplanner.title}</h1>}
             {!editTitle && <div style={{display:'flex'}}>
                 <input onKeyDown={(e) =>{newTitle.trim() && enter(e, 'edit')}} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
                 
@@ -71,7 +71,7 @@ const TaskPlanner = (props) => {
                     
                     preloader
                         ? <span>cargando</span>
-                        : allTasks.map(task => <Task key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
+                        : allTasks.map(task => <Task imAdmin={props.imAdmin} imOwner={props.imOwner} key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
                 }
             </div>
 

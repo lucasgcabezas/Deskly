@@ -68,6 +68,7 @@ const notificationsControllers = {
     addUserToBoard: async (req, res) => {
         try {
             let { admin, email } = req.body
+            response = { board: selectedBoard, notification: req.params.idBoard }
 
             if (admin) {
                 await BoardModel.findOneAndUpdate({ _id: req.params.id }, { $push: { 'users': email, 'admins': email } })

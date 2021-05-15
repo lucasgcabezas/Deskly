@@ -17,10 +17,14 @@ const MyDesk = (props) => {
             token: userLogged.token
         })
     }
-    
     const addBoard = async () => {await props.addBoard(inputBoard)}
 
-    useEffect(() => {props.getBoards(props.userLogged.token)}, [])
+    useEffect(() => {
+        if (userLogged.toke) {
+            props.setUserComponents(userLogged.token)
+        }
+        props.getBoards(props.userLogged.token)
+    }, [])
 
     return ( 
         <div>
@@ -50,7 +54,6 @@ const mapStateToProps= state =>{
     return{ 
         userLogged: state.authReducer.userLogged,
         boards: state.boardReducer.boards,
-        components: state.authReducer.components,
     }
 }
 

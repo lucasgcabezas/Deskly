@@ -6,7 +6,7 @@ import TaskModal from './TaskModal'
 const Task = (props) => {
     const { task, allTasks, setAllTasks, editTask, deleteTask } = props
     const { _id, title, verify } = task
-    
+
     const [show, setShow] = useState(false)
 
     const [editionTask, setEditionTask] = useState({ title, verify })
@@ -38,7 +38,8 @@ const Task = (props) => {
         let arrayFiltered = allTasks.filter(task => task._id != response._id)
         setAllTasks(arrayFiltered)
     }
-    
+    // console.log(props.commentsUserArray);
+    let style =props.imOwner || props.imAdmin? 'block' : 'none'
     return (
         <>
             <div style={{ backgroundColor: verify ? 'lightgreen' : 'white', border: 'solid 1px black', padding: '2vh 1vw' }}>
@@ -48,8 +49,10 @@ const Task = (props) => {
                     <input type="checkbox" onChange={verifyTask} checked={editionTask.verify}></input>
 
                     <div>
-                        <button onClick={() => setEditButton(!editButton)}>Editar</button>
-                        <button onClick={sendDeleteTask}>Borrar</button>
+                        <div style={{display: style}}>
+                            <button onClick={() => setEditButton(!editButton)}>Editar</button>
+                            <button onClick={sendDeleteTask}>Borrar</button>
+                        </div>
                         <button onClick={() => setShow(!show)}>modal</button>
                     </div>
                 </div>
@@ -57,10 +60,16 @@ const Task = (props) => {
                 <button onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }}>Confirmar</button>
                 {/* {show && <TaskModal task={task} setShow={setShow} show={show} />} */}
 
-            <TaskModal task={task} setShow={setShow} show={show} />
+                <TaskModal task={task} setShow={setShow} show={show} />
             </div>
         </>
     )
+}
+
+const mapStateToProps = state => {
+    return {
+        commentsUserArray: state.authReducer.commentsUserArray,
+    }
 }
 
 const mapDispatchToProps = {
@@ -68,4 +77,4 @@ const mapDispatchToProps = {
     deleteTask: taskActions.deleteTask,
 }
 
-export default connect(null, mapDispatchToProps)(Task)
+export default connect(mapStateToProps, mapDispatchToProps)(Task)
