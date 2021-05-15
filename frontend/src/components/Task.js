@@ -53,7 +53,7 @@ const Task = (props) => {
                             <button onClick={() => setEditButton(!editButton)}>Editar</button>
                             <button onClick={sendDeleteTask}>Borrar</button>
                         </div>
-                        <button onClick={() => setShow(!show)}>modal</button>
+                        <button onClick={() => setShow(true)}>modal</button>
                     </div>
                 </div>
 
