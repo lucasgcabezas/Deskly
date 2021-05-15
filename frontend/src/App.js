@@ -1,6 +1,7 @@
+import './sofia.css'
+import './css/lucas.css'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import Footer from './components/Footer'
-import Header from './components/Header'
+
 import Home from './pages/Home'
 import MyDesk from './pages/MyDesk'
 import Sign from './pages/Sign'
@@ -9,10 +10,12 @@ import Board from './components/Board'
 import { connect } from 'react-redux'
 import authActions from "./redux/actions/authActions"
 import ReactNotification from 'react-notifications-component'
+
 import 'react-notifications-component/dist/theme.css'
-import './sofia.css'
+
+
 const App = (props) => {
-  const {userLogged} = props
+  const { userLogged } = props
   //  console.log(props.userLogged);
   if (userLogged) {
     // aca van links de logueados
@@ -27,7 +30,7 @@ const App = (props) => {
     <>
       <ReactNotification />
       <BrowserRouter>
-        <Header />
+        {/* <Header /> */}
         <Switch>
           <Route exact path="/" component={Home} />
           {userLogged && <Route path="/mydesk" component={MyDesk} />}
@@ -36,7 +39,7 @@ const App = (props) => {
           {!userLogged && <Route path="/signup" component={SignUp} />}
           <Redirect to="/" />
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </>
   )

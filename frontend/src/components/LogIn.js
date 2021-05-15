@@ -31,12 +31,12 @@ const SignIn = (props) => {
 
     const respuestaGoogle = (response) => {
         const { email, googleId } = response.profileObj
-        log(null, { email: email, password: 'a' + googleId, google: true })
+        log(null, { email: email, password: 'Aa' + googleId, google: true })
     }
 
     const responseFacebook = (response) => {
         const {email, id} = response
-        log(null, {email, password: "a"+ id, facebook: true})
+        log(null, {email, password: "Aa"+ id, facebook: true})
     }
 
     return (

@@ -19,7 +19,7 @@ const Board = (props) => {
     const [openInvite, setOpenInvite] = useState(false)
     const [boardUsers, setBoardUsers] = useState([])
     const [admins, setAdmins] = useState([])
-      
+
     useEffect(() => {
         if (props.userLogged) {
             props.setUserComponents(props.userLogged.token)
@@ -108,10 +108,10 @@ const Board = (props) => {
         return admins
     }
 
-    
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
-    
+
+
     return (
         <>
             <div>
@@ -129,7 +129,8 @@ const Board = (props) => {
                 <span>{board.description}</span>
             </div>
             <div>
-                {imOwner &&
+                {
+                    imOwner &&
                     <>
                         <button onClick={deleteBoard}>Delete</button>
                         <button onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}>{update ? 'Cancel' : 'Edit'}</button>
@@ -168,7 +169,7 @@ const Board = (props) => {
                             allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
                         }
                     </div>
-                </div>
+            </div>
 
 
 
