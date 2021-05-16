@@ -13,10 +13,10 @@ const LateralMenu = (props) => {
 
     let classMenuLateral = menuLateral ? 'lateralMenuOpen' : 'lateralMenuClose'
     // let classElementsMenu = menuLateral ? 'elementsMenuOpen' : 'elementsMenuClose'
-    let userFirstName = props.userLogged.response ?`${props.userLogged.response.firstName}`: `${userLogged.firstName} ${userLogged.lastName}`
+    let userFirstName = props.userLogged.response ?`${props.userLogged.response.firstName}`: `${userLogged.firstName}`
     let userLastName = props.userLogged.response ? props.userLogged.response.lastName || '' : userLogged.lastName || ''
     let userImg = props.userLogged.response ? props.userLogged.response.img : userLogged.img
-
+    console.log(userFirstName,userLastName);
     return (
         <div className={classMenuLateral}>
             <span className="fas fa-bars"></span>
