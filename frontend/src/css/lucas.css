@@ -30,37 +30,37 @@ body {
 }
 
 
+.menu {
+    display: flex;
+}
 
 .lateralMenuClose{
-    /* position: absolute; */
-    /* height: 100%; */
     width: 5vw;
-    background-color: var(--fcolor);
     background-color: var(--fourth-color);
-    background-color: var(--third-color);
-    background-color: var(--second-color);
     background-color: var(--first-color);
-    /* background-color: var(--fifth-color); */
     display: flex;
     flex-direction: column;
     transition: .5s;
-
 }
 
 .lateralMenuOpen{
-    /* position: absolute; */
     height: 100vh;
     width: 17vw;
     background-color: var(--fcolor);
     background-color: var(--fourth-color);
     display: flex;
     flex-direction: column;
-    /* z-index: 20; */
     transition: .3s;
 }
 
 .lateralMenuClose .menuLateralInfo{
     visibility: visible;
+    height: 100%;
+
+    position: relative;
+    
+
+
 }
 
 .lateralMenuClose .linkMenu {
@@ -78,58 +78,34 @@ body {
     animation-name: showMenu;
     animation-duration: 1.5s;
     animation-fill-mode: forwards ;
-
+    position: relative;
 }
-
-/* @keyframes showMenu {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 1;
-    }
-} */
-
 
 .userPicName{
     display: flex;
     height: 10vh;
-    /* justify-content: space-around; */
     align-items: center;
-    /* width: 100%; */
-    /* background-color: var(--fifth-color); */
-    margin-bottom: 5vh;
+    margin-right: 1vw
 }
 
 
  .userPic{
-    height: 50px;
-    min-width: 50px;
-    width: 50px;
+    height: 3rem;
+    width: 3rem;
+    /* min-width: 50px; */
     background-size: cover;
-    /* margin-bottom: 3vh; */
     border-radius: 5px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     margin-left: .5vw;
 
 }
 
 
-.lateralMenuClose .userCompleteName{
-    color: white;
-    visibility: hidden;
-    /* display: none; */
-    margin-left: 1vw;
-    font-size: 1.2rem;
-
-    opacity: 0;
-}
-
-.lateralMenuOpen .userCompleteName{
+.userCompleteName{
     display: flex;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: white;
-    margin-left: 1vw;
+    margin-right: .5vw;
     opacity: 1;
     transition: 1s;
 }
@@ -140,38 +116,43 @@ body {
     width: 100%;
     display: flex;
     align-items: center;
-    transition: .5s;
+    transition: .3s;
+    cursor: pointer;
 }
 
 .link:hover {
     color: #ffffff;
-    transition: .3s;
-
-
-}
-
-.link:hover .homeIconMenu {
-    color: #ffffff;
-    transition: .3s;
-
-}
-
-.link:hover{
     background-color: #ffffff11;
+    background-color: var(--first-color);
+
+    transition: .5s;
+}
+
+.homeIconMenu{
+    display: flex;
+    justify-content: center;
+    color: #ffffff88;
+    font-size: 2.5rem;
+    margin-left: .8vw;
     transition: .5s;
 }
 
 
+.link:hover .homeIconMenu {
+    color: #ffffff;
+    transition: .8s;
+
+}
 
 .link .linkMenu {
     display: flex;
     align-items: center;
     flex-grow: 1;
     padding-left: 2vw;
-    /* flex-grow: 1;     */
-    height: 9vh;
-    font-size: 1rem;
-   
+    height: 10vh;
+    font-size: 1rem; 
+    /* transition: .3s; */
+
 }
 
 .lateralMenuClose .linkMenu{
@@ -179,26 +160,168 @@ body {
 }
 
 .lateralMenuOpen .linkMenu{
+
     opacity: 1;
-    /* transition: 1.5s; */
+}
+
+.logOut {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.logoMenuLateral{
+    opacity: 1;
+    min-width: 2.6rem;
+    width: 2.6rem;
+    height: 2.5rem;
+    background-size: cover;
+    background-position: center;
+    margin-left: 1vw;
+    visibility: visible;
 }
 
 
- .logOut {
-    margin-top: 55vh;
+
+
+
+.notificationPanelClose{
+    width: 0;
+    background-color: var(--fourth-color);
+    transition: .3s;
+
+}
+
+.notificationPanelClose .notificationsHeader {
+    /* opacity: 0; */
+    visibility: hidden;
+    opacity: 0;
+    transition: .1s;
+
+}
+
+.notificationPanelClose .notification {
+    visibility: hidden;
+    opacity: 0;
+    transition: .1s;
+}
+
+
+.notificationPanelOpen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: white; */
+    background-color: var(--second-color);
+    width: 18vw;
+    transition: .5s;
+    /* border-left: solid 5px var(--fourth-color); */
+}
+
+.notificationPanelOpen .notificationsHeader {
+    visibility: visible;
+    opacity: 1;
+    transition: 1s;
+    position: relative;
+}
+
+.notificationsHeader{
+    width: 100%;
+    position: relative;
+    /* background-color: var(--fourth-color); */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 5vh;
+}
+
+.notificationsTitle{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: white;
+    color: var(--fourth-color);
+    font-size: 1.3rem;
+}
+
+.closeNotifPanel{
+    position: absolute;
+    font-size: 1.5rem;
     cursor: pointer;
+    color: var(--first-color);
+    color: white;
+    color: var(--fourth-color);
+    top: 0;
+    right: 0;
+}
+
+.notificationPanelClose .notification {
+    /* border: solid 1px var(--first-color); */
+    padding: .5vh 1vw;
+    /* background-color: white; */
+    background-color: var(--fourth-color);
+    color: white;
+    border-radius: 10px;
+    font-size: .8rem;
+    display: flex;
+    height: 14vh;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    margin: .5vh 0;
+    visibility: hidden;
+    opacity: 0;
+    width: 17vw;
+}
+
+.notificationPanelOpen .notification {
+    /* border: solid 1px var(--first-color); */
+    padding: .5vh 1vw;
+    /* background-color: white; */
+    background-color: var(--fourth-color);
+    color: white;
+    border-radius: 10px;
+    font-size: .8rem;
+    display: flex;
+    height: 14vh;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    margin: .5vh 0;
+    visibility: visible;
+    opacity: 1;
+    transition: .5s ;
+    transition-delay: .3s;
+    width: 17vw;
+}
+
+.notification button {
+    /* background-color: white; */
+    background-color: var(--fourth-color);
+    border: solid 1px black;
+    border: solid 1px white;
+    /* border: solid 1px var(--second-color); */
+    color: white;
+    /* color: var(--second-color); */
+    border-radius: 5px;
+    padding: .5vh 1vw;
+    cursor: pointer;
+    margin: 0 .5vw;
+    transition: .7s;
+}
+
+.notification button:hover{
+    background-color: var(--second-color);
+    border: solid 1px var(--second-color);
+    color:var(--fourth-color);
+    transition: .7s;
+
 }
 
 
 /* .myDesk .homeIconMenu{ */
-.homeIconMenu{
-    display: flex;
-    justify-content: center;
-    color: #ffffff88;
-    font-size: 2.5rem;
-    margin-left: .8vw;
-    /* width: 4vw; */
-}
+
 
 .hamburguerIcon{
     display: flex;
@@ -220,6 +343,9 @@ body {
     background-color: #ffffff22;
     transition: .4s;
 }
+
+
+
 
 
 .mydeskContainer{
@@ -247,29 +373,26 @@ body {
 
 .boardsContainerMyDesk{
     display: flex;
-}
+    width: 100%;
 
+}
 
 
 .nuevoTableroMas{
     display: block;
     /* color: var(--fcolor); */
-    color: white;
-    font-size: 1.2rem;
+    color: var(--first-color);
+    font-size: 1.5rem;
 }
 
 .newBoardButton{
     display: flex;
-    /* flex-direction: column; */
     justify-content: space-evenly;
     align-items: center;
-    width: 11vw;
-    height: 7vh;
-
-    /* background-color: white; */
-    margin: 2vh 1vw;
-    /* color: #00000088; */
-    color: white;
+    width: 15vw;
+    height: 20vh;
+    margin: 1vh 0vw 1vh .5vw;
+    color: var(--first-color);
     cursor: pointer;
     border: solid 2px var(--third-color);
     border-radius: 10px;
@@ -283,19 +406,19 @@ body {
     transition: .5s;
 }
 
-
-
 .newBoardModal{
     position: absolute;
     top: 0;
     flex-grow: 1;
-    width: 95vw;
+    width: 100%;
+    /* max-width: 83vw; */
     height: 100%;
     background-color: #000000cc;
     display: flex;
     justify-content: center;
     align-items: center;
     /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .newBoard{
@@ -375,6 +498,7 @@ body {
     border: solid 1px white;
     color: white;
     font-size: 1.rem;
+    border-radius: 10px;
 }
 
 
@@ -391,4 +515,16 @@ body {
 
 .boardTasks{
     width: 100%;
+}
+
+.menuLateralDeskly{
+    color: white;
+}
+
+.lateralMenuClose .linkDeskly:hover {
+    background-color: var(--first-color);
+}
+
+.lateralMenuOpen .linkDeskly:hover {
+    background-color: var(--fourth-color);
 }
