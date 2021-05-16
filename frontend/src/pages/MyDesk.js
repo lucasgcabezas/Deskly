@@ -8,12 +8,12 @@ import LateralMenu from "../components/LateralMenu"
 import NotificationsPanel from "../components/NotificationsPanel"
 
 const MyDesk = (props) => {
+
     const { userLogged } = props
     const [inputBoard, setInputBoard] = useState({ title: '', description: '', token: '' })
     const [newBoardModal, setNewBoardModal] = useState(false)
 
     const [menuLateral, setMenuLateral] = useState(false)
-
 
     const readInputBoard = (e) => {
         const field = e.target.name
@@ -24,19 +24,28 @@ const MyDesk = (props) => {
             token: userLogged.token
         })
     }
+
     const addBoard = async () => { 
         await props.addBoard(inputBoard) 
         setNewBoardModal(false)
     }
 
     useEffect(() => {
-        if (userLogged.token) {
-            props.setUserComponents(userLogged.token)
-        }
-        props.getBoardsFromUser(props.userLogged.token)
-    }, [])
+        props.getBoardsFromUser(userLogged.token)
 
-    // useEffect(() => {props.getBoardsFromUser(props.userLogged.token)}, [])
+        const reloadTaskPlanner = setInterval(() => {
+            if (userLogged.token) {
+                props.setUserComponents(userLogged.token)
+                props.getBoardsFromUser(userLogged.token)
+            }
+
+        }, 1000)
+
+        return () => { clearInterval(reloadTaskPlanner) }
+        // if (userLogged.token) {
+        //     props.setUserComponents(userLogged.token)
+        // }
+    }, [])
 
     return (
         <div className="myDesk">
@@ -63,10 +72,24 @@ const MyDesk = (props) => {
                         <>
                             {/* <h1>Estas logueado con  {props.userLogged ? props.userLogged.firstName : "nadie"} </h1> */}
 
-                            {
+                            {/* {
                                 props.boards.map(board => <BoardIndividual key={board._id} board={board} />)
-                            }
+                            } */}
 
+                            <h2>Propietario de...</h2>
+                            {
+                                props.boardsOwnerArray.map(board => <BoardIndividual  key={board} board={board} />)
+                            }
+                            <h2>Administrador de...</h2>
+                            {
+                                props.boardsAdminArray.map(board => <BoardIndividual  key={board} board={board} />)
+
+                            }
+                            <h2>Usuario de...</h2>
+                            {
+                                props.boardsUserArray.map(board => <BoardIndividual  key={board} board={board} />)
+
+                            }
 
                             <div className="newBoardModal" style={{ display: newBoardModal ? 'flex' : 'none' }}>
                                 <div className="newBoard"  >
@@ -98,6 +121,9 @@ const mapStateToProps = state => {
     return {
         userLogged: state.authReducer.userLogged,
         boards: state.boardReducer.boards,
+        boardsAdminArray: state.authReducer.boardsAdminArray,
+        boardsOwnerArray: state.authReducer.boardsOwnerArray,
+        boardsUserArray: state.authReducer.boardsUserArray
     }
 }
 

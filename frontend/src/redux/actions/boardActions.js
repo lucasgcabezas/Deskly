@@ -106,9 +106,6 @@ const boardActions = {
         try{
             return async (dispatch, getState) => {
                 const response = await axios.put("http://localhost:4000/api/boardAdmins/" +email, {id})
-                // const boardsAdminArray = [response.data.admins._id]
-
-                // dispatch({ type: 'USER_COMPONENTS', payload: {boardsAdminArray}})
                 return response.data.admins.admins
             }
         }catch(error){
@@ -120,6 +117,16 @@ const boardActions = {
             return async (dispatch, getState) => {
                 const response = await axios.get("http://localhost:4000/api/boardAdmins/" +email)
                 return response.data.response.admins
+            }
+        }catch(error){
+            console.log(error)
+        }
+    },
+    getBoard: (id) => {
+        try{
+            return async (dispatch, getState) => {
+                const response = await axios.get("http://localhost:4000/api/boardSingle/"+id)
+                return response.data.response
             }
         }catch(error){
             console.log(error)

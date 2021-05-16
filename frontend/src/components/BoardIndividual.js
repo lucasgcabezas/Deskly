@@ -1,11 +1,27 @@
+import { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import boardActions from '../redux/actions/boardActions'
 import { Link } from 'react-router-dom'
-const BoardIndividual = ({ board }) => {
+import { set } from 'mongoose'
+const BoardIndividual = (props) => {
+    const [boardSingle, setBoardSingle] = useState({})
+    useEffect(()=>{
+        getBoardSingle()
+    },[])
+    const getBoardSingle = async () => {
+        const oneBoard = await props.getBoard(props.board)
+        setBoardSingle(oneBoard)
+    }
+    
     return (
-        <Link to={`/board/${board._id}`}>
+        <Link to={`/board/${props.board}`}>
             <div className="boardMyDesk">
-                <div>{board.title}</div>
+                <div>{boardSingle.title}</div>
             </div>
         </Link>
     )
 }
-export default BoardIndividual
+const mapDispatchToProps = {
+    getBoard: boardActions.getBoard
+}
+export default connect(null, mapDispatchToProps)(BoardIndividual)

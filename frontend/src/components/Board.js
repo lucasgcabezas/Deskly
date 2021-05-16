@@ -27,7 +27,7 @@ const Board = (props) => {
         if (props.boards.length === 0) {
             props.history.push('/myDesk')
         } else {
-            setBoard(boards.find(board => board._id === idParams))
+            setBoard(boards.find(board => String(board._id) === idParams))
         }
         tasksFetch()
         usersFetch()
@@ -99,10 +99,8 @@ const Board = (props) => {
         setUpdate(false)
     }
     const usersFetch = async () => {
-        console.log(idParams)
         const users = await props.getUsersFromBoard(idParams)
         const admins = await props.getAdminsFromBoard(idParams)
-        console.log(users)
         setBoardUsers(users)
         setAdmins(admins)
     }
@@ -114,8 +112,8 @@ const Board = (props) => {
     }
     
 
-    let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
-    let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
+    let imAdmin = props.boardsAdminArray.some(boardId => boardId === String(board._id))
+    let imOwner = props.boardsOwnerArray.some(boardId => boardId === String(board._id))
 
 
     return (
