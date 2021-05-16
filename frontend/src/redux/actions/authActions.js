@@ -68,14 +68,9 @@ const authActions = {
     },
 
     signOut: () => {
-        try {
-            return async (dispatch, getState) => {
-                desklyAlert('Hasta luego!', 'Esperamos verte pronto!', 'info')
-                dispatch({ type: 'LOGOUT_USER' })
-            }
-        } catch (error) {
-            desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
-            console.log(error)
+        return (dispatch, getState) => {
+            desklyAlert('Hasta luego!', 'Esperamos verte pronto!', 'info')
+            dispatch({ type: 'LOGOUT_USER' })
         }
     },
 
@@ -139,7 +134,6 @@ const authActions = {
                 const response = await axios.get('http://localhost:4000/api/usercomponents', {
                     headers: { 'Authorization': 'Bearer ' + token }
                 })
-                console.log(response.data.response)
                 dispatch({ type: 'USER_COMPONENTS', payload: { ...response.data.response } })
             } catch (error){
                 desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')

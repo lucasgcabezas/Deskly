@@ -6,13 +6,14 @@ import Comment from './Comment'
 
 const TaskModal = (props) => {
 
-    const { title, description, _id } = props.task
+    const { title, _id } = props.task
     const { addComment, setShow, show, userLogged, editTask, getComments } = props
 
     const [newComment, setNewComment] = useState({ userId: '', userCompleteName: '', message: '' })
     const [commentsState, setCommentsState] = useState([])
     const [editDescription, setEditDescription] = useState(true)
     const [newDescription, setNewDescription] = useState({ description: '' })
+    const [loading, setLoading] = useState(true)
 
     let display = !show ? 'none' : 'block'
     let userName;
@@ -31,6 +32,7 @@ const TaskModal = (props) => {
             getAllComments()
         }, 2000)
         return () => { clearInterval(reloadTaskPlanner) }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getAllComments = async () => {
@@ -49,8 +51,10 @@ const TaskModal = (props) => {
     }
 
     const sendComment = async () => {
+        setLoading(false)
         if (Object.values(newComment).some(valor => valor === "")) {
             alert('comentario vacio')
+            setLoading(true)
             return false
         }
         let response = await addComment(_id, newComment, token)
@@ -58,6 +62,7 @@ const TaskModal = (props) => {
             setCommentsState(response)
         }
         setNewComment({ userId: '', userCompleteName: '', message: '' })
+        setLoading(true)
     }
 
     const sendDescription = async () => {
@@ -66,6 +71,11 @@ const TaskModal = (props) => {
         setEditDescription(!editDescription)
     }
 
+    const enter = (e) => {
+        if(e.key === 'Enter'){
+            sendComment()
+        }
+    }
     let descriptionText = newDescription.description === '' ? 'Añadir una descripción mas detallada' : newDescription.description
     return (
         <>
@@ -103,8 +113,8 @@ const TaskModal = (props) => {
                                 <p>foto user</p>
                             </div>
                             <div>
-                                <input placeholder="Escriba un comentario..." name="message" value={newComment.message} onChange={readDataNewComment}></input>
-                                <button onClick={sendComment}>Guardar</button>
+                                <input onKeyDown={loading && enter} placeholder="Escriba un comentario..." name="message" value={newComment.message} onChange={readDataNewComment}></input>
+                                <button onClick={loading && sendComment}>Guardar</button>
                             </div>
                         </div>
 

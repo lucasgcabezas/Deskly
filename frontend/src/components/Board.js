@@ -6,6 +6,7 @@ import taskPlannerActions from '../redux/actions/taskPlannerActions'
 import TaskPlanner from './Taskplanner'
 import UserAdmin from './UserAdmin'
 import { Link } from 'react-router-dom'
+import LateralMenu from './LateralMenu'
 
 const Board = (props) => {
     const { boards, inviteUserToBoard } = props
@@ -20,6 +21,9 @@ const Board = (props) => {
     const [openInvite, setOpenInvite] = useState(false)
     const [boardUsers, setBoardUsers] = useState([])
     const [admins, setAdmins] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [menuLateral, setMenuLateral] = useState(false)
+
 
     useEffect(() => {
         if (props.userLogged) {
@@ -28,7 +32,7 @@ const Board = (props) => {
         if (props.boards.length === 0) {
             props.history.push('/myDesk')
         } else {
-            setBoard(boards.find(board => board._id === idParams))
+            setBoard(boards.find(board => String(board._id) === idParams))
         }
         tasksFetch()
         usersFetch()
@@ -37,10 +41,12 @@ const Board = (props) => {
             if (props.userLogged.token) {
                 props.setUserComponents(props.userLogged.token)
             }
+            usersFetch()
             tasksFetch()
         }, 5000)
 
         return () => { clearInterval(reloadTaskPlanner) }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const tasksFetch = async () => {
@@ -58,16 +64,20 @@ const Board = (props) => {
 
     const sendValues = async () => {
         if (newTitle.trim() !== "") {
+            setLoading(false)
             await props.addTaskPlanner({ title: newTitle, boardId: board._id }, props.userLogged.token)
             const tasks = await props.getTaskPlannerFromBoard(board._id)
             setAllTasksPlanner(tasks)
             setNewTitle('')
+            setLoading(true)
         }
     }
 
     const addUser = () => {
-        inviteUserToBoard(newInvite, board._id)
-        setNewInvite('')
+        if (newInvite.trim()) {
+            inviteUserToBoard(newInvite, board._id)
+            setNewInvite('')
+        }
     }
 
     const edit = async (idTaskPlanner, titleTaskPlanner) => {
@@ -100,10 +110,8 @@ const Board = (props) => {
         setUpdate(false)
     }
     const usersFetch = async () => {
-        console.log(idParams)
         const users = await props.getUsersFromBoard(idParams)
         const admins = await props.getAdminsFromBoard(idParams)
-        console.log(users)
         setBoardUsers(users)
         setAdmins(admins)
     }
@@ -113,17 +121,26 @@ const Board = (props) => {
         setAdmins(admins)
         return admins
     }
-    
-    let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
-    let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
+
+
+    let imAdmin = props.boardsAdminArray.some(boardId => boardId === String(board._id))
+    let imOwner = props.boardsOwnerArray.some(boardId => boardId === String(board._id))
 
     return (
         <div className="contenedorBoard">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#615ee1" fill-opacity="1" d="M0,96L60,96C120,96,240,96,360,117.3C480,139,600,181,720,186.7C840,192,960,160,1080,160C1200,160,1320,192,1380,208L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
             </svg>
+
+            <LateralMenu setMenuLateral={setMenuLateral} menuLateral={menuLateral} />
+            <div>
+                
             <div className="headerBoard">
+
+                {/* Se va a romper acá! No te enojes */}
+
                 <div className="boardMarca">
+                    <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
                     {/* <img className="desklyLogo2" src="https://webdesing881317710.files.wordpress.com/2021/05/desklylogo2.png" alt="" /> */}
                     <h2 className="logoLink">{board.title}</h2>
                 </div>
@@ -152,9 +169,10 @@ const Board = (props) => {
                             <div className="inviteUsersVentana">
                                 <h3>Invite a new member to the board</h3>
                                 <div>
-                                    <span><input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off"/></span>
-                                    <button className="buttonUserInvite" onClick={newInvite.trim() && addUser}>send</button>
+                                    <span><input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off" /></span>
+                                    <button className="buttonUserInvite" onClick={addUser}>send</button>
                                 </div>
+
                             </div>
                         }
                     </div>
@@ -163,6 +181,8 @@ const Board = (props) => {
                             boardUsers.map((user, i) => {
                                 if (i) {
                                     return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} />
+                                } else {
+                                    return null
                                 }
                             })
 
@@ -184,8 +204,8 @@ const Board = (props) => {
                             <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}>Add new list...</button>
                             {
                                 open && <div>
-                                    <input onKeyDown={(e) => enter(e, 'title')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                    <button onClick={sendValues}>Send</button>
+                                    <input onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                    <button onClick={loading ? sendValues : null}>Send</button>
                                 </div>
                             }
                         </>
@@ -197,6 +217,12 @@ const Board = (props) => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                 <path fill="#ec9acf" fill-opacity="1" d="M0,160L21.8,170.7C43.6,181,87,203,131,186.7C174.5,171,218,117,262,106.7C305.5,96,349,128,393,160C436.4,192,480,224,524,234.7C567.3,245,611,235,655,229.3C698.2,224,742,224,785,218.7C829.1,213,873,203,916,208C960,213,1004,235,1047,256C1090.9,277,1135,299,1178,277.3C1221.8,256,1265,192,1309,154.7C1352.7,117,1396,107,1418,101.3L1440,96L1440,320L1418.2,320C1396.4,320,1353,320,1309,320C1265.5,320,1222,320,1178,320C1134.5,320,1091,320,1047,320C1003.6,320,960,320,916,320C872.7,320,829,320,785,320C741.8,320,698,320,655,320C610.9,320,567,320,524,320C480,320,436,320,393,320C349.1,320,305,320,262,320C218.2,320,175,320,131,320C87.3,320,44,320,22,320L0,320Z"></path>
             </svg>
+
+
+            </div>
+
+
+
         </div>
     )
 }

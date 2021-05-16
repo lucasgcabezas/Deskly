@@ -483,6 +483,7 @@ input:focus{
 }
 .contenedorBoard{
     height: 100vh;
+    display: flex;
 }
 .contenedorBoard svg{
     position: absolute;

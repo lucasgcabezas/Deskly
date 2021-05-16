@@ -8,11 +8,12 @@ import LateralMenu from "../components/LateralMenu"
 import NotificationsPanel from "../components/NotificationsPanel"
 
 const MyDesk = (props) => {
+
     const { userLogged } = props
     const [inputBoard, setInputBoard] = useState({ title: '', description: '', token: '' })
     const [newBoardModal, setNewBoardModal] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [menuLateral, setMenuLateral] = useState(false)
-
 
     const readInputBoard = (e) => {
         const field = e.target.name
@@ -23,21 +24,33 @@ const MyDesk = (props) => {
             token: userLogged.token
         })
     }
+
     const addBoard = async () => {
+        setLoading(false)
         await props.addBoard(inputBoard)
         setNewBoardModal(false)
+        setLoading(true)
     }
 
     useEffect(() => {
-        if (userLogged.token) {
-            props.setUserComponents(userLogged.token)
-        }
-        props.getBoardsFromUser(props.userLogged.token)
+        props.getBoardsFromUser(userLogged.token)
+
+        const reloadTaskPlanner = setInterval(() => {
+            if (userLogged.token) {
+                props.setUserComponents(userLogged.token)
+                props.getBoardsFromUser(userLogged.token)
+            }
+
+        }, 1000)
+
+        return () => { clearInterval(reloadTaskPlanner) }
+        // if (userLogged.token) {
+        //     props.setUserComponents(userLogged.token)
+        // }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    // useEffect(() => {props.getBoardsFromUser(props.userLogged.token)}, [])
-
-    let userFirstName = props.userLogged.response ?`${props.userLogged.response.firstName}`: `${userLogged.firstName}`
+    let userFirstName = props.userLogged.response ? `${props.userLogged.response.firstName}` : `${userLogged.firstName}`
     let userLastName = props.userLogged.response ? props.userLogged.response.lastName || '' : userLogged.lastName || ''
     let userImg = props.userLogged.response ? props.userLogged.response.img : userLogged.img
 
@@ -53,16 +66,16 @@ const MyDesk = (props) => {
 
 
 
-
+                    {/* 
                     <div className="userPicName">
                         <span className="userCompleteName">{userLogged.firstName + ' ' + (userLogged.lastName || '')}</span>
                         <div className="userPic" style={{ backgroundImage: `url('${userLogged.img}')` }}></div>
-                    </div>
+                    </div> */}
 
                     <div className="userPicName">
-                    <div className="userPic" style={{ backgroundImage: `url('${userImg}')` }}></div>
-                    <span className="userCompleteName">{`${userFirstName} ${userLastName}` }</span>
-                </div>
+                        <span className="userCompleteName">{`${userFirstName} ${userLastName}`}</span>
+                        <div className="userPic" style={{ backgroundImage: `url('${userImg}')` }}></div>
+                    </div>
 
 
 
@@ -71,13 +84,34 @@ const MyDesk = (props) => {
                     {
                         props.userLogged &&
                         <>
-                            {
+                            {/* {
                                 props.boards.map(board => <BoardIndividual key={board._id} board={board} />)
+                            }  */}
+
+                            <h2>Propietario de...</h2>
+                            {
+                                props.boardsOwnerArray.map(board => <BoardIndividual key={board} board={board} />)
                             }
+                            
                             <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
                                 <span className="material-icons-outlined nuevoTableroMas">add_circle_outline</span>
                                 <span>New board...</span>
                             </div>
+
+                            <h2>Administrador de...</h2>
+                            {
+                                props.boardsAdminArray.map(board => <BoardIndividual key={board} board={board} />)
+
+                            }
+
+                            <h2>Usuario de...</h2>
+                            {
+                                props.boardsUserArray.map(board => <BoardIndividual key={board} board={board} />)
+
+                            }
+
+
+
                         </>
                     }
                 </div>
@@ -87,11 +121,22 @@ const MyDesk = (props) => {
                 <div className="newBoard"  >
                     <input type="text" name="title" placeholder="Titulo" onChange={readInputBoard} />
                     <textarea name="description" placeholder="Agrega una descripción..." onChange={readInputBoard} ></textarea>
-                    <button onClick={addBoard}>Crear nuevo tablero</button>
+                    <button onClick={loading && addBoard}>Create a new board</button>
+
+                    {/* <button onClick={addBoard}>Crear nuevo tablero</button> */}
 
                     <span onClick={() => setNewBoardModal(false)} className="material-icons-outlined closeNewBoardModal">close</span>
                 </div>
             </div>
+
+
+            {/* <div className="newBoardModal" style={{ display: newBoardModal ? 'flex' : 'none' }}>
+                <div className="newBoard"  >
+                    <input type="text" name="title" placeholder="title" onChange={readInputBoard} />
+                    <input type="text" name="description" placeholder="description..." onChange={readInputBoard} />
+                    <span onClick={() => setNewBoardModal(false)} className="closeNewBoardModal">X</span>
+                </div>
+            </div> */}
 
         </div>
     );
@@ -101,6 +146,9 @@ const mapStateToProps = state => {
     return {
         userLogged: state.authReducer.userLogged,
         boards: state.boardReducer.boards,
+        boardsAdminArray: state.authReducer.boardsAdminArray,
+        boardsOwnerArray: state.authReducer.boardsOwnerArray,
+        boardsUserArray: state.authReducer.boardsUserArray
     }
 }
 

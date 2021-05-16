@@ -40,10 +40,12 @@ const notificationsControllers = {
         try {
 
             const boardsOwner = await BoardModel.find({ owner: req.user._id })
-            let boardOwnerId = boardsOwner.map(board => board._id)
-
+            let boardOwnerId = boardsOwner.map(board => String(board._id))
             const adminBoards = await BoardModel.find({ admins: { $elemMatch: { $eq: req.user._id } } })
-            let boardAdminArray = adminBoards.map(board => board._id)
+            let boardAdminArray = adminBoards.map(board => String(board._id))
+            const userBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.user._id } } })
+            let boardUserArray = userBoards.map(board => String(board._id))
+            let boardIdUser = boardUserArray.filter(user => (boardOwnerId.indexOf(user) === -1 && boardAdminArray.indexOf(user) === -1))
 
             const taskPlanners = await Taskplanner.find({ userId: req.user._id })
 
@@ -57,7 +59,7 @@ const notificationsControllers = {
                 return commentsId
             })
 
-            res.json({ success: true, response: { boardOwnerId, boardAdminArray, taskPlanners, idComents } })
+            res.json({ success: true, response: { boardOwnerId, boardAdminArray, taskPlanners, idComents, boardIdUser} })
 
         } catch (error) {
             res.json({ success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!' })

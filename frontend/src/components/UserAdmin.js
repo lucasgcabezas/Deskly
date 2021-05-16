@@ -13,6 +13,7 @@ const UserAdmin = (props) => {
         } else {
             setAdmin(true)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.admins])
 
     const confirmAdmin = async () => {
