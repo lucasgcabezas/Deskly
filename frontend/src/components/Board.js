@@ -5,10 +5,13 @@ import authActions from '../redux/actions/authActions'
 import taskPlannerActions from '../redux/actions/taskPlannerActions'
 import TaskPlanner from './Taskplanner'
 import UserAdmin from './UserAdmin'
+import Archive from "./Archive"
+
 
 const Board = (props) => {
     const { boards, inviteUserToBoard } = props
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
+    const [filterTaskplanners,setFilterTaskplanners] =useState([])
     const [open, setOpen] = useState(false)
     const [update, setUpdate] = useState(false)
     const [newTitle, setNewTitle] = useState('')
@@ -42,6 +45,7 @@ const Board = (props) => {
     const tasksFetch = async () => {
         const tasks = await props.getTaskPlannerFromBoard(idParams)
         setAllTasksPlanner(tasks)
+      
     }
 
     const enter = (e, condition) => {
@@ -108,6 +112,11 @@ const Board = (props) => {
         return admins
     }
 
+    const recycle = async (idTaskPlanner) => {
+        await props.recycleTaskPlanner(idTaskPlanner, {archived:true})
+        tasksFetch()
+    }
+
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
 
@@ -132,6 +141,7 @@ const Board = (props) => {
                 {
                     imOwner &&
                     <>
+                       
                         <button onClick={deleteBoard}>Delete</button>
                         <button onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}>{update ? 'Cancel' : 'Edit'}</button>
                         {update &&
@@ -163,14 +173,19 @@ const Board = (props) => {
                             </div>
                         }
                     </>
-            }
+            }           <div  style={{ display: 'flex', margin: '2rem' }}> <Archive allTasksPlanner={allTasksPlanner}/></div>
+                    
                     <div style={{ display: 'flex', margin: '20px' }}>
                         {
-                            allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
+                            
+                            allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} recycle={recycle} taskplanner={taskplanner} />)
+                           
                         }
                     </div>
-            </div>
 
+            </div>
+            
+           
 
 
         </>
@@ -201,7 +216,8 @@ const mapDispatchToProps = {
     getUsersFromBoard: boardActions.getUsersFromBoard,
     userAdmin: boardActions.userAdmin,
     setUserComponents: authActions.setUserComponents,
-    getAdminsFromBoard: boardActions.getAdminsFromBoard
+    getAdminsFromBoard: boardActions.getAdminsFromBoard,
+    recycleTaskPlanner: taskPlannerActions.recycleTaskPlanner
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board)

@@ -38,6 +38,15 @@ const Task = (props) => {
         let arrayFiltered = allTasks.filter(task => task._id != response._id)
         setAllTasks(arrayFiltered)
     }
+
+    
+    const sendRecycleTask = async () => {
+        console.log(_id)
+        const response = await props.recycleTask(_id,{recycled:true})
+        // let arrayFiltered = allTasks.filter(task => task._id != response._id)
+        // setAllTasks(arrayFiltered)
+    }
+
     // console.log(props.commentsUserArray);
     let style =props.imOwner || props.imAdmin? 'block' : 'none'
     return (
@@ -52,6 +61,7 @@ const Task = (props) => {
                         <div style={{display: style}}>
                             <button onClick={() => setEditButton(!editButton)}>Editar</button>
                             <button onClick={sendDeleteTask}>Borrar</button>
+                            <button onClick={sendRecycleTask}>recycle</button>
                         </div>
                         <button onClick={() => setShow(true)}>modal</button>
                     </div>
@@ -75,6 +85,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     editTask: taskActions.editTask,
     deleteTask: taskActions.deleteTask,
+    recycleTask: taskActions.recycleTask,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task)

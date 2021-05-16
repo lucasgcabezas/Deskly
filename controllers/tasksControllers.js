@@ -37,6 +37,7 @@ const tasksControllers = {
         }
     },
     tasksFromTaskplanner: async (req, res) => {
+        
         const id = req.params.id
         try {
             const tasksFromTaskplanner = await TaskModel.find({ taskplannerId: id })
@@ -78,6 +79,16 @@ const tasksControllers = {
             res.json({ response: 'Ha ocurrido un error en el servidor, intente más tarde!', success: false })
         }
     },
+      
+    recycleTask: async (req, res) => {
+        try {
+            const recycleComment = await TaskModel.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
+                res.json({ response: recycleComment, success: true })
+            } catch (error) {
+                res.json({ response: 'Ha ocurrido un error en el servidor, intente más tarde!', success: false })
+            }
+        },
+
     deleteComment: async (req, res) => {
         const { id } = req.params
         try {

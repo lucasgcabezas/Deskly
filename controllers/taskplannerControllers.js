@@ -22,6 +22,17 @@ const taskplannerControllers = {
         }
     },
 
+    recycleTaskplanner: async(req, res) => {
+ 
+        try{
+            const taskplanner = await Taskplanner.findOneAndUpdate({_id: req.params.id}, req.body.title, {new: true})
+            res.json({success: true, response: taskplanner})
+        }catch(error){
+            res.json({success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!'})
+            console.log(error)
+        }
+    },
+
     deleteTaskplanner: async (req, res) => {
         try{
             const taskplanner = await Taskplanner.findOneAndDelete({_id: req.params.id})
@@ -36,7 +47,6 @@ const taskplannerControllers = {
      
         try{
             const taskplanner = await Taskplanner.find({boardId: req.params.id})
-            // console.log(taskplanner)
             res.json({success: true, response: taskplanner})
         }catch(error){
             res.json({success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!'})

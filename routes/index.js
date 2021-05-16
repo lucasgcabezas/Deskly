@@ -10,9 +10,9 @@ const passport = require("passport")
 
 const { newUser, login, reLogin, inviteUserToBoard, checkNotifications } = userControllers
 const { acceptBoard, rejectBoard, getComponents } = notificationsControllers
-const { getAllTaskplanner, getTaskplanner, getTaskplannerFromBoard, addTaskplanner, putTaskplanner, deleteTaskplanner } = taskplannerControllers
+const { getAllTaskplanner, getTaskplanner, getTaskplannerFromBoard, addTaskplanner, putTaskplanner, deleteTaskplanner,recycleTaskplanner } = taskplannerControllers
 const { getFromUser, addBoard, editBoard, deleteBoard, getUsersFromBoard, userAdmin, getAdminsFromBoard} = boardsControllers
-const { getAllTasks, addTask, editTask, deleteTask, tasksFromTaskplanner,getAllComments,  addComment, editComment, deleteComment } = tasksControllers
+const { getAllTasks, addTask, editTask, deleteTask, tasksFromTaskplanner,getAllComments,  addComment, editComment, deleteComment, recycleTask } = tasksControllers
 
 // routes boardsControllers 
 router.route('/board')
@@ -39,6 +39,7 @@ router.route('/taskplanner/:id')
 
 router.route('/taskplannerFromBoard/:id')
     .get(getTaskplannerFromBoard)
+    .put(recycleTaskplanner)
 
 // routes userControllers
 router.route("/newuser")
@@ -72,6 +73,10 @@ router.route('/task/:id')
     .get(tasksFromTaskplanner)
     .put(editTask)
     .delete(deleteTask)
+
+router.route('/recycletask/:id')
+    .put(recycleTask)
+    
 
 // TASK COMMENTS
 router.route('/task/comment/:id')

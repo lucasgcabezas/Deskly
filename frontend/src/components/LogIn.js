@@ -4,6 +4,7 @@ import authActions from "../redux/actions/authActions"
 import GoogleLogin from 'react-google-login'
 import FacebookLogin from 'react-facebook-login'
 
+
 const SignIn = (props) => {
     const {userLogged} = props
     const [logIn, setLogIn] = useState({})
@@ -42,6 +43,7 @@ const SignIn = (props) => {
     return (
         
         <div>
+       
             <h1>hola {userLogged ? userLogged.firstName : "nadie"}</h1>
             <input type="text" name="email" placeholder="e-mail" onChange={input} />
             <input type="password" name="password" placeholder="Password" onChange={input} />
