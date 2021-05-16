@@ -5,6 +5,7 @@ import authActions from '../redux/actions/authActions'
 import taskPlannerActions from '../redux/actions/taskPlannerActions'
 import TaskPlanner from './Taskplanner'
 import UserAdmin from './UserAdmin'
+import LateralMenu from './LateralMenu'
 
 const Board = (props) => {
     const { boards, inviteUserToBoard } = props
@@ -20,6 +21,9 @@ const Board = (props) => {
     const [boardUsers, setBoardUsers] = useState([])
     const [admins, setAdmins] = useState([])
 
+    // const [menuLateral, setMenuLateral] = useState(false)
+
+
     useEffect(() => {
         if (props.userLogged) {
             props.setUserComponents(props.userLogged.token)
@@ -33,7 +37,7 @@ const Board = (props) => {
         usersFetch()
 
         const reloadTaskPlanner = setInterval(() => {
-            if (props.userLogged.token) {
+            if (props.userLogged) {
                 props.setUserComponents(props.userLogged.token)
             }
             tasksFetch()
@@ -108,12 +112,10 @@ const Board = (props) => {
     }
 
     const userAdmin = async (email) => {
-        const admins = await props.userAdmin(email,idParams)
+        const admins = await props.userAdmin(email, idParams)
         setAdmins(admins)
         return admins
     }
-    
-
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
 
@@ -142,10 +144,17 @@ const Board = (props) => {
                         <button onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}>{update ? 'Cancel' : 'Edit'}</button>
                         {update &&
                             <>
-                                <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
-                                <input type="text" name="description" value={updateInput.description} onChange={readUpdateInput} />
-                                <button onClick={editBoard}>Send</button>
+                                <button onClick={deleteBoard}>Delete</button>
+                                <button onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}>{update ? 'Cancel' : 'Edit'}</button>
+                                {update &&
+                                    <>
+                                        <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
+                                        <input type="text" name="description" value={updateInput.description} onChange={readUpdateInput} />
+                                        <button onClick={editBoard}>Send</button>
+                                    </>
+                                }
                             </>
+
                         }
                     </>
 
@@ -158,25 +167,24 @@ const Board = (props) => {
                     </div>
                 }
             </div>
-                <div>
-            {(imOwner || imAdmin) &&
+            <div>
+                {(imOwner || imAdmin) &&
                     <>
                         <button onClick={() => setOpen(!open)}>Add list</button>
                         {
                             open && <div>
-                                <input onKeyDown={(e) => enter(e, 'title')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                <button onClick={sendValues}>send</button>
+                                <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />
+                                <button onClick={newInvite.trim() && addUser}>send</button>
                             </div>
                         }
                     </>
-            }
-                    <div style={{ display: 'flex', margin: '20px' }}>
-                        {
-                            allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
-                        }
-                    </div>
+                }
+                <div style={{ display: 'flex', margin: '20px' }}>
+                    {
+                        allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
+                    }
+                </div>
             </div>
-
 
 
         </>
