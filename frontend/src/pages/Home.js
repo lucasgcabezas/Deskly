@@ -1,12 +1,16 @@
 import Footer from '../components/Footer'
 import Header from '../components/Header'
-
-
+import {Link} from 'react-router-dom'
 const Home = () => {
     return (
-        <>
+        <div>
             <Header />
-
+            {/* <div>
+                <img className="imgParallax1" src="https://webdesing881317710.files.wordpress.com/2021/05/2cfb3ece-fe78-492e-85bd-5e35bd75c185.png" alt="" />
+                <img className="imgParallax2" src="https://webdesing881317710.files.wordpress.com/2021/05/e8a83a15-29ba-4f32-8318-a0e72d7742d2.png" alt="" />
+                <img className="imgParallax3" src="https://webdesing881317710.files.wordpress.com/2021/05/2cfb3ece-fe78-492e-85bd-5e35bd75c185.png" alt="" />
+                <img className="imgParallax4" src="https://webdesing881317710.files.wordpress.com/2021/05/e8a83a15-29ba-4f32-8318-a0e72d7742d2.png" alt="" />
+            </div> */}
             <div className="contenedorHome">
                 <div className="contenedorHeroHome">
                     <div>
@@ -14,6 +18,7 @@ const Home = () => {
                         <h1>DESKLY</h1>
                     </div>
                     <p>Organiza y gestiona tu trabajo de forma eficiente. Lleva un control de cada proyecto. Hace que tu carga fluya.</p>
+                    <Link to="/sign"><button className="buttonRegister">Registrate!</button></Link>
                 </div>
                 <div className="imageHero" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/s.png')" }}></div>
             </div>
@@ -66,15 +71,13 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="contenedorElipse2">
-                    <div className="elipse2"></div>
                     <div className="contenedorSemiCirculo">
                         <div className="fabrica" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/1f4f68b7-593b-4377-80e6-d661aade7263.png')" }}></div>
                     </div>
                 </div>
             </div>
-
             <Footer />
-        </>
+        </div>
     );
 }
 

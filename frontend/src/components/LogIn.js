@@ -34,14 +34,14 @@ const SignIn = (props) => {
         log(null, { email: email, password: 'Aa' + googleId, google: true })
     }
 
-    const responseFacebook = (response) => {
-        const {email, id} = response
-        log(null, {email, password: "Aa"+ id, facebook: true})
-    }
+    // const responseFacebook = (response) => {
+    //     const {email, id} = response
+    //     log(null, {email, password: "Aa"+ id, facebook: true})
+    // }
 
     return (
         
-        <div>
+        <div className="contenedorLogIn">
             <h1>hola {userLogged ? userLogged.firstName : "nadie"}</h1>
             <input type="text" name="email" placeholder="e-mail" onChange={input} />
             <input type="password" name="password" placeholder="Password" onChange={input} />
@@ -53,14 +53,14 @@ const SignIn = (props) => {
                 onFailure={respuestaGoogle}
                 cookiePolicy={'single_host_origin'}
             />
-            <FacebookLogin
+            {/* <FacebookLogin
                 appId="525627921786555"
                 autoLoad={false}
                 fields="name,email,picture"
                 callback={responseFacebook}
                 textButton="Log In with Facebook"
                 icon="fa-facebook"
-            />
+            /> */}
         </div>
     )
 }

@@ -30,7 +30,6 @@ const App = (props) => {
     <>
       <ReactNotification />
       <BrowserRouter>
-        {/* <Header /> */}
         <Switch>
           <Route exact path="/" component={Home} />
           {userLogged && <Route path="/mydesk" component={MyDesk} />}
@@ -39,7 +38,6 @@ const App = (props) => {
           {!userLogged && <Route path="/signup" component={SignUp} />}
           <Redirect to="/" />
         </Switch>
-        {/* <Footer /> */}
       </BrowserRouter>
     </>
   )

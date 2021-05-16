@@ -11,12 +11,45 @@ html *{
     --fourth-color:#545454;
     --fifth-color:#e0e0e0;
 }
+.navegadores{
+    color: var(--first-color);
+    margin-left: 3vw;
+    text-decoration: none;
+    font-size: 18px;
+}
+.navegadores.active{
+    text-decoration: underline;
+}
+.buttonRegister{
+    background-color: var(--third-color);
+    padding: 3vh 2vw;
+    border: none;
+    border-radius: 20px;
+    width: 20vw;
+    font-size: 2em;
+    color: white;
+    cursor: pointer;
+}
+.buttonRegister:hover{
+    background-color: var(--first-color);
+}
+.contenedorHeader{
+    display: flex;
+    align-items: center;
+    height: 10vh;
+}
+.mainHome{
+    position: absolute;
+    overflow: hidden;
+}
+
 .desklyLogo{
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
     width: 10vw;
     height: 40vh;
+    margin-bottom: 3vh;
 }
 .contenedorHome{
     display: flex;
@@ -94,7 +127,7 @@ html *{
     background: white;
     border-radius: 50%;
     position: absolute;
-    bottom: 16.5vh;
+    bottom: 16vh;
 }
 .elipse h2{
     margin-top: 10vh;
@@ -118,10 +151,6 @@ html *{
     border-radius: 50%;
     z-index: -1;
 }
-.contenedorHeader{
-    display: flex;
-    height: 10vh;
-}
 .contenedorCirculosHerramientas{
     display: flex;
     flex-direction: column;
@@ -139,6 +168,7 @@ html *{
 }
 .material-icons-outlined{
     font-size: 4em;
+    display: inline-block !important;
 }
 .desklyHerramientas1 div, .desklyHerramientas2 div{
     display: flex;
@@ -191,14 +221,7 @@ html *{
     border-radius: 50%;
 }
 .contenedorElipse2{
-    margin-top: 26vh;
-}
-.elipse2{
-    margin-top: 6vh;
-    height: 30vh;
-    width: 100%;
-    background: var(--first-color);
-    border-radius: 50%;
+    margin-top: 60vh;
 }
 .fabrica{
     background-position: center;
@@ -208,14 +231,65 @@ html *{
     height: 60vh;
     position: absolute;
     left: 10vw;
-    bottom: 10px;
+    bottom: 2px;
 }
 footer{
-    height: 40vh;
-    background-color: var(--fifth-color);
+    position: relative;
 }
-
-.contenedorNavigationFooter{
+.logoFooter{
+    display: flex;
+    align-items: center;
+    color: var(--fourth-color);
+    font-size: 1.5em;
+}
+.contenedorFooter{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 10vh;
+    position: absolute;
+    top: 6em;
+}
+.svgFooter{
+    position: absolute;
+    z-index: -1;
+}
+.navigation{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.redesSociales{
+    color: white;
+    cursor: pointer;
+}
+.navigation h2{
+    font-size: 2em;
+    color: white;
+}
+.navFooter{
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+.iconsFooter{
+    font-size: 2.5em;
+}
+.contenedorSign{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.contenedorLogIn{
+    display: flex;
+    flex-direction: column;
+}
+.heroSignUp{
+    background-color: var(--first-color);
+}
+.contenedorSignUp{
+    display: flex;
 }

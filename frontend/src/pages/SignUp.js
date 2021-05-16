@@ -48,14 +48,16 @@ const SignUp = (props) => {
         const { givenName, familyName, email, googleId, imageUrl } = response.profileObj
         sendValueUser(null, { firstName: givenName, lastName: familyName, email, password: "Aa" + googleId, img: imageUrl, google: true })
     }
-    const responseFacebook = (response) => {
-        const { name, email, id, picture } = response
-        sendValueUser(null, { firstName: name, lastName: null, email, password: "Aa" + id, img: picture.data.url, facebook: true })
-    }
+    // const responseFacebook = (response) => {
+    //     const { name, email, id, picture } = response
+    //     sendValueUser(null, { firstName: name, lastName: null, email, password: "Aa" + id, img: picture.data.url, facebook: true })
+    // }
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h1>Sign up!</h1>
+        <div>
+            <div className="heroSignUp">
+                <h1>Sign up!</h1>
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', width: '30vw' }}>
                 <input type="text" placeholder="Please, enter your first name"
                     onChange={readInputUser} value={user.firstName} name="firstName" />
@@ -91,14 +93,14 @@ const SignUp = (props) => {
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
             />
-            <FacebookLogin
+            {/* <FacebookLogin
                 appId="525627921786555"
                 autoLoad={false}
                 fields="name,email,picture"
                 callback={responseFacebook}
                 textButton="Sign Up with Facebook"
                 icon="fa-facebook"
-            />
+            /> */}
 
         </div>
     )

@@ -1,11 +1,11 @@
 import LogIn from '../components/LogIn'
-
+import SignUp from './SignUp';
 const Sign = () => {
     return (
-        <>
-            <h1>Soy la page Sign</h1>
-            <LogIn />
-        </>
+        <div className="contenedorSign">  
+            <SignUp/>
+            {/* <LogIn /> */}
+        </div>
     )
 }
 
