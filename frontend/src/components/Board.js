@@ -33,6 +33,9 @@ const Board = (props) => {
         usersFetch()
 
         const reloadTaskPlanner = setInterval(() => {
+            if (props.userLogged.token) {
+                props.setUserComponents(props.userLogged.token)
+            }
             tasksFetch()
         }, 5000)
 
@@ -96,8 +99,10 @@ const Board = (props) => {
         setUpdate(false)
     }
     const usersFetch = async () => {
+        console.log(idParams)
         const users = await props.getUsersFromBoard(idParams)
         const admins = await props.getAdminsFromBoard(idParams)
+        console.log(users)
         setBoardUsers(users)
         setAdmins(admins)
     }
@@ -107,6 +112,7 @@ const Board = (props) => {
         setAdmins(admins)
         return admins
     }
+    
 
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
@@ -114,7 +120,7 @@ const Board = (props) => {
 
     return (
         <>
-            <div>
+            {imOwner && <div>
                 {
                     boardUsers.map((user,i) => {
                     if(i){
@@ -123,7 +129,7 @@ const Board = (props) => {
                 })
 
                 }
-            </div>
+            </div>}
             <div>
                 <h1>{board.title}</h1>
                 <span>{board.description}</span>
@@ -144,7 +150,7 @@ const Board = (props) => {
                     </>
 
                 }
-                <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>
+                { (imAdmin || imOwner) && <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>}
                 {
                     openInvite && <div>
                         <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />

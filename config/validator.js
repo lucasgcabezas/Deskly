@@ -25,6 +25,8 @@ const validator = (req, res, next) => {
             "string.uri": "Introduzca un URL válido",
             "string.empty":"Introduzca un URL válido"
         }),
+        google: joi.boolean(),
+        facebook: joi.boolean()
     })
     const validation = schema.validate(req.body, {abortEarly:false})
     if (validation.error) {

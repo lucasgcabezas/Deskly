@@ -106,6 +106,9 @@ const boardActions = {
         try{
             return async (dispatch, getState) => {
                 const response = await axios.put("http://localhost:4000/api/boardAdmins/" +email, {id})
+                // const boardsAdminArray = [response.data.admins._id]
+
+                // dispatch({ type: 'USER_COMPONENTS', payload: {boardsAdminArray}})
                 return response.data.admins.admins
             }
         }catch(error){

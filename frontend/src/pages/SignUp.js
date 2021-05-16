@@ -24,6 +24,7 @@ const SignUp = (props) => {
         setMistakes({ firstName: '', lastName: '', email: '', password: '', img: '' })
         e && e.preventDefault()
         let userGen = e ? user : googleUser || userFacebook
+        console.log(userGen)
         if (Object.values(userGen).some(value => value === "")) {
             store.addNotification({
                 title: "Error",
@@ -37,6 +38,7 @@ const SignUp = (props) => {
             })
         } else {
             const response = await props.signUpUser(userGen)
+            console.log(response)
             if (response) {
                 response.details.map(error => setMistakes((prevState) => {
                     return { ...prevState, [error.context.label]: error.message }
@@ -45,6 +47,7 @@ const SignUp = (props) => {
         }
     }
     const responseGoogle = (response) => {
+        console.log(response.profileObj)
         const { givenName, familyName, email, googleId, imageUrl } = response.profileObj
         sendValueUser(null, { firstName: givenName, lastName: familyName, email, password: "Aa" + googleId, img: imageUrl, google: true })
     }
