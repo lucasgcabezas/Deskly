@@ -16,6 +16,7 @@ const NotificationsPanel = (props) => {
             activeCheckNotifications()
         }, 4000)
         return () => { clearInterval(reloadNotifications) }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const activeCheckNotifications = async () => {

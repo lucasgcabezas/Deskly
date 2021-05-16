@@ -66,12 +66,13 @@ const userControllers = {
 
     inviteUserToBoard: async (req, res) => {
         const userInvited = await User.findOne({ email: req.params.email })
-        let chekInvitation = userInvited.invitations.some(inv => req.body.boardId)
+        let chekInvitation = userInvited.invitations.some(inv => String(req.body.boardId) === String(inv))
 
         const userInBoard = await BoardModel.findOne({ _id: req.body.boardId})
-        let checkAlredyInBoard = userInBoard.users.some(userId => userId === userInvited._id )
 
-        if (!chekInvitation) {
+        let checkAlredyInBoard = userInBoard.users.some(userId => String(userId) === String(userInvited._id) )
+        
+        if (!chekInvitation && !checkAlredyInBoard) {
             await userInvited.updateOne({ $addToSet: { 'invitations': req.body.boardId } })
         }else {
             console.log('ya está')

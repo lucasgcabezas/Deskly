@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import boardActions from '../redux/actions/boardActions'
 import { Link } from 'react-router-dom'
-import { set } from 'mongoose'
+
 const BoardIndividual = (props) => {
     const [boardSingle, setBoardSingle] = useState({})
     useEffect(()=>{
         getBoardSingle()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     const getBoardSingle = async () => {
         const oneBoard = await props.getBoard(props.board)
@@ -14,6 +15,7 @@ const BoardIndividual = (props) => {
     }
     
     return (
+        boardSingle &&
         <Link to={`/board/${props.board}`}>
             <div className="boardMyDesk">
                 <div>{boardSingle.title}</div>

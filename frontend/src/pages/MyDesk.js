@@ -12,7 +12,7 @@ const MyDesk = (props) => {
     const { userLogged } = props
     const [inputBoard, setInputBoard] = useState({ title: '', description: '', token: '' })
     const [newBoardModal, setNewBoardModal] = useState(false)
-
+    const [loading, setLoading] = useState(true)
     const [menuLateral, setMenuLateral] = useState(false)
 
     const readInputBoard = (e) => {
@@ -26,8 +26,10 @@ const MyDesk = (props) => {
     }
 
     const addBoard = async () => { 
+        setLoading(false)
         await props.addBoard(inputBoard) 
         setNewBoardModal(false)
+        setLoading(true)
     }
 
     useEffect(() => {
@@ -45,6 +47,7 @@ const MyDesk = (props) => {
         // if (userLogged.token) {
         //     props.setUserComponents(userLogged.token)
         // }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -95,7 +98,7 @@ const MyDesk = (props) => {
                                 <div className="newBoard"  >
                                     <input type="text" name="title" placeholder="title" onChange={readInputBoard} />
                                     <input type="text" name="description" placeholder="description..." onChange={readInputBoard} />
-                                    <button onClick={addBoard}>Create a new board</button>
+                                    <button onClick={loading && addBoard}>Create a new board</button>
 
                                     <span onClick={() => setNewBoardModal(false)} className="closeNewBoardModal">X</span>
                                 </div>

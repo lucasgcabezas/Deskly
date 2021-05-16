@@ -9,7 +9,7 @@ const TaskPlanner = (props) => {
     const [open, setOpen] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [newTask, setNewTask] = useState('')
-
+    const [loading, setLoading] = useState(true)
     const [editTitle, setEditTitle] = useState(true)
 
     useEffect(() => {
@@ -18,6 +18,7 @@ const TaskPlanner = (props) => {
             fetchAllTasks()
         }, 5000)
         return () => { clearInterval(reloadTaskPlanner) }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const fetchAllTasks = async () => {
@@ -37,10 +38,12 @@ const TaskPlanner = (props) => {
 
     const sendValues = async () => {
         if (newTask.trim() !== "") {
+            setLoading(false)
             await props.addTask({ title: newTask, taskplannerId: props.taskplanner._id }, props.userLogged.token)
             const tasks = await props.tasksFromTaskplanner(props.taskplanner._id)
             setAllTasks(tasks)
             setNewTask('')
+            setLoading(true)
         }
     }
 
@@ -51,17 +54,17 @@ const TaskPlanner = (props) => {
             </div>
             {editTitle && <h1 style={{cursor:'pointer'}} onClick={( props.imOwner || props.imAdmin) ? (() => {setEditTitle(!editTitle); setNewTitle(props.taskplanner.title)}): null}>{props.taskplanner.title}</h1>}
             {!editTitle && <div style={{display:'flex'}}>
-                <input onKeyDown={(e) =>{newTitle.trim() && enter(e, 'edit')}} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                <input onKeyDown={newTitle.trim() ? (e) =>{ enter(e, 'edit')} : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
                 
-                <button onClick={newTitle.trim() && (() => {props.edit(props.taskplanner._id, newTitle); setEditTitle(!editTitle)})}>Send</button>
+                <button onClick={newTitle.trim() ? (() => {props.edit(props.taskplanner._id, newTitle); setEditTitle(!editTitle)}) : null}>Send</button>
                 <h2 style={{cursor:'pointer'}} onClick={() => setEditTitle(!editTitle)}>x</h2>
                 
             </div>}
             <button onClick={() => setOpen(!open)}>add task</button>
             {
                 open && <div>
-                    <input onKeyDown={(e) => enter(e, 'task')} type="text" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
-                    <button onClick={sendValues}>Send</button>
+                    <input onKeyDown={loading && ((e) => enter(e, 'task'))} type="text" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
+                    <button onClick={loading && sendValues}>Send</button>
                 </div>
             }
 

@@ -19,7 +19,7 @@ const Board = (props) => {
     const [openInvite, setOpenInvite] = useState(false)
     const [boardUsers, setBoardUsers] = useState([])
     const [admins, setAdmins] = useState([])
-
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
         if (props.userLogged) {
             props.setUserComponents(props.userLogged.token)
@@ -41,6 +41,7 @@ const Board = (props) => {
         }, 5000)
 
         return () => { clearInterval(reloadTaskPlanner) }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const tasksFetch = async () => {
@@ -58,16 +59,20 @@ const Board = (props) => {
 
     const sendValues = async () => {
         if (newTitle.trim() !== "") {
+            setLoading(false)
             await props.addTaskPlanner({ title: newTitle, boardId: board._id }, props.userLogged.token)
             const tasks = await props.getTaskPlannerFromBoard(board._id)
             setAllTasksPlanner(tasks)
             setNewTitle('')
+            setLoading(true)
         }
     }
 
     const addUser = () => {
-        inviteUserToBoard(newInvite, board._id)
-        setNewInvite('')
+        if(newInvite.trim()){
+            inviteUserToBoard(newInvite, board._id)
+            setNewInvite('')
+        }
     }
 
     const edit = async (idTaskPlanner, titleTaskPlanner) => {
@@ -124,6 +129,8 @@ const Board = (props) => {
                     boardUsers.map((user,i) => {
                     if(i){
                         return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user}/>
+                    }else{
+                        return null
                     }
                 })
 
@@ -152,8 +159,8 @@ const Board = (props) => {
                 { (imAdmin || imOwner) && <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>}
                 {
                     openInvite && <div>
-                        <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />
-                        <button onClick={newInvite.trim() && addUser}>send</button>
+                        <input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />
+                        <button onClick={addUser}>send</button>
                     </div>
                 }
             </div>
@@ -163,8 +170,8 @@ const Board = (props) => {
                         <button onClick={() => setOpen(!open)}>Add list</button>
                         {
                             open && <div>
-                                <input onKeyDown={(e) => enter(e, 'title')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                <button onClick={sendValues}>send</button>
+                                <input onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                <button onClick={loading ? sendValues : null}>send</button>
                             </div>
                         }
                     </>
