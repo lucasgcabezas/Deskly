@@ -113,7 +113,7 @@ const Board = (props) => {
         setAdmins(admins)
         return admins
     }
-
+    
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
 

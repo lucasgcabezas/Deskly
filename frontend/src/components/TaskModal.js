@@ -40,7 +40,6 @@ const TaskModal = (props) => {
         }
     }
 
-
     const readDataNewComment = (e) => {
         let value = e.target.value;
         setNewComment({
@@ -55,7 +54,9 @@ const TaskModal = (props) => {
             return false
         }
         let response = await addComment(_id, newComment, token)
-        setCommentsState(response)
+        if (response) {
+            setCommentsState(response)
+        }
         setNewComment({ userId: '', userCompleteName: '', message: '' })
     }
 

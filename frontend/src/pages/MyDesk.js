@@ -11,8 +11,7 @@ const MyDesk = (props) => {
     const { userLogged } = props
     const [inputBoard, setInputBoard] = useState({ title: '', description: '', token: '' })
     const [newBoardModal, setNewBoardModal] = useState(false)
-
-    const [menuLateral, setMenuLateral] = useState(true)
+    const [menuLateral, setMenuLateral] = useState(false)
 
 
     const readInputBoard = (e) => {
@@ -38,6 +37,10 @@ const MyDesk = (props) => {
 
     // useEffect(() => {props.getBoardsFromUser(props.userLogged.token)}, [])
 
+    let userFirstName = props.userLogged.response ?`${props.userLogged.response.firstName}`: `${userLogged.firstName}`
+    let userLastName = props.userLogged.response ? props.userLogged.response.lastName || '' : userLogged.lastName || ''
+    let userImg = props.userLogged.response ? props.userLogged.response.img : userLogged.img
+
     return (
         <div className="myDesk">
 
@@ -47,10 +50,22 @@ const MyDesk = (props) => {
                 <div className="headerMyDesk">
                     <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
                     <h2>MyDesk</h2>
+
+
+
+
                     <div className="userPicName">
                         <span className="userCompleteName">{userLogged.firstName + ' ' + (userLogged.lastName || '')}</span>
                         <div className="userPic" style={{ backgroundImage: `url('${userLogged.img}')` }}></div>
                     </div>
+
+                    <div className="userPicName">
+                    <div className="userPic" style={{ backgroundImage: `url('${userImg}')` }}></div>
+                    <span className="userCompleteName">{`${userFirstName} ${userLastName}` }</span>
+                </div>
+
+
+
                 </div>
                 <div className="boardsContainerMyDesk">
                     {
