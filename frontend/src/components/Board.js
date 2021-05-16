@@ -36,6 +36,7 @@ const Board = (props) => {
             if (props.userLogged.token) {
                 props.setUserComponents(props.userLogged.token)
             }
+            usersFetch()
             tasksFetch()
         }, 5000)
 
