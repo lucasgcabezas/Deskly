@@ -15,7 +15,8 @@ const Task = (props) => {
 
     const getInput = e => { setEditionTask({ ...editionTask, title: e.target.value }) }
 
-    useEffect(() => { sendEdit("verify") }, [editionTask.verify])
+    useEffect(() => { sendEdit("verify") // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [editionTask.verify] )
 
     const verifyTask = async (e) => { setEditionTask({ ...editionTask, verify: e.target.checked }) }
 
@@ -35,10 +36,9 @@ const Task = (props) => {
 
     const sendDeleteTask = async () => {
         const response = await deleteTask(_id)
-        let arrayFiltered = allTasks.filter(task => task._id != response._id)
+        let arrayFiltered = allTasks.filter(task => task._id !== response._id)
         setAllTasks(arrayFiltered)
     }
-    // console.log(props.commentsUserArray);
     let style =props.imOwner || props.imAdmin? 'block' : 'none'
     return (
         <>

@@ -1,7 +1,9 @@
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import {Link} from 'react-router-dom'
-const Home = () => {
+import {connect} from 'react-redux'
+const Home = (props) => {
+    const {userLogged} = props
     return (
         <div>
             <Header />
@@ -18,7 +20,7 @@ const Home = () => {
                         <h1>DESKLY</h1>
                     </div>
                     <p>Organiza y gestiona tu trabajo de forma eficiente. Lleva un control de cada proyecto. Hace que tu carga fluya.</p>
-                    <Link to="/sign"><button className="buttonRegister">Registrate!</button></Link>
+                    {!userLogged && <Link to="/sign"><button className="buttonRegister">Registrate!</button></Link>}
                 </div>
                 <div className="imageHero" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/s.png')" }}></div>
             </div>
@@ -72,7 +74,7 @@ const Home = () => {
                 </div>
                 <div className="contenedorElipse2">
                     <div className="contenedorSemiCirculo">
-                        <div className="fabrica" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/1f4f68b7-593b-4377-80e6-d661aade7263.png')" }}></div>
+                        <div className="fabrica" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/77cbe11a-72a2-4433-8162-8524c770d4ea.png')" }}></div>
                     </div>
                 </div>
             </div>
@@ -80,5 +82,9 @@ const Home = () => {
         </div>
     );
 }
-
-export default Home;
+const mapStateToProps = state => {
+    return{
+        userLogged: state.authReducer.userLogged
+    }
+}
+export default connect(mapStateToProps)(Home)

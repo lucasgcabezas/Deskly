@@ -7,7 +7,9 @@ const boardsControllers = {
         let response;
         let error;
         try {
+            
             const selectedBoards = await BoardModel.find({ users: { $elemMatch: { $eq: req.user._id } } })
+            
             response = selectedBoards
         } catch {
             error = "Ha ocurrido un error en el servidor, intente más tarde!"
@@ -90,6 +92,14 @@ const boardsControllers = {
         try{
             const response = await BoardModel.findById(req.params.email).populate({path:"admins",select:{"email":1}})
             res.json({response})
+        }catch(error){
+            console.log(error)
+        }
+    },
+    getBoard: async (req,res) => {
+        try{
+            const response = await BoardModel.findById(req.params.id)
+            res.json({success:true, response})
         }catch(error){
             console.log(error)
         }

@@ -5,13 +5,15 @@ import boardActions from '../redux/actions/boardActions'
 const UserAdmin = (props) => {
     const [loading, setLoading] = useState(true)
     const [admin, setAdmin] = useState(false)
+    const [visible, setVisible] = useState(false)
     useEffect(() => {
         const array = props.admins.map(admin => admin.email)
-        if(array.indexOf(props.user.email) !== -1){
+        if (array.indexOf(props.user.email) !== -1) {
             setAdmin(false)
-        }else{
+        } else {
             setAdmin(true)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.admins])
 
     const confirmAdmin = async () => {
@@ -20,16 +22,24 @@ const UserAdmin = (props) => {
         setAdmin(!admin)
         setLoading(true)
     }
+    const usersVisible = () => {
+        setVisible(!visible)
+    }
+    return (
+        <>
+            <div onClick={usersVisible} className="iconoVisible">
+                <span class="material-icons-outlined iconoUsers">people_outline</span>
+            </div>
+            {visible &&
+                <div className="ventanaUser">
+                    <div>
+                        <h3>{props.user.firstName + ' ' + (props.user.lastName === null ? '' : props.user.lastName)}</h3>
+                        <button className="buttonUserAdmin" onClick={loading ? (() => confirmAdmin()) : null}>{admin ? 'ADMIN' : 'USER'}</button>
+                    </div>
 
-    return(
-        <div style={{display:"flex", margin:'50px'}}>
-            <button onClick={loading ? (() => confirmAdmin()) : null}>
-                {admin ? 'ADMIN' : 'USUARIO'}
-            </button>
-            
-            <h2>{'Admin ' + props.user.firstName + ' ' + (props.user.lastName === null ? '' : props.user.lastName)}</h2>
-        
-        </div>
+                </div>
+            }
+        </>
     )
 }
 const mapDispatchToProps = {

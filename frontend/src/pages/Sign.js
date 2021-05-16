@@ -1,11 +1,15 @@
+// import Header from '../components/Header';
 import LogIn from '../components/LogIn'
-import SignUp from './SignUp';
+import SignUp from './SignUp'
 const Sign = () => {
     return (
+        <>
+        {/* <Header/> */}
         <div className="contenedorSign">  
-            <SignUp/>
+            {/* <SignUp/> */}
             <LogIn />
         </div>
+        </>
     )
 }
 

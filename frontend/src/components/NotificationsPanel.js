@@ -7,8 +7,10 @@ import Notification from './Notification'
 
 const NotificationsPanel = (props) => {
 
-    const { userLogged, checkNotifications } = props
+    const { userLogged, checkNotifications, notifButton, setNotifButton } = props
     const [notificationsState, setNotificationsState] = useState([])
+
+    let classNotificationPanel = notifButton ? 'notificationPanelOpen' : 'notificationPanelClose'
 
     useEffect(() => {
         activeCheckNotifications()
@@ -16,18 +18,25 @@ const NotificationsPanel = (props) => {
             activeCheckNotifications()
         }, 4000)
         return () => { clearInterval(reloadNotifications) }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const activeCheckNotifications = async () => {
         if (props.userLogged) {
             const response = await checkNotifications(userLogged)
-            if(response){
+            if (response) {
                 setNotificationsState(response)
             }
         }
     }
     return (
-        <div>
+        <div className={classNotificationPanel}>
+        {/* <div className="notificationPanelOpen"> */}
+            <div className="notificationsHeader">
+                <span className="notificationsTitle">Notifications</span>
+                <span className="material-icons-outlined closeNotifPanel" onClick={() => setNotifButton(false)}>close</span>
+
+            </div>
             {
                 notificationsState.length > 0
                 && notificationsState.map((notif, i) => {
