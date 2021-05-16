@@ -11,7 +11,7 @@ const MyDesk = (props) => {
     const { userLogged } = props
     const [inputBoard, setInputBoard] = useState({ title: '', description: '', token: '' })
     const [newBoardModal, setNewBoardModal] = useState(false)
-
+    const [flagAddBoard, setFlagAddBoard]=useState(false)
     const [menuLateral, setMenuLateral] = useState(false)
 
 

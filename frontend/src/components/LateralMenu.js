@@ -13,19 +13,20 @@ const LateralMenu = (props) => {
 
     let classMenuLateral = menuLateral ? 'lateralMenuOpen' : 'lateralMenuClose'
     // let classElementsMenu = menuLateral ? 'elementsMenuOpen' : 'elementsMenuClose'
+    let userFirstName = props.userLogged.response ?`${props.userLogged.response.firstName}`: `${userLogged.firstName} ${userLogged.lastName}`
+    let userLastName = props.userLogged.response ? props.userLogged.response.lastName || '' : userLogged.lastName || ''
+    let userImg = props.userLogged.response ? props.userLogged.response.img : userLogged.img
 
     return (
         <div className={classMenuLateral}>
             <span className="fas fa-bars"></span>
 
             {/* <button onClick={() => setMenuLateral(!menuLateral)}>Open</button> */}
-
-
             {/* <div className="menuLateralInfo" style={{ display: menuLateral ? 'flex' : 'none' }}> */}
             <div className="menuLateralInfo" >
                 <div className="userPicName">
-                    <div className="userPic" style={{ backgroundImage: `url('${userLogged.img}')` }}></div>
-                    <span className="userCompleteName">{userLogged.firstName + ' ' + (userLogged.lastName || '')}</span>
+                    <div className="userPic" style={{ backgroundImage: `url('${userImg}')` }}></div>
+                    <span className="userCompleteName">{`${userFirstName} ${userLastName}` }</span>
                 </div>
                 <div className="navLateral">
                     <NavLink exact to="/" className="link"                         >

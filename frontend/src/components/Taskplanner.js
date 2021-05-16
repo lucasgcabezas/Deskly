@@ -49,7 +49,7 @@ const TaskPlanner = (props) => {
             <div style={{display: props.imOwner || props.imAdmin ? 'block': 'none'}}>
                 <button onClick={() => props.erase(props.taskplanner._id)}>Delete</button>
             </div>
-            {editTitle && <h1 style={{cursor:'pointer'}} onClick={( props.imOwner || props.imAdmin) ? (() => {setEditTitle(!editTitle); setNewTitle(props.taskplanner.title)}): null}>{props.taskplanner.title}</h1>}
+            {editTitle && <h1 style={{cursor: (props.imOwner || props.imAdmin) && 'pointer'}} onClick={( props.imOwner || props.imAdmin) ? (() => {setEditTitle(!editTitle); setNewTitle(props.taskplanner.title)}): null}>{props.taskplanner.title}</h1>}
             {!editTitle && <div style={{display:'flex'}}>
                 <input onKeyDown={(e) =>{newTitle.trim() && enter(e, 'edit')}} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
                 

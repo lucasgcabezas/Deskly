@@ -16,7 +16,6 @@ import 'react-notifications-component/dist/theme.css'
 
 const App = (props) => {
   const { userLogged } = props
-  //  console.log(props.userLogged);
   if (userLogged) {
     // aca van links de logueados
   }
