@@ -23,10 +23,13 @@ const Notification = (props) => {
         setNotificationsState(notificationsFiltered)
     }
     return (
-        <div style={{ border: 'solid 1px black ', padding: ' 10px' }}>
+        <div className="notification">
             <span>Tienes una invitación al tablero "{notif.title}" de {notif.owner.firstName + ' ' + notif.owner.lastName} </span>
-            <button onClick={() => sendAcceptNotification(notif._id, true)}>Aceptar</button>
-            <button onClick={() => sendAcceptNotification(notif._id, false)}>Rechazar</button>
+            <div>
+
+                <button onClick={() => sendAcceptNotification(notif._id, true)}>Accept</button>
+                <button onClick={() => sendAcceptNotification(notif._id, false)}>Decline</button>
+            </div>
         </div>
     )
 }

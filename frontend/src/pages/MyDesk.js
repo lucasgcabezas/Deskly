@@ -12,7 +12,7 @@ const MyDesk = (props) => {
     const [inputBoard, setInputBoard] = useState({ title: '', description: '', token: '' })
     const [newBoardModal, setNewBoardModal] = useState(false)
 
-    const [menuLateral, setMenuLateral] = useState(false)
+    const [menuLateral, setMenuLateral] = useState(true)
 
 
     const readInputBoard = (e) => {
@@ -24,8 +24,8 @@ const MyDesk = (props) => {
             token: userLogged.token
         })
     }
-    const addBoard = async () => { 
-        await props.addBoard(inputBoard) 
+    const addBoard = async () => {
+        await props.addBoard(inputBoard)
         setNewBoardModal(false)
     }
 
@@ -40,53 +40,41 @@ const MyDesk = (props) => {
 
     return (
         <div className="myDesk">
-            <NotificationsPanel />
 
             <LateralMenu setMenuLateral={setMenuLateral} menuLateral={menuLateral} />
 
             <div className="mydeskContainer">
-
                 <div className="headerMyDesk">
                     <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
-                    {/* <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#x2630; </span> */}
-                    <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
-                        <span className="material-icons-outlined nuevoTableroMas">add_circle_outline</span>
-                        <span>Añadir tablero...</span>
-                        
+                    <h2>MyDesk</h2>
+                    <div className="userPicName">
+                        <span className="userCompleteName">{userLogged.firstName + ' ' + (userLogged.lastName || '')}</span>
+                        <div className="userPic" style={{ backgroundImage: `url('${userLogged.img}')` }}></div>
                     </div>
                 </div>
-
                 <div className="boardsContainerMyDesk">
-
-                    {/* <h1>soy myDesk</h1> */}
-                    {props.userLogged &&
+                    {
+                        props.userLogged &&
                         <>
-                            {/* <h1>Estas logueado con  {props.userLogged ? props.userLogged.firstName : "nadie"} </h1> */}
-
                             {
                                 props.boards.map(board => <BoardIndividual key={board._id} board={board} />)
                             }
-
-
-                            <div className="newBoardModal" style={{ display: newBoardModal ? 'flex' : 'none' }}>
-                                <div className="newBoard"  >
-                                    <input type="text" name="title" placeholder="title" onChange={readInputBoard} />
-                                    <input type="text" name="description" placeholder="description..." onChange={readInputBoard} />
-                                    <button onClick={addBoard}>Create a new board</button>
-
-                                    <span onClick={() => setNewBoardModal(false)} className="closeNewBoardModal">X</span>
-                                </div>
+                            <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
+                                <span className="material-icons-outlined nuevoTableroMas">add_circle_outline</span>
+                                <span>New board...</span>
                             </div>
-
-
-                            {/* <h2>owner of...</h2> */}
-                            {/* 
-                <button style={{margin:"0rem 0rem 2rem 1rem "}}  onClick={() => props.setUserComponents(userLogged.token)}>Cargar redux</button>
-            <button style={{margin:"0rem 0rem 2rem 1rem "}}  onClick={() =>console.log(props.components)}>Console.log</button> */}
-
-
                         </>
                     }
+                </div>
+            </div>
+
+            <div className="newBoardModal" style={{ display: newBoardModal ? 'flex' : 'none' }}>
+                <div className="newBoard"  >
+                    <input type="text" name="title" placeholder="Titulo" onChange={readInputBoard} />
+                    <textarea name="description" placeholder="Agrega una descripción..." onChange={readInputBoard} ></textarea>
+                    <button onClick={addBoard}>Crear nuevo tablero</button>
+
+                    <span onClick={() => setNewBoardModal(false)} className="material-icons-outlined closeNewBoardModal">close</span>
                 </div>
             </div>
 
