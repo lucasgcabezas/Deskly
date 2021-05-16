@@ -45,7 +45,7 @@ const TaskPlanner = (props) => {
     }
 
     return (
-        <div style={{ width: '25vw' }}>
+        <div>
             <div style={{display: props.imOwner || props.imAdmin ? 'block': 'none'}}>
                 <button onClick={() => props.erase(props.taskplanner._id)}>Delete</button>
             </div>
