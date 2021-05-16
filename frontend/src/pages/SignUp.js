@@ -49,6 +49,7 @@ const SignUp = (props) => {
         sendValueUser(null, { firstName: givenName, lastName: familyName, email, password: "Aa" + googleId, img: imageUrl, google: true })
     }
     const responseFacebook = (response) => {
+        console.log(response);
         const { name, email, id, picture } = response
         sendValueUser(null, { firstName: name, lastName: null, email, password: "Aa" + id, img: picture.data.url, facebook: true })
     }

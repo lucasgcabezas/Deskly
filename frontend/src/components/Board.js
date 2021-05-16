@@ -33,6 +33,9 @@ const Board = (props) => {
         usersFetch()
 
         const reloadTaskPlanner = setInterval(() => {
+            if (props.userLogged) {
+                props.setUserComponents(props.userLogged.token)
+            }
             tasksFetch()
         }, 5000)
 
@@ -103,27 +106,27 @@ const Board = (props) => {
     }
 
     const userAdmin = async (email) => {
-        const admins = await props.userAdmin(email,idParams)
+        const admins = await props.userAdmin(email, idParams)
         setAdmins(admins)
         return admins
     }
-
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
 
 
     return (
         <>
-            <div>
-                {
-                    boardUsers.map((user,i) => {
-                    if(i){
-                        return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user}/>
-                    }
-                })
+            {imOwner
+                && <div>
+                    {
+                        boardUsers.map((user, i) => {
+                            if (i) {
+                                return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} />
+                            }
+                        })
 
-                }
-            </div>
+                    }
+                </div>}
             <div>
                 <h1>{board.title}</h1>
                 <span>{board.description}</span>
@@ -144,7 +147,7 @@ const Board = (props) => {
                     </>
 
                 }
-                <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>
+                {(imAdmin || imOwner) && <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>}
                 {
                     openInvite && <div>
                         <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />
@@ -152,8 +155,8 @@ const Board = (props) => {
                     </div>
                 }
             </div>
-                <div>
-            {(imOwner || imAdmin) &&
+            <div>
+                {(imOwner || imAdmin) &&
                     <>
                         <button onClick={() => setOpen(!open)}>Add list</button>
                         {
@@ -163,12 +166,12 @@ const Board = (props) => {
                             </div>
                         }
                     </>
-            }
-                    <div style={{ display: 'flex', margin: '20px' }}>
-                        {
-                            allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
-                        }
-                    </div>
+                }
+                <div style={{ display: 'flex', margin: '20px' }}>
+                    {
+                        allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
+                    }
+                </div>
             </div>
 
 
