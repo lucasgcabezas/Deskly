@@ -14,6 +14,7 @@ const Header = (props) => {
                 <NavLink to="/sign" className="navegadores">Sign</NavLink>
                 <NavLink to="/signup" className="navegadores"> Sign Up</NavLink>
             </>}    
+            
             <NotificationsPanel />
             <div class="semicirculo"></div>
         </div>

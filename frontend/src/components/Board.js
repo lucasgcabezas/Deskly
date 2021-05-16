@@ -5,6 +5,7 @@ import authActions from '../redux/actions/authActions'
 import taskPlannerActions from '../redux/actions/taskPlannerActions'
 import TaskPlanner from './Taskplanner'
 import UserAdmin from './UserAdmin'
+import LateralMenu from './LateralMenu'
 
 const Board = (props) => {
     const { boards, inviteUserToBoard } = props
@@ -19,6 +20,9 @@ const Board = (props) => {
     const [openInvite, setOpenInvite] = useState(false)
     const [boardUsers, setBoardUsers] = useState([])
     const [admins, setAdmins] = useState([])
+
+    // const [menuLateral, setMenuLateral] = useState(false)
+
 
     useEffect(() => {
         if (props.userLogged) {
@@ -140,10 +144,17 @@ const Board = (props) => {
                         <button onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}>{update ? 'Cancel' : 'Edit'}</button>
                         {update &&
                             <>
-                                <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
-                                <input type="text" name="description" value={updateInput.description} onChange={readUpdateInput} />
-                                <button onClick={editBoard}>Send</button>
+                                <button onClick={deleteBoard}>Delete</button>
+                                <button onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}>{update ? 'Cancel' : 'Edit'}</button>
+                                {update &&
+                                    <>
+                                        <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
+                                        <input type="text" name="description" value={updateInput.description} onChange={readUpdateInput} />
+                                        <button onClick={editBoard}>Send</button>
+                                    </>
+                                }
                             </>
+
                         }
                     </>
 
@@ -162,8 +173,8 @@ const Board = (props) => {
                         <button onClick={() => setOpen(!open)}>Add list</button>
                         {
                             open && <div>
-                                <input onKeyDown={(e) => enter(e, 'title')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                <button onClick={sendValues}>send</button>
+                                <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />
+                                <button onClick={newInvite.trim() && addUser}>send</button>
                             </div>
                         }
                     </>
@@ -174,7 +185,6 @@ const Board = (props) => {
                     }
                 </div>
             </div>
-
 
 
         </>

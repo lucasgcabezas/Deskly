@@ -4,7 +4,7 @@ const Sign = () => {
     return (
         <div className="contenedorSign">  
             <SignUp/>
-            {/* <LogIn /> */}
+            <LogIn />
         </div>
     )
 }

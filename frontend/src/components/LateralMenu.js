@@ -23,11 +23,11 @@ const LateralMenu = (props) => {
 
             {/* <div className="menuLateralInfo" style={{ display: menuLateral ? 'flex' : 'none' }}> */}
             <div className="menuLateralInfo" >
-                {/* <div className="userPic" style={{ backgroundImage: `url('${userLogged.img}')` }}></div> */}
-
-
-                <span className="userCompleteName">{userLogged.firstName + ' ' + (userLogged.lastName || '')}</span>
-                <div>
+                <div className="userPicName">
+                    <div className="userPic" style={{ backgroundImage: `url('${userLogged.img}')` }}></div>
+                    <span className="userCompleteName">{userLogged.firstName + ' ' + (userLogged.lastName || '')}</span>
+                </div>
+                <div className="navLateral">
                     <NavLink exact to="/" className="link"                         >
                         <span className="material-icons-outlined homeIconMenu">home</span>
                         <span className="linkMenu">Inicio</span>
