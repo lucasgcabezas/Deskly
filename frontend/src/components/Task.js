@@ -38,7 +38,6 @@ const Task = (props) => {
         let arrayFiltered = allTasks.filter(task => task._id != response._id)
         setAllTasks(arrayFiltered)
     }
-    // console.log(props.commentsUserArray);
     let style =props.imOwner || props.imAdmin? 'block' : 'none'
     return (
         <>

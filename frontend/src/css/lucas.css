@@ -37,9 +37,9 @@ body {
     width: 5vw;
     background-color: var(--fcolor);
     background-color: var(--fourth-color);
-    /* background-color: var(--third-color); */
-    /* background-color: var(--second-color); */
-    /* background-color: var(--first-color); */
+    background-color: var(--third-color);
+    background-color: var(--second-color);
+    background-color: var(--first-color);
     /* background-color: var(--fifth-color); */
     display: flex;
     flex-direction: column;
@@ -97,6 +97,8 @@ body {
     /* justify-content: space-around; */
     align-items: center;
     /* width: 100%; */
+    /* background-color: var(--fifth-color); */
+    margin-bottom: 5vh;
 }
 
 
@@ -108,7 +110,7 @@ body {
     /* margin-bottom: 3vh; */
     border-radius: 5px;
     border-radius: 50%;
-    margin-left: .7vw;
+    margin-left: .5vw;
 
 }
 
@@ -118,6 +120,7 @@ body {
     visibility: hidden;
     /* display: none; */
     margin-left: 1vw;
+    font-size: 1.2rem;
 
     opacity: 0;
 }
@@ -128,7 +131,7 @@ body {
     color: white;
     margin-left: 1vw;
     opacity: 1;
-    transition: 1.5s;
+    transition: 1s;
 }
 
 .link {
@@ -137,7 +140,7 @@ body {
     width: 100%;
     display: flex;
     align-items: center;
-
+    transition: .5s;
 }
 
 .link:hover {
@@ -153,8 +156,14 @@ body {
 
 }
 
+.link:hover{
+    background-color: #ffffff11;
+    transition: .5s;
+}
 
- .link .linkMenu {
+
+
+.link .linkMenu {
     display: flex;
     align-items: center;
     flex-grow: 1;
@@ -175,9 +184,8 @@ body {
 }
 
 
-
  .logOut {
-    margin-top: 60vh;
+    margin-top: 55vh;
     cursor: pointer;
 }
 
@@ -214,30 +222,27 @@ body {
 }
 
 
-
-
-
-
-
-
-
 .mydeskContainer{
-    /* background-color: rgb(221, 114, 114); */
     flex-direction: column;
     flex-grow: 1;
     min-height: 100vh;
     display: flex;
-    /* margin-left: 4vw ; */
-    /* padding: 2vh 1vw; */
 }
 
 .headerMyDesk{
     background-color: #cccccc;
-    background-color: var(--fcolor);
+    background-color: var(--second-color);
+    background-color: var(--first-color);
     height: 10vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.headerMyDesk h2{
+    /* color: var(--fourth-color); */
+    color: white;
+    font-size: 2.3rem;
 }
 
 .boardsContainerMyDesk{
@@ -248,7 +253,8 @@ body {
 
 .nuevoTableroMas{
     display: block;
-    color: var(--fcolor);
+    /* color: var(--fcolor); */
+    color: white;
     font-size: 1.2rem;
 }
 
@@ -257,17 +263,24 @@ body {
     /* flex-direction: column; */
     justify-content: space-evenly;
     align-items: center;
-    width: 13vw;
+    width: 11vw;
     height: 7vh;
-    background-color: white;
+
+    /* background-color: white; */
     margin: 2vh 1vw;
-    color: #00000088;
+    /* color: #00000088; */
+    color: white;
     cursor: pointer;
+    border: solid 2px var(--third-color);
+    border-radius: 10px;
+    transition: .5s;
+
 }
 
 .newBoardButton:hover{
-    background-color: #eeeeee;
+    background-color: white;
     color: black;
+    transition: .5s;
 }
 
 
@@ -289,19 +302,62 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-    width: 40vw;
-    height: 40vh;
-    background-color: white;
-    border: solid 1px black;
+    width: 32vw;
+    height: 45vh;
+    background-color: var(--first-color);
+    padding: 3vh 0;
+    /* border: solid 1px black; */
+}
+
+.newBoard input {
+    padding: 1vh 1vw;
+    width: 85%;
+    border: none;
+    background-color: #eeeeee;
+    
+}
+
+.newBoard textarea {
+    padding: 1vh 1vw;
+    width: 85%;
+    height: 30%;
+    resize: none;
+    border: none;
+    background-color: #eeeeee;
+}
+
+.newBoard button {
+    width: 50%;
+    height: 15%;
+    border: none;
+    background-color: var(--fourth-color);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+.newBoard button:hover {
+    background-color: var(--second-color);
 }
 
 .closeNewBoardModal{
     position: absolute;
-    top: 3px;
-    right: 5px;
-    z-index: 10;
+    top: 0px;
+    right: 0;
+    cursor: pointer;
+    font-size: 2rem;
+    /* z-index: 10; */
+    color: var(--fourth-color);
+
+}
+
+.closeNewBoardModal:hover{
+    color: var(--second-color);
+}
+
+.boardsContainerMyDesk * {
+    text-decoration: none;
 }
 
 .boardMyDesk{
@@ -313,10 +369,14 @@ body {
     width: 15vw;
     height: 20vh;
     /* border: solid 1px black; */
-    margin: 2vh 1vw;
-    /* background-color: ; */
-    border: solid 1px black;
+    margin: 1vh 0vw 1vh .5vw;
+    background-color: var(--first-color);
+    /* border: solid 1px black; */
+    border: solid 1px white;
+    color: white;
+    font-size: 1.rem;
 }
+
 
 .boardContainer{
     display: flex;

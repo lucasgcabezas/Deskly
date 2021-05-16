@@ -108,78 +108,83 @@ const Board = (props) => {
     }
 
     const userAdmin = async (email) => {
-        const admins = await props.userAdmin(email,idParams)
+        const admins = await props.userAdmin(email, idParams)
         setAdmins(admins)
         return admins
     }
-    
 
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === board._id)
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === board._id)
 
-
     return (
-        <>
-            {imOwner && <div>
-                {
-                    boardUsers.map((user,i) => {
-                    if(i){
-                        return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user}/>
-                    }
-                })
-
-                }
-            </div>}
-            <div>
+        <div className="contenedorBoard">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#615ee1" fill-opacity="1" d="M0,96L60,96C120,96,240,96,360,117.3C480,139,600,181,720,186.7C840,192,960,160,1080,160C1200,160,1320,192,1380,208L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+            </svg>
+            <div className="headerBoard">
                 <h1>{board.title}</h1>
                 <span>{board.description}</span>
-            </div>
-            <div>
-                {
-                    imOwner &&
-                    <>
-                        <button onClick={deleteBoard}>Delete</button>
-                        <button onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}>{update ? 'Cancel' : 'Edit'}</button>
-                        {update &&
-                            <>
-                                <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
-                                <input type="text" name="description" value={updateInput.description} onChange={readUpdateInput} />
-                                <button onClick={editBoard}>Send</button>
-                            </>
-                        }
-                    </>
-
-                }
-                { (imAdmin || imOwner) && <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>}
-                {
-                    openInvite && <div>
-                        <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />
-                        <button onClick={newInvite.trim() && addUser}>send</button>
-                    </div>
-                }
-            </div>
                 <div>
-            {(imOwner || imAdmin) &&
-                    <>
-                        <button onClick={() => setOpen(!open)}>Add list</button>
+                {
+                            imOwner &&
+                            <>
+                                <button onClick={deleteBoard}>Delete</button>
+                                <button onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}>{update ? 'Cancel' : 'Edit'}</button>
+                                {update &&
+                                    <>
+                                        <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
+                                        <input type="text" name="description" value={updateInput.description} onChange={readUpdateInput} />
+                                        <button onClick={editBoard}>Send</button>
+                                    </>
+                                }
+                            </>
+
+                        }
+                        {(imAdmin || imOwner) && <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>}
                         {
-                            open && <div>
-                                <input onKeyDown={(e) => enter(e, 'title')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                <button onClick={sendValues}>send</button>
+                            openInvite && <div>
+                                <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />
+                                <button onClick={newInvite.trim() && addUser}>send</button>
                             </div>
                         }
-                    </>
-            }
-                    <div style={{ display: 'flex', margin: '20px' }}>
-                        {
-                            allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
-                        }
-                    </div>
+                </div>
             </div>
+            <div className="contenedorInfoBoard">
+                <div className="imgBoard" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/laptop-1.png')" }}>
+                    {imOwner && <div>
+                        {
+                            boardUsers.map((user, i) => {
+                                if (i) {
+                                    return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} />
+                                }
+                            })
 
+                        }
+                    </div>}
+                    <div>
+                    </div>
+                    <div>
+                        {(imOwner || imAdmin) &&
+                            <>
+                                <button onClick={() => setOpen(!open)}>Add list</button>
+                                {
+                                    open && <div>
+                                        <input onKeyDown={(e) => enter(e, 'title')} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                        <button onClick={sendValues}>send</button>
+                                    </div>
+                                }
+                            </>
+                        }
+                        <div style={{ display: 'flex', margin: '20px' }}>
+                            {
+                                allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
+                            }
+                        </div>
+                    </div>
 
-
-        </>
+                </div>
+            </div>
+        </div>
     )
 }
 

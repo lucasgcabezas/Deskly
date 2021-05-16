@@ -24,8 +24,8 @@ const MyDesk = (props) => {
             token: userLogged.token
         })
     }
-    const addBoard = async () => { 
-        await props.addBoard(inputBoard) 
+    const addBoard = async () => {
+        await props.addBoard(inputBoard)
         setNewBoardModal(false)
     }
 
@@ -48,11 +48,11 @@ const MyDesk = (props) => {
 
                 <div className="headerMyDesk">
                     <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
-                    {/* <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#x2630; </span> */}
+                    <h2>MyDesk</h2>
                     <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
                         <span className="material-icons-outlined nuevoTableroMas">add_circle_outline</span>
-                        <span>Añadir tablero...</span>
-                        
+                        <span>New board...</span>
+
                     </div>
                 </div>
 
@@ -70,11 +70,12 @@ const MyDesk = (props) => {
 
                             <div className="newBoardModal" style={{ display: newBoardModal ? 'flex' : 'none' }}>
                                 <div className="newBoard"  >
-                                    <input type="text" name="title" placeholder="title" onChange={readInputBoard} />
-                                    <input type="text" name="description" placeholder="description..." onChange={readInputBoard} />
-                                    <button onClick={addBoard}>Create a new board</button>
+                                    <input type="text" name="title" placeholder="Titulo" onChange={readInputBoard} />
+                                    <textarea name="description" placeholder="Agrega una descripción..." onChange={readInputBoard} ></textarea>
+                                    <button onClick={addBoard}>Crear nuevo tablero</button>
 
-                                    <span onClick={() => setNewBoardModal(false)} className="closeNewBoardModal">X</span>
+                                    <span onClick={() => setNewBoardModal(false)} className="material-icons-outlined closeNewBoardModal">close</span>
+                                    {/* <span onClick={() => setNewBoardModal(false)} className="closeNewBoardModal">X</span> */}
                                 </div>
                             </div>
 

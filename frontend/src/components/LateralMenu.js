@@ -30,7 +30,7 @@ const LateralMenu = (props) => {
                 <div className="navLateral">
                     <NavLink exact to="/" className="link"                         >
                         <span className="material-icons-outlined homeIconMenu">home</span>
-                        <span className="linkMenu">Inicio</span>
+                        <span className="linkMenu">Home</span>
                     </NavLink>
                     {props.userLogged && <>
                         <NavLink to="/mydesk" className="link">
@@ -40,7 +40,7 @@ const LateralMenu = (props) => {
 
                         <div className="link logOut" onClick={() => props.signOut()}>
                             <span className="material-icons-outlined homeIconMenu">logout</span>
-                            <span className="linkMenu">Log out</span>
+                            <span className="linkMenu">Log Out</span>
                         </div></>}
                 </div>
 
