@@ -99,8 +99,10 @@ const Board = (props) => {
         setUpdate(false)
     }
     const usersFetch = async () => {
+        console.log(idParams)
         const users = await props.getUsersFromBoard(idParams)
         const admins = await props.getAdminsFromBoard(idParams)
+        console.log(users)
         setBoardUsers(users)
         setAdmins(admins)
     }
@@ -116,17 +118,16 @@ const Board = (props) => {
 
     return (
         <>
-            {imOwner
-                && <div>
-                    {
-                        boardUsers.map((user, i) => {
-                            if (i) {
-                                return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} />
-                            }
-                        })
-
+            {imOwner && <div>
+                {
+                    boardUsers.map((user,i) => {
+                    if(i){
+                        return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user}/>
                     }
-                </div>}
+                })
+
+                }
+            </div>}
             <div>
                 <h1>{board.title}</h1>
                 <span>{board.description}</span>
@@ -147,7 +148,7 @@ const Board = (props) => {
                     </>
 
                 }
-                {(imAdmin || imOwner) && <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>}
+                { (imAdmin || imOwner) && <button onClick={() => setOpenInvite(!openInvite)}>Invite</button>}
                 {
                     openInvite && <div>
                         <input onKeyDown={(e) => newInvite.trim() && enter(e, 'invite')} type="text" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} />

@@ -22,7 +22,9 @@ const TaskModal = (props) => {
     }
 
     useEffect(() => {
-        setCommentsState(props.task.comments)
+        if(props.task.comments){
+            setCommentsState(props.task.comments)
+        }
         setNewDescription({ description: props.task.description })
 
         const reloadTaskPlanner = setInterval(() => {
@@ -33,7 +35,9 @@ const TaskModal = (props) => {
 
     const getAllComments = async () => {
         const response = await getComments(_id)
-        setCommentsState(response)
+        if(response){
+            setCommentsState(response)
+        }
     }
 
 

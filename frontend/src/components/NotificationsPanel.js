@@ -21,7 +21,7 @@ const NotificationsPanel = (props) => {
     const activeCheckNotifications = async () => {
         if (props.userLogged) {
             const response = await checkNotifications(userLogged)
-            if (response) {
+            if(response){
                 setNotificationsState(response)
             }
         }
