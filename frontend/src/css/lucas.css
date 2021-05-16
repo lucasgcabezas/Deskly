@@ -1,6 +1,10 @@
 :root {
     --fcolor: #2d003d;
-    --scolor: #d88d1d;
+    --first-color: #615ee1;
+    --second-color: #f9d85f;
+    --third-color:#ec9acf;
+    --fourth-color:#545454;
+    --fifth-color:#e0e0e0;
 }
 
 html * {
@@ -30,8 +34,13 @@ body {
 .lateralMenuClose{
     /* position: absolute; */
     /* height: 100%; */
-    width: 4vw;
+    width: 5vw;
     background-color: var(--fcolor);
+    background-color: var(--fourth-color);
+    /* background-color: var(--third-color); */
+    /* background-color: var(--second-color); */
+    /* background-color: var(--first-color); */
+    /* background-color: var(--fifth-color); */
     display: flex;
     flex-direction: column;
     transition: .5s;
@@ -41,8 +50,9 @@ body {
 .lateralMenuOpen{
     /* position: absolute; */
     height: 100vh;
-    width: 20vw;
+    width: 17vw;
     background-color: var(--fcolor);
+    background-color: var(--fourth-color);
     display: flex;
     flex-direction: column;
     /* z-index: 20; */
@@ -61,74 +71,140 @@ body {
 .lateralMenuOpen .menuLateralInfo{
     /* opacity: 0; */
     flex-direction: column;
-    height: 90%;
+    height: 100%;
     justify-content: space-around;
     align-items: center;
-    padding-top: 7vh;
+    /* padding-top: 7vh; */
     animation-name: showMenu;
     animation-duration: 1.5s;
     animation-fill-mode: forwards ;
 
 }
 
-@keyframes showMenu {
+/* @keyframes showMenu {
     0% {
         opacity: 1;
     }
     100% {
         opacity: 1;
     }
+} */
+
+
+.userPicName{
+    display: flex;
+    height: 10vh;
+    /* justify-content: space-around; */
+    align-items: center;
+    /* width: 100%; */
 }
 
-.lateralMenuOpen .userPic{
-    height: 120px;
-    width: 120px;
+
+ .userPic{
+    height: 50px;
+    min-width: 50px;
+    width: 50px;
     background-size: cover;
-    margin-bottom: 3vh;
+    /* margin-bottom: 3vh; */
     border-radius: 5px;
+    border-radius: 50%;
+    margin-left: .7vw;
+
+}
+
+
+.lateralMenuClose .userCompleteName{
+    color: white;
+    visibility: hidden;
+    /* display: none; */
+    margin-left: 1vw;
+
+    opacity: 0;
 }
 
 .lateralMenuOpen .userCompleteName{
-    font-size: 1.5rem;
+    display: flex;
+    font-size: 1.2rem;
     color: white;
-    margin-bottom: 10vh;
+    margin-left: 1vw;
+    opacity: 1;
+    transition: 1.5s;
 }
 
-.myDesk .link {
-    color: white;
+.link {
+    color: #ffffff88;
     text-decoration: none;
     width: 100%;
     display: flex;
-}
-
-.myDesk .link .linkMenu {
-    justify-content: center; 
     align-items: center;
+
+}
+
+.link:hover {
+    color: #ffffff;
+    transition: .3s;
+
+
+}
+
+.link:hover .homeIconMenu {
+    color: #ffffff;
+    transition: .3s;
+
+}
+
+
+ .link .linkMenu {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    padding-left: 2vw;
+    /* flex-grow: 1;     */
     height: 9vh;
-    background-color: #ffffff22;
-    font-size: 1.2rem;
+    font-size: 1rem;
+   
+}
 
+.lateralMenuClose .linkMenu{
+    opacity: 0;
+}
+
+.lateralMenuOpen .linkMenu{
+    opacity: 1;
+    /* transition: 1.5s; */
 }
 
 
-.lateralMenuOpen .logOut {
-    margin-top: 18vh;
+
+ .logOut {
+    margin-top: 60vh;
+    cursor: pointer;
 }
 
 
-
+/* .myDesk .homeIconMenu{ */
+.homeIconMenu{
+    display: flex;
+    justify-content: center;
+    color: #ffffff88;
+    font-size: 2.5rem;
+    margin-left: .8vw;
+    /* width: 4vw; */
+}
 
 .hamburguerIcon{
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    /* align-items: center; */
     font-size: 2.2rem;
+    padding-top: 1vh;
     font-weight: bold;
-    width: 4vw;
-    height: 7vh;
+    width: 5vw;
+    height: 10vh;
     color: white;
     transition: .4s;
     cursor: pointer;
+    
 }
 
 
@@ -146,7 +222,7 @@ body {
 
 
 .mydeskContainer{
-    background-color: rgb(221, 114, 114);
+    /* background-color: rgb(221, 114, 114); */
     flex-direction: column;
     flex-grow: 1;
     min-height: 100vh;
@@ -156,30 +232,37 @@ body {
 }
 
 .headerMyDesk{
+    background-color: #cccccc;
     background-color: var(--fcolor);
     height: 10vh;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
 .boardsContainerMyDesk{
-display: flex;
+    display: flex;
 }
 
 
 
-
+.nuevoTableroMas{
+    display: block;
+    color: var(--fcolor);
+    font-size: 1.2rem;
+}
 
 .newBoardButton{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /* flex-direction: column; */
+    justify-content: space-evenly;
     align-items: center;
-    width: 15vw;
-    height: 20vh;
+    width: 13vw;
+    height: 7vh;
     background-color: white;
     margin: 2vh 1vw;
     color: #00000088;
+    cursor: pointer;
 }
 
 .newBoardButton:hover{
@@ -187,13 +270,15 @@ display: flex;
     color: black;
 }
 
+
+
 .newBoardModal{
     position: absolute;
     top: 0;
-    /* flex-grow: 100%; */
-    width: 96vw;
+    flex-grow: 1;
+    width: 95vw;
     height: 100%;
-    background-color: #000000aa;
+    background-color: #000000cc;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -229,11 +314,21 @@ display: flex;
     height: 20vh;
     /* border: solid 1px black; */
     margin: 2vh 1vw;
-    /* background-color: lightgray; */
+    /* background-color: ; */
+    border: solid 1px black;
 }
 
-.myDesk .homeIconMenu{
-    display: block;
-    color: white;
-    font-size: 2.5rem;
+.boardContainer{
+    display: flex;
+    min-height: 100vh;
+    /* flex-direction: row; */
+}
+
+.boardHeader{
+    background-color: var(--first-color);
+    width: 100%;
+}
+
+.boardTasks{
+    width: 100%;
 }
