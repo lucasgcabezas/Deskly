@@ -14,6 +14,8 @@ const Comment = (props) => {
     // console.log(editionComment)
     const getInput = e => { setEditionComment({ ...editionComment, message: e.target.value }) }
 
+    let imComment = props.commentsUserArray.some(commentId =>commentId === String(props.comment._id))
+
     const sendEditComment = async () => {
         const response = await editComment(idTask, editionComment)
         setCommentsState(response)
@@ -33,12 +35,13 @@ const Comment = (props) => {
 
 
             <input type="text" value={editionComment.message} onChange={getInput} style={{ display: editButtonShow ? 'block' : 'none' }}></input>
-
+            {(props.imOwner || imComment) &&
             <div>
                 <button onClick={sendDeleteComment}>BorrarC</button>
                 <button onClick={() => setEditButtonShow(!editButtonShow)}>EditarC</button>
                 <button onClick={sendEditComment} style={{ display: editButtonShow ? 'block' : 'none' }}>ConfirmarEdit</button>
             </div>
+            }
         </div>
     )
 
@@ -48,6 +51,12 @@ const Comment = (props) => {
 
 }
 
+const mapStateToProps = state => {
+    return {
+        commentsUserArray: state.authReducer.commentsUserArray,
+        userLogged: state.authReducer.userLogged,
+    }
+}
 
 const mapDispatchToProps = {
     editComment: commentActions.editComment,
@@ -55,4 +64,4 @@ const mapDispatchToProps = {
 }
 
 // export default Comment
-export default connect(null, mapDispatchToProps)(Comment)
+export default connect( mapStateToProps, mapDispatchToProps)(Comment)

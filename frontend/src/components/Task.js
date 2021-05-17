@@ -64,7 +64,7 @@ const Task = (props) => {
                 <button onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }}>Confirmar</button>
                 {/* {show && <TaskModal task={task} setShow={setShow} show={show} />} */}
 
-                <TaskModal task={task} setShow={setShow} show={show} />
+                <TaskModal task={task} setShow={setShow} show={show} imOwner={props.imOwner}/>
             </div>
         </>
     )
