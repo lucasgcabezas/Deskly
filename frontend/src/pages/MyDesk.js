@@ -14,7 +14,7 @@ const MyDesk = (props) => {
     const [inputBoard, setInputBoard] = useState({ title: '', description: '', token: '' })
     const [newBoardModal, setNewBoardModal] = useState(false)
     const [loading, setLoading] = useState(true)
-    const [menuLateral, setMenuLateral] = useState(true)
+    const [menuLateral, setMenuLateral] = useState(false)
 
     const readInputBoard = (e) => {
         const field = e.target.name
@@ -59,61 +59,18 @@ const MyDesk = (props) => {
     return (
         <div className="myDesk">
 
-            <LateralMenu setMenuLateral={setMenuLateral} menuLateral={menuLateral} />
+            <LateralMenu setMenuLateral={setMenuLateral} menuLateral={menuLateral} setMenuLateral={setMenuLateral} menuLateral={menuLateral} />
 
             <div className="mydeskContainer">
                 <div className="headerMyDesk">
                     <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
                     <h2>MyDesk</h2>
-                    {/* 
-                    <div className="userPicName">
-                        <span className="userCompleteName">{userLogged.firstName + ' ' + (userLogged.lastName || '')}</span>
-                        <div className="userPic" style={{ backgroundImage: `url('${userLogged.img}')` }}></div>
-                    </div> */}
                     <div className="userPicName">
                         <span className="userCompleteName">{`${userFirstName} ${userLastName}`}</span>
                         <div className="userPic" style={{ backgroundImage: `url('${userImg}')` }}></div>
                     </div>
                 </div>
                 <div className="boardsContainerMyDesk">
-
-
-
-                    {/* {
-                        props.userLogged &&
-                            <div>
-                                <h2>My boards</h2>
-                                <div className="boardsSection">
-                                    <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
-                                        <span className="material-icons-outlined nuevoTableroMas">add_circle_outline</span>
-                                        <span>New board...</span>
-                                    </div>
-                                    {
-                                        props.boardsOwnerArray.map(board => <BoardIndividual key={board} board={board} />)
-                                    }
-                                </div>
-                                {/* <h2>Boards that I manage</h2> */}
-
-                    {/* <h2>Admin of these boards</h2>
-    
-                                <div className="boardsSection">
-                                    {
-                                        props.boardsAdminArray.map(board => <BoardIndividual key={board} board={board} />)
-    
-                                    }
-                                </div>
-                                    <h2>User of these boards</h2>
-                                <div className="boardsSection">
-    
-                                    {
-                                        props.boardsUserArray.map(board => <BoardIndividual key={board} board={board} />)
-    
-                                    }
-                                </div>
-                            </div>  */}
-
-
-
                     <div className="gifMyDesk" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/59472719-f565-4104-9c1a-9f52e846e6ca.gif')" }}></div>
 
                     {props.loading
@@ -147,6 +104,7 @@ const MyDesk = (props) => {
                                     props.boardsUserArray.map(board => <BoardIndividual key={board} board={board} />)
 
                                 }
+
                             </div>
                         </>
                     }
@@ -176,8 +134,10 @@ const MyDesk = (props) => {
                 </div>
             </div> */}
 
-        </div>
-    );
+
+        </div >
+
+    )
 }
 
 const mapStateToProps = state => {

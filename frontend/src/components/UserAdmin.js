@@ -5,7 +5,9 @@ import boardActions from '../redux/actions/boardActions'
 const UserAdmin = (props) => {
     const [loading, setLoading] = useState(true)
     const [admin, setAdmin] = useState(false)
-    const [visible, setVisible] = useState(false)
+    const { visible, setVisible } = props
+
+
     useEffect(() => {
         const array = props.admins.map(admin => admin.email)
         if (array.indexOf(props.user.email) !== -1) {
@@ -22,21 +24,13 @@ const UserAdmin = (props) => {
         setAdmin(!admin)
         setLoading(true)
     }
-    const usersVisible = () => {
-        setVisible(!visible)
-    }
+
     return (
         <>
-            <div onClick={usersVisible} className="iconoVisible">
-                <span class="material-icons-outlined iconoUsers">people_outline</span>
-            </div>
             {visible &&
-                <div className="ventanaUser">
-                    <div>
-                        <h3>{props.user.firstName + ' ' + (props.user.lastName === null ? '' : props.user.lastName)}</h3>
-                        <button className="buttonUserAdmin" onClick={loading ? (() => confirmAdmin()) : null}>{admin ? 'ADMIN' : 'USER'}</button>
-                    </div>
-
+                <div>
+                    <h3>{props.user.firstName + ' ' + (props.user.lastName === null ? '' : props.user.lastName)}</h3>
+                    <button className="buttonUserAdmin" onClick={loading ? (() => confirmAdmin()) : null}>{admin ? 'ADMIN' : 'USER'}</button>
                 </div>
             }
         </>

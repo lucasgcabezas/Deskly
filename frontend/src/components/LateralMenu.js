@@ -4,24 +4,25 @@ import { connect } from "react-redux"
 import Nav from "./Nav"
 import authActions from '../redux/actions/authActions'
 import NotificationsPanel from './NotificationsPanel'
-import {useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 
 const LateralMenu = (props) => {
 
 
-    const { userLogged, menuLateral, checkNotifications } = props
+    const { userLogged, menuLateral, checkNotifications, setMenuLateral } = props
 
     const [notifButton, setNotifButton] = useState(false)
     const [notificationsState, setNotificationsState] = useState([])
+
     useEffect(() => {
         activeCheckNotifications()
         const reloadNotifications = setInterval(() => {
             activeCheckNotifications()
         }, 4000)
         return () => { clearInterval(reloadNotifications) }
-    },[])
+    }, [])
     let classMenuLateral = menuLateral ? 'lateralMenuOpen' : 'lateralMenuClose'
     // let classElementsMenu = menuLateral ? 'elementsMenuOpen' : 'elementsMenuClose'
 
@@ -42,9 +43,10 @@ const LateralMenu = (props) => {
 
                 {/* <button onClick={() => setMenuLateral(!menuLateral)}>Open</button> */}
 
-                <h1>{notificationsState.length}</h1>
+                {/* <h1>{notificationsState.length}</h1> */}
                 {/* <div className="menuLateralInfo" style={{ display: menuLateral ? 'flex' : 'none' }}> */}
                 <div className="menuLateralInfo" >
+                    <span className="material-icons-outlined closeLateralMenu" onClick={() => setMenuLateral(false)}>close</span>
 
                     <div className="navLateral">
 
@@ -53,10 +55,6 @@ const LateralMenu = (props) => {
                             <span className="linkMenu menuLateralDeskly">DESKLY</span>
                         </NavLink>
 
-                        <div className="link" onClick={() => setNotifButton(!notifButton)}>
-                            <span className="material-icons-outlined homeIconMenu" >notifications</span>
-                            <span className="linkMenu">Notifications</span>
-                        </div>
 
                         <NavLink exact to="/" className="link">
                             <span className="material-icons-outlined homeIconMenu">home</span>
@@ -68,6 +66,12 @@ const LateralMenu = (props) => {
                                 <span className="linkMenu">MyDesk</span>
                             </NavLink>
 
+
+                            <div className="link" onClick={() => setNotifButton(!notifButton)}>
+                                <span className="material-icons-outlined homeIconMenu" >notifications</span>
+                                {notificationsState.length > 0 && <span className="notificationCircle">{notificationsState.length}</span>}
+                                <span className="linkMenu">Notifications</span>
+                            </div>
 
 
                             <div className="link logOut" onClick={() => props.signOut()}>

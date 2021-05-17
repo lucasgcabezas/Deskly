@@ -28,7 +28,7 @@ const Comment = (props) => {
     return (
         <div className="commentTask">
             <span className="userNameComment">{userCompleteName}</span>
-            <span style={{ display: editButtonShow ? 'none' : 'block' }} className="userCommentText">{message}</span>
+            <span style={{ display: editButtonShow ? 'none' : 'block' } } className="userCommentText">{message}</span>
 
 
             <input type="text" value={editionComment.message} onChange={getInput} style={{ display: editButtonShow ? 'block' : 'none' }}></input>

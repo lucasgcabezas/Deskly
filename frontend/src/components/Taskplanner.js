@@ -14,18 +14,20 @@ const TaskPlanner = (props) => {
     const [loading, setLoading] = useState(true)
     const [editTitle, setEditTitle] = useState(true)
     const [done, setDone] = useState(null)
+    const [progress, setProgress] = useState([])
+
     useEffect(() => {
         fetchAllTasks()
         const reloadTaskPlanner = setInterval(() => {
             fetchAllTasks()
-        }, 5000)
+        }, 2000)
         return () => { clearInterval(reloadTaskPlanner) }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const fetchAllTasks = async () => {
         const response = await props.tasksFromTaskplanner(props.taskplanner._id)
-        const tasksProgress = response.filter(task => task.verify) 
+        const tasksProgress = response.filter(task => task.verify)
         setDone(tasksProgress.length ? (tasksProgress.length * 100) / response.length : 0)
         setAllTasks(response)
         setPreloader(false)
@@ -55,6 +57,7 @@ const TaskPlanner = (props) => {
         <div className="taskPlanner" style={{ display: props.taskplanner.archived ? "none" : "inline-block" }}>
             <div className="taskPlannerList">
                 <span onClick={() => props.erase(props.taskplanner._id)} className="material-icons-outlined iconoTaskPlanner">delete</span>
+                <progress className="progressBar" value={progress.length} max={allTasks.length}></progress>
 
                 <div className="headerTaskPlanner">
                     {editTitle && <h3 style={{ cursor: (props.imOwner || props.imAdmin) && 'pointer' }} onClick={(props.imOwner || props.imAdmin) ? (() => { setEditTitle(!editTitle); setNewTitle(props.taskplanner.title) }) : null}>{props.taskplanner.title}</h3>}
@@ -107,7 +110,7 @@ const TaskPlanner = (props) => {
                                     }
                                 </> */}
             </div>
-            
+
         </div>
     )
 }

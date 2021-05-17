@@ -32,9 +32,9 @@ const Board = (props) => {
     let userFirstName;
     let userLastName;
     let userImg;
-    if(!props.userLogged){
+    if (!props.userLogged) {
         props.history.push('/')
-    }else{
+    } else {
         userFirstName = props.userLogged.response ? `${props.userLogged.response.firstName}` : `${userLogged.firstName}`
         userLastName = props.userLogged.response ? props.userLogged.response.lastName || '' : userLogged.lastName || ''
         userImg = props.userLogged.response ? props.userLogged.response.img : userLogged.img
@@ -163,6 +163,13 @@ const Board = (props) => {
     // }
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === String(board._id))
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === String(board._id))
+
+    const [visible, setVisible] = useState(false)
+
+    const usersVisible = () => {
+        setVisible(!visible)
+    }
+
     return (
         <>
             <div className="contenedorBoard">
@@ -229,17 +236,19 @@ const Board = (props) => {
                                 </div>
                             }
                         </div>
+                        <div onClick={usersVisible} className="iconoVisible">
+                            <span class="material-icons-outlined iconoUsers">people_outline</span>
+                        </div>
                         {imOwner &&
-                            <div>
+                            <div className="ventanaUser" style={{ visibility: visible ? 'visible' : 'hidden' }} >
                                 {
                                     boardUsers.map((user, i) => {
                                         if (i) {
-                                            return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} />
+                                            return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} visible={visible} setVisible={setVisible} />
                                         } else {
                                             return null
                                         }
                                     })
-
                                 }
                             </div>
                         }

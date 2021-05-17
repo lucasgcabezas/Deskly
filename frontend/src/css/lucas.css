@@ -67,10 +67,11 @@ body {
     height: 100%;
 
     position: relative;
-    
+    /* padding-top: 5vh; */
+ }
 
 
-}
+
 
 .lateralMenuClose .linkMenu {
     visibility: hidden;
@@ -193,6 +194,25 @@ body {
 }
 
 
+
+.notificationCircle{
+    position: absolute;
+    left: 3vw;
+    bottom: 2vh;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    background-color: var(--second-color) ;
+    /* background-color: yellow ; */
+    width: 1.1rem;
+    border-radius: 50%;
+    color: white;
+    color: var(--first-color);
+    /* color: var(--fourth-color); */
+    font-size: .8rem;
+    font-weight: bold;
+
+}
 
 .notificationCircle{
     position: absolute;
@@ -357,7 +377,7 @@ body {
     width: 5vw;
     height: 10vh;
     color: white;
-    transition: .4s;
+    transition: 0s;
     cursor: pointer;
     
 }
@@ -365,7 +385,7 @@ body {
 
 .hamburguerIcon:hover{
     background-color: #ffffff22;
-    transition: .4s;
+    transition: 0s;
 }
 
 
@@ -425,7 +445,6 @@ body {
     border: solid 2px var(--third-color);
     border-radius: 10px;
     transition: .5s;
-
 }
 
 .newBoardButton:hover{
@@ -664,6 +683,55 @@ body {
     border: none;
 }
 
+/* 
+.taskModalDescriptionContainer .modalDescriptionButtons{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.taskModalDescriptionContainer button {
+    background-color: white;
+    padding: .7vh 1vw;
+    border: solid 1px black;
+    margin-top: 1vh;
+    margin-left: 1vw;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.commentsSection{
+    flex-grow: 1;
+    max-height: 60%;
+    overflow-y: scroll;
+}
+
+.newCommentSection{
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 1vh 1vw;
+}
+
+.commentTask{
+    border: solid 1px black;
+    padding: .7vh .3vw;
+    margin: .5vh 0;
+}
+
+.userNameComment{
+    font-size: .9rem;
+}
+
+.userCommentText{
+    font-size: .85rem;
+}
+ */
+
+
+
+
 .taskModalDescriptionContainer .modalDescriptionButtons{
     width: 100%;
     display: flex;
@@ -711,14 +779,21 @@ body {
     font-size: .85rem;
 }
 
+.progressBar{
+    width: 100%;
+    height: 2vh;
+    color: red;
+   
+}
 
-
-
-
-
-
-
-
+.closeLateralMenu{
+    /* display: none; */
+    position: absolute;
+    right: 0;
+    font-size: 1.8rem;
+    color: #ffffffaa;
+    visibility: hidden;
+}
 
 
 
@@ -871,3 +946,425 @@ body {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1024px) {
+
+    .lateralMenuClose{
+        width: 0;
+        background-color: var(--fourth-color);
+        background-color: var(--first-color);
+        display: flex;
+        flex-direction: column;
+        transition: 0s;
+    }
+    
+    .lateralMenuOpen{
+        position: absolute;
+        height: 100vh;
+        width: 100%;
+        background-color: var(--fcolor);
+        background-color: var(--fourth-color);
+        display: flex;
+        flex-direction: column;
+        transition: 0s;
+    }
+    
+    .lateralMenuClose .menuLateralInfo{
+        visibility: visible;
+        height: 100%;
+        position: relative;  
+    }
+    
+    .lateralMenuClose .link {
+        visibility: hidden;
+    }
+
+    .lateralMenuClose .logoMenuLateral {
+        visibility: hidden;
+    }
+    
+    
+    .lateralMenuOpen .menuLateralInfo{
+        /* opacity: 0; */
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-around;
+        align-items: center;
+        /* padding-top: 7vh; */
+        animation-name: showMenu;
+        animation-duration: 1.5s;
+        animation-fill-mode: forwards ;
+        position: relative;
+    }
+
+    .lateralMenuOpen .link{
+        padding: 2vh 0 2vh 30vw;
+        /* transform: scale(1); */
+        transition: 0s;
+    }
+
+    .logoMenuLateral{
+        opacity: 1;
+        min-width: 2.6rem;
+        width: 2.6rem;
+        height: 2.5rem;
+        background-size: cover;
+        background-position: center;
+        margin-left: 1vw;
+        visibility: visible;
+    }
+
+    
+    .homeIconMenu{
+        display: flex;
+        justify-content: center;
+        color: #ffffff88;
+        font-size: 2.5rem;
+        margin-left: .8vw;
+        transition: 0s;
+    }
+
+    .hamburguerIcon{
+        display: flex;
+        justify-content: center;
+        /* align-items: center; */
+        font-size: 2.2rem;
+        padding-top: 1vh;
+        font-weight: bold;
+        width: 50px;
+        height: 10vh;
+        color: white;
+        transition: .4s;
+        cursor: pointer;
+        
+    }
+
+    .link{
+        transition: 0s;
+    }
+
+    .link:hover .homeIconMenu {
+        color: #ffffff;
+        transition: 0s;
+    
+    }
+    
+
+    .lateralMenuClose .notificationCircle {
+        visibility: hidden;
+    }
+
+    .notificationCircle{
+        position: absolute;
+        left: 50vw;
+        bottom: 5.5vh;
+        display: flex;
+        justify-content: center;
+        background-color: black;
+        background-color: var(--second-color) ;
+        /* background-color: yellow ; */
+        width: 1.1rem;
+        border-radius: 50%;
+        color: white;
+        color: var(--first-color);
+        /* color: var(--fourth-color); */
+        font-size: .8rem;
+        font-weight: bold;
+
+    }
+
+    .notificationPanelClose{
+        width: 0;
+        background-color: var(--fourth-color);
+        transition: 0s;
+    }
+
+    .notificationPanelClose .notificationsHeader {
+        /* opacity: 0; */
+        visibility: hidden;
+        opacity: 0;
+        transition: 0s;
+
+    }
+
+    .notificationPanelClose .notification {
+        visibility: hidden;
+        opacity: 0;
+        transition: 0s;
+    }
+
+
+    .notificationPanelOpen {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--fifth-color);
+        width: 100vw;
+        height: 100%;
+        transition: 0s;
+        /* border-left: solid 5px var(--fourth-color); */
+    }
+
+    .notificationPanelOpen .notificationsHeader {
+        visibility: visible;
+        opacity: 1;
+        transition: 1s;
+        position: relative;
+    }
+
+    .notificationsHeader{
+        width: 100%;
+        position: relative;
+        /* background-color: var(--fourth-color); */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 5vh;
+    }
+
+    .notificationsTitle{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        color: white;
+        color: var(--fourth-color);
+        font-size: 1.3rem;
+    }
+
+    .closeNotifPanel{
+        position: absolute;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--first-color);
+        color: white;
+        color: var(--fourth-color);
+        top: 0;
+        right: 0;
+    }
+
+    .notificationPanelClose .notification {
+        /* border: solid 1px var(--first-color); */
+        padding: .5vh 1vw;
+        /* background-color: white; */
+        background-color: var(--fourth-color);
+        color: white;
+        border-radius: 10px;
+        font-size: .8rem;
+        display: flex;
+        height: 14vh;
+        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
+        margin: .5vh 0;
+        visibility: hidden;
+        opacity: 0;
+        width: 90vw;
+    }
+
+    .notificationPanelOpen .notification {
+        /* border: solid 1px var(--first-color); */
+        padding: .5vh 1vw;
+        /* background-color: white; */
+        background-color: var(--fourth-color);
+        color: white;
+        border-radius: 10px;
+        font-size: .8rem;
+        display: flex;
+        height: 14vh;
+        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
+        margin: .5vh 0;
+        visibility: visible;
+        opacity: 1;
+        transition: 0s ;
+        transition-delay: 0s;
+        width: 90vw;
+    }
+
+    .notification button {
+        /* background-color: white; */
+        background-color: var(--fourth-color);
+        border: solid 1px black;
+        border: solid 1px white;
+        /* border: solid 1px var(--second-color); */
+        color: white;
+        /* color: var(--second-color); */
+        border-radius: 5px;
+        padding: .5vh 1vw;
+        cursor: pointer;
+        margin: 0 .5vw;
+        transition: .7s;
+    }
+
+    .notification button:hover{
+        background-color: var(--second-color);
+        border: solid 1px var(--second-color);
+        color:var(--fourth-color);
+        transition: .7s;
+    }
+
+
+    
+    .lateralMenuOpen .menuLateralInfo{
+        /* opacity: 0; */
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-around;
+        align-items: center;
+        /* padding-top: 3vh; */
+        animation-name: showMenu;
+        animation-duration: 1.5s;
+        animation-fill-mode: forwards ;
+        position: relative;
+    }
+
+    .linkDeskly{
+        margin-top: 5vh;
+    }
+
+    .closeLateralMenu{
+        /* display: none; */
+        position: absolute;
+        right: 0;
+        font-size: 2rem;
+        color: #ffffffaa;
+        visibility: visible;
+    }
+    .boardMyDesk{
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 15vw;
+        min-width: 150px;
+        height: 20vh;
+        /* border: solid 1px black; */
+        margin: 1vh 0vw 1vh .5vw;
+        background-color: var(--first-color);
+        /* border: solid 1px black; */
+        border: solid 1px white;
+        color: white;
+        font-size: 1.rem;
+        border-radius: 10px;
+    }
+
+    .newBoardButton{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 15vw;
+        min-width: 150px;
+
+        height: 20vh;
+        margin: 1vh 0vw 1vh .5vw;
+        color: var(--first-color);
+        cursor: pointer;
+        border: solid 2px var(--third-color);
+        border-radius: 10px;
+        transition: .5s;
+    }
+    
+
+    
+    .boardsContainerMyDesk{
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        width: 100%;
+        overflow-y: scroll;
+        padding: .5vh;
+    }
+
+    
+    .boardsSection{
+        display: flex;
+        /* justify-content: center; */
+        flex-wrap: wrap;
+        margin-bottom: 1vh;
+    }
+
+    
+
+@media (max-width: 799px) {
+   .userCompleteName{
+        display: none;
+    }
+
+    .notificationCircle{
+        position: absolute;
+        left: 58vw;
+        bottom: 5.5vh;
+        display: flex;
+        justify-content: center;
+        background-color: black;
+        background-color: var(--second-color) ;
+        /* background-color: yellow ; */
+        width: 1.1rem;
+        border-radius: 50%;
+        color: white;
+        color: var(--first-color);
+        /* color: var(--fourth-color); */
+        font-size: .8rem;
+        font-weight: bold;
+
+    }
+}
+
+@media (max-width: 599px) {
+    .notificationCircle{
+        position: absolute;
+        left: 67vw;
+        bottom: 5.5vh;
+        display: flex;
+        justify-content: center;
+        background-color: black;
+        background-color: var(--second-color) ;
+        /* background-color: yellow ; */
+        width: 1.1rem;
+        border-radius: 50%;
+        color: white;
+        color: var(--first-color);
+        /* color: var(--fourth-color); */
+        font-size: .8rem;
+        font-weight: bold;
+
+    }
+}
+
+@media (max-width: 400px) {
+    .notificationCircle{
+        position: absolute;
+        left: 77vw;
+        bottom: 5.5vh;
+        display: flex;
+        justify-content: center;
+        background-color: black;
+        background-color: var(--second-color) ;
+        /* background-color: yellow ; */
+        width: 1.1rem;
+        border-radius: 50%;
+        color: white;
+        color: var(--first-color);
+        /* color: var(--fourth-color); */
+        font-size: .8rem;
+        font-weight: bold;
+
+    }
+}
+}
