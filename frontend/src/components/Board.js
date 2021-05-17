@@ -28,9 +28,17 @@ const Board = (props) => {
     const [admins, setAdmins] = useState([])
     const [loading, setLoading] = useState(true)
     const [menuLateral, setMenuLateral] = useState(false)
-    let userFirstName = props.userLogged.response ? `${props.userLogged.response.firstName}` : `${userLogged.firstName}`
-    let userLastName = props.userLogged.response ? props.userLogged.response.lastName || '' : userLogged.lastName || ''
-    let userImg = props.userLogged.response ? props.userLogged.response.img : userLogged.img
+
+    let userFirstName;
+    let userLastName;
+    let userImg;
+    if(!props.userLogged){
+        props.history.push('/')
+    }else{
+        userFirstName = props.userLogged.response ? `${props.userLogged.response.firstName}` : `${userLogged.firstName}`
+        userLastName = props.userLogged.response ? props.userLogged.response.lastName || '' : userLogged.lastName || ''
+        userImg = props.userLogged.response ? props.userLogged.response.img : userLogged.img
+    }
 
     useEffect(() => {
         if (props.userLogged) {
