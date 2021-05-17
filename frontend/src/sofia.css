@@ -52,12 +52,15 @@ html *{
     margin-bottom: 3vh;
 }
 .desklyLogoSign{
+    display: flex;
+    justify-content: center;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
-    width: 10vw;
-    height: 40vh;
-    margin-bottom: 3vh;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: -70px;
 }
 .contenedorHome{
     display: flex;
@@ -81,7 +84,7 @@ html *{
 .contenedorHeroHome p{
     width: 40vw;
     font-size: 2em;
-    margin: 0;
+    margin-bottom: 4vh;
     color: var(--fourth-color);
 }
 .imageHero{
@@ -229,20 +232,45 @@ html *{
     border-radius: 50%;
 }
 .contenedorElipse2{
-    margin-top: 60vh;
+    margin-top: 70vh;
 }
 .fabrica{
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    width: 80vw;
-    height: 70vh;
+    width: 90vw;
+    height: 90vh;
     position: absolute;
     bottom: 2px;
     z-index: -1;
 }
 footer{
     position: relative;
+}
+.homeIconMenu2{
+    width: 95%;
+    color: #ffffff88;
+    font-size: 2rem;
+    /* margin-left: .8vw; */
+    margin-top: 1vh;
+    text-align: end;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+.homeIconMenu3{
+    width: 95%;
+    color: #ffffff88;
+    font-size: 2rem;
+    margin-left: 1vw;
+    margin-top: 1vh;
+    text-align: start;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+.homeIconMenu2:hover, .homeIconMenu3:hover{
+    color: #ffffffd7;
 }
 .logoFooter{
     display: flex;
@@ -273,6 +301,9 @@ footer{
 .redesSociales{
     color: white;
     cursor: pointer;
+}
+.redesSociales h2{
+    font-size: 2em;
 }
 .navigation h2{
     font-size: 2em;
@@ -415,6 +446,7 @@ input:focus{
     padding: 2vh 2vw;
     color: white;
     cursor: pointer;
+    margin-bottom: 3vh;
 }
 .contenedorHeroLogIn{
     background-color: var(--first-color);
@@ -424,8 +456,8 @@ input:focus{
 }
 .contenedorHeroLogIn h2{
     color: white;
-    font-size: 3em;
-    margin-bottom: 6vh;
+    font-size: 2.5em;
+    margin-bottom: 4vh;
     text-align: center;
 
 }
@@ -433,11 +465,19 @@ input:focus{
     background-color: var(--first-color);
     opacity: 0.9;
 }
-.infoRegister{
+.infoRegister1, .infoRegister2{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    bottom: 0;
+}
+.infoRegister1{
+    left: 6.5vw;
+}
+.infoRegister2{
+    left: 5vw;
 }
 .contenedorSignUp{
     display: flex;
@@ -445,30 +485,66 @@ input:focus{
 .contenedorInfoBoard{
     width: 100%;
 }
+.updateTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+}
+.iconoUpdateBoard{
+    color: rgba(255, 255, 255, 0.521);
+    font-size: 1.2em;
+    cursor: pointer;
+}
+.contenedorInputEditTitleBoard{
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.212);
+    border-radius: 5px;
+    border: none;
+    padding: 0 1vw;
+}
+.contenedorInputEditTitleBoard input {
+    font-size: 2em;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.521);
+}
 .taskPlanner{
     width: 272px;
     margin: 0 4px;
-    height: 100%;
+    /* height: 100%; */
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
     white-space: nowrap;
 }
 .taskPlannerList{
-    padding: 3vh 1vw;
+    padding: 1vh 1vw;
     background-color: #ebecf0;
     border-radius: 3px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    max-height: 100%;
+    /* max-height: 100%; */
     position: relative;
     white-space: normal;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 60vh;
 }
+/* .contenedorTaskPlanner div{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 60vh;
+} */
 .contenedorTaskPlanners{
     display: flex;
     padding-left: 2vw;
     margin-top: 8vh;
+}
+.contenedorTaskPlanner{
+    display: flex;
+    align-items: flex-start;
 }
 .buttonTaskPlanner{
     border: none;
@@ -478,46 +554,51 @@ input:focus{
     padding: 1vh 3vw;
     font-size: 17px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 .buttonTaskPlanner:hover{
-    background-color: #605ee196;
-}
-/* .contenedorAddList{
-    display: flex;
-    /* flex-direction: column; */
-.inputAddList{
     background-color: #605ee196;
 }
 .iconoTaskPlanner{
     font-size: 1.5em;
     cursor: pointer;
     color: var(--fourth-color);
+    /* margin-left: 2vw; */
+    text-align: end;
+}
+.iconoClose{
+    font-size: 1.2em;
+    cursor: pointer;
 }
 .headerTaskPlanner{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: auto;
 }
 .headerTaskPlanner h3{
     color: var(--fourth-color);
+    height: auto;
 }
 .contenedorEditTitle{
-    /* display: flex; */
+    margin-left: 0.4vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 3px;
-    width: 85%;
+    border-radius: 5px;
+    width: 89%;
     border: 2px solid var(--first-color);
-    margin: 0 auto;
+    padding: 2px 2vw;
 }
 .buttonAddTask{
     border: none;
     background-color: var(--first-color);
-    border-radius: 2px;
+    border-radius: 5px;
     color: white;
-    padding: 2px 0;
+    padding: 1vh 0;
     cursor: pointer;
+    margin-top: 2vh;
 }
 .contenedorTask{
     background-color: #fff;
@@ -534,7 +615,36 @@ input:focus{
 }
 .taskInfo{
     display: flex;
-    width: 80%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vh 1vw;
+}
+.taskInfo:hover{
+    background-color: #ebecf07c;
+}
+.inputVerify{
+    width: 1vw;
+    /* height: 1vh; */
+}
+.contenedorInputEditTask{
+    /* width: 70%; */
+    border: 2px solid var(--first-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+.inputEditTask{
+    width: 75%;
+    /* padding: 2px 2px; */
+}
+.taskTitle{
+    width: 60%;
+    overflow:hidden ;
+}
+.inputActions{
+    display: flex;
+    align-items: center;
 }
 /* .inputEditTitle{
     width: 80%;
@@ -587,6 +697,7 @@ input:focus{
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1vh;
+    background-color: var(--first-color);
 }
 .boardMarca h2{
     font-size: 2.5em;
@@ -595,6 +706,7 @@ input:focus{
 .logoLink{
     color: rgba(255, 255, 255, 0.521);
     text-decoration: none;
+    cursor: pointer;
 }
 .logoLink:hover{
     color: rgba(255, 255, 255, 0.815); 
@@ -606,8 +718,8 @@ input:focus{
     margin-right: 6px;
     display: flex;
     justify-content: space-around;
-    width: 25%;
-    margin-left: 27vw;
+    width: 20%;
+    /* margin-left: 27vw; */
 }
 .contenedorBoard{
     height: 100vh;
@@ -693,7 +805,53 @@ input:focus{
     border-bottom: 2px solid var(--first-color);
     margin-bottom: 1vh;
 }
-
+.contenedorAddList{
+    background-color:#ebecf0;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 5px;
+    border-radius: 3px;
+}
+.contenedorAddList div{
+    display: flex;
+    align-items: center;
+}
+.inputAddList{
+    border: 2px solid var(--first-color);
+    background-color: #ebecf0;
+    padding: 1vh 2vw;
+    border-radius: 5px;
+}
+.iconoAddList, .iconoAddListClose{
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-right: 3px;
+}
+.iconoAddListClose{
+    margin-top: 1vh;
+}
+.buttonAddList{
+    margin-top: 1vh;
+    background-color: var(--second-color);
+    padding: 1vh 2vw;
+    border: none;
+    border-radius: 5px;
+}
+.contenedorAddTask{
+    width: 90%;
+    background-color:#ebecf0;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 5px;
+    border-radius: 3px;
+}
+.inputAddTask{
+    border: 2px solid var(--first-color);
+    background-color: #ebecf0;
+    padding: 1vh 0.5vw;
+    width: 100%;
+    border-radius: 5px;
+}
 /* .board-header-btn:hover {
     color: #fff;
 } */

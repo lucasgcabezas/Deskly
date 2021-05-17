@@ -36,7 +36,7 @@ const MyDesk = (props) => {
     useEffect(() => {
         props.getBoardsFromUser(userLogged.token)
         // if (props.boardsOwnerArray) {
-            
+
         // }
         const reloadTaskPlanner = setInterval(() => {
             if (userLogged.token) {
@@ -45,7 +45,7 @@ const MyDesk = (props) => {
             }
 
         }, 1000)
-       
+
         return () => { clearInterval(reloadTaskPlanner) }
         // if (userLogged.token) {
         //     props.setUserComponents(userLogged.token)
@@ -55,7 +55,7 @@ const MyDesk = (props) => {
     let userFirstName = props.userLogged.response ? `${props.userLogged.response.firstName}` : `${userLogged.firstName}`
     let userLastName = props.userLogged.response ? props.userLogged.response.lastName || '' : userLogged.lastName || ''
     let userImg = props.userLogged.response ? props.userLogged.response.img : userLogged.img
-   
+
     return (
         <div className="myDesk">
 
@@ -65,30 +65,22 @@ const MyDesk = (props) => {
                 <div className="headerMyDesk">
                     <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
                     <h2>MyDesk</h2>
-
-
-
                     {/* 
                     <div className="userPicName">
                         <span className="userCompleteName">{userLogged.firstName + ' ' + (userLogged.lastName || '')}</span>
                         <div className="userPic" style={{ backgroundImage: `url('${userLogged.img}')` }}></div>
                     </div> */}
-
                     <div className="userPicName">
                         <span className="userCompleteName">{`${userFirstName} ${userLastName}`}</span>
                         <div className="userPic" style={{ backgroundImage: `url('${userImg}')` }}></div>
                     </div>
-
-
-
                 </div>
                 <div className="boardsContainerMyDesk">
-                    {props.loading
-                        ? <div className="spinner-container">
-                            <Spinner />
-                        </div>
-                        :
-                            props.userLogged &&
+
+
+
+                    {/* {
+                        props.userLogged &&
                             <div>
                                 <h2>My boards</h2>
                                 <div className="boardsSection">
@@ -101,8 +93,8 @@ const MyDesk = (props) => {
                                     }
                                 </div>
                                 {/* <h2>Boards that I manage</h2> */}
-    
-                                <h2>Admin of these boards</h2>
+
+                    {/* <h2>Admin of these boards</h2>
     
                                 <div className="boardsSection">
                                     {
@@ -118,20 +110,59 @@ const MyDesk = (props) => {
     
                                     }
                                 </div>
-                            </div>
+                            </div>  */}
 
+
+
+                    <div className="gifMyDesk" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/59472719-f565-4104-9c1a-9f52e846e6ca.gif')" }}></div>
+
+                    {props.loading
+                        ? <div className="spinner-container">
+                            <Spinner />
+                        </div>
+                        : props.userLogged &&
+                        <>
+                            <h2 className="boardsCategories">My boards</h2>
+                            <div className="boardsSection">
+                                <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
+                                    <span className="material-icons-outlined nuevoTableroMas">add_circle_outline</span>
+                                    <span>New board</span>
+                                </div>
+                                {
+                                    props.boardsOwnerArray.map(board => <BoardIndividual key={board} board={board} />)
+                                }
+                            </div>
+                            {/* <h2>Boards that I manage</h2> */}
+                            <h2 className="boardsCategories">Boards that I admin</h2>
+                            <div className="boardsSection">
+                                {
+                                    props.boardsAdminArray.map(board => <BoardIndividual key={board} board={board} />)
+
+                                }
+                            </div>
+                            <h2 className="boardsCategories">Boards in which I am a member</h2>
+                            <div className="boardsSection">
+
+                                {
+                                    props.boardsUserArray.map(board => <BoardIndividual key={board} board={board} />)
+
+                                }
+                            </div>
+                        </>
                     }
                 </div>
             </div>
 
             <div className="newBoardModal" style={{ display: newBoardModal ? 'flex' : 'none' }}>
-                <div className="newBoard"  >
-                    <input type="text" name="title" placeholder="Titulo" onChange={readInputBoard} />
-                    <textarea name="description" placeholder="Agrega una descripción..." onChange={readInputBoard} ></textarea>
+                <div className="newBoard">
+                    <div>
+                        <img src="https://webdesing881317710.files.wordpress.com/2021/05/desklylogo2.png" alt="" />
+                        <p>DESKLY</p>
+                    </div>
+                    <input type="text" name="title" placeholder="Title" onChange={readInputBoard} />
+                    <textarea name="description" placeholder="Add a description..." onChange={readInputBoard} ></textarea>
                     <button onClick={loading && addBoard}>Create a new board</button>
-
                     {/* <button onClick={addBoard}>Crear nuevo tablero</button> */}
-
                     <span onClick={() => setNewBoardModal(false)} className="material-icons-outlined closeNewBoardModal">close</span>
                 </div>
             </div>

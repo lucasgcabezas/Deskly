@@ -19,7 +19,7 @@ const Home = (props) => {
                         <div className="desklyLogo" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/desklylogo.png')" }}></div>
                         <h1>DESKLY</h1>
                     </div>
-                    <p>Organize and manage your work efficiently. Take control of each project. Make your load flow.</p>
+                    <p>Organize and manage work efficiently. Keep track of every proyect. Make your work flow</p>
                     {!userLogged && <Link to="/sign"><button className="buttonRegister">Join Us!</button></Link>}
                 </div>
                 <div className="imageHero" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/s.png')" }}></div>
@@ -30,12 +30,12 @@ const Home = (props) => {
                     <div className="hands" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/6bcf4f9e-7b00-412f-b336-3b6241b86cb3.png')" }}></div>
                     <div className="fraseHero2">
                         <div class="circulo"></div>
-                        <p>Regain clarity and calm by taking all those tasks out of your head and putting them in Deskly (no matter where you are or what device you use).</p>
+                        <p>Regain clarity and calmness by getting all those tasks out of your head and onto your to-do list (no matter where you are or what device you use).</p>
                     </div>
                 </div>
                 <svg>
                     <clipPath id="wave" clipPathUnits="objectBoundingBox">
-                        <path class="st0" d="M1,0c0,0-0.3,0.1-0.5,0.1S0.3,0,0,0.1V1h1L1,0z" />
+                        <path className="st0" d="M1,0c0,0-0.3,0.1-0.5,0.1S0.3,0,0,0.1V1h1L1,0z" />
                     </clipPath>
                 </svg>
                 <div className="contenedorSemiCirculo">
@@ -44,31 +44,31 @@ const Home = (props) => {
                 <div className="contenedorCirculosHerramientas">
                     <div className="desklyHerramientas1">
                         <div>
-                            <span class="material-icons-outlined">dashboard</span>
+                            <span className="material-icons-outlined">dashboard</span>
                             <h3>Boards:</h3>
-                            <p>Lets you see the big picture</p>
+                            <p>Helps you see the big picture</p>
                         </div>
                         <div>
-                            <span class="material-icons-outlined">add</span>
+                            <span className="material-icons-outlined">add</span>
                             <h3>Add:</h3>
-                            <p>Capture and organize tasks in seconds</p>
+                            <p>Lets you capture and organize tasks in seconds</p>
                         </div>
                         <div>
-                            <span class="material-icons-outlined">task_alt</span>
+                            <span className="material-icons-outlined">task_alt</span>
                             <h3>Tasks:</h3>
-                            <p>Portrays how small steps add up to great achievements</p>
+                            <p>Paint a portrait of how small steps add up to big accomplishments</p>
                         </div>
                     </div>
                     <div className="desklyHerramientas2">
                         <div>
-                            <span class="material-icons-outlined">edit</span>
+                            <span className="material-icons-outlined">edit</span>
                             <h3>Edit:</h3>
-                            <p>If you’re confused, you can edit all your tasks as many times as you need</p>
+                            <p> Did you mistook? Don’t worry! You can edit all your tasks as many times you need!</p>
                         </div>
                         <div>
-                            <span class="material-icons-outlined">delete</span>
+                            <span className="material-icons-outlined">delete</span>
                             <h3>Delete:</h3>
-                            <p>Discard any content you no longer use with a single click</p>
+                            <p>Throw away any content you don’t longer need  with just one click</p>
                         </div>
                     </div>
                 </div>

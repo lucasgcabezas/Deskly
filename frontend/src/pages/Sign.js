@@ -1,11 +1,8 @@
-// import Header from '../components/Header';
 import { useState } from 'react'
 import LogIn from '../components/LogIn'
 import SignUp from './SignUp'
+import {Link} from 'react-router-dom'
 const Sign = () => {
-
-
-
     const [buttonSign, setButtonSign] = useState(true)
     const [buttonanimation, setbuttonanimation] = useState()
 
@@ -21,9 +18,6 @@ const Sign = () => {
         }
     }
 
-
-
-
     return (
         <>
             {/* <Header/> */}
@@ -34,21 +28,21 @@ const Sign = () => {
                     {
                         buttonSign
                             ? <div className={"contenedorHeroLogIn"}>
+                                <Link to="/"><span className="material-icons-outlined homeIconMenu2">home</span></Link>       
                                 <div className="logoFooter">
-                                    <div className="desklyLogoSign" style={{ backgroundImage: "url('/assets/DesklyLogo2.png')" }}></div>
-                                    <h1>DESKLY</h1>
+                                  <div className="desklyLogoSign" style={{ backgroundImage: "url(https://webdesing881317710.files.wordpress.com/2021/05/register.png)" }}></div>
                                 </div>
-                                <div className="infoRegister">
+                                <div className="infoRegister1">
                                     <h2>Already have an account?</h2>
                                     <button className="buttonSignUp" onClick={() => changeStatesButtons('in')}>Log in here!</button>
                                 </div>
                             </div>
                             : <div className="contenedorHeroLogIn">
+                                <Link to="/"><span className="material-icons-outlined homeIconMenu3">home</span></Link> 
                                 <div className="logoFooter">
-                                    <div className="desklyLogoSign" style={{ backgroundImage: "url('/assets/DesklyLogo2.png')" }}></div>
-                                    <h1>DESKLY</h1>
+                                    <div className="desklyLogoSign" style={{ backgroundImage: "url(https://webdesing881317710.files.wordpress.com/2021/05/register.png)" }}></div>
                                 </div>
-                                <div className="infoRegister">
+                                <div className="infoRegister2">
                                     <h2> Dont have an account yet?</h2>
                                     <button className="buttonSignUp" onClick={() => changeStatesButtons('up')}>Register here!</button>
                                 </div>

@@ -127,6 +127,7 @@ body {
     align-items: center;
     transition: .3s;
     cursor: pointer;
+    position: relative;
 }
 
 .link:hover {
@@ -193,13 +194,29 @@ body {
 
 
 
+.notificationCircle{
+    position: absolute;
+    left: 3vw;
+    bottom: 2vh;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    background-color: var(--second-color) ;
+    /* background-color: yellow ; */
+    width: 1.1rem;
+    border-radius: 50%;
+    color: white;
+    color: var(--first-color);
+    /* color: var(--fourth-color); */
+    font-size: .8rem;
+    font-weight: bold;
 
+}
 
 .notificationPanelClose{
     width: 0;
     background-color: var(--fourth-color);
     transition: .3s;
-
 }
 
 .notificationPanelClose .notificationsHeader {
@@ -324,7 +341,6 @@ body {
     border: solid 1px var(--second-color);
     color:var(--fourth-color);
     transition: .7s;
-
 }
 
 
@@ -399,7 +415,7 @@ body {
 
 .newBoardButton{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     width: 15vw;
     height: 20vh;
@@ -413,8 +429,7 @@ body {
 }
 
 .newBoardButton:hover{
-    background-color: white;
-    color: black;
+    color: var(--third-color);
     transition: .5s;
 }
 
@@ -437,24 +452,27 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     width: 32vw;
     height: 45vh;
     background-color: var(--first-color);
     padding: 3vh 0;
+    border-radius: 5px;
     /* border: solid 1px black; */
 }
 
 .newBoard input {
     padding: 1vh 1vw;
     width: 85%;
+    border-radius: 3px;
     border: none;
     background-color: #eeeeee;
     
 }
 
 .newBoard textarea {
+    border-radius: 3px;
     padding: 1vh 1vw;
     width: 85%;
     height: 30%;
@@ -471,15 +489,17 @@ body {
     color: white;
     font-size: 1rem;
     cursor: pointer;
+    border-radius: 5px;
 }
 .newBoard button:hover {
-    background-color: var(--second-color);
+    color: var(--fourth-color);
+    background-color: var(--fifth-color);
 }
 
 .closeNewBoardModal{
     position: absolute;
-    top: 0px;
-    right: 0;
+    top: 1px;
+    right: 1px;
     cursor: pointer;
     font-size: 2rem;
     /* z-index: 10; */
@@ -487,8 +507,36 @@ body {
 
 }
 
+.newBoard div{
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+.newBoard img {
+    width: 2vw;
+}
+
+.gifMyDesk{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 80%;
+    height: 80vh;
+    position: absolute;
+    z-index: -1;
+    top: 17vh;
+    left: 10vw;
+}
+
+.boardsCategories{
+    color: var(--fourth-color);
+    font-weight: lighter;
+}
+
 .closeNewBoardModal:hover{
-    color: var(--second-color);
+    color: var(--fifth-color);
 }
 
 .boardsContainerMyDesk * {
@@ -503,17 +551,15 @@ body {
     align-items: center;
     width: 15vw;
     height: 20vh;
-    /* border: solid 1px black; */
+    border: solid 1px black;
     margin: 1vh 0vw 1vh .5vw;
     background-color: var(--first-color);
-    /* border: solid 1px black; */
-    border: solid 1px white;
+    border: solid 1px black;
+    border: solid 1px white; 
     color: white;
     font-size: 1.rem;
     border-radius: 10px;
 }
-
-
 .boardContainer{
     display: flex;
     min-height: 100vh;
@@ -540,6 +586,133 @@ body {
 .lateralMenuOpen .linkDeskly:hover {
     background-color: var(--fourth-color);
 }
+
+
+
+.ModalTaskComponent {
+    position: absolute;
+    width: 50vw;
+    height: 90vh;
+    top: 5vh;
+    left: auto;
+    right: 50vh;
+    bottom: auto;
+    /* background-color: white; */
+}
+
+.OverlayModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000099;
+  }
+  
+  
+.modal{
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    padding: 1vh 1vw;
+}
+  
+.closeModalTask{
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    font-size: 2rem;
+    color: var(--fourth-color);
+}
+
+.taskModalHeader{
+    /* background-color: var(--first-color); */
+    width: 100%;
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.taskModalHeader h3{
+    font-size: 1.8rem;
+    color: var(--first-color);
+}
+
+.taskModalDescriptionContainer{
+    /* background-color: red; */
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.taskModalDescriptionContainer textarea {
+    width: 100%;
+    height: 10vh;
+    resize: none;
+    background-color: #eeeeee;
+    padding: 1vh .5vw;
+    border-radius: 5px;
+    border: none;
+}
+
+.taskModalDescriptionContainer .modalDescriptionButtons{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.taskModalDescriptionContainer button {
+    background-color: white;
+    padding: .7vh 1vw;
+    border: solid 1px black;
+    margin-top: 1vh;
+    margin-left: 1vw;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.commentsSection{
+    /* background-color: violet; */
+    /* height: 70vh; */
+    flex-grow: 1;
+    max-height: 60%;
+    overflow-y: scroll;
+}
+
+.newCommentSection{
+    /* background-color: yellow; */
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 1vh 1vw;
+}
+
+.commentTask{
+    border: solid 1px black;
+    padding: .7vh .3vw;
+    margin: .5vh 0;
+}
+
+.userNameComment{
+    font-size: .9rem;
+}
+
+.userCommentText{
+    font-size: .85rem;
+}
+
+
+
 
 
 

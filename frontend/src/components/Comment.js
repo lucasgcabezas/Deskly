@@ -26,18 +26,19 @@ const Comment = (props) => {
 
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', border: 'solid 1px black', padding: '10px' }}>
-            <span>{userCompleteName}</span>
-            <span style={{ display: editButtonShow ? 'none' : 'block' }}>{message}</span>
+        <div className="commentTask">
+            <span className="userNameComment">{userCompleteName}</span>
+            <span style={{ display: editButtonShow ? 'none' : 'block' }} className="userCommentText">{message}</span>
 
 
             <input type="text" value={editionComment.message} onChange={getInput} style={{ display: editButtonShow ? 'block' : 'none' }}></input>
 
-           {props.userLogged.email === props.comment.userId.email && <div>
-                <button onClick={sendDeleteComment}>BorrarC</button>
-                <button onClick={() => setEditButtonShow(!editButtonShow)}>EditarC</button>
-                <button onClick={sendEditComment} style={{ display: editButtonShow ? 'block' : 'none' }}>ConfirmarEdit</button>
-            </div>}
+            {props.userLogged.email === props.comment.userId.email &&
+                <div>
+                    <button onClick={sendDeleteComment}>Delete</button>
+                    <button onClick={() => setEditButtonShow(!editButtonShow)}>Edit</button>
+                    <button onClick={sendEditComment} style={{ display: editButtonShow ? 'block' : 'none' }}>ConfirmarEdit</button>
+                </div>}
         </div>
     )
 

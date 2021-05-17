@@ -42,25 +42,21 @@ const Task = (props) => {
     }
     let style = props.imOwner || props.imAdmin ? 'block' : 'none'
     return (
-        <div >
+        <div className="overflowTask">
             <div className="contenedorTask" style={{ backgroundColor: verify ? 'lightgreen' : 'white' }}>
-                <div>
+                <div onClick={() => setShow(true)}>
                     <div className="taskInfo">
-                        <span style={{ display: editButton ? 'none' : 'block' }}>{title}</span>
-                        <input type="text" onChange={getInput} value={editionTask.title} style={{ display: editButton ? 'block' : 'none' }}></input>
-                        <input type="checkbox" onChange={verifyTask} checked={editionTask.verify}></input>
-                    </div>
-
-                    <div>
-                        <div style={{display: style}}>
-                            <button onClick={() => setEditButton(!editButton)}>Edit</button>
-                            <button onClick={sendDeleteTask}>Delete</button>
+                        <span className="taskTitle" style={{ display: editButton ? 'none' : 'block' }}>{title}</span>
+                        <div className="contenedorInputEditTask" style={{ display: editButton ? 'flex' : 'none' }}>
+                            <input className="inputEditTask" type="text" onChange={getInput} value={editionTask.title}></input><span onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }} class="material-icons-outlined iconoTaskPlanner">send</span>
                         </div>
-                        <button onClick={() => setShow(true)}>modal</button>
+                        <div className="inputActions">
+                            <span onClick={() => setEditButton(!editButton)} class="material-icons-outlined iconoTaskPlanner">edit</span>
+                            <span onClick={sendDeleteTask} className="material-icons-outlined iconoTaskPlanner">delete</span>
+                            <input className="inputVerify" type="checkbox" onChange={verifyTask} checked={editionTask.verify}></input>
+                        </div>
                     </div>
                 </div>
-
-                <button onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }}>Accept</button>
                 {/* {show && <TaskModal task={task} setShow={setShow} show={show} />} */}
                 <TaskModal task={task} setShow={setShow} show={show} />
             </div>
