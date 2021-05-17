@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import Task from "./Task"
 import Progress from "./Progress"
 import { IoSend } from 'react-icons/io5'
+import Spinner from './helpers/Spinner'
 
 const TaskPlanner = (props) => {
     const [allTasks, setAllTasks] = useState([])
@@ -27,10 +28,12 @@ const TaskPlanner = (props) => {
 
     const fetchAllTasks = async () => {
         const response = await props.tasksFromTaskplanner(props.taskplanner._id)
-        const tasksProgress = response.filter(task => task.verify)
-        setDone(tasksProgress.length ? (tasksProgress.length * 100) / response.length : 0)
-        setAllTasks(response)
-        setPreloader(false)
+        if (response) {
+            const tasksProgress = response.filter(task => task.verify)
+            setDone(tasksProgress.length ? (tasksProgress.length * 100) / response.length : 0)
+            setAllTasks(response)
+            setPreloader(false)
+        }
     }
 
     const enter = (e, condition) => {
@@ -46,6 +49,7 @@ const TaskPlanner = (props) => {
         if (newTask.trim() !== "") {
             setLoading(false)
             await props.addTask({ title: newTask, taskplannerId: props.taskplanner._id }, props.userLogged.token)
+            setOpen(!open)
             const tasks = await props.tasksFromTaskplanner(props.taskplanner._id)
             setAllTasks(tasks)
             setNewTask('')
@@ -79,7 +83,7 @@ const TaskPlanner = (props) => {
                 <div>
                     {
                         preloader
-                            ? <span>cargando</span>
+                            ? <Spinner />
                             : allTasks.map(task => <Task imAdmin={props.imAdmin} imOwner={props.imOwner} key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
                     }
                 </div>
@@ -88,9 +92,9 @@ const TaskPlanner = (props) => {
                     {
                         !open &&
                         <div className="contenedorAddList">
-                            <input className="inputAddTask" onKeyDown={loading && ((e) => enter(e, 'task'))} type="text" placeholder="Introduce a title for the new task" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
+                            <input className="inputAddTask" onKeyDown={loading ? ((e) => enter(e, 'task')): null} type="text" placeholder="Introduce a title for the new task" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
                             <div>
-                                <button className="buttonAddList" onClick={loading && sendValues}>Add new task</button>
+                                <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new task</button>
                                 <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>
                             </div>
                         </div>

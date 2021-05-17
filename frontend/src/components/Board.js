@@ -61,8 +61,6 @@ const Board = (props) => {
             tasksFetch()
         }, 5000)
 
-
-
         return () => { clearInterval(reloadTaskPlanner) }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -99,6 +97,7 @@ const Board = (props) => {
             await props.addTaskPlanner({ title: newTitle, boardId: board._id }, props.userLogged.token)
             const tasks = await props.getTaskPlannerFromBoard(board._id)
             setAllTasksPlanner(tasks)
+            setOpen(!open)
             setNewTitle('')
             setLoading(true)
         }
@@ -133,7 +132,7 @@ const Board = (props) => {
 
     const deleteBoard = async () => {
         await props.deleteBoard(board._id, props.userLogged.token)
-        desklyAlert('Info', 'Delete complete!', 'info')
+        desklyAlert('Info', 'Board deleted!', 'info')
         props.history.push('/myDesk')
     }
 
@@ -263,7 +262,7 @@ const Board = (props) => {
                     </div>
                     <div className="contenedorTaskPlanners">
                         <div className="contenedorTaskPlanner">
-                            <div>
+                            <div className="contenedorTodasTaskPlanners">
                                 {
                                     allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
                                 }

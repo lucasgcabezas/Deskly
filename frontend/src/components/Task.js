@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import taskActions from '../redux/actions/taskActions'
 import TaskModal from './TaskModal'
+import { store } from 'react-notifications-component'
 
 import Modal from 'react-modal';
 
@@ -22,6 +23,18 @@ const Task = (props) => {
 
     const verifyTask = async (e) => { setEditionTask({ ...editionTask, verify: e.target.checked }) }
 
+    const desklyAlert = async (alertTitle, alertMessage, alertType) => {
+        await store.addNotification({
+            title: alertTitle,
+            message: alertMessage,
+            type: alertType,
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__flipInX"],
+            animationOut: ["animate__animated", "animate__fadeOutDown"],
+            dismiss: { duration: 3000, onScreen: true, pauseOnHover: true, showIcon: true }
+        })
+    }
     const sendEdit = async (elementToEdit) => {
         if (editionTask.title.length > 0) {
             const response = await editTask(_id, editionTask)
@@ -39,6 +52,7 @@ const Task = (props) => {
     const sendDeleteTask = async () => {
         const response = await deleteTask(_id)
         let arrayFiltered = allTasks.filter(task => task._id != response._id)
+        desklyAlert('Info', 'Task deleted', 'info')
         setAllTasks(arrayFiltered)
     }
 
