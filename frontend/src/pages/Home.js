@@ -35,7 +35,7 @@ const Home = (props) => {
                 </div>
                 <svg>
                     <clipPath id="wave" clipPathUnits="objectBoundingBox">
-                        <path class="st0" d="M1,0c0,0-0.3,0.1-0.5,0.1S0.3,0,0,0.1V1h1L1,0z" />
+                        <path className="st0" d="M1,0c0,0-0.3,0.1-0.5,0.1S0.3,0,0,0.1V1h1L1,0z" />
                     </clipPath>
                 </svg>
                 <div className="contenedorSemiCirculo">
@@ -44,29 +44,29 @@ const Home = (props) => {
                 <div className="contenedorCirculosHerramientas">
                     <div className="desklyHerramientas1">
                         <div>
-                            <span class="material-icons-outlined">dashboard</span>
+                            <span className="material-icons-outlined">dashboard</span>
                             <h3>Boards:</h3>
                             <p>Helps you see the big picture</p>
                         </div>
                         <div>
-                            <span class="material-icons-outlined">add</span>
+                            <span className="material-icons-outlined">add</span>
                             <h3>Add:</h3>
                             <p>Lets you capture and organize tasks in seconds</p>
                         </div>
                         <div>
-                            <span class="material-icons-outlined">task_alt</span>
+                            <span className="material-icons-outlined">task_alt</span>
                             <h3>Tasks:</h3>
                             <p>Paint a portrait of how small steps add up to big accomplishments</p>
                         </div>
                     </div>
                     <div className="desklyHerramientas2">
                         <div>
-                            <span class="material-icons-outlined">edit</span>
+                            <span className="material-icons-outlined">edit</span>
                             <h3>Edit:</h3>
                             <p> Did you mistook? Don’t worry! You can edit all your tasks as many times you need!</p>
                         </div>
                         <div>
-                            <span class="material-icons-outlined">delete</span>
+                            <span className="material-icons-outlined">delete</span>
                             <h3>Delete:</h3>
                             <p>Throw away any content you don’t longer need  with just one click</p>
                         </div>

@@ -52,12 +52,15 @@ html *{
     margin-bottom: 3vh;
 }
 .desklyLogoSign{
+    display: flex;
+    justify-content: center;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
-    width: 10vw;
-    height: 40vh;
-    margin-bottom: 3vh;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: -70px;
 }
 .contenedorHome{
     display: flex;
@@ -229,20 +232,45 @@ html *{
     border-radius: 50%;
 }
 .contenedorElipse2{
-    margin-top: 60vh;
+    margin-top: 70vh;
 }
 .fabrica{
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    width: 80vw;
-    height: 70vh;
+    width: 90vw;
+    height: 90vh;
     position: absolute;
     bottom: 2px;
     z-index: -1;
 }
 footer{
     position: relative;
+}
+.homeIconMenu2{
+    width: 95%;
+    color: #ffffff88;
+    font-size: 2rem;
+    /* margin-left: .8vw; */
+    margin-top: 1vh;
+    text-align: end;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+.homeIconMenu3{
+    width: 95%;
+    color: #ffffff88;
+    font-size: 2rem;
+    margin-left: 1vw;
+    margin-top: 1vh;
+    text-align: start;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+.homeIconMenu2:hover, .homeIconMenu3:hover{
+    color: #ffffffd7;
 }
 .logoFooter{
     display: flex;
@@ -418,6 +446,7 @@ input:focus{
     padding: 2vh 2vw;
     color: white;
     cursor: pointer;
+    margin-bottom: 3vh;
 }
 .contenedorHeroLogIn{
     background-color: var(--first-color);
@@ -427,8 +456,8 @@ input:focus{
 }
 .contenedorHeroLogIn h2{
     color: white;
-    font-size: 3em;
-    margin-bottom: 6vh;
+    font-size: 2.5em;
+    margin-bottom: 4vh;
     text-align: center;
 
 }
@@ -436,11 +465,19 @@ input:focus{
     background-color: var(--first-color);
     opacity: 0.9;
 }
-.infoRegister{
+.infoRegister1, .infoRegister2{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    bottom: 0;
+}
+.infoRegister1{
+    left: 6.5vw;
+}
+.infoRegister2{
+    left: 5vw;
 }
 .contenedorSignUp{
     display: flex;
@@ -475,7 +512,7 @@ input:focus{
 .taskPlanner{
     width: 272px;
     margin: 0 4px;
-    height: 100%;
+    /* height: 100%; */
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
@@ -488,10 +525,18 @@ input:focus{
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    max-height: 100%;
+    /* max-height: 100%; */
     position: relative;
     white-space: normal;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 60vh;
 }
+/* .contenedorTaskPlanner div{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 60vh;
+} */
 .contenedorTaskPlanners{
     display: flex;
     padding-left: 2vw;
@@ -652,6 +697,7 @@ input:focus{
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1vh;
+    background-color: var(--first-color);
 }
 .boardMarca h2{
     font-size: 2.5em;

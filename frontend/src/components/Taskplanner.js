@@ -52,7 +52,6 @@ const TaskPlanner = (props) => {
 
     return (
         <div className="taskPlanner" style={{ display: props.taskplanner.archived ? "none" : "inline-block" }}>
-            {/* <div className="taskPlanner" > */}
             <div className="taskPlannerList">
                 <span onClick={() => props.erase(props.taskplanner._id)} className="material-icons-outlined iconoTaskPlanner">delete</span>
 
@@ -93,7 +92,6 @@ const TaskPlanner = (props) => {
                         </div>
                     }
                 </>
-
                 {/* <>
                                     {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}
                                     {

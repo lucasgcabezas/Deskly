@@ -159,14 +159,14 @@ const Board = (props) => {
         <>
             <div className="contenedorBoard">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#615ee1" fill-opacity="1" d="M0,96L60,96C120,96,240,96,360,117.3C480,139,600,181,720,186.7C840,192,960,160,1080,160C1200,160,1320,192,1380,208L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+                    <path fill="#f9d85f" fill-opacity="1" d="M0,96L60,96C120,96,240,96,360,117.3C480,139,600,181,720,186.7C840,192,960,160,1080,160C1200,160,1320,192,1380,208L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
                 </svg>
                 <LateralMenu setMenuLateral={setMenuLateral} menuLateral={menuLateral} />
                 <div className="contenedorInfoBoard">
                     <div className="boardMarca">
                         <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
-                        {update && <h2 className="logoLink" onClick={() => {setUpdate(!update); setUpdateInput({ title: board.title })}}>{board.title}</h2>}
-                        {!update && 
+                        {update && <h2 className="logoLink" onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title }) }}>{board.title}</h2>}
+                        {!update &&
                             <div className="updateTitle">
                                 <div className="contenedorInputEditTitleBoard">
                                     <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
@@ -186,7 +186,7 @@ const Board = (props) => {
                             {
                                 imOwner &&
                                 <>
-                                                                        {/* {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}
+                                    {/* {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}
                                     {
                                         !open &&
                                         <div className="contenedorAddList">
@@ -202,8 +202,8 @@ const Board = (props) => {
                                         <>
                                             <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
                                             {/* , description: board.description */}
-                                            {/* <input className="inputBoard" type="text" name="description" value={updateInput.description} onChange={readUpdateInput} /> */}
-                                            {/* <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
+                                    {/* <input className="inputBoard" type="text" name="description" value={updateInput.description} onChange={readUpdateInput} /> */}
+                                    {/* <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
                                         < */}
                                     <button className="buttonOptionsBoard" onClick={deleteBoard}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
                                 </>
@@ -238,9 +238,11 @@ const Board = (props) => {
                     </div>
                     <div className="contenedorTaskPlanners">
                         <div className="contenedorTaskPlanner">
-                            {
-                                allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
-                            }
+                            <div>
+                                {
+                                    allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
+                                }
+                            </div>
                             {(imOwner || imAdmin) &&
                                 <>
                                     {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}

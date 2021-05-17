@@ -42,7 +42,7 @@ const Task = (props) => {
     }
     let style = props.imOwner || props.imAdmin ? 'block' : 'none'
     return (
-        <div>
+        <div className="overflowTask">
             <div className="contenedorTask" style={{ backgroundColor: verify ? 'lightgreen' : 'white' }}>
                 <div onClick={() => setShow(true)}>
                     <div className="taskInfo">

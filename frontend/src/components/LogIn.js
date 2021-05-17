@@ -57,7 +57,7 @@ const SignIn = (props) => {
             </div> */}
             {/* <div className={`contenedorFormularioLogIn ${props.buttonanimation === true && 'loginAnimation'}`}> */}
             <div className={`contenedorFormularioLogIn`}>
-                <h2>Log In in DESKLY</h2>
+                <h2>Log in to DESKLY</h2>
                 <span className="contenedorinput"><HiMail className="inputIcons"/><input type="text" name="email" placeholder="Email" onChange={input} autoComplete="off" /></span>
                 <span className="contenedorinput"><ImKey className="inputIcons"/><input type={oculto ? "password" : "text"} name="password" placeholder="Contraseña" onChange={input} autoComplete="off" />
                     <div onClick={() => setOculto(!oculto)} className="divEye">
@@ -67,7 +67,7 @@ const SignIn = (props) => {
                 <button onClick={log} className="buttonEnviar">Log In</button>
                 <GoogleLogin className="botonSignUp2"
                     render={renderProps => (
-                        <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="bGoogle"><FcGoogle />Iniciar sesión con Google</button>
+                        <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="bGoogle"><FcGoogle />Log in with Google</button>
                     )}
                     clientId="81825591921-124e4vl2b4i29jpfrf8k1vpnj84qb0fq.apps.googleusercontent.com"
                     onSuccess={respuestaGoogle}

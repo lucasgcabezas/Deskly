@@ -415,7 +415,7 @@ body {
 
 .newBoardButton{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     width: 15vw;
     height: 20vh;
@@ -429,8 +429,7 @@ body {
 }
 
 .newBoardButton:hover{
-    background-color: white;
-    color: black;
+    color: var(--third-color);
     transition: .5s;
 }
 
@@ -453,24 +452,27 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     width: 32vw;
     height: 45vh;
     background-color: var(--first-color);
     padding: 3vh 0;
+    border-radius: 5px;
     /* border: solid 1px black; */
 }
 
 .newBoard input {
     padding: 1vh 1vw;
     width: 85%;
+    border-radius: 3px;
     border: none;
     background-color: #eeeeee;
     
 }
 
 .newBoard textarea {
+    border-radius: 3px;
     padding: 1vh 1vw;
     width: 85%;
     height: 30%;
@@ -487,15 +489,17 @@ body {
     color: white;
     font-size: 1rem;
     cursor: pointer;
+    border-radius: 5px;
 }
 .newBoard button:hover {
-    background-color: var(--second-color);
+    color: var(--fourth-color);
+    background-color: var(--fifth-color);
 }
 
 .closeNewBoardModal{
     position: absolute;
-    top: 0px;
-    right: 0;
+    top: 1px;
+    right: 1px;
     cursor: pointer;
     font-size: 2rem;
     /* z-index: 10; */
@@ -503,8 +507,36 @@ body {
 
 }
 
+.newBoard div{
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+.newBoard img {
+    width: 2vw;
+}
+
+.gifMyDesk{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 80%;
+    height: 80vh;
+    position: absolute;
+    z-index: -1;
+    top: 17vh;
+    left: 10vw;
+}
+
+.boardsCategories{
+    color: var(--fourth-color);
+    font-weight: lighter;
+}
+
 .closeNewBoardModal:hover{
-    color: var(--second-color);
+    color: var(--fifth-color);
 }
 
 .boardsContainerMyDesk * {
@@ -519,17 +551,15 @@ body {
     align-items: center;
     width: 15vw;
     height: 20vh;
-    /* border: solid 1px black; */
+    border: solid 1px black;
     margin: 1vh 0vw 1vh .5vw;
     background-color: var(--first-color);
-    /* border: solid 1px black; */
-    border: solid 1px white;
+    border: solid 1px black;
+    border: solid 1px white; 
     color: white;
     font-size: 1.rem;
     border-radius: 10px;
 }
-
-
 .boardContainer{
     display: flex;
     min-height: 100vh;
