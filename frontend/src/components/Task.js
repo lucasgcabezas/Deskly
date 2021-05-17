@@ -15,9 +15,7 @@ const Task = (props) => {
 
     const getInput = e => { setEditionTask({ ...editionTask, title: e.target.value }) }
 
-    useEffect(() => {
-        sendEdit("verify") // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [editionTask.verify])
+    useEffect(() => { sendEdit("verify") }, [editionTask.verify])
 
     const verifyTask = async (e) => { setEditionTask({ ...editionTask, verify: e.target.checked }) }
 
@@ -37,34 +35,38 @@ const Task = (props) => {
 
     const sendDeleteTask = async () => {
         const response = await deleteTask(_id)
-        let arrayFiltered = allTasks.filter(task => task._id !== response._id)
+        let arrayFiltered = allTasks.filter(task => task._id != response._id)
         setAllTasks(arrayFiltered)
     }
-    let style = props.imOwner || props.imAdmin ? 'block' : 'none'
+
+    
+  
+
+    // console.log(props.commentsUserArray);
+    let style =props.imOwner || props.imAdmin? 'block' : 'none'
     return (
-        <div >
-            <div className="contenedorTask" style={{ backgroundColor: verify ? 'lightgreen' : 'white' }}>
+        <>
+            <div style={{ backgroundColor: verify ? 'lightgreen' : 'white', border: 'solid 1px black', padding: '2vh 1vw' }}>
                 <div>
-                    <div className="taskInfo">
-                        <span style={{ display: editButton ? 'none' : 'block' }}>{title}</span>
-                        <input type="text" onChange={getInput} value={editionTask.title} style={{ display: editButton ? 'block' : 'none' }}></input>
-                        <input type="checkbox" onChange={verifyTask} checked={editionTask.verify}></input>
-                    </div>
+                    <span style={{ display: editButton ? 'none' : 'block' }}>{title}</span>
+                    <input type="text" onChange={getInput} value={editionTask.title} style={{ display: editButton ? 'block' : 'none' }}></input>
+                    <input type="checkbox" onChange={verifyTask} checked={editionTask.verify}></input>
 
                     <div>
                         <div style={{display: style}}>
-                            <button onClick={() => setEditButton(!editButton)}>Edit</button>
-                            <button onClick={sendDeleteTask}>Delete</button>
+                            <button onClick={() => setEditButton(!editButton)}>Editar</button>
+                            <button onClick={sendDeleteTask}>Borrar</button>
                         </div>
                         <button onClick={() => setShow(true)}>modal</button>
                     </div>
                 </div>
 
-                <button onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }}>Accept</button>
+                <button onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }}>Confirmar</button>
                 {/* {show && <TaskModal task={task} setShow={setShow} show={show} />} */}
+
                 <TaskModal task={task} setShow={setShow} show={show} />
             </div>
-        </div>
+        </>
     )
 }
 
@@ -77,7 +79,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     editTask: taskActions.editTask,
     deleteTask: taskActions.deleteTask,
-    recycleTask: taskActions.recycleTask,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task)

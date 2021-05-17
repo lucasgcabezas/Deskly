@@ -66,7 +66,7 @@ const TaskPlanner = (props) => {
                         </>
                     }
                     <div style={{ display: props.imOwner || props.imAdmin ? 'block' : 'none' }}>
-                        {/* <button  onClick={() =>props.recycle(props.taskplanner._id)}>Recycle</button> */}
+                        <button  onClick={() =>props.archive(props.taskplanner._id)}>archived</button>
 
                         <span onClick={() => props.erase(props.taskplanner._id)} className="material-icons-outlined iconoTaskPlanner">delete</span>
                     </div>

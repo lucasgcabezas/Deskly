@@ -25,14 +25,14 @@ import taskActions from "../redux/actions/taskActions"
 
 
     return(<>   
-        <h1>Archivo</h1>
-        <div style={{ margin: '2.5rem' }}>{
+        <div style={{ margin: '2.5rem',display:"flex", flexDirection:"column", alignItems:"flex-end" }}>{
         filterTaskplanners.map(taskplanner =>{
         return (
-        <>
-        <h1> taskplanner:  {taskplanner.title}</h1> 
+        <><div>
+        <h1>{taskplanner.title}</h1> 
         <button   style={{ margin: '0.5rem', height:"2rem", width: "5rem"}} onClick={()=>recycle(taskplanner._id)}> devolver</button>
         <button   style={{ margin: '0.5rem', height:"2rem", width: "5rem"}} onClick={()=>erase(taskplanner._id)}> borrar</button>
+        </div>
         </>)} )
          }
        </div>    
