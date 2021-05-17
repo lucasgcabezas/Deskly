@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import taskActions from "../redux/actions/taskActions"
 import { connect } from "react-redux"
 import Task from "./Task"
+import { IoSend } from 'react-icons/io5'
 
 const TaskPlanner = (props) => {
     const [allTasks, setAllTasks] = useState([])
@@ -48,32 +49,38 @@ const TaskPlanner = (props) => {
     }
 
     return (
-        <div>
-            <div style={{display: props.imOwner || props.imAdmin ? 'block': 'none'}}>
-                <button onClick={() => props.erase(props.taskplanner._id)}>Delete</button>
-            </div>
-            {editTitle && <h1 style={{cursor: (props.imOwner || props.imAdmin) && 'pointer'}} onClick={( props.imOwner || props.imAdmin) ? (() => {setEditTitle(!editTitle); setNewTitle(props.taskplanner.title)}): null}>{props.taskplanner.title}</h1>}
-            {!editTitle && <div style={{display:'flex'}}>
-                <input onKeyDown={newTitle.trim() ? (e) =>{ enter(e, 'edit')} : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                
-                <button onClick={newTitle.trim() ? (() => {props.edit(props.taskplanner._id, newTitle); setEditTitle(!editTitle)}) : null}>Send</button>
-                <h2 style={{cursor:'pointer'}} onClick={() => setEditTitle(!editTitle)}>x</h2>
-                
-            </div>}
-            <button onClick={() => setOpen(!open)}>add task</button>
-            {
-                open && <div>
-                    <input onKeyDown={loading && ((e) => enter(e, 'task'))} type="text" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
-                    <button onClick={loading && sendValues}>Send</button>
+        <div className="taskPlanner">
+            <div className="taskPlannerList">
+                <div className="headerTaskPlanner">
+                    {editTitle && <h3 style={{ cursor: (props.imOwner || props.imAdmin) && 'pointer' }} onClick={(props.imOwner || props.imAdmin) ? (() => { setEditTitle(!editTitle); setNewTitle(props.taskplanner.title) }) : null}>{props.taskplanner.title}</h3>}
+                    {!editTitle &&
+                        <>
+                        <div className="contenedorEditTitle">
+                            <input className="inputEditTitle" onKeyDown={newTitle.trim() ? (e) => { enter(e, 'edit') } : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                            <button onClick={newTitle.trim() ? (() => { props.edit(props.taskplanner._id, newTitle); setEditTitle(!editTitle) }) : null}>Send</button>
+                        </div>
+                        <span style={{ cursor: 'pointer' }} onClick={() => setEditTitle(!editTitle)}>x</span>
+                        </>
+                    }
+                    <div style={{ display: props.imOwner || props.imAdmin ? 'block' : 'none' }}>
+                        <span onClick={() => props.erase(props.taskplanner._id)} className="material-icons-outlined iconoTaskPlanner">delete</span>
+                    </div>
                 </div>
-            }
-
-            <div>
                 {
-                    preloader
-                        ? <span>cargando</span>
-                        : allTasks.map(task => <Task imAdmin={props.imAdmin} imOwner={props.imOwner} key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
+                    open && <div>
+                        <input onKeyDown={loading && ((e) => enter(e, 'task'))} type="text" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
+                        <button onClick={loading && sendValues}>Send</button>
+                    </div>
                 }
+
+                <div>
+                    {
+                        preloader
+                            ? <span>cargando</span>
+                            : allTasks.map(task => <Task imAdmin={props.imAdmin} imOwner={props.imOwner} key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
+                    }
+                </div>
+                <button className="buttonAddTask" onClick={() => setOpen(!open)}>add task</button>
             </div>
 
         </div>
