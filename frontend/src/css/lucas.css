@@ -25,10 +25,19 @@ body {
     display: none;
 }
 
+
 .myDesk{
     display: flex;
+    /* overflow: none; */
 }
 
+.mydeskContainer{
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100vh;
+    display: flex;
+    /* overflow:initial; */
+}
 
 .menu {
     display: flex;
@@ -345,15 +354,6 @@ body {
 
 
 
-
-
-.mydeskContainer{
-    flex-direction: column;
-    flex-grow: 1;
-    min-height: 100vh;
-    display: flex;
-}
-
 .headerMyDesk{
     background-color: #cccccc;
     background-color: var(--second-color);
@@ -372,8 +372,21 @@ body {
 
 .boardsContainerMyDesk{
     display: flex;
+    flex-direction: column;
     width: 100%;
+    overflow-y: scroll;
+    padding: .5vh;
+}
 
+.boardsContainerMyDesk h2{
+    margin-left: .5vw;
+    margin-top: 1vh;
+}
+
+.boardsSection{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1vh;
 }
 
 
@@ -527,3 +540,161 @@ body {
 .lateralMenuOpen .linkDeskly:hover {
     background-color: var(--fourth-color);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.signHeroIniciarSesion{
+    left: 0;
+    position: absolute;
+    background-color: red;
+    width: 50vw;
+    height: 100vh;
+    transition: 2s;
+    z-index: 10;
+  
+}
+
+.signHeroIniciarSesionAnimation{
+    animation-name: transformHero;
+    animation-duration: 1.5s;
+    /* animation-duration: 1s; */
+    animation-delay: .2s;
+}
+@keyframes transformHero {
+    0%{
+        width: 50vw;
+    }
+    40%{
+        width: 62vw;
+    }
+    100%{
+        width: 50vw;
+    }
+    
+}
+
+.signHeroRegistrar{
+    left: 50vw;
+    position: absolute;
+    background-color: red;
+    width: 50vw;
+    height: 100vh;
+    transition: 2.5s;
+    animation-delay: .1s;
+    z-index: 10;
+
+}
+.signHeroRegistrarAnimation{
+    animation-name: transformHero2;
+    animation-duration: 1.5s;
+    /* animation-duration: 1s; */
+    animation-delay: .1s;
+}
+@keyframes transformHero2 {
+    0%{
+        width: 50vw;
+    }
+    40%{
+        width: 62vw;
+    }
+    100%{
+        width: 50vw;
+    }
+    
+}
+
+.registerAnimation{
+    animation-name: moverRegister;
+    animation-duration: 2.5s;
+    animation-delay: .1s;
+}
+@keyframes moverRegister {
+    0%{
+        margin-left: 0;
+    }
+    45%{
+        margin-left: 15vw;
+    }
+    56%{
+        margin-left: 0;
+    }
+    
+}
+.registerAnimation2{
+    animation-name: moverRegister2;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+@keyframes moverRegister2 {
+    0%{
+        margin-left:5vw;
+    }
+    30%{
+        margin-left: 15vw;
+    }
+    100%{
+        margin-left: 0;
+    }
+    
+}
+
+.loginAnimation{
+    animation-name: moverLogin;
+    animation-duration: 2s;
+}
+@keyframes moverLogin {
+    0%{
+        margin-right: 0;
+    }
+    50%{
+        margin-right: 12vw;
+    }
+    55%{
+        margin-right: 0;
+    }
+    
+}
+
+.loginAnimation2{
+    animation-name: moverLogin2;
+    animation-duration: 2s;
+    animation-delay: .3s;
+    animation-fill-mode: forwards;
+}
+@keyframes moverLogin2 {
+    0%{
+        margin-right:5vw;
+    }
+    20%{
+        margin-right: 18vw;
+    }
+    100%{
+        margin-right: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
