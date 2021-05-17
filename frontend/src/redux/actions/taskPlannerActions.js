@@ -47,6 +47,7 @@ const taskPlannerActions = {
     },
 
     editTaskPlanner: (idTaskPlanner, title) => {
+        console.log(idTaskPlanner, title)
         return async (dispatch, getState) => {
             try {
                 const response = await axios.put('http://localhost:4000/api/taskplanner/' + idTaskPlanner, { title })
@@ -62,6 +63,25 @@ const taskPlannerActions = {
             }
         }
     },
+
+    recycleTaskPlanner: (idTaskPlanner, title) => {
+        console.log(idTaskPlanner, title)
+        return async (dispatch, getState) => {
+            try {
+                const response = await axios.put('http://localhost:4000/api//taskplannerFromBoard/' + idTaskPlanner, { title })
+                
+                if (!response.data.success) {
+                    desklyAlert('Error', response.data.response, 'danger')
+                } else {
+                    return response.data.response
+                }
+            } catch (error) {
+                console.log(error)
+                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+            }
+        }
+    },
+
     addTaskPlanner: (taskPlanner, token) => {
         return async (dispatch, getState) => {
             try {

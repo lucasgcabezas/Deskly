@@ -29,7 +29,7 @@ const SignUp = (props) => {
         if (Object.values(userGen).some(value => value === "")) {
             store.addNotification({
                 title: "Error",
-                message: `All fields are required! `,
+                message: `Todos los campos son obligatorios!`,
                 type: "danger",
                 insert: "top",
                 container: "top-right",
@@ -58,26 +58,26 @@ const SignUp = (props) => {
     // }
 
     return (
-        <div  className={`contenedorLogUp ${props.buttonanimation === false ? 'registerAnimation': props.buttonanimation === true  && 'registerAnimation2'}`}>
-            {/* <div className="contenedorHeroLogIn">
+        <div className="contenedorLogIn">
+            <div className="contenedorHeroLogIn">
                 <div className="logoFooter">
                     <div className="desklyLogo" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/desklylogo.png')" }}></div>
                     <h1>DESKLY</h1>
                 </div>
                 <div className="infoRegister">
-                    <h2>Log In!</h2>
-                    <button className="buttonSignUp">Log In</button>
+                    <h2>Inicia sesion!</h2>
+                    <button className="buttonSignUp">Iniciar Sesión</button>
                 </div>
-            </div> */}
-            <div className={`contenedorFormularioLogUp`}>
-                <h2>Create account in DESKLY</h2>
+            </div>
+            <div className="contenedorFormularioLogIn">
+                <h2>Create una cuenta en DESKLY</h2>
                 <span className="contenedorinput"> <FaUser className="inputIcons" />
-                    <input type="text" placeholder="Name"
+                    <input type="text" placeholder="Nombre"
                         onChange={readInputUser} value={user.firstName} name="firstName" />
                 </span>
                 {mistakes.firstName ? <h6>{mistakes.firstName}</h6> : null}
                 <span className="contenedorinput"><FaUser className="inputIcons" />
-                    <input type="text" placeholder="Last Name"
+                    <input type="text" placeholder="Apellido"
                         onChange={readInputUser} value={user.lastName} name="lastName" />
                 </span>
                 {mistakes.lastName ? <h6>{mistakes.lastName}</h6> : null}
@@ -86,7 +86,7 @@ const SignUp = (props) => {
                         onChange={readInputUser} value={user.email} name="email" />
                 </span>
                 {mistakes.email ? <h6>{mistakes.email}</h6> : null}
-                <span className="contenedorinput"><ImKey className="inputIcons" /><input type={oculto ? "password" : "text"} placeholder="Password" name="password" onChange={readInputUser} autoComplete="off" />
+                <span className="contenedorinput"><ImKey className="inputIcons" /><input type={oculto ? "password" : "text"} placeholder="Contraseña" onChange={readInputUser} autoComplete="off" />
                     <div onClick={() => setOculto(!oculto)} className="divEye">
                         {oculto ? <BsEyeSlash className="inputIconsEye" /> : <BsEye className="inputIconsEye" />}
                     </div>
@@ -97,11 +97,11 @@ const SignUp = (props) => {
                         onChange={readInputUser} value={user.img} name="img" />
                 </span>
                 {mistakes.img ? <h6>{mistakes.img}</h6> : null}
-                <button className="buttonEnviar" onClick={sendValueUser}>Register</button>
+                <button className="buttonEnviar" onClick={sendValueUser}>Registrate</button>
                 <GoogleLogin
                     clientId="81825591921-124e4vl2b4i29jpfrf8k1vpnj84qb0fq.apps.googleusercontent.com"
                     render={renderProps => (
-                        <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="bGoogle"><FcGoogle />Register with Google</button>
+                        <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="bGoogle"><FcGoogle />Registrate con Google</button>
                     )}
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}

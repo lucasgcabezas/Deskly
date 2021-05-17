@@ -51,14 +51,6 @@ html *{
     height: 40vh;
     margin-bottom: 3vh;
 }
-.desklyLogoSign{
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 10vw;
-    height: 40vh;
-    margin-bottom: 3vh;
-}
 .contenedorHome{
     display: flex;
 }
@@ -247,7 +239,6 @@ footer{
 .logoFooter{
     display: flex;
     align-items: center;
-    justify-content: center;
     color: var(--fourth-color);
     font-size: 1.5em;
 }
@@ -293,46 +284,19 @@ footer{
     height: 100vh;
 }
 .contenedorFormularioLogIn{
-    /* position: absolute; */
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* margin-left: 8vw; */
-    /* max-width: 50%; */
-    /* z-index: -1; */
+    margin-left: 8vw;
 }
 .contenedorFormularioLogIn h2{
     color: var(--first-color);
     font-size: 3em;
     font-weight: bold;
-    /* margin-top: 15vh; */
+    margin-top: 15vh;
     margin-bottom: 6vh;
     text-align: center;
-    max-width: 80%;
-    margin-top: 5vh;
 }
-
-.contenedorFormularioLogUp{
-    /* position: absolute; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* margin-left: 8vw; */
-    /* max-width: 50%; */
-    /* z-index: -1; */
-}
-
-.contenedorFormularioLogUp h2{
-    color: var(--first-color);
-    font-size: 3em;
-    font-weight: bold;
-    /* margin-top: 15vh; */
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    max-width: 70%;
-    text-align: center;
-}
-
 .contenedorinput{
     background-color: rgba(177, 177, 177, 0.363) ;
     border-radius: 10px;
@@ -393,19 +357,8 @@ input:focus{
 }
 .contenedorLogIn{
     display: flex;
-    width: 40%;
+    width: 100%;
     height: 100%;
-    position: absolute;
-    /* z-index: -1; */
-    right: 0;
-}
-.contenedorLogUp{
-    display: flex;
-    width: 50%;
-    height: 100%;
-    position: absolute;
-    /* z-index: -1; */
-    left: 0;
 }
 .buttonSignUp{
     border-radius: 40px;
@@ -418,16 +371,13 @@ input:focus{
 }
 .contenedorHeroLogIn{
     background-color: var(--first-color);
-    width: 100%;
-    height: 100%;
-    transition: 1s;
+    width: 40%;
 }
 .contenedorHeroLogIn h2{
     color: white;
     font-size: 3em;
     margin-bottom: 6vh;
     text-align: center;
-
 }
 .heroSignUp{
     background-color: var(--first-color);
@@ -442,122 +392,40 @@ input:focus{
 .contenedorSignUp{
     display: flex;
 }
-.contenedorInfoBoard{
-    width: 100%;
-}
-.taskPlanner{
-    width: 272px;
-    margin: 0 4px;
-    height: 100%;
-    box-sizing: border-box;
-    display: inline-block;
-    vertical-align: top;
-    white-space: nowrap;
-}
-.taskPlannerList{
-    padding: 3vh 1vw;
-    background-color: #ebecf0;
-    border-radius: 3px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    max-height: 100%;
-    position: relative;
-    white-space: normal;
-}
-.contenedorTaskPlanners{
-    display: flex;
-    padding-left: 2vw;
-    margin-top: 8vh;
-}
-.buttonTaskPlanner{
-    border: none;
-    border-radius: 5px;
-    background-color: #605ee1c9;
-    color: white;
-    padding: 1vh 3vw;
-    font-size: 17px;
-    cursor: pointer;
-}
-.buttonTaskPlanner:hover{
-    background-color: #605ee196;
-}
-/* .contenedorAddList{
-    display: flex;
-    /* flex-direction: column; */
-.inputAddList{
-    background-color: #605ee196;
-}
-.iconoTaskPlanner{
-    font-size: 1.5em;
-    cursor: pointer;
-    color: var(--fourth-color);
-}
-.headerTaskPlanner{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.headerTaskPlanner h3{
-    color: var(--fourth-color);
-}
-.contenedorEditTitle{
-    /* display: flex; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 3px;
-    width: 85%;
-    border: 2px solid var(--first-color);
-    margin: 0 auto;
-}
-.buttonAddTask{
-    border: none;
-    background-color: var(--first-color);
-    border-radius: 2px;
-    color: white;
-    padding: 2px 0;
-    cursor: pointer;
-}
-.contenedorTask{
-    background-color: #fff;
-    border-radius: 3px;
-    box-shadow: 0 1px 0 rgb(9 30 66 / 25%);
-    cursor: pointer;
-    display: block;
-    margin-bottom: 8px;
-    max-width: 300px;
-    min-height: 20px;
-    position: relative;
-    text-decoration: none;
-    z-index: 0;
-}
-.taskInfo{
-    display: flex;
-    width: 80%;
-}
-/* .inputEditTitle{
-    width: 80%;
-    padding: 3px 0;
-    border: 2px solid var(--first-color);
-    border-radius: 3px;
-} */
-
 .contenedorImageBoard{
     width: 100%;
     height: 53.8%;
-    position: relative;
-    z-index: -1;
-}    
+}
+.taskPlanner{
+    border-radius: 5px;
+    background-color: #ebecf0;
+    width: 30vw;
+    padding: 3vh 2vw;
+}
+.contenedorTaskPlanner{
+    display: flex;
+    align-items: center;
+}
+.buttonTaskPlanner{
+    /* width: 20vw; */
+    height: 10vh;
+    border: none;
+    border-radius: 5px;
+    background-color: #605ee17a;
+    color: white;
+    padding: 1vh 3vw;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
 .imgBoard{
-    position: absolute;
+    position: relative;
     top: 25vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     height: 53.8vh;
     width: 100%;
-    z-index: -1;
 }
 .desklyLogo2{
     width: 30px;
@@ -578,14 +446,15 @@ input:focus{
 }
 .contenedorMenuBoard{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     padding: 0 1vw;
 }
 .boardMarca{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    background-color: rgba(3, 3, 3, 0.144);
     margin-bottom: 1vh;
 }
 .boardMarca h2{
@@ -599,14 +468,17 @@ input:focus{
 .logoLink:hover{
     color: rgba(255, 255, 255, 0.815); 
 }
-.svgWaveRosa{
-    bottom: 0;
+.headerBoard{
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 .contenedorInfoOwner{
-    margin-right: 6px;
     display: flex;
     justify-content: space-around;
-    width: 25%;
+    width: 40%;
     margin-left: 27vw;
 }
 .contenedorBoard{
@@ -643,9 +515,8 @@ input:focus{
     position: absolute !important;
     border-radius: 2px;
     right: 15px;
-    top:18vh;
+    top:17vh;
     min-width: 20vw;
-    padding: 1vh 1vw;
     background-color: white;
     z-index: 1;
     box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
@@ -653,7 +524,6 @@ input:focus{
 .ventanaUser div{
     display: flex;
     align-items: center;
-    justify-content: space-between;
     border-bottom: 2px solid var(--first-color);
     margin-bottom: 1vh;
 }
@@ -676,10 +546,9 @@ input:focus{
     position: absolute !important;
     border-radius: 2px;
     top: 16vh;
-    right: 17.5vw;
+    right: 34.6vw;
     min-width: 20vw;
     background-color: white;
-    padding: 2vh 1vw;
     z-index: 1;
     box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%); 
 }
@@ -693,7 +562,6 @@ input:focus{
     border-bottom: 2px solid var(--first-color);
     margin-bottom: 1vh;
 }
-
 /* .board-header-btn:hover {
     color: #fff;
 } */
