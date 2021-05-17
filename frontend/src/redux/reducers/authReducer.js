@@ -4,7 +4,8 @@ const initialState = {
     boardsOwnerArray:[],
     commentsUserArray:[],
     taskPlannersArray:[],
-    boardsUserArray:[]
+    boardsUserArray:[],
+    loading: true
 }
 
 const authReducer = (state = initialState, action) => {
@@ -27,7 +28,8 @@ const authReducer = (state = initialState, action) => {
                 boardsOwnerArray: action.payload.boardOwnerId, 
                 commentsUserArray: action.payload.idComents, 
                 taskPlannersArray: action.payload.taskPlanners, 
-                boardsUserArray: action.payload.boardIdUser
+                boardsUserArray: action.payload.boardIdUser,
+                loading: false
             }
         default:
             return state

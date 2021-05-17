@@ -15,7 +15,6 @@ const MyDesk = (props) => {
     const [newBoardModal, setNewBoardModal] = useState(false)
     const [loading, setLoading] = useState(true)
     const [menuLateral, setMenuLateral] = useState(true)
-    const [preloader, setPreloader] = useState(true)
 
     const readInputBoard = (e) => {
         const field = e.target.name
@@ -36,7 +35,9 @@ const MyDesk = (props) => {
 
     useEffect(() => {
         props.getBoardsFromUser(userLogged.token)
-        
+        // if (props.boardsOwnerArray) {
+            
+        // }
         const reloadTaskPlanner = setInterval(() => {
             if (userLogged.token) {
                 props.setUserComponents(userLogged.token)
@@ -44,16 +45,13 @@ const MyDesk = (props) => {
             }
 
         }, 1000)
-        if (props.boardsOwnerArray.length > 0) {
-            setPreloader(false)
-        }
+       
         return () => { clearInterval(reloadTaskPlanner) }
         // if (userLogged.token) {
         //     props.setUserComponents(userLogged.token)
         // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    
     let userFirstName = props.userLogged.response ? `${props.userLogged.response.firstName}` : `${userLogged.firstName}`
     let userLastName = props.userLogged.response ? props.userLogged.response.lastName || '' : userLogged.lastName || ''
     let userImg = props.userLogged.response ? props.userLogged.response.img : userLogged.img
@@ -85,11 +83,13 @@ const MyDesk = (props) => {
 
                 </div>
                 <div className="boardsContainerMyDesk">
-                    {props.boardsOwnerArray.length === 0 
-                        ? <Spinner />
+                    {props.loading
+                        ? <div className="spinner-container">
+                            <Spinner />
+                        </div>
                         :
                             props.userLogged &&
-                            <>
+                            <div>
                                 <h2>My boards</h2>
                                 <div className="boardsSection">
                                     <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
@@ -118,7 +118,7 @@ const MyDesk = (props) => {
     
                                     }
                                 </div>
-                            </>
+                            </div>
 
                     }
                 </div>
@@ -155,7 +155,8 @@ const mapStateToProps = state => {
         boards: state.boardReducer.boards,
         boardsAdminArray: state.authReducer.boardsAdminArray,
         boardsOwnerArray: state.authReducer.boardsOwnerArray,
-        boardsUserArray: state.authReducer.boardsUserArray
+        boardsUserArray: state.authReducer.boardsUserArray,
+        loading: state.authReducer.loading,
     }
 }
 
