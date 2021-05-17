@@ -11,8 +11,9 @@ const Header = (props) => {
                 <NavLink to="/mydesk" className="navegadores">MyDesk</NavLink>
                 <Link  to="/" className="navegadores"><span onClick={() => props.signOut()}> Log out</span></Link></>}
             {!props.userLogged && <>
-                <NavLink to="/sign" className="navegadores">Sign</NavLink>
-                <NavLink to="/signup" className="navegadores"> Sign Up</NavLink>
+                <NavLink to="/sign" className="navegadores">Account</NavLink>
+                {/* <NavLink to="/sign" className="navegadores">Sign</NavLink> */}
+                {/* <NavLink to="/signup" className="navegadores"> Sign Up</NavLink> */}
             </>}    
             
             <NotificationsPanel />

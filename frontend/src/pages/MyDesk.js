@@ -13,7 +13,7 @@ const MyDesk = (props) => {
     const [inputBoard, setInputBoard] = useState({ title: '', description: '', token: '' })
     const [newBoardModal, setNewBoardModal] = useState(false)
     const [loading, setLoading] = useState(true)
-    const [menuLateral, setMenuLateral] = useState(false)
+    const [menuLateral, setMenuLateral] = useState(true)
 
     const readInputBoard = (e) => {
         const field = e.target.name
@@ -83,35 +83,33 @@ const MyDesk = (props) => {
                 <div className="boardsContainerMyDesk">
                     {
                         props.userLogged &&
-                        <>
-                            {/* {
-                                props.boards.map(board => <BoardIndividual key={board._id} board={board} />)
-                            }  */}
-
-                            <h2>Propietario de...</h2>
-                            {
-                                props.boardsOwnerArray.map(board => <BoardIndividual key={board} board={board} />)
-                            }
-                            
-                            <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
-                                <span className="material-icons-outlined nuevoTableroMas">add_circle_outline</span>
-                                <span>New board...</span>
+                        <>                
+                            <h2>My boards</h2>
+                            <div className="boardsSection">
+                                <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
+                                    <span className="material-icons-outlined nuevoTableroMas">add_circle_outline</span>
+                                    <span>New board...</span>
+                                </div>
+                                {
+                                    props.boardsOwnerArray.map(board => <BoardIndividual key={board} board={board} />)
+                                }
                             </div>
+                            <h2>Boards that I manage</h2>
+                            <div className="boardsSection">
 
-                            <h2>Administrador de...</h2>
-                            {
-                                props.boardsAdminArray.map(board => <BoardIndividual key={board} board={board} />)
+                                {
+                                    props.boardsAdminArray.map(board => <BoardIndividual key={board} board={board} />)
 
-                            }
+                                }
+                            </div>
+                            <h2>Boards</h2>
+                            <div className="boardsSection">
 
-                            <h2>Usuario de...</h2>
-                            {
-                                props.boardsUserArray.map(board => <BoardIndividual key={board} board={board} />)
+                                {
+                                    props.boardsUserArray.map(board => <BoardIndividual key={board} board={board} />)
 
-                            }
-
-
-
+                                }
+                            </div>
                         </>
                     }
                 </div>
