@@ -11,16 +11,16 @@ const Footer = (props) => {
                     <h1>DESKLY</h1>
                 </div>
                 <div className="redesSociales">
-                    <h2>Social</h2>
+                    <h2>Social Media</h2>
                     <span class="material-icons-outlined iconsFooter">facebook</span>
                     <RiInstagramFill className="iconsFooter"/>
                     <IoMdMail className="iconsFooter"/>
                 </div>
                 <div className="navigation">
-                    <h2>Site Map</h2>
+                    <h2>Navigation</h2>
                     <Link exact to="/" className="navFooter">Home</Link>
                     {props.userLogged && <>
-                        <Link to="/myDesk" className="navFooter">Mi Desk</Link></>}
+                        <Link to="/myDesk" className="navFooter">My Desk</Link></>}
                     {!props.userLogged && <>
                         <Link to="/sign" className="navFooter">Sign Up</Link>
                         <Link to="/sign" className="navFooter">Log In</Link></>}

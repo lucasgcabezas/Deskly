@@ -1,4 +1,4 @@
-html *{
+/* html *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -403,21 +403,9 @@ input:focus{
     padding: 3vh 2vw;
 }
 .contenedorTaskPlanner{
-    display: flex;
-    align-items: center;
-}
-.buttonTaskPlanner{
-    /* width: 20vw; */
-    height: 10vh;
-    border: none;
-    border-radius: 5px;
-    background-color: #605ee17a;
-    color: white;
-    padding: 1vh 3vw;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-}
+    display: flex !important;
+    /* align-items: center; */
+/* }
 .imgBoard{
     position: relative;
     top: 25vh;
@@ -561,7 +549,7 @@ input:focus{
     color: var(--fourth-color);
     border-bottom: 2px solid var(--first-color);
     margin-bottom: 1vh;
-}
+} */ 
 /* .board-header-btn:hover {
     color: #fff;
 } */

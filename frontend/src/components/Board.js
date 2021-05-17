@@ -15,9 +15,9 @@ import Archive from "./Archive"
 const Board = (props) => {
     const { boards, inviteUserToBoard, userLogged } = props
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
-    const [filterTaskplanners,setFilterTaskplanners] =useState([])
-    const [open, setOpen] = useState(false)
-    const [update, setUpdate] = useState(false)
+    const [filterTaskplanners, setFilterTaskplanners] = useState([])
+    const [open, setOpen] = useState(true)
+    const [update, setUpdate] = useState(true)
     const [newTitle, setNewTitle] = useState('')
     const [newInvite, setNewInvite] = useState('')
     const idParams = props.match.params.id
@@ -61,7 +61,7 @@ const Board = (props) => {
     const tasksFetch = async () => {
         const tasks = await props.getTaskPlannerFromBoard(idParams)
         setAllTasksPlanner(tasks)
-      
+
     }
     const desklyAlert = async (alertTitle, alertMessage, alertType) => {
         await store.addNotification({
@@ -75,7 +75,7 @@ const Board = (props) => {
             dismiss: { duration: 3000, onScreen: true, pauseOnHover: true, showIcon: true }
         })
     }
-    
+
     const enter = (e, condition) => {
         if (e.key === 'Enter' && condition === 'title') {
             sendValues()
@@ -139,17 +139,15 @@ const Board = (props) => {
         setBoardUsers(users)
         setAdmins(admins)
     }
-
     const userAdmin = async (email) => {
         const admins = await props.userAdmin(email, idParams)
         setAdmins(admins)
         return admins
     }
-
-  const recycle = async (idTaskPlanner) => {
-        await props.recycleTaskPlanner(idTaskPlanner, {archived:true})
-        tasksFetch()
-    }
+    // const recycle = async (idTaskPlanner) => {
+    //     await props.recycleTaskPlanner(idTaskPlanner, {archived:true})
+    //     tasksFetch()
+    // }
 
     // const progressBar = async (allTasks) => {
     //     const task = await props.tasksFromTaskplanner(id)
@@ -167,7 +165,16 @@ const Board = (props) => {
                 <div className="contenedorInfoBoard">
                     <div className="boardMarca">
                         <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
-                        <h2 className="logoLink">{board.title}</h2>
+                        {update && <h2 className="logoLink" onClick={() => {setUpdate(!update); setUpdateInput({ title: board.title })}}>{board.title}</h2>}
+                        {!update && 
+                            <div className="updateTitle">
+                                <div className="contenedorInputEditTitleBoard">
+                                    <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
+                                    <span onClick={editBoard} class="material-icons-outlined iconoUpdateBoard">send</span>
+                                </div>
+                                <span onClick={() => setUpdate(true)} class="material-icons-outlined iconoUpdateBoard">close</span>
+                            </div>
+                        }
                         <div className="userPicName">
                             <span className="userCompleteName">{`${userFirstName} ${userLastName}`}</span>
                             <div className="userPic" style={{ backgroundImage: `url('${userImg}')` }}></div>
@@ -176,21 +183,30 @@ const Board = (props) => {
                     <div className="contenedorMenuBoard">
                         <div className="contenedorInfoOwner">
                             {(imAdmin || imOwner) && <button className="buttonOptionsBoard" onClick={() => setOpenInvite(!openInvite)}><span className="material-icons-outlined iconoBoard">add</span>Invite</button>}
-
                             {
                                 imOwner &&
                                 <>
-                                    <button className="buttonOptionsBoard" onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}><span className="material-icons-outlined iconoBoard">edit</span>{update ? 'Cancel' : 'Edit'}</button>
-                                    {update &&
+                                                                        {/* {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}
+                                    {
+                                        !open &&
+                                        <div className="contenedorAddList">
+                                            <input className="inputAddList" onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" placeholder="Introduce a title for the new list" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                            <div>
+                                                <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new list</button>
+                                                <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>
+                                            </div>
+                                        </div>
+                                    } */}
+                                    {/* {update && <button className="buttonOptionsBoard"><span className="material-icons-outlined iconoBoard">edit</span>Edit</button>}
+                                    {!update &&
                                         <>
                                             <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
-                                            <input className="inputBoard" type="text" name="description" value={updateInput.description} onChange={readUpdateInput} />
-                                            <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
-                                        </>
-                                    }
+                                            {/* , description: board.description */}
+                                            {/* <input className="inputBoard" type="text" name="description" value={updateInput.description} onChange={readUpdateInput} /> */}
+                                            {/* <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
+                                        < */}
                                     <button className="buttonOptionsBoard" onClick={deleteBoard}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
                                 </>
-
                             }
                             {
                                 openInvite &&
@@ -200,11 +216,8 @@ const Board = (props) => {
                                         <span><input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off" /></span>
                                         <button className="buttonUserInvite" onClick={addUser}>send</button>
                                     </div>
-
                                     {/* VER */}
                                     {/* <div  style={{ display: 'flex', margin: '2rem' }}> <Archive allTasksPlanner={allTasksPlanner}/></div> */}
-                                    
-
                                 </div>
                             }
                         </div>
@@ -228,19 +241,21 @@ const Board = (props) => {
                             {
                                 allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
                             }
-                        
-                        {(imOwner || imAdmin) &&
-                            <>
-                                <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}>Add new list...</button>
-                                {
-                                    open && 
-                                    <div>
-                                        <input onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                        <button onClick={loading ? sendValues : null}>Send</button>
-                                    </div>
-                                }
-                            </>
-                        }
+                            {(imOwner || imAdmin) &&
+                                <>
+                                    {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}
+                                    {
+                                        !open &&
+                                        <div className="contenedorAddList">
+                                            <input className="inputAddList" onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" placeholder="Introduce a title for the new list" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                            <div>
+                                                <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new list</button>
+                                                <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
