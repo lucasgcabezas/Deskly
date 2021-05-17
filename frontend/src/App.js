@@ -1,5 +1,7 @@
 import './sofia.css'
 import './css/lucas.css'
+import './css/kevin.css'
+
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
 import Home from './pages/Home'

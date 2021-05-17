@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import taskActions from "../redux/actions/taskActions"
 import { connect } from "react-redux"
 import Task from "./Task"
+import Progress from "./Progress"
 
 const TaskPlanner = (props) => {
     const [allTasks, setAllTasks] = useState([])
@@ -11,7 +12,7 @@ const TaskPlanner = (props) => {
     const [newTask, setNewTask] = useState('')
     const [loading, setLoading] = useState(true)
     const [editTitle, setEditTitle] = useState(true)
-    const [progress, setProgress] = useState([])
+    const [done, setDone] = useState(null)
     useEffect(() => {
         fetchAllTasks()
         const reloadTaskPlanner = setInterval(() => {
@@ -24,7 +25,7 @@ const TaskPlanner = (props) => {
     const fetchAllTasks = async () => {
         const response = await props.tasksFromTaskplanner(props.taskplanner._id)
         const tasksProgress = response.filter(task => task.verify) 
-        setProgress(tasksProgress)
+        setDone(tasksProgress.length ? (tasksProgress.length * 100) / response.length : 0)
         setAllTasks(response)
         setPreloader(false)
     }
@@ -81,7 +82,8 @@ const TaskPlanner = (props) => {
             </div>
             <h2>
                 {
-                    'tareas progresadas ' + progress.length + ' de ' + allTasks.length + ' tareas '
+                    <Progress done={done}/>
+                    // 'tareas progresadas ' + progress.length + ' de ' + allTasks.length + ' tareas '
                 }
             </h2>
         </div>
