@@ -4,19 +4,35 @@ import { connect } from "react-redux"
 import Nav from "./Nav"
 import authActions from '../redux/actions/authActions'
 import NotificationsPanel from './NotificationsPanel'
-import { useState } from 'react'
+import {useEffect, useState } from 'react'
 
 
 
 const LateralMenu = (props) => {
 
 
-    const { userLogged, menuLateral } = props
+    const { userLogged, menuLateral, checkNotifications } = props
 
     const [notifButton, setNotifButton] = useState(false)
-
+    const [notificationsState, setNotificationsState] = useState([])
+    useEffect(() => {
+        activeCheckNotifications()
+        const reloadNotifications = setInterval(() => {
+            activeCheckNotifications()
+        }, 4000)
+        return () => { clearInterval(reloadNotifications) }
+    },[])
     let classMenuLateral = menuLateral ? 'lateralMenuOpen' : 'lateralMenuClose'
     // let classElementsMenu = menuLateral ? 'elementsMenuOpen' : 'elementsMenuClose'
+
+    const activeCheckNotifications = async () => {
+        if (userLogged) {
+            const response = await checkNotifications(userLogged)
+            if (response) {
+                setNotificationsState(response)
+            }
+        }
+    }
 
     return (
         <div className="menu" >
@@ -26,7 +42,7 @@ const LateralMenu = (props) => {
 
                 {/* <button onClick={() => setMenuLateral(!menuLateral)}>Open</button> */}
 
-
+                <h1>{notificationsState.length}</h1>
                 {/* <div className="menuLateralInfo" style={{ display: menuLateral ? 'flex' : 'none' }}> */}
                 <div className="menuLateralInfo" >
 
@@ -74,7 +90,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    signOut: authActions.signOut
+    signOut: authActions.signOut,
+    checkNotifications: authActions.checkNotifications,
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LateralMenu)

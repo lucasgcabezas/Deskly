@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import boardActions from '../redux/actions/boardActions'
 import authActions from '../redux/actions/authActions'
 import taskPlannerActions from '../redux/actions/taskPlannerActions'
+import taskActions from "../redux/actions/taskActions"
 import TaskPlanner from './Taskplanner'
 import UserAdmin from './UserAdmin'
 import { Link } from 'react-router-dom'
@@ -24,7 +25,6 @@ const Board = (props) => {
     const [loading, setLoading] = useState(true)
     const [menuLateral, setMenuLateral] = useState(false)
 
-
     useEffect(() => {
         if (props.userLogged) {
             props.setUserComponents(props.userLogged.token)
@@ -44,6 +44,8 @@ const Board = (props) => {
             usersFetch()
             tasksFetch()
         }, 5000)
+
+
 
         return () => { clearInterval(reloadTaskPlanner) }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,10 +124,12 @@ const Board = (props) => {
         return admins
     }
 
-
+    // const progressBar = async (allTasks) => {
+    //     const task = await props.tasksFromTaskplanner(id)
+    //     // console.log(task)
+    // }
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === String(board._id))
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === String(board._id))
-
     return (
         <div className="contenedorBoard">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -210,7 +214,7 @@ const Board = (props) => {
                             }
                         </>
                     }
-
+                
                 </div>
             </div>
             {/* </div> */}
@@ -251,7 +255,8 @@ const mapDispatchToProps = {
     getUsersFromBoard: boardActions.getUsersFromBoard,
     userAdmin: boardActions.userAdmin,
     setUserComponents: authActions.setUserComponents,
-    getAdminsFromBoard: boardActions.getAdminsFromBoard
+    getAdminsFromBoard: boardActions.getAdminsFromBoard,
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board)
