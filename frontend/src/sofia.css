@@ -38,11 +38,6 @@ html *{
     align-items: center;
     height: 10vh;
 }
-.mainHome{
-    position: absolute;
-    overflow: hidden;
-}
-
 .desklyLogo{
     background-position: center;
     background-size: contain;
@@ -513,7 +508,6 @@ input:focus{
 .taskPlanner{
     width: 272px;
     margin: 0 4px;
-    /* height: 100%; */
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
@@ -526,27 +520,76 @@ input:focus{
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    /* max-height: 100%; */
     position: relative;
     white-space: normal;
-    overflow-x: hidden;
-    overflow-y: auto;
-    height: 60vh;
 }
-/* .contenedorTaskPlanner div{
+.contenedorOptionsHeader{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+/* .progress-done{ */
+    /* width: 100%;
+    height: 10vh;
+    background-color: var(--first-color); */
+        /* background: linear-gradient(to left, #F2709C, #FF9472);
+        box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
+        border-radius: 20px;
+        color: #fff; */
+.noMembers p{
+    color: var(--fourth-color);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 2vh;
+}
+.tasksScroll{
     overflow-x: hidden;
     overflow-y: auto;
-    height: 60vh;
-} */
-.contenedorTaskPlanners{
-    display: flex;
-    padding-left: 2vw;
-    margin-top: 8vh;
+    max-height: 50vh;
+}
+.tasksScroll::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+.tasksScroll::-webkit-scrollbar-thumb {
+    background: #615ee1;
+    border-radius: 10px;
+}
+.tasksScroll::-webkit-scrollbar-track{
+    background: #54545467;
+    border-radius: 10px;
 }
 .contenedorTaskPlanner{
     display: flex;
     align-items: flex-start;
+    padding-left: 2vw;
+    margin-top: 8vh;
+    -webkit-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    margin-bottom: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 8px;
+    position: absolute;
+    top: 13vh;
+    right: 0;
+    bottom: 0;
+    left: 5vw;
 }
+.contenedorTaskPlanner::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+   }
+.contenedorTaskPlanner::-webkit-scrollbar-thumb {
+    background: #615EE1;
+    border-radius: 10px;
+}
+.contenedorTaskPlanner::-webkit-scrollbar-track{
+    background: #54545467;
+    border-radius: 10px;
+}
+
 .buttonTaskPlanner{
     border: none;
     border-radius: 5px;
@@ -565,7 +608,6 @@ input:focus{
     font-size: 1.5em;
     cursor: pointer;
     color: var(--fourth-color);
-    /* margin-left: 2vw; */
     text-align: end;
 }
 .iconoClose{
@@ -577,6 +619,7 @@ input:focus{
     align-items: center;
     justify-content: space-between;
     height: auto;
+    margin-bottom: 1vh;
 }
 .headerTaskPlanner h3{
     color: var(--fourth-color);
@@ -613,6 +656,7 @@ input:focus{
     position: relative;
     text-decoration: none;
     z-index: 0;
+    margin-right: 6px;
 }
 .taskInfo{
     display: flex;
@@ -625,10 +669,8 @@ input:focus{
 }
 .inputVerify{
     width: 1vw;
-    /* height: 1vh; */
 }
 .contenedorInputEditTask{
-    /* width: 70%; */
     border: 2px solid var(--first-color);
     display: flex;
     justify-content: center;
@@ -637,23 +679,14 @@ input:focus{
 }
 .inputEditTask{
     width: 75%;
-    /* padding: 2px 2px; */
 }
 .taskTitle{
     width: 60%;
-    overflow:hidden ;
 }
 .inputActions{
     display: flex;
     align-items: center;
 }
-/* .inputEditTitle{
-    width: 80%;
-    padding: 3px 0;
-    border: 2px solid var(--first-color);
-    border-radius: 3px;
-} */
-
 .contenedorImageBoard{
     width: 100%;
     height: 53.8%;
@@ -683,9 +716,19 @@ input:focus{
     cursor: pointer;
 }
 .iconoVisible{
-    background-color: rgba(255, 255, 255, 0.301);
+    background-color: rgba(0, 0, 0, 0.26);
     border-radius: 50%;
     padding: 4px 6px;
+}
+.iconoVisible:hover{
+    background-color: rgba(0, 0, 0, 0.082);
+}
+.contenedorInputInvite input{
+    padding: 1vh 2vw;
+}
+.contenedorInputInvite{
+    border: 2px solid var(--first-color);
+    border-radius: 5px;
 }
 .contenedorMenuBoard{
     display: flex;
@@ -740,7 +783,7 @@ input:focus{
 .buttonOptionsBoard{
     border-radius: 3px;
     border: none;
-    background-color: rgba(255, 255, 255, 0.301)  ;
+    background-color: rgba(0, 0, 0, 0.26) ;
     font-weight: lighter;
     font-size: 15px;
     padding: 1vh 1vw;
@@ -748,6 +791,9 @@ input:focus{
     cursor: pointer;
     display: flex;
     align-items: center;
+}
+.buttonOptionsBoard:hover{
+    background-color: rgba(0, 0, 0, 0.082);
 }
 .ventanaUser{
     display: flex;
@@ -771,7 +817,6 @@ input:focus{
     border-bottom: 2px solid var(--first-color);
     margin-bottom: 1vh;
     transition: 1s;
-
 }
 .ventanaUser h3{
     color: var(--fourth-color);
@@ -792,7 +837,7 @@ input:focus{
     position: absolute !important;
     border-radius: 2px;
     top: 16vh;
-    right: 17.5vw;
+    right: 16vw;
     min-width: 20vw;
     background-color: white;
     padding: 2vh 1vw;
