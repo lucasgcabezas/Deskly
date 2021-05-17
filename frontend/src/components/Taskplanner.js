@@ -13,11 +13,12 @@ const TaskPlanner = (props) => {
     const [loading, setLoading] = useState(true)
     const [editTitle, setEditTitle] = useState(true)
     const [progress, setProgress] = useState([])
+
     useEffect(() => {
         fetchAllTasks()
         const reloadTaskPlanner = setInterval(() => {
             fetchAllTasks()
-        }, 5000)
+        }, 2000)
         return () => { clearInterval(reloadTaskPlanner) }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -49,11 +50,13 @@ const TaskPlanner = (props) => {
             setLoading(true)
         }
     }
-    
+
     return (
         <div className="taskPlanner" style={{ display: props.taskplanner.archived?"none": "inline-block" }}>
          {/* <div className="taskPlanner" > */}
             <div className="taskPlannerList">
+            <progress className="progressBar" value={progress.length} max={allTasks.length}></progress>
+
                 <div className="headerTaskPlanner">
                     {editTitle && <h3 style={{ cursor: (props.imOwner || props.imAdmin) && 'pointer' }} onClick={(props.imOwner || props.imAdmin) ? (() => { setEditTitle(!editTitle); setNewTitle(props.taskplanner.title) }) : null}>{props.taskplanner.title}</h3>}
                     {!editTitle &&
@@ -87,11 +90,11 @@ const TaskPlanner = (props) => {
                 </div>
                 <button className="buttonAddTask" onClick={() => setOpen(!open)}>add task</button>
             </div>
-            <h2>
+            {/* <h2>
                 {
                     'tareas progresadas ' + progress.length + ' de ' + allTasks.length + ' tareas '
                 }
-            </h2>
+            </h2> */}
         </div>
     )
 }

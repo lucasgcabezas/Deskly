@@ -15,7 +15,7 @@ import Archive from "./Archive"
 const Board = (props) => {
     const { boards, inviteUserToBoard, userLogged } = props
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
-    const [filterTaskplanners,setFilterTaskplanners] =useState([])
+    const [filterTaskplanners, setFilterTaskplanners] = useState([])
     const [open, setOpen] = useState(false)
     const [update, setUpdate] = useState(false)
     const [newTitle, setNewTitle] = useState('')
@@ -61,7 +61,7 @@ const Board = (props) => {
     const tasksFetch = async () => {
         const tasks = await props.getTaskPlannerFromBoard(idParams)
         setAllTasksPlanner(tasks)
-      
+
     }
     const desklyAlert = async (alertTitle, alertMessage, alertType) => {
         await store.addNotification({
@@ -75,7 +75,7 @@ const Board = (props) => {
             dismiss: { duration: 3000, onScreen: true, pauseOnHover: true, showIcon: true }
         })
     }
-    
+
     const enter = (e, condition) => {
         if (e.key === 'Enter' && condition === 'title') {
             sendValues()
@@ -146,8 +146,8 @@ const Board = (props) => {
         return admins
     }
 
-  const recycle = async (idTaskPlanner) => {
-        await props.recycleTaskPlanner(idTaskPlanner, {archived:true})
+    const recycle = async (idTaskPlanner) => {
+        await props.recycleTaskPlanner(idTaskPlanner, { archived: true })
         tasksFetch()
     }
 
@@ -157,6 +157,13 @@ const Board = (props) => {
     // }
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === String(board._id))
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === String(board._id))
+
+    const [visible, setVisible] = useState(false)
+
+    const usersVisible = () => {
+        setVisible(!visible)
+    }
+
     return (
         <>
             <div className="contenedorBoard">
@@ -203,24 +210,26 @@ const Board = (props) => {
 
                                     {/* VER */}
                                     {/* <div  style={{ display: 'flex', margin: '2rem' }}> <Archive allTasksPlanner={allTasksPlanner}/></div> */}
-                                    
+
 
                                 </div>
                             }
                         </div>
+                        <div onClick={usersVisible} className="iconoVisible">
+                            <span class="material-icons-outlined iconoUsers">people_outline</span>
+                        </div>
                         {imOwner &&
-                            <div>
-                                {
-                                    boardUsers.map((user, i) => {
-                                        if (i) {
-                                            return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} />
-                                        } else {
-                                            return null
-                                        }
-                                    })
-
-                                }
-                            </div>
+                                <div className="ventanaUser" style={{ visibility: visible ? 'visible' : 'hidden'}} >
+                                    {
+                                        boardUsers.map((user, i) => {
+                                            if (i) {
+                                                return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} visible={visible} setVisible={setVisible} />
+                                            } else {
+                                                return null
+                                            }
+                                        })
+                                    }
+                                </div>
                         }
                     </div>
                     <div className="contenedorTaskPlanners">
@@ -228,19 +237,19 @@ const Board = (props) => {
                             {
                                 allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
                             }
-                        
-                        {(imOwner || imAdmin) &&
-                            <>
-                                <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}>Add new list...</button>
-                                {
-                                    open && 
-                                    <div>
-                                        <input onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                        <button onClick={loading ? sendValues : null}>Send</button>
-                                    </div>
-                                }
-                            </>
-                        }
+
+                            {(imOwner || imAdmin) &&
+                                <>
+                                    <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}>Add new list...</button>
+                                    {
+                                        open &&
+                                        <div>
+                                            <input onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                            <button onClick={loading ? sendValues : null}>Send</button>
+                                        </div>
+                                    }
+                                </>
+                            }
                         </div>
                     </div>
                 </div>

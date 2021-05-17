@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import taskActions from '../redux/actions/taskActions'
 import TaskModal from './TaskModal'
 
+import Modal from 'react-modal';
+
+
 const Task = (props) => {
     const { task, allTasks, setAllTasks, editTask, deleteTask } = props
     const { _id, title, verify } = task
@@ -40,7 +43,9 @@ const Task = (props) => {
         let arrayFiltered = allTasks.filter(task => task._id !== response._id)
         setAllTasks(arrayFiltered)
     }
+
     let style = props.imOwner || props.imAdmin ? 'block' : 'none'
+
     return (
         <div >
             <div className="contenedorTask" style={{ backgroundColor: verify ? 'lightgreen' : 'white' }}>
@@ -52,7 +57,7 @@ const Task = (props) => {
                     </div>
 
                     <div>
-                        <div style={{display: style}}>
+                        <div style={{ display: style }}>
                             <button onClick={() => setEditButton(!editButton)}>Edit</button>
                             <button onClick={sendDeleteTask}>Delete</button>
                         </div>

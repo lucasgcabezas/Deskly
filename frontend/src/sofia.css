@@ -638,13 +638,14 @@ input:focus{
 }
 .ventanaUser{
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     position: absolute !important;
     border-radius: 2px;
     right: 15px;
-    top:18vh;
-    min-width: 20vw;
+    top: 19vh;
+    min-width: 26vw;
     padding: 1vh 1vw;
     background-color: white;
     z-index: 1;
@@ -656,6 +657,8 @@ input:focus{
     justify-content: space-between;
     border-bottom: 2px solid var(--first-color);
     margin-bottom: 1vh;
+    transition: 1s;
+
 }
 .ventanaUser h3{
     color: var(--fourth-color);
