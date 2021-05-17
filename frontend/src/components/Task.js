@@ -15,8 +15,9 @@ const Task = (props) => {
 
     const getInput = e => { setEditionTask({ ...editionTask, title: e.target.value }) }
 
-    useEffect(() => { sendEdit("verify") // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [editionTask.verify] )
+    useEffect(() => {
+        sendEdit("verify") // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [editionTask.verify])
 
     const verifyTask = async (e) => { setEditionTask({ ...editionTask, verify: e.target.checked }) }
 
@@ -39,14 +40,16 @@ const Task = (props) => {
         let arrayFiltered = allTasks.filter(task => task._id !== response._id)
         setAllTasks(arrayFiltered)
     }
-    let style =props.imOwner || props.imAdmin? 'block' : 'none'
+    let style = props.imOwner || props.imAdmin ? 'block' : 'none'
     return (
-        <>
-            <div style={{ backgroundColor: verify ? 'lightgreen' : 'white', border: 'solid 1px black', padding: '2vh 1vw' }}>
+        <div >
+            <div className="contenedorTask" style={{ backgroundColor: verify ? 'lightgreen' : 'white' }}>
                 <div>
-                    <span style={{ display: editButton ? 'none' : 'block' }}>{title}</span>
-                    <input type="text" onChange={getInput} value={editionTask.title} style={{ display: editButton ? 'block' : 'none' }}></input>
-                    <input type="checkbox" onChange={verifyTask} checked={editionTask.verify}></input>
+                    <div className="taskInfo">
+                        <span style={{ display: editButton ? 'none' : 'block' }}>{title}</span>
+                        <input type="text" onChange={getInput} value={editionTask.title} style={{ display: editButton ? 'block' : 'none' }}></input>
+                        <input type="checkbox" onChange={verifyTask} checked={editionTask.verify}></input>
+                    </div>
 
                     <div>
                         <div style={{display: style}}>
@@ -59,10 +62,9 @@ const Task = (props) => {
 
                 <button onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }}>Accept</button>
                 {/* {show && <TaskModal task={task} setShow={setShow} show={show} />} */}
-
                 <TaskModal task={task} setShow={setShow} show={show} />
             </div>
-        </>
+        </div>
     )
 }
 

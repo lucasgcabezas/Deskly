@@ -11,7 +11,7 @@ import LateralMenu from './LateralMenu'
 import { store } from 'react-notifications-component'
 
 const Board = (props) => {
-    const { boards, inviteUserToBoard } = props
+    const { boards, inviteUserToBoard, userLogged } = props
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
     const [open, setOpen] = useState(false)
     const [update, setUpdate] = useState(false)
@@ -25,6 +25,9 @@ const Board = (props) => {
     const [admins, setAdmins] = useState([])
     const [loading, setLoading] = useState(true)
     const [menuLateral, setMenuLateral] = useState(false)
+    let userFirstName = props.userLogged.response ? `${props.userLogged.response.firstName}` : `${userLogged.firstName}`
+    let userLastName = props.userLogged.response ? props.userLogged.response.lastName || '' : userLogged.lastName || ''
+    let userImg = props.userLogged.response ? props.userLogged.response.img : userLogged.img
 
     useEffect(() => {
         if (props.userLogged) {
@@ -146,103 +149,95 @@ const Board = (props) => {
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === String(board._id))
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === String(board._id))
     return (
-        <div className="contenedorBoard">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path fill="#615ee1" fill-opacity="1" d="M0,96L60,96C120,96,240,96,360,117.3C480,139,600,181,720,186.7C840,192,960,160,1080,160C1200,160,1320,192,1380,208L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
-            </svg>
+        <>
+            <div className="contenedorBoard">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <path fill="#615ee1" fill-opacity="1" d="M0,96L60,96C120,96,240,96,360,117.3C480,139,600,181,720,186.7C840,192,960,160,1080,160C1200,160,1320,192,1380,208L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+                </svg>
+                <LateralMenu setMenuLateral={setMenuLateral} menuLateral={menuLateral} />
+                <div className="contenedorInfoBoard">
+                    <div className="boardMarca">
+                        <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
+                        <h2 className="logoLink">{board.title}</h2>
+                        <div className="userPicName">
+                            <span className="userCompleteName">{`${userFirstName} ${userLastName}`}</span>
+                            <div className="userPic" style={{ backgroundImage: `url('${userImg}')` }}></div>
+                        </div>
+                    </div>
+                    <div className="contenedorMenuBoard">
+                        <div className="contenedorInfoOwner">
+                            {(imAdmin || imOwner) && <button className="buttonOptionsBoard" onClick={() => setOpenInvite(!openInvite)}><span className="material-icons-outlined iconoBoard">add</span>Invite</button>}
 
-            <LateralMenu setMenuLateral={setMenuLateral} menuLateral={menuLateral} />
-            <div>
-                
-            <div className="headerBoard">
+                            {
+                                imOwner &&
+                                <>
+                                    <button className="buttonOptionsBoard" onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}><span className="material-icons-outlined iconoBoard">edit</span>{update ? 'Cancel' : 'Edit'}</button>
+                                    {update &&
+                                        <>
+                                            <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
+                                            <input className="inputBoard" type="text" name="description" value={updateInput.description} onChange={readUpdateInput} />
+                                            <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
+                                        </>
+                                    }
+                                    <button className="buttonOptionsBoard" onClick={deleteBoard}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
+                                </>
 
-                {/* Se va a romper acá! No te enojes */}
+                            }
+                            {
+                                openInvite &&
+                                <div className="inviteUsersVentana">
+                                    <h3>Invite a new member to the board</h3>
+                                    <div>
+                                        <span><input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off" /></span>
+                                        <button className="buttonUserInvite" onClick={addUser}>send</button>
+                                    </div>
 
-                <div className="boardMarca">
-                    <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
-                    {/* <img className="desklyLogo2" src="https://webdesing881317710.files.wordpress.com/2021/05/desklylogo2.png" alt="" /> */}
-                    <h2 className="logoLink">{board.title}</h2>
-                </div>
-                <div className="contenedorMenuBoard">
-                    <div className="contenedorInfoOwner">
-                        {/* <h3>{board.title}</h3> */}
-                        <span>{board.description}</span>
-                        {
-                            imOwner &&
-                            <>
-                                <button className="buttonOptionsBoard" onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}><span class="material-icons-outlined iconoBoard">edit</span>{update ? 'Cancel' : 'Edit'}</button>
-                                {update &&
-                                    <>
-                                        <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
-                                        <input className="inputBoard" type="text" name="description" value={updateInput.description} onChange={readUpdateInput} />
-                                        <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
-                                    </>
-                                }
-                                <button className="buttonOptionsBoard" onClick={deleteBoard}><span class="material-icons-outlined iconoBoard">delete</span>Delete</button>
-                            </>
-
-                        }
-                        {(imAdmin || imOwner) && <button className="buttonOptionsBoard" onClick={() => setOpenInvite(!openInvite)}><span class="material-icons-outlined iconoBoard">add</span>Invite</button>}
-                        {
-                            openInvite &&
-                            <div className="inviteUsersVentana">
-                                <h3>Invite a new member to the board</h3>
-                                <div>
-                                    <span><input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off" /></span>
-                                    <button className="buttonUserInvite" onClick={addUser}>send</button>
                                 </div>
+                            }
+                        </div>
+                        {imOwner &&
+                            <div>
+                                {
+                                    boardUsers.map((user, i) => {
+                                        if (i) {
+                                            return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} />
+                                        } else {
+                                            return null
+                                        }
+                                    })
 
+                                }
                             </div>
                         }
                     </div>
-                    {imOwner && <div>
-                        {
-                            boardUsers.map((user, i) => {
-                                if (i) {
-                                    return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} />
-                                } else {
-                                    return null
-                                }
-                            })
-
-                        }
-                    </div>}
-
-                </div>
-            </div>
-            {/* <div className="contenedorImageBoard"> */}
-            <div className="imgBoard" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/laptop-1.png')" }}>
-                <div className="contenedorTaskPlanner">
-                    <div className="taskPlanner">
-                        {
-                            allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
-                        }
-                    </div>
-                    {(imOwner || imAdmin) &&
-                        <>
-                            <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}>Add new list...</button>
+                    <div className="contenedorTaskPlanners">
+                        <div className="contenedorTaskPlanner">
                             {
-                                open && <div>
-                                    <input onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                    <button onClick={loading ? sendValues : null}>Send</button>
-                                </div>
+                                allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
                             }
-                        </>
-                    }
-                
+                        
+                        {(imOwner || imAdmin) &&
+                            <>
+                                <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}>Add new list...</button>
+                                {
+                                    open && 
+                                    <div>
+                                        <input onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                        <button onClick={loading ? sendValues : null}>Send</button>
+                                    </div>
+                                }
+                            </>
+                        }
+                        </div>
+                    </div>
                 </div>
-            </div>
-            {/* </div> */}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path fill="#ec9acf" fill-opacity="1" d="M0,160L21.8,170.7C43.6,181,87,203,131,186.7C174.5,171,218,117,262,106.7C305.5,96,349,128,393,160C436.4,192,480,224,524,234.7C567.3,245,611,235,655,229.3C698.2,224,742,224,785,218.7C829.1,213,873,203,916,208C960,213,1004,235,1047,256C1090.9,277,1135,299,1178,277.3C1221.8,256,1265,192,1309,154.7C1352.7,117,1396,107,1418,101.3L1440,96L1440,320L1418.2,320C1396.4,320,1353,320,1309,320C1265.5,320,1222,320,1178,320C1134.5,320,1091,320,1047,320C1003.6,320,960,320,916,320C872.7,320,829,320,785,320C741.8,320,698,320,655,320C610.9,320,567,320,524,320C480,320,436,320,393,320C349.1,320,305,320,262,320C218.2,320,175,320,131,320C87.3,320,44,320,22,320L0,320Z"></path>
-            </svg>
+                <div className="imgBoard" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/laptop-1.png')" }}></div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="svgWaveRosa">
+                    <path fill="#ec9acf" fill-opacity="1" d="M0,160L21.8,170.7C43.6,181,87,203,131,186.7C174.5,171,218,117,262,106.7C305.5,96,349,128,393,160C436.4,192,480,224,524,234.7C567.3,245,611,235,655,229.3C698.2,224,742,224,785,218.7C829.1,213,873,203,916,208C960,213,1004,235,1047,256C1090.9,277,1135,299,1178,277.3C1221.8,256,1265,192,1309,154.7C1352.7,117,1396,107,1418,101.3L1440,96L1440,320L1418.2,320C1396.4,320,1353,320,1309,320C1265.5,320,1222,320,1178,320C1134.5,320,1091,320,1047,320C1003.6,320,960,320,916,320C872.7,320,829,320,785,320C741.8,320,698,320,655,320C610.9,320,567,320,524,320C480,320,436,320,393,320C349.1,320,305,320,262,320C218.2,320,175,320,131,320C87.3,320,44,320,22,320L0,320Z"></path>
+                </svg>
+            </div >
 
-
-            </div>
-
-
-
-        </div>
+        </>
     )
 }
 
