@@ -6,6 +6,7 @@ import authActions from '../redux/actions/authActions'
 import Nav from "../components/Nav"
 import LateralMenu from "../components/LateralMenu"
 import NotificationsPanel from "../components/NotificationsPanel"
+import Spinner from "../components/helpers/Spinner"
 
 const MyDesk = (props) => {
 
@@ -34,7 +35,9 @@ const MyDesk = (props) => {
 
     useEffect(() => {
         props.getBoardsFromUser(userLogged.token)
-
+        // if (props.boardsOwnerArray) {
+            
+        // }
         const reloadTaskPlanner = setInterval(() => {
             if (userLogged.token) {
                 props.setUserComponents(userLogged.token)
@@ -42,18 +45,17 @@ const MyDesk = (props) => {
             }
 
         }, 1000)
-
+       
         return () => { clearInterval(reloadTaskPlanner) }
         // if (userLogged.token) {
         //     props.setUserComponents(userLogged.token)
         // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
     let userFirstName = props.userLogged.response ? `${props.userLogged.response.firstName}` : `${userLogged.firstName}`
     let userLastName = props.userLogged.response ? props.userLogged.response.lastName || '' : userLogged.lastName || ''
     let userImg = props.userLogged.response ? props.userLogged.response.img : userLogged.img
-
+   
     return (
         <div className="myDesk">
 
@@ -81,38 +83,43 @@ const MyDesk = (props) => {
 
                 </div>
                 <div className="boardsContainerMyDesk">
-                    {
-                        props.userLogged &&
-                        <>
-                            <h2>My boards</h2>
-                            <div className="boardsSection">
-                                <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
-                                    <span className="material-icons-outlined nuevoTableroMas">add_circle_outline</span>
-                                    <span>New board...</span>
+                    {props.loading
+                        ? <div className="spinner-container">
+                            <Spinner />
+                        </div>
+                        :
+                            props.userLogged &&
+                            <div>
+                                <h2>My boards</h2>
+                                <div className="boardsSection">
+                                    <div className="newBoardButton" onClick={() => setNewBoardModal(true)}>
+                                        <span className="material-icons-outlined nuevoTableroMas">add_circle_outline</span>
+                                        <span>New board...</span>
+                                    </div>
+                                    {
+                                        props.boardsOwnerArray.map(board => <BoardIndividual key={board} board={board} />)
+                                    }
                                 </div>
-                                {
-                                    props.boardsOwnerArray.map(board => <BoardIndividual key={board} board={board} />)
-                                }
+                                {/* <h2>Boards that I manage</h2> */}
+    
+                                <h2>Admin of these boards</h2>
+    
+                                <div className="boardsSection">
+                                    {
+                                        props.boardsAdminArray.map(board => <BoardIndividual key={board} board={board} />)
+    
+                                    }
+                                </div>
+                                    <h2>User of these boards</h2>
+                                <div className="boardsSection">
+    
+                                    {
+                                        props.boardsUserArray.map(board => <BoardIndividual key={board} board={board} />)
+    
+                                    }
+                                </div>
                             </div>
-                            {/* <h2>Boards that I manage</h2> */}
 
-                            <h2>Admin of these boards</h2>
-
-                            <div className="boardsSection">
-                                {
-                                    props.boardsAdminArray.map(board => <BoardIndividual key={board} board={board} />)
-
-                                }
-                            </div>
-                                <h2>User of these boards</h2>
-                            <div className="boardsSection">
-
-                                {
-                                    props.boardsUserArray.map(board => <BoardIndividual key={board} board={board} />)
-
-                                }
-                            </div>
-                        </>
                     }
                 </div>
             </div>
@@ -148,7 +155,8 @@ const mapStateToProps = state => {
         boards: state.boardReducer.boards,
         boardsAdminArray: state.authReducer.boardsAdminArray,
         boardsOwnerArray: state.authReducer.boardsOwnerArray,
-        boardsUserArray: state.authReducer.boardsUserArray
+        boardsUserArray: state.authReducer.boardsUserArray,
+        loading: state.authReducer.loading,
     }
 }
 

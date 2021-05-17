@@ -17,7 +17,7 @@ const Footer = (props) => {
                     <IoMdMail className="iconsFooter"/>
                 </div>
                 <div className="navigation">
-                    <h2>Site Map</h2>
+                    <h2>Explore</h2>
                     <Link exact to="/" className="navFooter">Home</Link>
                     {props.userLogged && <>
                         <Link to="/myDesk" className="navFooter">Mi Desk</Link></>}

@@ -45,6 +45,7 @@ const boardActions = {
                     dispatch({ type: 'ADD_BOARDS', payload: response.data.response })
                 }
             }
+            // eslint-disable-next-line
         } catch (error) {
             desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
             console.log(error)
@@ -63,6 +64,7 @@ const boardActions = {
                     return response.data.response
                 }
             }
+            // eslint-disable-next-line
         } catch (error) {
             desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
             console.log(error)
@@ -82,6 +84,7 @@ const boardActions = {
                     dispatch({ type: 'GET_BOARDS', payload: response.data.response })
                 }
             }
+            // eslint-disable-next-line
         } catch (error) {
             desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
             console.log(error)
@@ -97,6 +100,7 @@ const boardActions = {
                     return response.data.users
                 }
             }
+            // eslint-disable-next-line
         } catch (error) {
             desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
             console.log(error)
@@ -108,6 +112,7 @@ const boardActions = {
                 const response = await axios.put("http://localhost:4000/api/boardAdmins/" +email, {id})
                 return response.data.admins.admins
             }
+            // eslint-disable-next-line
         }catch(error){
             console.log(error)
         }
@@ -118,6 +123,7 @@ const boardActions = {
                 const response = await axios.get("http://localhost:4000/api/boardAdmins/" +email)
                 return response.data.response.admins
             }
+            // eslint-disable-next-line
         }catch(error){
             console.log(error)
         }
@@ -128,6 +134,7 @@ const boardActions = {
                 const response = await axios.get("http://localhost:4000/api/boardSingle/"+id)
                 return response.data.response
             }
+            // eslint-disable-next-line
         }catch(error){
             console.log(error)
         }

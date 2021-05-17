@@ -12,7 +12,7 @@ import taskActions from "../redux/actions/taskActions"
 
         useEffect(() => {
             setFilterTaskplanners(props.allTasksPlanner)
-            setFilterTaskplanners(props.allTasksPlanner.filter(taskplanner =>taskplanner.archived == true))
+            setFilterTaskplanners(props.allTasksPlanner.filter(taskplanner =>taskplanner.archived === true))
         }, [props.allTasksPlanner])
 
     const recycle = async (idTaskPlanner) => {
