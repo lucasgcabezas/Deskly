@@ -28,7 +28,7 @@ const authActions = {
                 }
             } catch (error){
                 console.log(error)
-                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error', 'An error has occurred on the server, try later!', 'danger')
             }
         }
     },
@@ -42,10 +42,10 @@ const authActions = {
                     desklyAlert('Oops', response.data.error, 'danger')
                 } else {
                     dispatch({ type: 'LOG_USER', payload: response.data.response })
-                    desklyAlert(response.data.response.firstName,`Bienvenido a Deskly!`, 'success')
+                    desklyAlert(response.data.response.firstName,`Welcome to Deskly!`, 'success')
                 }
             } catch (error) {
-                desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
                 console.log(error)
             }
         }
@@ -60,7 +60,7 @@ const authActions = {
                 dispatch({ type: 'LOG_USER', payload: { ...response.data.response, token: userLocalStorage } })
             } catch (error) {
                 if (error.response.status === 401) {
-                   desklyAlert('Error', 'Oops! No estas autorizado para ingresar en esta página!')
+                   desklyAlert('Error', 'Oops! You are not authorized to enter in this page!')
                 }
                 dispatch({ type: 'LOGOUT_USER' })
             }
@@ -69,7 +69,7 @@ const authActions = {
 
     signOut: () => {
         return (dispatch, getState) => {
-            desklyAlert('Hasta luego!', 'Esperamos verte pronto!', 'info')
+            desklyAlert('So long!', 'We hope to see you soon!', 'info')
             dispatch({ type: 'LOGOUT_USER' })
         }
     },
@@ -79,7 +79,7 @@ const authActions = {
             try {
                 await axios.put('http://localhost:4000/api/inviteuser/' + email, { boardId })
             } catch (error) {
-                desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
                 console.log(error)
             }
         }
@@ -93,7 +93,7 @@ const authActions = {
                 })
                 return response.data.response
             } catch (error) {
-                desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
                 console.log(error)
             }
         }
@@ -109,7 +109,7 @@ const authActions = {
                 dispatch({ type: 'ADD_BOARDS', payload: response.data.response.board })
                 return response.data.response.notification
             } catch (error) {
-                desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
                 console.log(error)
             }
         }
@@ -136,7 +136,7 @@ const authActions = {
                 })
                 dispatch({ type: 'USER_COMPONENTS', payload: { ...response.data.response } })
             } catch (error){
-                desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
                 console.log(error)
             }
         }

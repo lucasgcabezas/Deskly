@@ -24,7 +24,7 @@ const taskActions = {
                 }
             } catch (error){
                 console.log(error)
-                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error', 'An error has occurred on the server, try later!', 'danger')
             }
         }
     },
@@ -42,7 +42,7 @@ const taskActions = {
                 }            
             } catch (error) {
                 console.log(error)
-                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error', 'An error has occurred on the server, try later!', 'danger')
             }
         }
     },
@@ -58,7 +58,7 @@ const taskActions = {
                 }            
             } catch (error) {
                 console.log(error)
-                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error', 'An error has occurred on the server, try later!', 'danger')
             }
         }
     },
@@ -74,7 +74,7 @@ const taskActions = {
                 }
             } catch (error) {
                 console.log(error)
-                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error', 'An error has occurred on the server, try later!', 'danger')
             }
         }
     }

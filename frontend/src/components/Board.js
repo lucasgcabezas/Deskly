@@ -7,6 +7,7 @@ import TaskPlanner from './Taskplanner'
 import UserAdmin from './UserAdmin'
 import { Link } from 'react-router-dom'
 import LateralMenu from './LateralMenu'
+import { store } from 'react-notifications-component'
 
 const Board = (props) => {
     const { boards, inviteUserToBoard } = props
@@ -53,7 +54,19 @@ const Board = (props) => {
         const tasks = await props.getTaskPlannerFromBoard(idParams)
         setAllTasksPlanner(tasks)
     }
-
+    const desklyAlert = async (alertTitle, alertMessage, alertType) => {
+        await store.addNotification({
+            title: alertTitle,
+            message: alertMessage,
+            type: alertType,
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__flipInX"],
+            animationOut: ["animate__animated", "animate__fadeOutDown"],
+            dismiss: { duration: 3000, onScreen: true, pauseOnHover: true, showIcon: true }
+        })
+    }
+    
     const enter = (e, condition) => {
         if (e.key === 'Enter' && condition === 'title') {
             sendValues()
@@ -76,6 +89,7 @@ const Board = (props) => {
     const addUser = () => {
         if (newInvite.trim()) {
             inviteUserToBoard(newInvite, board._id)
+            desklyAlert('Success', 'Request Sent!', 'success')
             setNewInvite('')
         }
     }
@@ -101,6 +115,7 @@ const Board = (props) => {
 
     const deleteBoard = async () => {
         await props.deleteBoard(board._id, props.userLogged.token)
+        desklyAlert('Info', 'Delete complete!', 'info')
         props.history.push('/myDesk')
     }
 

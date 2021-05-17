@@ -76,7 +76,7 @@ const TaskModal = (props) => {
             sendComment()
         }
     }
-    let descriptionText = newDescription.description === '' ? 'Añadir una descripción mas detallada' : newDescription.description
+    let descriptionText = newDescription.description === '' ? 'Add a more detailed description' : newDescription.description
     return (
         <>
             <div className="modal-container" style={{ display: display }}>
@@ -89,21 +89,21 @@ const TaskModal = (props) => {
                         <button onClick={() => setShow(false)}>X</button>
                     </div>
                     <div>
-                        <h3>Descripción</h3>
+                        <h3>Description</h3>
                         <>
-                            {editDescription && <p style={{ cursor: 'pointer' }} onClick={() => { setEditDescription(!editDescription) }}>{descriptionText ? descriptionText : 'Añadir una descripción mas detallada'}</p>}
+                            {editDescription && <p style={{ cursor: 'pointer' }} onClick={() => { setEditDescription(!editDescription) }}>{descriptionText ? descriptionText : 'Add a more detailed description'}</p>}
                             {!editDescription && <div>
-                                <textarea placeholder='Añadir una descripción mas detallada' type="text" value={newDescription.description} onChange={(e) => setNewDescription({ description: e.target.value })} />
-                                <button onClick={sendDescription} >guardar</button>
-                                <button onClick={() => setEditDescription(!editDescription)}>cancelar</button>
+                                <textarea placeholder='Add a more detailed description' type="text" value={newDescription.description} onChange={(e) => setNewDescription({ description: e.target.value })} />
+                                <button onClick={sendDescription} >Save</button>
+                                <button onClick={() => setEditDescription(!editDescription)}>Cancel</button>
                             </div>
                             }
                         </>
                     </div>
                     <div>
-                        <h3>Actividad</h3>
+                        <h3>Activity</h3>
                         {commentsState.length === 0
-                            ? <h3>Sin comentarios</h3>
+                            ? <h3>No Comment</h3>
                             : commentsState.map(comment => {
                                 return <Comment key={comment._id} comment={comment} setCommentsState={setCommentsState} idTask={_id} />
                             })
@@ -113,8 +113,8 @@ const TaskModal = (props) => {
                                 <p>foto user</p>
                             </div>
                             <div>
-                                <input onKeyDown={loading && enter} placeholder="Escriba un comentario..." name="message" value={newComment.message} onChange={readDataNewComment}></input>
-                                <button onClick={loading && sendComment}>Guardar</button>
+                                <input onKeyDown={loading && enter} placeholder="Write a comment..." name="message" value={newComment.message} onChange={readDataNewComment}></input>
+                                <button onClick={loading && sendComment}>Save</button>
                             </div>
                         </div>
 

@@ -88,7 +88,7 @@ const MyDesk = (props) => {
                                 props.boards.map(board => <BoardIndividual key={board._id} board={board} />)
                             }  */}
 
-                            <h2>Propietario de...</h2>
+                            <h2>Owner of these boards</h2>
                             {
                                 props.boardsOwnerArray.map(board => <BoardIndividual key={board} board={board} />)
                             }
@@ -98,13 +98,13 @@ const MyDesk = (props) => {
                                 <span>New board...</span>
                             </div>
 
-                            <h2>Administrador de...</h2>
+                            <h2>Admin of these boards</h2>
                             {
                                 props.boardsAdminArray.map(board => <BoardIndividual key={board} board={board} />)
 
                             }
 
-                            <h2>Usuario de...</h2>
+                            <h2>User of these boards</h2>
                             {
                                 props.boardsUserArray.map(board => <BoardIndividual key={board} board={board} />)
 

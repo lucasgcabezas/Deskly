@@ -15,8 +15,8 @@ const notificationsControllers = {
             response = { board: selectedBoard, notification: req.params.idBoard }
             
         } catch {
-            error = "Ha ocurrido un error en el servidor, intente más tarde!"
-            console.log('ERROR: El controlador acceptBoard está fallando')
+            error = 'An error has occurred on the server, try later!'
+            console.log('ERROR: The controller is failing: acceptBoard')
         }
         res.json({ success: !error ? true : false, response, error })
     },
@@ -29,8 +29,8 @@ const notificationsControllers = {
             response = {notification: req.params.idBoard }
 
         } catch {
-            error = "An error occurred during process, please try later."
-            console.log('ERROR: The controller rejectBoard has failed')
+            error = 'An error has occurred on the server, try later!'
+            console.log('ERROR:The controller is failing: rejectBoard')
         }
         res.json({ success: !error ? true : false, response, error })
     },
@@ -62,7 +62,7 @@ const notificationsControllers = {
             res.json({ success: true, response: { boardOwnerId, boardAdminArray, taskPlanners, idComents, boardIdUser} })
 
         } catch (error) {
-            res.json({ success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!' })
+            res.json({ success: false, response: 'An error has occurred on the server, try later!' })
         }
     }
 }

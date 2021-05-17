@@ -5,7 +5,7 @@ const tasksControllers = {
             const allTasks = await TaskModel.find()
             res.json({ response: allTasks, success: true })
         } catch (error) {
-            res.json({ response: 'Ha ocurrido un error en el servidor, intente más tarde!', success: false })
+            res.json({ response: 'An error has occurred on the server, try later!', success: false })
         }
     },
     addTask: async (req, res) => {
@@ -15,7 +15,7 @@ const tasksControllers = {
             
             res.json({ response: addNewTask, success: true })
         } catch (error) {
-            res.json({ response: 'Ha ocurrido un error en el servidor, intente más tarde!', success: false })
+            res.json({ response: 'An error has occurred on the server, try later!', success: false })
         }
     },
     editTask: async (req, res) => {
@@ -24,7 +24,7 @@ const tasksControllers = {
             const editTask = await TaskModel.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
             res.json({ success: true, response: editTask })
         } catch (error) {
-            res.json({ success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!' })
+            res.json({ success: false, response: 'An error has occurred on the server, try later!' })
         }
     },
     deleteTask: async (req, res) => {
@@ -33,7 +33,7 @@ const tasksControllers = {
             const deleteTask = await TaskModel.findOneAndDelete({ _id: id })
             res.json({ success: true, response: deleteTask })
         } catch (error) {
-            res.json({ success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!r' })
+            res.json({ success: false, response: 'An error has occurred on the server, try later!' })
         }
     },
     tasksFromTaskplanner: async (req, res) => {
@@ -42,7 +42,7 @@ const tasksControllers = {
             const tasksFromTaskplanner = await TaskModel.find({ taskplannerId: id })
             await res.json({ response: tasksFromTaskplanner, success: true })
         } catch (error) {
-            res.json({ response: 'Ha ocurrido un error en el servidor, intente más tarde!', success: false })
+            res.json({ response: 'An error has occurred on the server, try later!', success: false })
         }
     },
 
@@ -52,7 +52,7 @@ const tasksControllers = {
             const allComments = await TaskModel.findById(taskId)
             res.json({ response: allComments, success: true })
         } catch (error) {
-            res.json({ response: 'Ha ocurrido un error en el servidor, intente más tarde!', success: false })
+            res.json({ response: 'An error has occurred on the server, try later!', success: false })
         }
     },
 
@@ -63,7 +63,7 @@ const tasksControllers = {
                 { $push: { comments: {...req.body, userId: req.user._id}}}, { new: true })
             res.json({ response: addComment, success: true })
         } catch (error) {
-            res.json({ response: 'Ha ocurrido un error en el servidor, intente más tarde!', success: false })
+            res.json({ response: 'An error has occurred on the server, try later!', success: false })
         }
     },
     editComment: async (req, res) => {
@@ -75,7 +75,7 @@ const tasksControllers = {
                 { $set: { "comments.$.message": message } }, { new: true })
             res.json({ response: editComment, success: true })
         } catch (error) {
-            res.json({ response: 'Ha ocurrido un error en el servidor, intente más tarde!', success: false })
+            res.json({ response: 'An error has occurred on the server, try later!', success: false })
         }
     },
     deleteComment: async (req, res) => {
@@ -84,7 +84,7 @@ const tasksControllers = {
             const deleteComment = await TaskModel.findOneAndUpdate({ "comments._id": id }, { $pull: { comments: { _id: id } } }, { new: true })
             res.json({ response: deleteComment, success: true })
         } catch (error) {
-            res.json({ response: 'Ha ocurrido un error en el servidor, intente más tarde!', success: false })
+            res.json({ response: 'An error has occurred on the server, try later!', success: false })
         }
     }
 }

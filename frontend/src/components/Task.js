@@ -50,14 +50,14 @@ const Task = (props) => {
 
                     <div>
                         <div style={{display: style}}>
-                            <button onClick={() => setEditButton(!editButton)}>Editar</button>
-                            <button onClick={sendDeleteTask}>Borrar</button>
+                            <button onClick={() => setEditButton(!editButton)}>Edit</button>
+                            <button onClick={sendDeleteTask}>Delete</button>
                         </div>
                         <button onClick={() => setShow(true)}>modal</button>
                     </div>
                 </div>
 
-                <button onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }}>Confirmar</button>
+                <button onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }}>Accept</button>
                 {/* {show && <TaskModal task={task} setShow={setShow} show={show} />} */}
 
                 <TaskModal task={task} setShow={setShow} show={show} />

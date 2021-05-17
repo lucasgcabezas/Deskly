@@ -8,7 +8,7 @@ const taskplannerControllers = {
             await newTaskplanner.save()
             res.json({success: true, response: newTaskplanner})
         }catch(error){
-            res.json({success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!'})
+            res.json({success: false, response: 'An error has occurred on the server, try later!'})
             console.log(error)
         }
     },
@@ -17,7 +17,7 @@ const taskplannerControllers = {
             const taskplanner = await Taskplanner.findOneAndUpdate({_id: req.params.id}, {...req.body}, {new: true})
             res.json({success: true, response: taskplanner})
         }catch(error){
-            res.json({success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!'})
+            res.json({success: false, response: 'An error has occurred on the server, try later!'})
             console.log(error)
         }
     },
@@ -27,7 +27,7 @@ const taskplannerControllers = {
             const taskplanner = await Taskplanner.findOneAndDelete({_id: req.params.id})
             res.json({success: true, response: taskplanner})
         }catch(error){
-            res.json({success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!'})
+            res.json({success: false, response: 'An error has occurred on the server, try later!'})
             console.log(error)
         }
     },
@@ -39,7 +39,7 @@ const taskplannerControllers = {
             // console.log(taskplanner)
             res.json({success: true, response: taskplanner})
         }catch(error){
-            res.json({success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!'})
+            res.json({success: false, response: 'An error has occurred on the server, try later!'})
             console.log(error)
         }
     },
@@ -49,7 +49,7 @@ const taskplannerControllers = {
             const taskplanner = await Taskplanner.find()
             res.json({success: true, response: taskplanner})
         }catch(error){
-            res.json({success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!'})
+            res.json({success: false, response: 'An error has occurred on the server, try later!'})
             console.log(error)
         }
     },
@@ -59,7 +59,7 @@ const taskplannerControllers = {
             const taskplanner = await Taskplanner.find({_id: req.params.id})
             res.json({success: true, response: taskplanner})
         }catch(error){
-            res.json({success: false, response: 'Ha ocurrido un error en el servidor, intente más tarde!'})
+            res.json({success: false, response: 'An error has occurred on the server, try later!'})
             console.log(error)
         }
     }

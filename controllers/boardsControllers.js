@@ -12,8 +12,8 @@ const boardsControllers = {
             
             response = selectedBoards
         } catch {
-            error = "Ha ocurrido un error en el servidor, intente más tarde!"
-            console.log('ERROR: El controlador getFromUser está fallando')
+            error = 'An error has occurred on the server, try later!'
+            console.log('ERROR: The controller is failing: getFromUser')
         }
         res.json({ success: !error ? true : false, response, error })
     },
@@ -26,8 +26,8 @@ const boardsControllers = {
             await boardToAdd.save()
             response = boardToAdd
         } catch {
-            error = "Ha ocurrido un error en el servidor, intente más tarde!"
-            console.log('ERROR: El controlador addBoard está fallando')
+            error = 'An error has occurred on the server, try later!'
+            console.log('ERROR: The controller is failing: addBoard')
         }
         res.json({ success: !error ? true : false, response, error })
     },
@@ -44,8 +44,8 @@ const boardsControllers = {
             }
 
         } catch {
-            error = "Ha ocurrido un error en el servidor, intente más tarde!"
-            console.log('ERROR: El controlador editBoard está fallando')
+            error = 'An error has occurred on the server, try later!'
+            console.log('ERROR: The controller is failing: editBoard')
         }
         res.json({ success: !error ? true : false, response, error })
     },
@@ -59,8 +59,8 @@ const boardsControllers = {
                 response = await BoardModel.findByIdAndDelete(req.params.id)
             }
         } catch {
-            error = "Ha ocurrido un error en el servidor, intente más tarde!"
-            console.log('ERROR: El controlador deleteBoard está fallando')
+            error = 'An error has occurred on the server, try later!'
+            console.log('ERROR: The controller is failing: deleteBoard')
         }
         res.json({ success: !error ? true : false, response, error })
     },
@@ -69,7 +69,7 @@ const boardsControllers = {
             const board = await BoardModel.findById(req.params.id).populate({path:"users",select:{ "firstName":1 ,"lastName":1,"email":1,"img":1}})
             res.json({success: true, users: board.users})
         }catch(error){
-            res.json({success: false, response:'Ha ocurrido un error en el servidor, intente más tarde!'})
+            res.json({success: false, response:'An error has occurred on the server, try later!'})
         }
     },
     userAdmin: async (req,res) => {

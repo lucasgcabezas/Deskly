@@ -19,18 +19,18 @@ const Home = (props) => {
                         <div className="desklyLogo" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/desklylogo.png')" }}></div>
                         <h1>DESKLY</h1>
                     </div>
-                    <p>Organiza y gestiona tu trabajo de forma eficiente. Lleva un control de cada proyecto. Hace que tu carga fluya.</p>
-                    {!userLogged && <Link to="/sign"><button className="buttonRegister">Registrate!</button></Link>}
+                    <p>Organize and manage your work efficiently. Take control of each project. Make your load flow.</p>
+                    {!userLogged && <Link to="/sign"><button className="buttonRegister">Join Us!</button></Link>}
                 </div>
                 <div className="imageHero" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/s.png')" }}></div>
             </div>
             <div>
                 <div className="div2">
-                    <h2>Libera tu espacio mental </h2>
+                    <h2>Free your mental space</h2>
                     <div className="hands" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/6bcf4f9e-7b00-412f-b336-3b6241b86cb3.png')" }}></div>
                     <div className="fraseHero2">
                         <div class="circulo"></div>
-                        <p>Recupera la claridad y la calma sacando todas esas tareas de tu cabeza y poniéndolas en Deskly (sin importar dónde estés o qué dispositivo utilices).</p>
+                        <p>Regain clarity and calm by taking all those tasks out of your head and putting them in Deskly (no matter where you are or what device you use).</p>
                     </div>
                 </div>
                 <svg>
@@ -39,36 +39,36 @@ const Home = (props) => {
                     </clipPath>
                 </svg>
                 <div className="contenedorSemiCirculo">
-                    <div className="elipse"><h2>DESKLY Herramientas</h2></div>
+                    <div className="elipse"><h2>DESKLY Tools</h2></div>
                 </div>
                 <div className="contenedorCirculosHerramientas">
                     <div className="desklyHerramientas1">
                         <div>
                             <span class="material-icons-outlined">dashboard</span>
                             <h3>Boards:</h3>
-                            <p>Te permite ver el panorama general</p>
+                            <p>Lets you see the big picture</p>
                         </div>
                         <div>
                             <span class="material-icons-outlined">add</span>
                             <h3>Add:</h3>
-                            <p>Podrás capturar y organizar las tareas en segundos</p>
+                            <p>Capture and organize tasks in seconds</p>
                         </div>
                         <div>
                             <span class="material-icons-outlined">task_alt</span>
                             <h3>Tasks:</h3>
-                            <p>Retrata cómo los pequeños pasos se suman hasta llegar a grandes logros</p>
+                            <p>Portrays how small steps add up to great achievements</p>
                         </div>
                     </div>
                     <div className="desklyHerramientas2">
                         <div>
                             <span class="material-icons-outlined">edit</span>
                             <h3>Edit:</h3>
-                            <p>Si te has confundido, puedes editar todas tus tareas tantas veces como necesites</p>
+                            <p>If you’re confused, you can edit all your tasks as many times as you need</p>
                         </div>
                         <div>
                             <span class="material-icons-outlined">delete</span>
                             <h3>Delete:</h3>
-                            <p>Desecha cualquier contenido que ya no uses con un solo clic</p>
+                            <p>Discard any content you no longer use with a single click</p>
                         </div>
                     </div>
                 </div>
