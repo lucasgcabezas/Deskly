@@ -24,6 +24,7 @@ const Board = (props) => {
     const [board, setBoard] = useState({})
     const [updateInput, setUpdateInput] = useState()
     const [openInvite, setOpenInvite] = useState(false)
+    const [openArchive,setOpenArchive] = useState(false)
     const [boardUsers, setBoardUsers] = useState([])
     const [admins, setAdmins] = useState([])
     const [loading, setLoading] = useState(true)
@@ -152,15 +153,12 @@ const Board = (props) => {
         setAdmins(admins)
         return admins
     }
-    // const recycle = async (idTaskPlanner) => {
-    //     await props.recycleTaskPlanner(idTaskPlanner, {archived:true})
-    //     tasksFetch()
-    // }
 
-    // const progressBar = async (allTasks) => {
-    //     const task = await props.tasksFromTaskplanner(id)
-    //     // console.log(task)
-    // }
+    const archive = async (idTaskPlanner) => {
+        await props.recycleTaskPlanner(idTaskPlanner, {archived:true})
+        tasksFetch()
+    }
+
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === String(board._id))
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === String(board._id))
 
@@ -198,6 +196,8 @@ const Board = (props) => {
                     <div className="contenedorMenuBoard">
                         <div className="contenedorInfoOwner">
                             {(imAdmin || imOwner) && <button className="buttonOptionsBoard" onClick={() => setOpenInvite(!openInvite)}><span className="material-icons-outlined iconoBoard">add</span>Invite</button>}
+                            {/* {(imAdmin || imOwner) && <button className="buttonOptionsBoard" onClick={() => setOpenArchive(!openArchive)}><span className="material-icons-outlined iconoBoard">add</span>Archive</button>} */}
+
                             {
                                 imOwner &&
                                 <>
@@ -221,6 +221,9 @@ const Board = (props) => {
                                     {/* <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
                                         < */}
                                     <button className="buttonOptionsBoard" onClick={deleteBoard}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
+
+
+                                    
                                 </>
                             }
                             {
@@ -231,10 +234,15 @@ const Board = (props) => {
                                         <span><input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off" /></span>
                                         <button className="buttonUserInvite" onClick={addUser}>send</button>
                                     </div>
-                                    {/* VER */}
-                                    {/* <div  style={{ display: 'flex', margin: '2rem' }}> <Archive allTasksPlanner={allTasksPlanner}/></div> */}
                                 </div>
                             }
+                                {/* {
+                                openArchive &&
+                                <div className="inviteUsersVentana"  >
+                                    <h3>Archived taskplanners</h3>
+                                    <div  style={{ display: 'flex', margin: '2rem' , flexDirection:"column"}}> <Archive  allTasksPlanner={allTasksPlanner}/></div>
+                                </div>
+                            } */}
                         </div>
                         <div onClick={usersVisible} className="iconoVisible">
                             <span class="material-icons-outlined iconoUsers">people_outline</span>

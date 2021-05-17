@@ -124,7 +124,7 @@ const TaskModal = (props) => {
                         {commentsState.length === 0
                             ? <span>No comments yet...</span>
                             : commentsState.map(comment => {
-                                return <Comment key={comment._id} comment={comment} setCommentsState={setCommentsState} idTask={_id} />
+                                return <Comment key={comment._id} comment={comment} setCommentsState={setCommentsState} idTask={_id} imOwner={props.imOwner}/>
                             })
                         }
                     </div>
