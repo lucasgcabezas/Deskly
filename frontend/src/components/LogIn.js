@@ -7,11 +7,7 @@ import { FcGoogle } from 'react-icons/fc'
 import {BsEyeSlash, BsEye} from 'react-icons/bs'
 import { ImKey } from 'react-icons/im'
 import { HiMail } from 'react-icons/hi'
-<<<<<<< HEAD
 import { store } from 'react-notifications-component'
-=======
-
->>>>>>> 0a4bf1bb1b650b8417bcd99fa183c69fd70a0b5f
 const SignIn = (props) => {
     const { userLogged } = props
     const [logIn, setLogIn] = useState({})
@@ -67,16 +63,10 @@ const SignIn = (props) => {
                     <h2>Create an account!</h2>
                     <button className="buttonSignUp">Sign Up</button>
                 </div>
-<<<<<<< HEAD
-            </div>
-            <div className="contenedorFormularioLogIn">
-                <h2>Sign In DESKLY</h2>
-=======
             </div> */}
             {/* <div className={`contenedorFormularioLogIn ${props.buttonanimation === true && 'loginAnimation'}`}> */}
             <div className={`contenedorFormularioLogIn`}>
                 <h2>Log In in DESKLY</h2>
->>>>>>> 0a4bf1bb1b650b8417bcd99fa183c69fd70a0b5f
                 <span className="contenedorinput"><HiMail className="inputIcons"/><input type="text" name="email" placeholder="Email" onChange={input} autoComplete="off" /></span>
                 <span className="contenedorinput"><ImKey className="inputIcons"/><input type={oculto ? "password" : "text"} name="password" placeholder="Password" onChange={input} autoComplete="off" />
                     <div onClick={() => setOculto(!oculto)} className="divEye">
