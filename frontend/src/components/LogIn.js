@@ -7,6 +7,7 @@ import { FcGoogle } from 'react-icons/fc'
 import {BsEyeSlash, BsEye} from 'react-icons/bs'
 import { ImKey } from 'react-icons/im'
 import { HiMail } from 'react-icons/hi'
+
 const SignIn = (props) => {
     const { userLogged } = props
     const [logIn, setLogIn] = useState({})

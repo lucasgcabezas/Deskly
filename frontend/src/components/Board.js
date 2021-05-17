@@ -9,10 +9,13 @@ import UserAdmin from './UserAdmin'
 import { Link } from 'react-router-dom'
 import LateralMenu from './LateralMenu'
 import { store } from 'react-notifications-component'
+import Archive from "./Archive"
+
 
 const Board = (props) => {
     const { boards, inviteUserToBoard, userLogged } = props
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
+    const [filterTaskplanners,setFilterTaskplanners] =useState([])
     const [open, setOpen] = useState(false)
     const [update, setUpdate] = useState(false)
     const [newTitle, setNewTitle] = useState('')
@@ -58,6 +61,7 @@ const Board = (props) => {
     const tasksFetch = async () => {
         const tasks = await props.getTaskPlannerFromBoard(idParams)
         setAllTasksPlanner(tasks)
+      
     }
     const desklyAlert = async (alertTitle, alertMessage, alertType) => {
         await store.addNotification({
@@ -142,6 +146,11 @@ const Board = (props) => {
         return admins
     }
 
+  const recycle = async (idTaskPlanner) => {
+        await props.recycleTaskPlanner(idTaskPlanner, {archived:true})
+        tasksFetch()
+    }
+
     // const progressBar = async (allTasks) => {
     //     const task = await props.tasksFromTaskplanner(id)
     //     // console.log(task)
@@ -191,6 +200,10 @@ const Board = (props) => {
                                         <span><input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off" /></span>
                                         <button className="buttonUserInvite" onClick={addUser}>send</button>
                                     </div>
+
+                                    {/* VER */}
+                                    {/* <div  style={{ display: 'flex', margin: '2rem' }}> <Archive allTasksPlanner={allTasksPlanner}/></div> */}
+                                    
 
                                 </div>
                             }
@@ -266,7 +279,7 @@ const mapDispatchToProps = {
     userAdmin: boardActions.userAdmin,
     setUserComponents: authActions.setUserComponents,
     getAdminsFromBoard: boardActions.getAdminsFromBoard,
-
+    recycleTaskPlanner: taskPlannerActions.recycleTaskPlanner
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board)

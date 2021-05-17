@@ -77,7 +77,24 @@ const taskActions = {
                 desklyAlert('Error', 'An error has occurred on the server, try later!', 'danger')
             }
         }
-    }
+    },
+
+    recycleTask: (taskEditId, recycle) => {
+        console.log(taskEditId, recycle)
+        return async (dispatch, getState) => {
+            try {
+                const response = await axios.put('http://localhost:4000/api/recycletask/' + taskEditId, recycle)
+                if (!response.data.success) {
+                    desklyAlert('Error', response.data.response, 'danger')
+                } else {
+                    return response.data.response // Array de tasks segun el id del taskPlanner
+                }
+            } catch (error) {
+                console.log(error)
+                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+            }
+        }
+    },
 }
 
 export default taskActions

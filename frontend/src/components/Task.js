@@ -77,6 +77,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     editTask: taskActions.editTask,
     deleteTask: taskActions.deleteTask,
+    recycleTask: taskActions.recycleTask,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task)

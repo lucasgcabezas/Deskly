@@ -51,7 +51,8 @@ const TaskPlanner = (props) => {
     }
     
     return (
-        <div className="taskPlanner">
+        <div className="taskPlanner" style={{ display: props.taskplanner.archived?"none": "inline-block" }}>
+         {/* <div className="taskPlanner" > */}
             <div className="taskPlannerList">
                 <div className="headerTaskPlanner">
                     {editTitle && <h3 style={{ cursor: (props.imOwner || props.imAdmin) && 'pointer' }} onClick={(props.imOwner || props.imAdmin) ? (() => { setEditTitle(!editTitle); setNewTitle(props.taskplanner.title) }) : null}>{props.taskplanner.title}</h3>}
@@ -65,6 +66,8 @@ const TaskPlanner = (props) => {
                         </>
                     }
                     <div style={{ display: props.imOwner || props.imAdmin ? 'block' : 'none' }}>
+                        {/* <button  onClick={() =>props.recycle(props.taskplanner._id)}>Recycle</button> */}
+
                         <span onClick={() => props.erase(props.taskplanner._id)} className="material-icons-outlined iconoTaskPlanner">delete</span>
                     </div>
                 </div>
