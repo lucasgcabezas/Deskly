@@ -24,7 +24,7 @@ const Board = (props) => {
     const [board, setBoard] = useState({})
     const [updateInput, setUpdateInput] = useState()
     const [openInvite, setOpenInvite] = useState(false)
-    const [openArchive,setOpenArchive] = useState(false)
+    const [openArchive, setOpenArchive] = useState(false)
     const [boardUsers, setBoardUsers] = useState([])
     const [admins, setAdmins] = useState([])
     const [loading, setLoading] = useState(true)
@@ -101,6 +101,7 @@ const Board = (props) => {
             setAllTasksPlanner(tasks)
             setNewTitle('')
             setLoading(true)
+            setOpen(!open)
         }
     }
 
@@ -155,7 +156,7 @@ const Board = (props) => {
     }
 
     const archive = async (idTaskPlanner) => {
-        await props.recycleTaskPlanner(idTaskPlanner, {archived:true})
+        await props.recycleTaskPlanner(idTaskPlanner, { archived: true })
         tasksFetch()
     }
 
@@ -201,42 +202,20 @@ const Board = (props) => {
                             {
                                 imOwner &&
                                 <>
-                                    {/* {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}
                                     {
-                                        !open &&
-                                        <div className="contenedorAddList">
-                                            <input className="inputAddList" onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" placeholder="Introduce a title for the new list" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                            <div>
-                                                <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new list</button>
-                                                <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>
+                                        openInvite &&
+                                        <div className="inviteUsersVentana">
+                                            <h3>Invite a new member to the board</h3>
+                                            <div className="contenedorInputInvite">
+                                                <input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off" />
+                                                <span onClick={addUser} className="material-icons-outlined iconoTaskPlanner">send</span>
                                             </div>
                                         </div>
-                                    } */}
-                                    {/* {update && <button className="buttonOptionsBoard"><span className="material-icons-outlined iconoBoard">edit</span>Edit</button>}
-                                    {!update &&
-                                        <>
-                                            <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
-                                            {/* , description: board.description */}
-                                    {/* <input className="inputBoard" type="text" name="description" value={updateInput.description} onChange={readUpdateInput} /> */}
-                                    {/* <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
-                                        < */}
+                                    }
                                     <button className="buttonOptionsBoard" onClick={deleteBoard}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
-
-
-                                    
                                 </>
                             }
-                            {
-                                openInvite &&
-                                <div className="inviteUsersVentana">
-                                    <h3>Invite a new member to the board</h3>
-                                    <div>
-                                        <span><input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off" /></span>
-                                        <button className="buttonUserInvite" onClick={addUser}>send</button>
-                                    </div>
-                                </div>
-                            }
-                                {/* {
+                            {/* {
                                 openArchive &&
                                 <div className="inviteUsersVentana"  >
                                     <h3>Archived taskplanners</h3>
@@ -250,7 +229,11 @@ const Board = (props) => {
                         {imOwner &&
                             <div className="ventanaUser" style={{ visibility: visible ? 'visible' : 'hidden' }} >
                                 {
-                                    boardUsers.map((user, i) => {
+                                    boardUsers.length === 1
+                                    ? <div className="noMembers">
+                                        <p>There are no members yet</p>    
+                                    </div>
+                                    :boardUsers.map((user, i) => {
                                         if (i) {
                                             return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} visible={visible} setVisible={setVisible} />
                                         } else {
@@ -261,29 +244,27 @@ const Board = (props) => {
                             </div>
                         }
                     </div>
-                    <div className="contenedorTaskPlanners">
-                        <div className="contenedorTaskPlanner">
-                            <div>
-                                {
-                                    allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
-                                }
-                            </div>
-                            {(imOwner || imAdmin) &&
-                                <>
-                                    {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}
-                                    {
-                                        !open &&
-                                        <div className="contenedorAddList">
-                                            <input className="inputAddList" onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" placeholder="Introduce a title for the new list" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                            <div>
-                                                <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new list</button>
-                                                <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>
-                                            </div>
-                                        </div>
-                                    }
-                                </>
+                    <div className="contenedorTaskPlanner">
+                        <div>
+                            {
+                                allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
                             }
                         </div>
+                        {(imOwner || imAdmin) &&
+                            <>
+                                {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}
+                                {
+                                    !open &&
+                                    <div className="contenedorAddList">
+                                        <input className="inputAddList" onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" placeholder="Introduce a title for the new list" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                        <div>
+                                            <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new list</button>
+                                            <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>
+                                        </div>
+                                    </div>
+                                }
+                            </>
+                        }
                     </div>
                 </div>
                 <div className="imgBoard" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/laptop-1.png')" }}></div>

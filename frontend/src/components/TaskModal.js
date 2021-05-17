@@ -131,7 +131,7 @@ const TaskModal = (props) => {
 
                     <div className="newCommentSection">
                         <input onKeyDown={loading && enter} placeholder="Write a comment..." name="message" value={newComment.message} onChange={readDataNewComment}></input>
-                        <button onClick={loading && sendComment}>Save</button>
+                        <span onClick={loading && sendComment} className="material-icons-outlined iconoTaskPlanner">send</span>
                     </div>
 
                 </div>
