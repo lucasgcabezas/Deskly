@@ -25,7 +25,7 @@ const taskPlannerActions = {
                 }
             } catch (error) {
                 console.log(error)
-                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error', 'An error has occurred on the server, try later!', 'danger')
             }
         }
     },
@@ -41,15 +41,34 @@ const taskPlannerActions = {
                 }
             } catch (error) {
                 console.log(error)
-                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error', 'An error has occurred on the server, try later!', 'danger')
             }
         }
     },
 
     editTaskPlanner: (idTaskPlanner, title) => {
+        console.log(idTaskPlanner, title)
         return async (dispatch, getState) => {
             try {
                 const response = await axios.put('http://localhost:4000/api/taskplanner/' + idTaskPlanner, { title })
+                
+                if (!response.data.success) {
+                    desklyAlert('Error', response.data.response, 'danger')
+                } else {
+                    return response.data.response
+                }
+            } catch (error) {
+                console.log(error)
+                desklyAlert('Error', 'An error has occurred on the server, try later!', 'danger')
+            }
+        }
+    },
+
+    recycleTaskPlanner: (idTaskPlanner, title) => {
+        console.log(idTaskPlanner, title)
+        return async (dispatch, getState) => {
+            try {
+                const response = await axios.put('http://localhost:4000/api//taskplannerFromBoard/' + idTaskPlanner, { title })
                 
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
@@ -62,6 +81,7 @@ const taskPlannerActions = {
             }
         }
     },
+
     addTaskPlanner: (taskPlanner, token) => {
         return async (dispatch, getState) => {
             try {
@@ -75,7 +95,7 @@ const taskPlannerActions = {
                 }
             } catch (error) {
                 console.log(error)
-                desklyAlert('Error', 'Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error', 'An error has occurred on the server, try later!', 'danger')
             }
         }
     }

@@ -11,13 +11,13 @@ const Footer = (props) => {
                     <h1>DESKLY</h1>
                 </div>
                 <div className="redesSociales">
-                    <h2>Redes Sociales</h2>
+                    <h2>Social</h2>
                     <span class="material-icons-outlined iconsFooter">facebook</span>
                     <RiInstagramFill className="iconsFooter"/>
                     <IoMdMail className="iconsFooter"/>
                 </div>
                 <div className="navigation">
-                    <h2>Navegación</h2>
+                    <h2>Site Map</h2>
                     <Link exact to="/" className="navFooter">Home</Link>
                     {props.userLogged && <>
                         <Link to="/myDesk" className="navFooter">Mi Desk</Link></>}

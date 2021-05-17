@@ -7,7 +7,6 @@ import { FcGoogle } from 'react-icons/fc'
 import {BsEyeSlash, BsEye} from 'react-icons/bs'
 import { ImKey } from 'react-icons/im'
 import { HiMail } from 'react-icons/hi'
-
 const SignIn = (props) => {
     const { userLogged } = props
     const [logIn, setLogIn] = useState({})
@@ -44,8 +43,8 @@ const SignIn = (props) => {
     // }
 
     return (
-        <div className={`contenedorLogIn ${props.buttonanimation === true ? 'loginAnimation': props.buttonanimation === false && 'loginAnimation2' }`}>
-            {/* <div className="contenedorHeroLogIn">
+        <div className="contenedorLogIn">
+            <div className="contenedorHeroLogIn">
                 <div className="logoFooter">
                     <div className="desklyLogo" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/desklylogo.png')" }}></div>
                     <h1>DESKLY</h1>
@@ -54,17 +53,16 @@ const SignIn = (props) => {
                     <h2>Create una cuenta!</h2>
                     <button className="buttonSignUp">Registrate</button>
                 </div>
-            </div> */}
-            {/* <div className={`contenedorFormularioLogIn ${props.buttonanimation === true && 'loginAnimation'}`}> */}
-            <div className={`contenedorFormularioLogIn`}>
-                <h2>Log In in DESKLY</h2>
+            </div>
+            <div className="contenedorFormularioLogIn">
+                <h2>Inicia sesión en DESKLY</h2>
                 <span className="contenedorinput"><HiMail className="inputIcons"/><input type="text" name="email" placeholder="Email" onChange={input} autoComplete="off" /></span>
                 <span className="contenedorinput"><ImKey className="inputIcons"/><input type={oculto ? "password" : "text"} name="password" placeholder="Contraseña" onChange={input} autoComplete="off" />
                     <div onClick={() => setOculto(!oculto)} className="divEye">
                         {oculto ? <BsEyeSlash className="inputIconsEye" /> : <BsEye className="inputIconsEye"/>}
                     </div>
                 </span>
-                <button onClick={log} className="buttonEnviar">Log In</button>
+                <button onClick={log} className="buttonEnviar">Iniciar Sesión</button>
                 <GoogleLogin className="botonSignUp2"
                     render={renderProps => (
                         <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="bGoogle"><FcGoogle />Iniciar sesión con Google</button>

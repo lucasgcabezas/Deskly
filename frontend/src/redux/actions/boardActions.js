@@ -25,7 +25,7 @@ const boardActions = {
                     dispatch({type: 'DELETE_BOARDS', payload:response.data.response._id})
                 }
             } catch (error){
-                desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+                desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
                 console.log(error)
             }
         }
@@ -46,7 +46,7 @@ const boardActions = {
                 }
             }
         } catch (error) {
-            desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+            desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
             console.log(error)
         }
     },
@@ -64,7 +64,7 @@ const boardActions = {
                 }
             }
         } catch (error) {
-            desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+            desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
             console.log(error)
         }
     },
@@ -83,7 +83,7 @@ const boardActions = {
                 }
             }
         } catch (error) {
-            desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+            desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
             console.log(error)
         }
     },
@@ -98,7 +98,7 @@ const boardActions = {
                 }
             }
         } catch (error) {
-            desklyAlert('Error','Ha ocurrido un error en el servidor, intente más tarde!', 'danger')
+            desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
             console.log(error)
         }
     },
