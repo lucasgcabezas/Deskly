@@ -11,7 +11,7 @@ const TaskPlanner = (props) => {
     const [newTask, setNewTask] = useState('')
     const [loading, setLoading] = useState(true)
     const [editTitle, setEditTitle] = useState(true)
-
+    const [progress, setProgress] = useState([])
     useEffect(() => {
         fetchAllTasks()
         const reloadTaskPlanner = setInterval(() => {
@@ -23,6 +23,8 @@ const TaskPlanner = (props) => {
 
     const fetchAllTasks = async () => {
         const response = await props.tasksFromTaskplanner(props.taskplanner._id)
+        const tasksProgress = response.filter(task => task.verify) 
+        setProgress(tasksProgress)
         setAllTasks(response)
         setPreloader(false)
     }
@@ -46,9 +48,11 @@ const TaskPlanner = (props) => {
             setLoading(true)
         }
     }
-
+    
     return (
+        
         <div>
+            
             <div style={{display: props.imOwner || props.imAdmin ? 'block': 'none'}}>
                 <button onClick={() => props.erase(props.taskplanner._id)}>Delete</button>
             </div>
@@ -75,7 +79,11 @@ const TaskPlanner = (props) => {
                         : allTasks.map(task => <Task imAdmin={props.imAdmin} imOwner={props.imOwner} key={task._id} task={task} allTasks={allTasks} setAllTasks={setAllTasks} />)
                 }
             </div>
-
+            <h2>
+                {
+                    'tareas progresadas ' + progress.length + ' de ' + allTasks.length + ' tareas '
+                }
+            </h2>
         </div>
     )
 }
