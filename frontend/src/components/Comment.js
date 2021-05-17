@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import commentActions from '../redux/actions/commentActions'
 
 const Comment = (props) => {
-
     const { comment, idTask, setCommentsState, editComment, deleteComment } = props
     const { userCompleteName, message, _id } = comment
 
@@ -34,20 +33,20 @@ const Comment = (props) => {
 
             <input type="text" value={editionComment.message} onChange={getInput} style={{ display: editButtonShow ? 'block' : 'none' }}></input>
 
-            <div>
+           {props.userLogged.email === props.comment.userId.email && <div>
                 <button onClick={sendDeleteComment}>BorrarC</button>
                 <button onClick={() => setEditButtonShow(!editButtonShow)}>EditarC</button>
                 <button onClick={sendEditComment} style={{ display: editButtonShow ? 'block' : 'none' }}>ConfirmarEdit</button>
-            </div>
+            </div>}
         </div>
     )
 
-
-
-
-
 }
-
+const mapStateToProps = state => {
+    return {
+        userLogged: state.authReducer.userLogged,
+    }
+}
 
 const mapDispatchToProps = {
     editComment: commentActions.editComment,
@@ -55,4 +54,4 @@ const mapDispatchToProps = {
 }
 
 // export default Comment
-export default connect(null, mapDispatchToProps)(Comment)
+export default connect(mapStateToProps, mapDispatchToProps)(Comment)

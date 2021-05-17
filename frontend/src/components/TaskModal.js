@@ -5,7 +5,6 @@ import taskActions from '../redux/actions/taskActions'
 import Comment from './Comment'
 
 const TaskModal = (props) => {
-
     const { title, _id } = props.task
     const { addComment, setShow, show, userLogged, editTask, getComments } = props
 

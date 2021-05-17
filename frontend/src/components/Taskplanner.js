@@ -88,12 +88,7 @@ const TaskPlanner = (props) => {
                 </div>
                 <button className="buttonAddTask" onClick={() => setOpen(!open)}>add task</button>
             </div>
-            <h2>
-                {
-                    <Progress done={done}/>
-                    // 'tareas progresadas ' + progress.length + ' de ' + allTasks.length + ' tareas '
-                }
-            </h2>
+            
         </div>
     )
 }

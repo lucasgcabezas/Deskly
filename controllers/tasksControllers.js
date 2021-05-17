@@ -40,7 +40,7 @@ const tasksControllers = {
         
         const id = req.params.id
         try {
-            const tasksFromTaskplanner = await TaskModel.find({ taskplannerId: id })
+            const tasksFromTaskplanner = await TaskModel.find({ taskplannerId: id }).populate({ path:"comments", populate:{ path:"userId", select:{"email":1} } })
             await res.json({ response: tasksFromTaskplanner, success: true })
         } catch (error) {
             res.json({ response: 'An error has occurred on the server, try later!', success: false })
@@ -50,7 +50,7 @@ const tasksControllers = {
     getAllComments: async (req, res) => {
         const taskId = req.params.id
         try {
-            const allComments = await TaskModel.findById(taskId)
+            const allComments = await TaskModel.findById(taskId).populate({ path:"comments", populate:{ path:"userId", select:{"email":1} } })
             res.json({ response: allComments, success: true })
         } catch (error) {
             res.json({ response: 'An error has occurred on the server, try later!', success: false })

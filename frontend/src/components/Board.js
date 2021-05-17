@@ -16,7 +16,7 @@ const Board = (props) => {
     const { boards, inviteUserToBoard, userLogged } = props
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
     const [filterTaskplanners,setFilterTaskplanners] =useState([])
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(true)
     const [update, setUpdate] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [newInvite, setNewInvite] = useState('')
@@ -231,9 +231,9 @@ const Board = (props) => {
                         
                         {(imOwner || imAdmin) &&
                             <>
-                                <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}>Add new list...</button>
+                                {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}>Add new list...</button>}
                                 {
-                                    open && 
+                                    !open && 
                                     <div>
                                         <input onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
                                         <button onClick={loading ? sendValues : null}>Send</button>
