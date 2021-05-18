@@ -211,25 +211,6 @@ const Board = (props) => {
                             {
                                 imOwner &&
                                 <>
-                                    {/* {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}
-                                    {
-                                        !open &&
-                                        <div className="contenedorAddList">
-                                            <input className="inputAddList" onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" placeholder="Introduce a title for the new list" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                            <div>
-                                                <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new list</button>
-                                                <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>
-                                            </div>
-                                        </div>
-                                    } */}
-                                    {/* {update && <button className="buttonOptionsBoard"><span className="material-icons-outlined iconoBoard">edit</span>Edit</button>}
-                                    {!update &&
-                                        <>
-                                            <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
-                                            {/* , description: board.description */}
-                                    {/* <input className="inputBoard" type="text" name="description" value={updateInput.description} onChange={readUpdateInput} /> */}
-                                    {/* <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
-                                        < */}
                                     <button className="buttonOptionsBoard" onClick={()=>setOpenModal(!openModal)}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
                                     {
                                         openModal && 
@@ -271,13 +252,6 @@ const Board = (props) => {
                                     </div>
                                 </div>
                             }
-                                {/* {
-                                openArchive &&
-                                <div className="inviteUsersVentana"  >
-                                    <h3>Archived taskplanners</h3>
-                                    <div  style={{ display: 'flex', margin: '2rem' , flexDirection:"column"}}> <Archive  allTasksPlanner={allTasksPlanner}/></div>
-                                </div>
-                            } */}
                         </div>
                         {imOwner &&<> 
                         <div onClick={usersVisible} className="iconoVisible">
