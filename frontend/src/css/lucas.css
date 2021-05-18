@@ -951,12 +951,49 @@ body {
 
 
 
+.colorOwner{
+    background-color: red;
+}
+.colorAdmin{
+    background-color: black;
+}
+.colorUser{
+    background-color: blue;
+}
 
 
+.modalBoard, .textModalBoard{
+    display: flex;
+    flex-direction: column;
+}
 
+.textModalBoard h3{
+    color: black;
+    font-size: 3vw;
+}
 
+.modalBoard{
+    justify-content: space-around;
+    align-items: center;
+    
+}
 
+.warningIcon{
+    color: var(--second-color);
+    font-size: 14vw;
+    margin-top: 40px;
+}
 
+.modalBoardButtons{
+    background-color: #615ee1;
+    font-size: 3vw;
+    margin: 10px;
+}
+
+.contentModalButtons{
+    display: flex;
+    justify-content: space-between;
+}
 
 
 @media (max-width: 1024px) {
@@ -1256,14 +1293,14 @@ body {
         height: 20vh;
         /* border: solid 1px black; */
         margin: 1vh 0vw 1vh .5vw;
-        background-color: var(--first-color);
+        /* background-color: var(--first-color); */
         /* border: solid 1px black; */
         border: solid 1px white;
         color: white;
         font-size: 1.rem;
         border-radius: 10px;
     }
-
+    
     .newBoardButton{
         display: flex;
         justify-content: space-evenly;
@@ -1368,3 +1405,4 @@ body {
     }
 }
 }
+
