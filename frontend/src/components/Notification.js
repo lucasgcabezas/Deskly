@@ -23,7 +23,7 @@ const Notification = (props) => {
     }
     return (
         <div className="notification">
-            <span>Tienes una invitación al tablero "{notif.title}" de {notif.owner.firstName + ' ' + notif.owner.lastName} </span>
+            <span>You have an invitation to the board "{notif.title}" of {notif.owner.firstName + ' ' + notif.owner.lastName} </span>
             <div>
 
                 <button onClick={() => sendAcceptNotification(notif._id, true)}>Accept</button>
