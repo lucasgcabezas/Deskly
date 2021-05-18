@@ -313,6 +313,21 @@ const Board = (props) => {
                                 </>
                             }
                         </div>
+                        {(imOwner || imAdmin) &&
+                            <>
+                                {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}
+                                {
+                                    !open &&
+                                    <div className="contenedorAddList">
+                                        <input className="inputAddList" onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" placeholder="Introduce a title for the new list" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                        <div>
+                                            <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new list</button>
+                                            <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>
+                                        </div>
+                                    </div>
+                                }
+                            </>
+                        }
                     </div>
                 </div>
                 <div className="imgBoard" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/laptop-1.png')" }}></div>

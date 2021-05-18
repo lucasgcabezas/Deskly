@@ -26,21 +26,19 @@ const Comment = (props) => {
         setCommentsState(response)
     }
 
-
     return (
         <div className="commentTask">
-            <span className="userNameComment">{userCompleteName}</span>
-            <span style={{ display: editButtonShow ? 'none' : 'block' } } className="userCommentText">{message}</span>
-
-
+            <div>
+                <span className="userNameComment">{userCompleteName}</span>
+                {props.userLogged.email === props.comment.userId.email &&
+                    <div>
+                        <span onClick={sendDeleteComment} className="material-icons-outlined iconoTaskPlanner">delete</span>
+                        <span onClick={() => setEditButtonShow(!editButtonShow)} className="material-icons-outlined iconoTaskPlanner">edit</span>
+                        <button onClick={sendEditComment} style={{ display: editButtonShow ? 'block' : 'none' }}>ConfirmarEdit</button>
+                    </div>}
+            </div>
+            <span style={{ display: editButtonShow ? 'none' : 'block' }} className="userCommentText">{message}</span>
             <input type="text" value={editionComment.message} onChange={getInput} style={{ display: editButtonShow ? 'block' : 'none' }}></input>
-
-            {props.userLogged.email === props.comment.userId.email &&
-                <div>
-                    <button onClick={sendDeleteComment}>Delete</button>
-                    <button onClick={() => setEditButtonShow(!editButtonShow)}>Edit</button>
-                    <button onClick={sendEditComment} style={{ display: editButtonShow ? 'block' : 'none' }}>ConfirmarEdit</button>
-                </div>}
         </div>
     )
 

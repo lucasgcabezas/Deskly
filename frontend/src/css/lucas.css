@@ -50,6 +50,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: .5s;
+    z-index: 1;
 }
 
 .lateralMenuOpen{
@@ -60,6 +61,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: .3s;
+    z-index: 1;
 }
 
 .lateralMenuClose .menuLateralInfo{
@@ -262,6 +264,7 @@ body {
     width: 18vw;
     transition: .5s;
     /* border-left: solid 5px var(--fourth-color); */
+    z-index: 1;
 }
 
 .notificationPanelOpen .notificationsHeader {
@@ -638,11 +641,15 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: center; */
     padding: 1vh 1vw;
 }
-  
+.modal:focus{
+    outline: none;
+}
+.modal h3{
+    /* background-color: ; */
+    color: var(--fourth-color);
+}
 .closeModalTask{
     position: absolute;
     right: 0;
@@ -667,10 +674,13 @@ body {
 }
 
 .taskModalDescriptionContainer{
-    /* background-color: red; */
     height: 20vh;
     display: flex;
     flex-direction: column;
+}
+.taskModalDescriptionContainer h3{
+    color: var(--fourth-color);
+    margin-bottom: 1vh;
 }
 
 .taskModalDescriptionContainer textarea {
@@ -741,7 +751,7 @@ body {
 .taskModalDescriptionContainer button {
     background-color: white;
     padding: .7vh 1vw;
-    border: solid 1px black;
+    border: solid 2px var(--first-color);
     margin-top: 1vh;
     margin-left: 1vw;
     border-radius: 5px;
@@ -750,40 +760,48 @@ body {
 
 
 .commentsSection{
-    /* background-color: violet; */
-    /* height: 70vh; */
     flex-grow: 1;
     max-height: 60%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
-
+.commentsSection::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+.commentsSection::-webkit-scrollbar-thumb {
+    background: #615ee1;
+    border-radius: 10px;
+}
+.commentsSection::-webkit-scrollbar-track{
+    background: #54545467;
+    border-radius: 10px;
+}
 .newCommentSection{
-    /* background-color: yellow; */
+    border-top: 1px solid var(--fourth-color);
     height: 7vh;
     display: flex;
     justify-content: space-between;
     padding: 1vh 1vw;
+    align-items: center;
 }
-
 .commentTask{
-    border: solid 1px black;
+    border: solid 2px var(--first-color);
     padding: .7vh .3vw;
     margin: .5vh 0;
+    border-radius: 10px;
+    margin-right: 1vw;
 }
-
+.commentTask div{
+    display: flex;
+    align-items: center;
+}
 .userNameComment{
     font-size: .9rem;
+    font-weight: bold;
 }
 
 .userCommentText{
     font-size: .85rem;
-}
-
-.progressBar{
-    width: 100%;
-    height: 2vh;
-    color: red;
-   
 }
 
 .closeLateralMenu{
@@ -936,6 +954,15 @@ body {
 
 
 
+.colorOwner{
+    background-color: var(--second-color) !important;
+}
+.colorAdmin{
+    background-color: var(--first-color) !important;
+}
+.colorUser{
+    background-color: var(--third-color) !important;
+}
 
 
 
