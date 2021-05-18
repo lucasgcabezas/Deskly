@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { RiInstagramFill } from 'react-icons/ri'
-import {IoMdMail} from 'react-icons/io'
+import { IoMdMail } from 'react-icons/io'
 const Footer = (props) => {
     return (
         <footer>
@@ -12,18 +12,19 @@ const Footer = (props) => {
                 </div>
                 <div className="redesSociales">
                     <h2>Social Media</h2>
-                    <span class="material-icons-outlined iconsFooter">facebook</span>
-                    <RiInstagramFill className="iconsFooter"/>
-                    <IoMdMail className="iconsFooter"/>
+                    <div>
+                        <span class="material-icons-outlined iconsFooter">facebook</span>
+                        <RiInstagramFill className="iconsFooter" />
+                        <IoMdMail className="iconsFooter" />
+                    </div>
                 </div>
                 <div className="navigation">
                     <h2>Navigation</h2>
                     <Link exact to="/" className="navFooter">Home</Link>
                     {props.userLogged && <>
                         <Link to="/myDesk" className="navFooter">My Desk</Link></>}
-                    {!props.userLogged && <>
-                        <Link to="/sign" className="navFooter">Sign Up</Link>
-                        <Link to="/sign" className="navFooter">Log In</Link></>}
+                    {!props.userLogged &&
+                        <Link to="/sign" className="navFooter">Account</Link>}
                 </div>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="svgFooter">

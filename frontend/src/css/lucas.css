@@ -647,6 +647,7 @@ body {
     outline: none;
 }
 .modal h3{
+    /* background-color: ; */
     color: var(--fourth-color);
 }
 .closeModalTask{
@@ -953,6 +954,15 @@ body {
 
 
 
+.colorOwner{
+    background-color: var(--second-color) !important;
+}
+.colorAdmin{
+    background-color: var(--first-color) !important;
+}
+.colorUser{
+    background-color: var(--third-color) !important;
+}
 
 
 

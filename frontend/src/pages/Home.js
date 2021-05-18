@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 const Home = (props) => {
     const {userLogged} = props
     return (
-        <div>
+        <div className="homeScroll">
             <Header />
             {/* <div>
                 <img className="imgParallax1" src="https://webdesing881317710.files.wordpress.com/2021/05/2cfb3ece-fe78-492e-85bd-5e35bd75c185.png" alt="" />
@@ -45,29 +45,29 @@ const Home = (props) => {
                     <div className="desklyHerramientas1">
                         <div>
                             <span className="material-icons-outlined">dashboard</span>
-                            <h3>Boards:</h3>
+                            <h3>Boards</h3>
                             <p>Helps you see the big picture</p>
                         </div>
                         <div>
                             <span className="material-icons-outlined">add</span>
-                            <h3>Add:</h3>
+                            <h3>Add</h3>
                             <p>Lets you capture and organize tasks in seconds</p>
                         </div>
                         <div>
                             <span className="material-icons-outlined">task_alt</span>
-                            <h3>Tasks:</h3>
+                            <h3>Tasks</h3>
                             <p>Paint a portrait of how small steps add up to big accomplishments</p>
                         </div>
                     </div>
                     <div className="desklyHerramientas2">
                         <div>
                             <span className="material-icons-outlined">edit</span>
-                            <h3>Edit:</h3>
+                            <h3>Edit</h3>
                             <p> Did you mistook? Don’t worry! You can edit all your tasks as many times you need!</p>
                         </div>
                         <div>
                             <span className="material-icons-outlined">delete</span>
-                            <h3>Delete:</h3>
+                            <h3>Delete</h3>
                             <p>Throw away any content you don’t longer need  with just one click</p>
                         </div>
                     </div>

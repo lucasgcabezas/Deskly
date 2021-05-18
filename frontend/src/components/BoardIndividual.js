@@ -17,7 +17,7 @@ const BoardIndividual = (props) => {
     return (
         boardSingle &&
         <Link to={`/board/${props.board}`}>
-            <div className="boardMyDesk">
+            <div className={`boardMyDesk ${props.color}`}>
                 <span>{boardSingle.title}</span>
             </div>
         </Link>
