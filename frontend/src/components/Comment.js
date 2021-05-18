@@ -3,8 +3,10 @@ import { connect } from 'react-redux'
 import commentActions from '../redux/actions/commentActions'
 
 const Comment = (props) => {
-    const { comment, idTask, setCommentsState, editComment, deleteComment } = props
+    const { comment, idTask, setCommentsState, editComment, deleteComment, commentsUserArray } = props
     const { userCompleteName, message, _id } = comment
+
+    
 
     const [editButtonShow, setEditButtonShow] = useState(false)
     const [deleteButton, setDeleteButton] = useState(false)
@@ -15,6 +17,10 @@ const Comment = (props) => {
     const getInput = e => { setEditionComment({ ...editionComment, message: e.target.value }) }
 
     // let imComment = props.commentsUserArray.some(commentId =>commentId === String(props.comment._id))
+
+    let checkUserOwnerComment = commentsUserArray.some( commentId => commentId === _id)
+
+    console.log(checkUserOwnerComment)
 
     const sendEditComment = async () => {
         const response = await editComment(idTask, editionComment)
@@ -32,6 +38,8 @@ const Comment = (props) => {
 
             <div className="nameButtons">
                 <span className="userNameComment">{userCompleteName}</span>
+                {/* {props.userLogged.email === props.comment.userId.email && */}
+
                 {props.userLogged.email === props.comment.userId.email &&
                     <div className="buttonsCommentsDelete">
                         <span onClick={() => setEditButtonShow(!editButtonShow)} className="material-icons-outlined iconoTaskPlanner">edit</span>
@@ -57,6 +65,8 @@ const Comment = (props) => {
 const mapStateToProps = state => {
     return {
         userLogged: state.authReducer.userLogged,
+        commentsUserArray: state.authReducer.commentsUserArray
+
     }
 }
 

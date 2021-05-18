@@ -8,7 +8,7 @@ import Modal from 'react-modal';
 
 
 const Task = (props) => {
-    const { task, allTasks, setAllTasks, editTask, deleteTask } = props
+    const { task, allTasks, setAllTasks, editTask, deleteTask, commentsUserArray } = props
     const { _id, title, verify } = task
 
     const [loading, setLoanding] = useState(true)
@@ -18,6 +18,8 @@ const Task = (props) => {
     const [editionTask, setEditionTask] = useState({ title, verify })
 
     const [editButton, setEditButton] = useState(false)
+
+   
 
     // const [loading, setLoading] = useState(true)
 
@@ -73,7 +75,7 @@ const Task = (props) => {
             <div className="contenedorTask" style={{ backgroundColor: verify ? 'lightgreen' : 'white' }}>
                 <div>
                     <div className="taskInfo">
-                        {editionTask.verify ? <span class="material-icons-outlined iconoTaskPlanner" onClick={loading ? () => verifyTask(false) : null}>check_box</span> : <span className="material-icons-outlined iconoTaskPlanner" onClick={loading ? () => verifyTask(true) : null}>check_box_outline_blank</span>}
+                        {task.verify ? <span class="material-icons-outlined iconoTaskPlanner" onClick={loading ? () => verifyTask(false) : null}>check_box</span> : <span className="material-icons-outlined iconoTaskPlanner" onClick={loading ? () => verifyTask(true) : null}>check_box_outline_blank</span>}
                         <span onClick={() => setShow(true)} className="taskTitle" style={{ display: editButton ? 'none' : 'block' }}>{title}</span>
                         <div className="contenedorInputEditTask" style={{ display: editButton ? 'flex' : 'none' }}>
                             <input className="inputEditTask" type="text" onChange={getInput} value={editionTask.title}></input><span onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }} class="material-icons-outlined iconoTaskPlanner">send</span>
