@@ -53,7 +53,13 @@ const SignIn = (props) => {
     // }
 
     return (
-        <div className={`contenedorLogIn ${props.buttonanimation === true ? 'loginAnimation': props.buttonanimation === false && 'loginAnimation2' }`}>
+        <div 
+        className={
+            `contenedorLogIn 
+            ${props.buttonanimation === true? 'loginAnimation': props.buttonanimation === false&& 'loginAnimation2'}
+            ${props.buttonSign ? 'responsiveAnimationIn':  'responsiveAnimationIn2'}
+            
+            `}>
             {/* <div className="contenedorHeroLogIn">
                 <div className="logoFooter">
                     <div className="desklyLogo" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/desklylogo.png')" }}></div>

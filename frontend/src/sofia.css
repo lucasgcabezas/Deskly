@@ -52,7 +52,8 @@ html *{
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    width: 100%;
+    width: 50vw;
+    max-width: 50vw;
     height: 100vh;
     position: absolute;
     top: -70px;
@@ -364,7 +365,7 @@ footer{
     border-radius: 10px;
     margin-bottom: 1vh;
     border: none;
-    padding: 3vh 2vw;
+    padding: 2vh 2vw;
     display: flex;
     align-items: center;
     width: 25vw;
@@ -521,20 +522,14 @@ input:focus{
     flex-direction: column;
     position: relative;
     white-space: normal;
+    overflow: hidden;
 }
 .contenedorOptionsHeader{
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
-/* .progress-done{ */
-    /* width: 100%;
-    height: 10vh;
-    background-color: var(--first-color); */
-        /* background: linear-gradient(to left, #F2709C, #FF9472);
-        box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
-        border-radius: 20px;
-        color: #fff; */
+
 .noMembers p{
     color: var(--fourth-color);
     text-align: center;
@@ -609,9 +604,15 @@ input:focus{
     color: var(--fourth-color);
     text-align: end;
 }
+.iconoTaskPlannerDelete{
+    position: absolute;
+    right: .3vw;
+    top: 1vh;
+}
 .iconoClose{
     font-size: 1.2em;
     cursor: pointer;
+
 }
 .headerTaskPlanner{
     display: flex;
@@ -619,6 +620,7 @@ input:focus{
     justify-content: space-between;
     height: auto;
     margin-bottom: 1vh;
+    width: 95%;
 }
 .headerTaskPlanner h3{
     color: var(--fourth-color);
@@ -816,7 +818,7 @@ input:focus{
     justify-content: space-between;
     border-bottom: 2px solid var(--first-color);
     margin-bottom: 1vh;
-    transition: 1s;
+    /* transition: 1s; */
 }
 .ventanaUser h3{
     color: var(--fourth-color);
@@ -836,8 +838,8 @@ input:focus{
     align-items: center;
     position: absolute !important;
     border-radius: 2px;
-    top: 16vh;
-    right: 16vw;
+    top: 19vh;
+    right: 6vw;
     min-width: 20vw;
     background-color: white;
     padding: 2vh 1vw;
