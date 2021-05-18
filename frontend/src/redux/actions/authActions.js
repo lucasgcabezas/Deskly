@@ -24,7 +24,7 @@ const authActions = {
                     desklyAlert('Error', response.data.error, 'danger')
                 } else {
                     dispatch({ type: 'LOG_USER', payload: response.data })
-                    desklyAlert(response.data.response.firstName,`Bienvenido a Deskly!`, 'success')
+                    desklyAlert(response.data.response.firstName,`Welcome to Deskly!`, 'success')
                 }
             } catch (error){
                 console.log(error)
