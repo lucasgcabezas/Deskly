@@ -11,6 +11,8 @@ const TaskPlanner = (props) => {
     const [loading, setLoading] = useState(true)
     const [editTitle, setEditTitle] = useState(true)
     const [progress, setProgress] = useState([])
+    const [deleteButton, setDeleteButton] = useState(false)
+
 
     useEffect(() => {
         fetchAllTasks()
@@ -53,12 +55,19 @@ const TaskPlanner = (props) => {
     return (
         <div className="taskPlanner" style={{ display: props.taskplanner.archived ? "none" : "inline-block" }}>
             <div className="taskPlannerList">
+                <div style={{ display: deleteButton ? 'flex' : 'none' }} className="deleteTaskPlannerModal">
+                    <span>Are you sure you want to delete this comment? This cannot be undone.</span>
+                    <div className="deleteButtonsModalTaskPlanner">
+                        <button onClick={() => props.erase(props.taskplanner._id)}>Confirm</button>
+                        <button onClick={() => setDeleteButton(false)}>Cancel</button>
+                    </div>
+                </div>
                 <div className="contenedorOptionsHeader">
-                    <progress className="progress-done" value={progress.length} max={allTasks.length}></progress>
-                    <span onClick={() => props.erase(props.taskplanner._id)} className="material-icons-outlined iconoTaskPlanner">delete</span>
+                    {/* <progress className="progress-done" value={progress.length} max={allTasks.length}></progress> */}
                 </div>
 
                 <div className="headerTaskPlanner">
+                    <span onClick={() => setDeleteButton(true)} className="material-icons-outlined iconoTaskPlanner iconoTaskPlannerDelete" >delete</span>
                     {editTitle && <h3 style={{ cursor: (props.imOwner || props.imAdmin) && 'pointer' }} onClick={(props.imOwner || props.imAdmin) ? (() => { setEditTitle(!editTitle); setNewTitle(props.taskplanner.title) }) : null}>{props.taskplanner.title}</h3>}
                     {!editTitle &&
                         <>
@@ -95,7 +104,6 @@ const TaskPlanner = (props) => {
                     }
                 </>
             </div>
-
         </div>
     )
 }

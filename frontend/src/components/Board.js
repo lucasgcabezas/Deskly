@@ -141,7 +141,7 @@ const Board = (props) => {
     const editBoard = async () => {
         const response = await props.editBoard(board._id, updateInput, props.userLogged.token)
         setBoard(response)
-        setUpdate(false)
+        setUpdate(true)
     }
     const usersFetch = async () => {
         const users = await props.getUsersFromBoard(idParams)
@@ -196,15 +196,17 @@ const Board = (props) => {
                     </div>
                     <div className="contenedorMenuBoard">
                         <div className="contenedorInfoOwner">
-                            {(imAdmin || imOwner) && <button className="buttonOptionsBoard" onClick={() => setOpenInvite(!openInvite)}><span className="material-icons-outlined iconoBoard">add</span>Invite</button>}
                             {/* {(imAdmin || imOwner) && <button className="buttonOptionsBoard" onClick={() => setOpenArchive(!openArchive)}><span className="material-icons-outlined iconoBoard">add</span>Archive</button>} */}
 
                             {
                                 imOwner &&
                                 <>
+                                    <button className="buttonOptionsBoard" onClick={deleteBoard}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
                                     {
                                         openInvite &&
                                         <div className="inviteUsersVentana">
+                                            <span onClick={() => setOpenInvite(false)} className="material-icons-outlined closeGeneric">close</span>
+
                                             <h3>Invite a new member to the board</h3>
                                             <div className="contenedorInputInvite">
                                                 <input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off" />
@@ -212,9 +214,9 @@ const Board = (props) => {
                                             </div>
                                         </div>
                                     }
-                                    <button className="buttonOptionsBoard" onClick={deleteBoard}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
                                 </>
                             }
+                            {(imAdmin || imOwner) && <button className="buttonOptionsBoard" onClick={() => setOpenInvite(!openInvite)}><span className="material-icons-outlined iconoBoard">add</span>Invite</button>}
                             {/* {
                                 openArchive &&
                                 <div className="inviteUsersVentana"  >
@@ -228,18 +230,20 @@ const Board = (props) => {
                         </div>
                         {imOwner &&
                             <div className="ventanaUser" style={{ visibility: visible ? 'visible' : 'hidden' }} >
+                                <span onClick={() => setVisible(false)} className="material-icons-outlined closeGeneric">close</span>
+
                                 {
                                     boardUsers.length === 1
-                                    ? <div className="noMembers">
-                                        <p>There are no members yet</p>    
-                                    </div>
-                                    :boardUsers.map((user, i) => {
-                                        if (i) {
-                                            return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} visible={visible} setVisible={setVisible} />
-                                        } else {
-                                            return null
-                                        }
-                                    })
+                                        ? <div className="noMembers">
+                                            <p>There are no members yet</p>
+                                        </div>
+                                        : boardUsers.map((user, i) => {
+                                            if (i) {
+                                                return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} visible={visible} setVisible={setVisible} />
+                                            } else {
+                                                return null
+                                            }
+                                        })
                                 }
                             </div>
                         }

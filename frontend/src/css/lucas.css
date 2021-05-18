@@ -61,7 +61,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: .3s;
-    z-index: 1;
+    z-index: 10;
 }
 
 .lateralMenuClose .menuLateralInfo{
@@ -264,7 +264,7 @@ body {
     width: 18vw;
     transition: .5s;
     /* border-left: solid 5px var(--fourth-color); */
-    z-index: 1;
+    z-index: 10;
 }
 
 .notificationPanelOpen .notificationsHeader {
@@ -785,15 +785,19 @@ body {
 }
 .commentTask{
     border: solid 2px var(--first-color);
-    padding: .7vh .3vw;
+    padding: .7vh .5vw;
     margin: .5vh 0;
     border-radius: 10px;
     margin-right: 1vw;
+    position: relative;
+    overflow: hidden;
 }
+
 .commentTask div{
     display: flex;
     align-items: center;
 }
+
 .userNameComment{
     font-size: .9rem;
     font-weight: bold;
@@ -812,6 +816,135 @@ body {
     visibility: hidden;
 }
 
+.deleteTaskPlannerModal{
+    background-color: var(--first-color);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 8;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vh 1vw;
+
+}
+
+.deleteTaskPlannerModal span{
+    color: white;
+    font-size: .8rem;
+}
+
+.deleteButtonsModalTaskPlanner{
+    display: flex;
+    /* background-color: white; */
+    justify-content: space-around;
+    margin-top: 3vh;
+    width: 80%;
+}
+
+.deleteButtonsModalTaskPlanner button{
+    background-color: var(--first-color);
+    border: white solid 1px;
+    padding: .6vh .7vw;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+}
+
+.deleteButtonsModalTaskPlanner button:hover{
+    background-color: white;
+    border: solid 1px var(--first-color);
+    color: var(--first-color);
+}
+
+
+
+.nameButtons{
+    /* background-color: yellow; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttonsCommentsDelete{
+    /* background-color: red; */
+    width: 8%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.editCommentDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.editAreaComment{
+    width: 100%;
+    height: 7vh;
+    resize: none;
+    background-color: #eeeeee;
+    border-radius: 5px;
+    border: none;
+    padding: .5vh .5vw;
+    margin-bottom: .5vh;
+}
+
+.confirmEditComment{
+    width: 15%;
+    background-color: var(--first-color);
+    border: white solid 1px;
+    padding: .6vh .7vw;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+}
+
+.confirmEditComment:hover{
+    background-color: white;
+    border: solid 1px var(--first-color);
+    color: var(--first-color);
+}
+
+.deleteCommentModal{
+    position: absolute;
+    background-color: var(--first-color);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1vw;
+}
+
+.deleteCommentModal span{
+    color: white;
+    font-size: .9rem;
+}
+
+.deleteButtonsModal{
+    width: 25%;
+    justify-content: space-around;
+}
+
+.deleteButtonsModal button{
+    background-color: var(--first-color);
+    border: white solid 1px;
+    padding: .6vh .7vw;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+}
+
+.deleteButtonsModal button:hover{
+    background-color: white;
+    border: solid 1px var(--first-color);
+    color: var(--first-color);
+}
 
 
 
@@ -951,7 +1084,14 @@ body {
 }
 
 
-
+.closeGeneric{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.5rem;
+    color: var(--fourth-color);
+    cursor: pointer;
+}
 
 
 
@@ -977,6 +1117,60 @@ body {
 
 
 @media (max-width: 1024px) {
+
+
+    .newBoard{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 60vw;
+        height: 45vh;
+        background-color: var(--first-color);
+        padding: 3vh 0;
+        border-radius: 5px;
+        /* border: solid 1px black; */
+    }
+    
+    .newBoard input {
+        padding: 1vh 1vw;
+        width: 85%;
+        border-radius: 3px;
+        border: none;
+        background-color: #eeeeee;
+        
+    }
+    
+    .newBoard textarea {
+        border-radius: 3px;
+        padding: 1vh 1vw;
+        width: 85%;
+        height: 30%;
+        resize: none;
+        border: none;
+        background-color: #eeeeee;
+    }
+    
+    .newBoard button {
+        width: 50%;
+        height: 15%;
+        border: none;
+        background-color: var(--fourth-color);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .newBoard button:hover {
+        color: var(--fourth-color);
+        background-color: var(--fifth-color);
+    }
+
+
+
+
+
 
     .lateralMenuClose{
         width: 0;
@@ -1369,6 +1563,89 @@ body {
         font-size: 1.6rem;
     }
 
+
+    
+
+.ModalTaskComponent {
+    position: absolute;
+    width: 80vw;
+    height: 90vh;
+    top: 5vh;
+    left: auto;
+    right: 10%;
+    bottom: auto;
+    /* background-color: white; */
+}
+
+.OverlayModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000099;
+  }
+  
+  
+.modal{
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 1vh 1vw;
+}
+.modal:focus{
+    outline: none;
+}
+.modal h3{
+    color: var(--fourth-color);
+}
+.closeModalTask{
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    font-size: 2rem;
+    color: var(--fourth-color);
+}
+
+.taskModalHeader{
+    /* background-color: var(--first-color); */
+    width: 100%;
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.taskModalHeader h3{
+    font-size: 1.8rem;
+    color: var(--first-color);
+}
+
+.taskModalDescriptionContainer{
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+}
+.taskModalDescriptionContainer h3{
+    color: var(--fourth-color);
+    margin-bottom: 1vh;
+}
+
+.taskModalDescriptionContainer textarea {
+    width: 100%;
+    height: 10vh;
+    resize: none;
+    background-color: #eeeeee;
+    padding: 1vh .5vw;
+    border-radius: 5px;
+    border: none;
+}
 }
     
 
@@ -1411,11 +1688,144 @@ body {
         /* color: var(--fourth-color); */
         font-size: .8rem;
         font-weight: bold;
-
+    }
+    
+    .deleteCommentModal{
+        position: absolute;
+        background-color: var(--first-color);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1vw;
     }
 }
 
 @media (max-width: 599px) {
+    .deleteButtonsModal{
+        width: 45%;
+        justify-content: space-around;
+    }
+    
+    
+
+    .ModalTaskComponent {
+        position: absolute;
+        width: 90vw;
+        height: 90vh;
+        top: 5vh;
+        left: auto;
+        right: 5%;
+        bottom: auto;
+        /* background-color: white; */
+    }
+
+    .OverlayModal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #00000099;
+    }
+    
+    
+    .modal{
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        border-radius: 5px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 1vh 1vw;
+    }
+
+    .commentTask{
+        border: solid 2px var(--first-color);
+        padding: .7vh 1.7vw;
+        margin: .5vh 0;
+        border-radius: 10px;
+        margin-right: 1vw;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .commentTask div{
+        display: flex;
+        align-items: center;
+    }
+    
+    .userNameComment{
+        font-size: .9rem;
+        font-weight: bold;
+    }
+    
+    .userCommentText{
+        font-size: .85rem;
+    }
+    
+    .closeLateralMenu{
+        /* display: none; */
+        position: absolute;
+        right: 0;
+        font-size: 1.8rem;
+        color: #ffffffaa;
+        visibility: hidden;
+    }
+
+    .newBoard{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 75vw;
+        height: 50vh;
+        background-color: var(--first-color);
+        padding: 3vh 0;
+        border-radius: 5px;
+        /* border: solid 1px black; */
+    }
+    
+    .newBoard input {
+        padding: 1vh 1vw;
+        width: 85%;
+        border-radius: 3px;
+        border: none;
+        background-color: #eeeeee;
+        
+    }
+    
+    .newBoard textarea {
+        border-radius: 3px;
+        padding: 1vh 1vw;
+        width: 85%;
+        height: 30%;
+        resize: none;
+        border: none;
+        background-color: #eeeeee;
+    }
+    
+    .newBoard button {
+        width: 50%;
+        height: 15%;
+        border: none;
+        background-color: var(--fourth-color);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .newBoard button:hover {
+        color: var(--fourth-color);
+        background-color: var(--fifth-color);
+    }
+
+
     .infoRegister1 ,
     .infoRegister2 {
         margin-left: 15vw;
@@ -1758,6 +2168,13 @@ body {
 }
 
 
+.deleteCommentModal span{
+    color: white;
+    font-size: .7rem;
+}
+
+
+
 
 
 
@@ -1769,6 +2186,71 @@ body {
 }
 
 @media (max-width: 400px) {
+
+    .deleteButtonsModal{
+        width: 50%;
+        justify-content: space-around;
+    }
+
+    .commentTask{
+        border: solid 2px var(--first-color);
+        padding: .7vh 2.8vw;
+        margin: .5vh 0;
+        border-radius: 10px;
+        margin-right: 1vw;
+        position: relative;
+        overflow: hidden;
+    }
+
+
+    .newBoard{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 95vw;
+        height: 50vh;
+        background-color: var(--first-color);
+        padding: 3vh 0;
+        border-radius: 5px;
+        /* border: solid 1px black; */
+    }
+    
+    .newBoard input {
+        padding: 1vh 1vw;
+        width: 95%;
+        border-radius: 3px;
+        border: none;
+        background-color: #eeeeee;
+        
+    }
+    
+    .newBoard textarea {
+        border-radius: 3px;
+        padding: 1vh 1vw;
+        width: 95%;
+        height: 30%;
+        resize: none;
+        border: none;
+        background-color: #eeeeee;
+    }
+    
+    .newBoard button {
+        width: 80%;
+        height: 15%;
+        border: none;
+        background-color: var(--fourth-color);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .newBoard button:hover {
+        color: var(--fourth-color);
+        background-color: var(--fifth-color);
+    }
+
     .contenedorLogIn{
         display: flex;
         width: 95%;
@@ -1903,10 +2385,6 @@ body {
         transition: 1s;
 
     }
-
-
-    
-    
 }
 
 
