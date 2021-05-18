@@ -192,7 +192,8 @@ const Board = (props) => {
                 <div className="contenedorInfoBoard">
                     <div className="boardMarca">
                         <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
-                        {update && <h2 className="logoLink" onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title }) }}>{board.title}</h2>}
+                        {update && <h2 className="logoLink" style={{ cursor: `${imOwner ? 'pointer' : ''}` }} onClick={imOwner ? (() => { setUpdate(!update); setUpdateInput({ title: board.title }) }) : null}>{board.title}</h2>}
+                        {/* {update && <h2 className="logoLink" onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title }) }}>{board.title}</h2>} */}
                         {!update &&
                             <div className="updateTitle">
                                 <div className="contenedorInputEditTitleBoard">
