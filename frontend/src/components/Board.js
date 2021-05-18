@@ -11,6 +11,7 @@ import LateralMenu from './LateralMenu'
 import { store } from 'react-notifications-component'
 import Archive from "./Archive"
 
+import Modal from 'react-modal'
 
 const Board = (props) => {
     const { boards, inviteUserToBoard, userLogged } = props
@@ -29,6 +30,7 @@ const Board = (props) => {
     const [admins, setAdmins] = useState([])
     const [loading, setLoading] = useState(true)
     const [menuLateral, setMenuLateral] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
 
     let userFirstName;
     let userLastName;
@@ -172,7 +174,7 @@ const Board = (props) => {
         <>
             <div className="contenedorBoard">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#f9d85f" fill-opacity="1" d="M0,96L60,96C120,96,240,96,360,117.3C480,139,600,181,720,186.7C840,192,960,160,1080,160C1200,160,1320,192,1380,208L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+                    <path fill="#f9d85f" fillOpacity="1" d="M0,96L60,96C120,96,240,96,360,117.3C480,139,600,181,720,186.7C840,192,960,160,1080,160C1200,160,1320,192,1380,208L1440,224L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
                 </svg>
                 <LateralMenu setMenuLateral={setMenuLateral} menuLateral={menuLateral} />
                 <div className="contenedorInfoBoard">
@@ -220,8 +222,33 @@ const Board = (props) => {
                                     {/* <input className="inputBoard" type="text" name="description" value={updateInput.description} onChange={readUpdateInput} /> */}
                                     {/* <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
                                         < */}
-                                    <button className="buttonOptionsBoard" onClick={deleteBoard}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
+                                    <button className="buttonOptionsBoard" onClick={()=>setOpenModal(!openModal)}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
+                                    {
+                                        openModal && 
+                                        
+                                        <Modal
+                                            isOpen={openModal}
+                                            // onAfterOpen={afterOpenModal}
+                                            onRequestClose={() => setOpenModal(!openModal)}
+                                            // style={customStyles}
+                                            contentLabel="Example Modal"
+                                            className="ModalTaskComponent"
+                                            overlayClassName="OverlayModal"
+                                        >
+                                            <div className='modal modalBoard '>
+                                                <div className='taskModalHeader textModalBoard'>
+                                                    <span className="material-icons-outlined warningIcon">warning</span>
+                                                    <h3>Are you sure?</h3>
+                                                    <h3>You won't be able to revert this!</h3>                                            
+                                                </div>
+                                                <div className='contentModalButtons'>
+                                                    <button className="buttonOptionsBoard modalBoardButtons" onClick={deleteBoard}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
+                                                    <button className="buttonOptionsBoard modalBoardButtons" onClick={()=>setOpenModal(!openModal)}><span className="material-icons-outlined iconoBoard">cancel</span>Cancel</button>
+                                                </div>
+                                            </div>
 
+                                        </Modal>
+                                    }
 
                                     
                                 </>
@@ -288,7 +315,7 @@ const Board = (props) => {
                 </div>
                 <div className="imgBoard" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/laptop-1.png')" }}></div>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="svgWaveRosa">
-                    <path fill="#ec9acf" fill-opacity="1" d="M0,160L21.8,170.7C43.6,181,87,203,131,186.7C174.5,171,218,117,262,106.7C305.5,96,349,128,393,160C436.4,192,480,224,524,234.7C567.3,245,611,235,655,229.3C698.2,224,742,224,785,218.7C829.1,213,873,203,916,208C960,213,1004,235,1047,256C1090.9,277,1135,299,1178,277.3C1221.8,256,1265,192,1309,154.7C1352.7,117,1396,107,1418,101.3L1440,96L1440,320L1418.2,320C1396.4,320,1353,320,1309,320C1265.5,320,1222,320,1178,320C1134.5,320,1091,320,1047,320C1003.6,320,960,320,916,320C872.7,320,829,320,785,320C741.8,320,698,320,655,320C610.9,320,567,320,524,320C480,320,436,320,393,320C349.1,320,305,320,262,320C218.2,320,175,320,131,320C87.3,320,44,320,22,320L0,320Z"></path>
+                    <path fill="#ec9acf" fillOpacity="1" d="M0,160L21.8,170.7C43.6,181,87,203,131,186.7C174.5,171,218,117,262,106.7C305.5,96,349,128,393,160C436.4,192,480,224,524,234.7C567.3,245,611,235,655,229.3C698.2,224,742,224,785,218.7C829.1,213,873,203,916,208C960,213,1004,235,1047,256C1090.9,277,1135,299,1178,277.3C1221.8,256,1265,192,1309,154.7C1352.7,117,1396,107,1418,101.3L1440,96L1440,320L1418.2,320C1396.4,320,1353,320,1309,320C1265.5,320,1222,320,1178,320C1134.5,320,1091,320,1047,320C1003.6,320,960,320,916,320C872.7,320,829,320,785,320C741.8,320,698,320,655,320C610.9,320,567,320,524,320C480,320,436,320,393,320C349.1,320,305,320,262,320C218.2,320,175,320,131,320C87.3,320,44,320,22,320L0,320Z"></path>
                 </svg>
             </div >
 

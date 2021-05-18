@@ -17,7 +17,7 @@ const Header = (props) => {
             </>}    
             
             <NotificationsPanel />
-            <div class="semicirculo"></div>
+            <div className="semicirculo"></div>
         </div>
     )
 }

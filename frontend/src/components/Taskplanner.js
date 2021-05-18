@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import taskActions from "../redux/actions/taskActions"
 import { connect } from "react-redux"
 import Task from "./Task"
-import Progress from "./Progress"
 import { IoSend } from 'react-icons/io5'
 
 const TaskPlanner = (props) => {
@@ -13,7 +12,6 @@ const TaskPlanner = (props) => {
     const [newTask, setNewTask] = useState('')
     const [loading, setLoading] = useState(true)
     const [editTitle, setEditTitle] = useState(true)
-    const [done, setDone] = useState(null)
     const [progress, setProgress] = useState([])
 
     useEffect(() => {
@@ -27,8 +25,11 @@ const TaskPlanner = (props) => {
 
     const fetchAllTasks = async () => {
         const response = await props.tasksFromTaskplanner(props.taskplanner._id)
-        const tasksProgress = response.filter(task => task.verify)
-        setDone(tasksProgress.length ? (tasksProgress.length * 100) / response.length : 0)
+        var tasksProgress;
+        if(response){
+            tasksProgress = response.filter(task => task.verify)
+            setProgress(tasksProgress)
+        }
         setAllTasks(response)
         setPreloader(false)
     }
@@ -57,7 +58,7 @@ const TaskPlanner = (props) => {
         <div className="taskPlanner" style={{ display: props.taskplanner.archived ? "none" : "inline-block" }}>
             <div className="taskPlannerList">
                 <span onClick={() => props.erase(props.taskplanner._id)} className="material-icons-outlined iconoTaskPlanner">delete</span>
-                <progress className="progressBar" value={progress.length} max={allTasks.length}></progress>
+                <progress className="progress-done" value={progress.length} max={allTasks.length}></progress>
 
                 <div className="headerTaskPlanner">
                     {editTitle && <h3 style={{ cursor: (props.imOwner || props.imAdmin) && 'pointer' }} onClick={(props.imOwner || props.imAdmin) ? (() => { setEditTitle(!editTitle); setNewTitle(props.taskplanner.title) }) : null}>{props.taskplanner.title}</h3>}
@@ -88,9 +89,9 @@ const TaskPlanner = (props) => {
                     {
                         !open &&
                         <div className="contenedorAddList">
-                            <input className="inputAddTask" onKeyDown={loading && ((e) => enter(e, 'task'))} type="text" placeholder="Introduce a title for the new task" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
+                            <input className="inputAddTask" onKeyDown={loading ? ((e) => enter(e, 'task')) : null} type="text" placeholder="Introduce a title for the new task" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
                             <div>
-                                <button className="buttonAddList" onClick={loading && sendValues}>Add new task</button>
+                                <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new task</button>
                                 <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>
                             </div>
                         </div>
