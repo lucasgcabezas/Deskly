@@ -17,15 +17,15 @@ const Board = (props) => {
     const { boards, inviteUserToBoard, userLogged } = props
     const [allTasksPlanner, setAllTasksPlanner] = useState([])
     const [filterTaskplanners, setFilterTaskplanners] = useState([])
-    const [open, setOpen] = useState(true)
-    const [update, setUpdate] = useState(true)
+    const [open, setOpen] = useState(false)
+    const [update, setUpdate] = useState(false)
     const [newTitle, setNewTitle] = useState('')
     const [newInvite, setNewInvite] = useState('')
     const idParams = props.match.params.id
     const [board, setBoard] = useState({})
     const [updateInput, setUpdateInput] = useState()
     const [openInvite, setOpenInvite] = useState(false)
-    const [openArchive,setOpenArchive] = useState(false)
+    const [openArchive, setOpenArchive] = useState(false)
     const [boardUsers, setBoardUsers] = useState([])
     const [admins, setAdmins] = useState([])
     const [loading, setLoading] = useState(true)
@@ -69,7 +69,7 @@ const Board = (props) => {
 
     const tasksFetch = async () => {
         const tasks = await props.getTaskPlannerFromBoard(idParams)
-        if(tasks){
+        if (tasks) {
             setAllTasksPlanner(tasks)
         }
 
@@ -92,7 +92,7 @@ const Board = (props) => {
             sendValues()
         } else if (e.key === 'Enter' && condition === 'invite') {
             addUser()
-        } else if(e.key === 'Enter' && condition === 'titleBoard'){
+        } else if (e.key === 'Enter' && condition === 'titleBoard') {
             editBoard()
         }
     }
@@ -107,7 +107,7 @@ const Board = (props) => {
                 setOpen(!open)
                 setNewTitle('')
                 setLoading(true)
-               }
+            }
         }
     }
 
@@ -157,6 +157,7 @@ const Board = (props) => {
         setBoardUsers(users)
         setAdmins(admins)
     }
+
     const userAdmin = async (email) => {
         const admins = await props.userAdmin(email, idParams)
         setAdmins(admins)
@@ -164,19 +165,16 @@ const Board = (props) => {
     }
 
     const archive = async (idTaskPlanner) => {
-        await props.recycleTaskPlanner(idTaskPlanner, {archived:true})
+        await props.recycleTaskPlanner(idTaskPlanner, { archived: true })
         tasksFetch()
     }
 
+    // const progressBar = async (allTasks) => {
+    //     const task = await props.tasksFromTaskplanner(id)
+    //     // console.log(task)
+    // }
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === String(board._id))
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === String(board._id))
-
-    const [visible, setVisible] = useState(false)
-
-    const usersVisible = () => {
-        setVisible(!visible)
-    }
-
     return (
         <>
             <div className="contenedorBoard">
@@ -210,89 +208,81 @@ const Board = (props) => {
                             {
                                 imOwner &&
                                 <>
-                                    {/* {open && <button className="buttonTaskPlanner" onClick={() => setOpen(!open)}><span class="material-icons-outlined iconoAddList">add</span>Add new list</button>}
-                                    {
-                                        !open &&
-                                        <div className="contenedorAddList">
-                                            <input className="inputAddList" onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" placeholder="Introduce a title for the new list" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                                            <div>
-                                                <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new list</button>
-                                                <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>
-                                            </div>
-                                        </div>
-                                    } */}
-                                    {/* {update && <button className="buttonOptionsBoard"><span className="material-icons-outlined iconoBoard">edit</span>Edit</button>}
-                                    {!update &&
+                                    <button className="buttonOptionsBoard" onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title, description: board.description }) }}><span className="material-icons-outlined iconoBoard">edit</span>{update ? 'Cancel' : 'Edit'}</button>
+                                    {update &&
                                         <>
                                             <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
                                             {/* , description: board.description */}
-                                    {/* <input className="inputBoard" type="text" name="description" value={updateInput.description} onChange={readUpdateInput} /> */}
-                                    {/* <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
+                                            {/* <input className="inputBoard" type="text" name="description" value={updateInput.description} onChange={readUpdateInput} /> */}
+                                            {/* <button className="buttonOptionsBoard" onClick={editBoard}>Send</button>
                                         < */}
-                                    <button className="buttonOptionsBoard" onClick={()=>setOpenModal(!openModal)}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
-                                    {
-                                        openModal && 
-                                        
-                                        <Modal
-                                            isOpen={openModal}
-                                            // onAfterOpen={afterOpenModal}
-                                            onRequestClose={() => setOpenModal(!openModal)}
-                                            // style={customStyles}
-                                            contentLabel="Example Modal"
-                                            className="ModalTaskComponent"
-                                            overlayClassName="OverlayModal"
-                                        >
-                                            <div className='modal modalBoard '>
-                                                <div className='taskModalHeader textModalBoard'>
-                                                    <span className="material-icons-outlined warningIcon">warning</span>
-                                                    <h3>Are you sure?</h3>
-                                                    <h3>You won't be able to revert this!</h3>                                            
-                                                </div>
-                                                <div className='contentModalButtons'>
-                                                    <button className="buttonOptionsBoard modalBoardButtons" onClick={deleteBoard}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
-                                                    <button className="buttonOptionsBoard modalBoardButtons" onClick={()=>setOpenModal(!openModal)}><span className="material-icons-outlined iconoBoard">cancel</span>Cancel</button>
-                                                </div>
-                                            </div>
+                                            <button className="buttonOptionsBoard" onClick={() => setOpenModal(!openModal)}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
+                                            {
+                                                openModal &&
 
-                                        </Modal>
+                                                <Modal
+                                                    isOpen={openModal}
+                                                    // onAfterOpen={afterOpenModal}
+                                                    onRequestClose={() => setOpenModal(!openModal)}
+                                                    // style={customStyles}
+                                                    contentLabel="Example Modal"
+                                                    className="ModalTaskComponent"
+                                                    overlayClassName="OverlayModal"
+                                                >
+                                                    <div className='modal modalBoard '>
+                                                        <div className='taskModalHeader textModalBoard'>
+                                                            <span className="material-icons-outlined warningIcon">warning</span>
+                                                            <h3>Are you sure?</h3>
+                                                            <h3>You won't be able to revert this!</h3>
+                                                        </div>
+                                                        <div className='contentModalButtons'>
+                                                            <button className="buttonOptionsBoard modalBoardButtons" onClick={deleteBoard}><span className="material-icons-outlined iconoBoard">delete</span>Delete</button>
+                                                            <button className="buttonOptionsBoard modalBoardButtons" onClick={() => setOpenModal(!openModal)}><span className="material-icons-outlined iconoBoard">cancel</span>Cancel</button>
+                                                        </div>
+                                                    </div>
+
+                                                </Modal>
+                                            }
+
+
+                                        </>
                                     }
-
-                                    
-                                </>
-                            }
-                            {
-                                openInvite &&
-                                <div className="inviteUsersVentana">
-                                    <h3>Invite a new member to the board</h3>
-                                    <div>
-                                        <span><input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off" /></span>
-                                        <button className="buttonUserInvite" onClick={addUser}>send</button>
-                                    </div>
-                                </div>
-                            }
-                                {/* {
-                                openArchive &&
+                                    {
+                                        openInvite &&
+                                        <div className="inviteUsersVentana">
+                                            <h3>Invite a new member to the board</h3>
+                                            <div>
+                                                <span><input onKeyDown={(e) => newInvite.trim() ? enter(e, 'invite') : null} type="text" placeholder="email@example.com" value={newInvite} onChange={(e) => setNewInvite(e.target.value)} autoComplete="off" /></span>
+                                                <button className="buttonUserInvite" onClick={addUser}>send</button>
+                                            </div>
+                                        </div>
+                                    }
+                                    {/* {openArchive &&
                                 <div className="inviteUsersVentana"  >
                                     <h3>Archived taskplanners</h3>
                                     <div  style={{ display: 'flex', margin: '2rem' , flexDirection:"column"}}> <Archive  allTasksPlanner={allTasksPlanner}/></div>
                                 </div>
                             } */}
+                                </>
+                            }
                         </div>
-                        {imOwner &&<> 
-                        <div onClick={usersVisible} className="iconoVisible">
-                            <span class="material-icons-outlined iconoUsers">people_outline</span>
-                        </div>
-                            <div className="ventanaUser" style={{ visibility: visible ? 'visible' : 'hidden' }} >
-                                {
-                                    boardUsers.map((user, i) => {
-                                        if (i) {
-                                            return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} visible={visible} setVisible={setVisible} />
-                                        } else {
-                                            return null
-                                        }
-                                    })
-                                }
-                            </div>
+                        {imOwner &&
+                            <>
+                                <div onClick={usersVisible} className="iconoVisible">
+                                    <span class="material-icons-outlined iconoUsers">people_outline</span>
+                                </div>
+                                <div className="ventanaUser" style={{ visibility: visible ? 'visible' : 'hidden' }} >
+                                    {
+                                        boardUsers.map((user, i) => {
+                                            if (i) {
+                                                return <UserAdmin key={i} admins={admins} idParams={idParams} userAdmin={userAdmin} user={user} />
+                                            } else {
+                                                return null
+                                            }
+                                        })
+
+                                    }
+                                </div>
                             </>
                         }
                     </div>
@@ -300,7 +290,11 @@ const Board = (props) => {
                         <div className="contenedorTaskPlanner">
                             <div className="contenedorTodasTaskPlanners">
                                 {
-                                    allTasksPlanner.map(taskplanner => <TaskPlanner imAdmin={imAdmin} imOwner={imOwner} erase={erase} edit={edit} key={taskplanner._id} setAllTasksPlanner={setAllTasksPlanner} taskplanner={taskplanner} />)
+                                    open &&
+                                    <div>
+                                        <input onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                        <button onClick={loading ? sendValues : null}>Send</button>
+                                    </div>
                                 }
                             </div>
                             {(imOwner || imAdmin) &&

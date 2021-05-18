@@ -856,6 +856,116 @@ input:focus{
     width: 100%;
     border-radius: 5px;
 }
+
+
+@media (max-width: 764px) {
+    .contenedorTaskPlanner{
+        display: flex;
+        flex-direction: column-reverse;
+        margin: 0;
+    }
+    .buttonTaskPlanner{
+        display: flex;
+       margin-bottom: 5vh;
+
+
+    }
+    .contenedorTaskPlanner{
+        margin: 0;
+    }
+  
+    .contenedorTaskPlanners{
+        margin-top: 1vh;
+        margin-left: 0vw;
+        padding-left:0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .contenedorTodasTaskPlanners{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+    .taskPlanner{
+        width: 70vw;
+    }
+    .taskPlannerList{
+        margin: .5rem 0;
+        height: 100%;
+        max-height: 40vh;
+    }
+    h2.logoLink{
+        font-size: 1.8rem;
+    }
+    .contenedorTask{
+        max-width: 90%;
+    }
+    .contenedorMenuBoard{
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+    .contenedorMenuBoard{
+        justify-content: center;
+        justify-content:flex-end;
+    }
+    .contenedorInfoOwner{
+        margin-right: 8rem;
+    }
+    .buttonOptionsBoard{
+        margin: 1rem;
+        color: #545454;
+        background-color: #f9d85f;
+    }
+
+}
+@media (max-width: 562px) {
+    .contenedorTaskPlanner{
+        display: flex;
+        flex-direction: column-reverse;
+        margin: auto;
+    }
+    .contenedorTodasTaskPlanners{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .taskPlanner{
+        width: 80vw;
+    }
+    .overflowAllTask{
+        max-height: 18rem;
+    }
+    .taskPlannerList{
+        margin: .5rem 0;
+    }
+    h2.logoLink{
+        font-size: 1.8rem;
+    }
+    .contenedorTask{
+        max-width: 90%;
+        margin:.5rem auto;
+    }
+    .contenedorAddList{
+        width: 45vw;
+    }
+    .contenedorAddList input{
+        width: 45vw !important;
+    }
+}
+
+/* 
+--first-color: #615ee1;
+--second-color: #f9d85f;
+--third-color:#ec9acf;
+--fourth-color:#545454;
+--fifth-color:#e0e0e0; */
+
+
 /* .board-header-btn:hover {
     color: #fff;
 } */
