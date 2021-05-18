@@ -50,6 +50,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: .5s;
+    z-index: 1;
 }
 
 .lateralMenuOpen{
@@ -60,6 +61,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: .3s;
+    z-index: 10;
 }
 
 .lateralMenuClose .menuLateralInfo{
@@ -237,6 +239,7 @@ body {
     width: 0;
     background-color: var(--fourth-color);
     transition: .3s;
+    z-index: 10;
 }
 
 .notificationPanelClose .notificationsHeader {
@@ -262,6 +265,7 @@ body {
     width: 18vw;
     transition: .5s;
     /* border-left: solid 5px var(--fourth-color); */
+    z-index: 10;
 }
 
 .notificationPanelOpen .notificationsHeader {
@@ -638,11 +642,15 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    /* align-items: center; */
     padding: 1vh 1vw;
 }
-  
+.modal:focus{
+    outline: none;
+}
+.modal h3{
+    /* background-color: ; */
+    color: var(--fourth-color);
+}
 .closeModalTask{
     position: absolute;
     right: 0;
@@ -667,10 +675,13 @@ body {
 }
 
 .taskModalDescriptionContainer{
-    /* background-color: red; */
     height: 20vh;
     display: flex;
     flex-direction: column;
+}
+.taskModalDescriptionContainer h3{
+    color: var(--fourth-color);
+    margin-bottom: 1vh;
 }
 
 .taskModalDescriptionContainer textarea {
@@ -741,7 +752,7 @@ body {
 .taskModalDescriptionContainer button {
     background-color: white;
     padding: .7vh 1vw;
-    border: solid 1px black;
+    border: solid 2px var(--first-color);
     margin-top: 1vh;
     margin-left: 1vw;
     border-radius: 5px;
@@ -750,51 +761,183 @@ body {
 
 
 .commentsSection{
-    /* background-color: violet; */
-    /* height: 70vh; */
     flex-grow: 1;
     max-height: 60%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
-
+.commentsSection::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+.commentsSection::-webkit-scrollbar-thumb {
+    background: #615ee1;
+    border-radius: 10px;
+}
+.commentsSection::-webkit-scrollbar-track{
+    background: #54545467;
+    border-radius: 10px;
+}
 .newCommentSection{
-    /* background-color: yellow; */
+    border-top: 1px solid var(--fourth-color);
     height: 7vh;
     display: flex;
     justify-content: space-between;
     padding: 1vh 1vw;
+    align-items: center;
+}
+.commentTask{
+    border: solid 2px var(--first-color);
+    padding: .7vh .5vw;
+    margin: .5vh 0;
+    border-radius: 10px;
+    margin-right: 1vw;
+    position: relative;
+    overflow: hidden;
 }
 
-.commentTask{
-    border: solid 1px black;
-    padding: .7vh .3vw;
-    margin: .5vh 0;
+.commentTask div{
+    display: flex;
+    align-items: center;
 }
 
 .userNameComment{
     font-size: .9rem;
+    font-weight: bold;
 }
 
 .userCommentText{
     font-size: .85rem;
 }
 
-.progressBar{
-    width: 100%;
-    height: 2vh;
-    color: red;
-   
-}
-
-.closeLateralMenu{
-    /* display: none; */
+.deleteTaskPlannerModal{
+    background-color: var(--first-color);
     position: absolute;
-    right: 0;
-    font-size: 1.8rem;
-    color: #ffffffaa;
-    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    z-index: 8;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vh 1vw;
+
 }
 
+.deleteTaskPlannerModal span{
+    color: white;
+    font-size: .8rem;
+}
+
+.deleteButtonsModalTaskPlanner{
+    display: flex;
+    /* background-color: white; */
+    justify-content: space-around;
+    margin-top: 3vh;
+    width: 80%;
+}
+
+.deleteButtonsModalTaskPlanner button{
+    background-color: var(--first-color);
+    border: white solid 1px;
+    padding: .6vh .7vw;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+}
+
+.deleteButtonsModalTaskPlanner button:hover{
+    background-color: white;
+    border: solid 1px var(--first-color);
+    color: var(--first-color);
+}
+
+
+
+.nameButtons{
+    /* background-color: yellow; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttonsCommentsDelete{
+    /* background-color: red; */
+    width: 8%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.editCommentDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.editAreaComment{
+    width: 100%;
+    height: 7vh;
+    resize: none;
+    background-color: #eeeeee;
+    border-radius: 5px;
+    border: none;
+    padding: .5vh .5vw;
+    margin-bottom: .5vh;
+}
+
+.confirmEditComment{
+    width: 15%;
+    background-color: var(--first-color);
+    border: white solid 1px;
+    padding: .6vh .7vw;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+}
+
+.confirmEditComment:hover{
+    background-color: white;
+    border: solid 1px var(--first-color);
+    color: var(--first-color);
+}
+
+.deleteCommentModal{
+    position: absolute;
+    background-color: var(--first-color);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1vw;
+}
+
+.deleteCommentModal span{
+    color: white;
+    font-size: .9rem;
+}
+
+.deleteButtonsModal{
+    width: 25%;
+    justify-content: space-around;
+}
+
+.deleteButtonsModal button{
+    background-color: var(--first-color);
+    border: white solid 1px;
+    padding: .6vh .7vw;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+}
+
+.deleteButtonsModal button:hover{
+    background-color: white;
+    border: solid 1px var(--first-color);
+    color: var(--first-color);
+}
 
 
 
@@ -934,8 +1077,24 @@ body {
 }
 
 
+.closeGeneric{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.5rem;
+    color: var(--fourth-color);
+    cursor: pointer;
+}
 
-
+.colorOwner{
+    background-color: var(--second-color) !important;
+}
+.colorAdmin{
+    background-color: var(--first-color) !important;
+}
+.colorUser{
+    background-color: var(--third-color) !important;
+}
 
 
 
@@ -962,21 +1121,32 @@ body {
 }
 
 
-.modalBoard, .textModalBoard{
-    display: flex;
-    flex-direction: column;
-}
 
-.textModalBoard h3{
-    color: black;
-    font-size: 3vw;
-}
 
 .modalBoard{
     justify-content: space-around;
     align-items: center;
-    
+    width: 40vw;
+    height: 50vh;
+    margin-top: 20vh;
+    margin-left: 8vw;
+    background-color: var(--first-color);
 }
+
+.modalBoard span{
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.modalBoard button{
+    transform: scale(1.5);
+}
+
+/* .modalBoard .deleteButtonsModalTaskPlanner{
+
+
+} */
 
 .warningIcon{
     color: var(--second-color);
@@ -996,7 +1166,78 @@ body {
 }
 
 
+
+
+.closeLateralMenu{
+    display: none;
+    position: absolute;
+    right: 0;
+    font-size: 1.8rem;
+    color: #ffffffaa;
+    visibility: hidden;
+    z-index: 55;
+}
+
+
+
 @media (max-width: 1024px) {
+
+    
+
+
+
+    .newBoard{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 60vw;
+        height: 45vh;
+        background-color: var(--first-color);
+        padding: 3vh 0;
+        border-radius: 5px;
+        /* border: solid 1px black; */
+    }
+    
+    .newBoard input {
+        padding: 1vh 1vw;
+        width: 85%;
+        border-radius: 3px;
+        border: none;
+        background-color: #eeeeee;
+        
+    }
+    
+    .newBoard textarea {
+        border-radius: 3px;
+        padding: 1vh 1vw;
+        width: 85%;
+        height: 30%;
+        resize: none;
+        border: none;
+        background-color: #eeeeee;
+    }
+    
+    .newBoard button {
+        width: 50%;
+        height: 15%;
+        border: none;
+        background-color: var(--fourth-color);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .newBoard button:hover {
+        color: var(--fourth-color);
+        background-color: var(--fifth-color);
+    }
+
+
+
+
+
 
     .lateralMenuClose{
         width: 0;
@@ -1331,14 +1572,190 @@ body {
     
     .boardsSection{
         display: flex;
-        /* justify-content: center; */
-        flex-wrap: wrap;
-        margin-bottom: 1vh;
+        
     }
+        
+    .contenedorFormularioLogUp h2{
+        color: var(--first-color);
+        font-size: 2em;
+        font-weight: bold;
+        /* margin-top: 15vh; */
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+        max-width: 70%;
+        text-align: center;
+    }
+    .contenedorFormularioLogIn h2{
+        color: var(--first-color);
+        font-size: 2.5em;
+        font-weight: bold;
+        /* margin-top: 15vh; */
+        margin-top: 10vh;
+        margin-bottom: 2vh;
+        max-width: 70%;
+        text-align: center;
+    }
+
+    .buttonEnviar{
+        border: none;
+        border-radius: 40px;
+        background-color: var(--first-color);
+        font-size: 1.5em;
+        padding: 2vh 2vw;
+        color: white;
+        cursor: pointer;
+        width: 20vw;
+        margin-top: 3vh;
+    }
+    .contenedorLogIn{
+        display: flex;
+        width: 45%;
+        height: 100%;
+        position: absolute;
+        /* z-index: -1; */
+        right: 0;
+    }
+    .buttonSignUp{
+        border-radius: 40px;
+        border: 2px solid var(--third-color);
+        background-color: var(--first-color);
+        font-size: 1.4em;
+        padding: 2vh 2vw;
+        color: white;
+        cursor: pointer;
+        margin-bottom: 3vh;
+    }
+    .infoRegister1 h2,
+    .infoRegister2 h2{
+        font-size: 1.6rem;
+    }
+
 
     
 
+.ModalTaskComponent {
+    position: absolute;
+    width: 80vw;
+    height: 90vh;
+    top: 5vh;
+    left: auto;
+    right: 10%;
+    bottom: auto;
+    /* background-color: white; */
+}
+
+.OverlayModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000099;
+  }
+  
+  
+.modal{
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 1vh 1vw;
+}
+.modal:focus{
+    outline: none;
+}
+.modal h3{
+    color: var(--fourth-color);
+}
+.closeModalTask{
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    font-size: 2rem;
+    color: var(--fourth-color);
+}
+
+.taskModalHeader{
+    /* background-color: var(--first-color); */
+    width: 100%;
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.taskModalHeader h3{
+    font-size: 1.8rem;
+    color: var(--first-color);
+}
+
+.taskModalDescriptionContainer{
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+}
+.taskModalDescriptionContainer h3{
+    color: var(--fourth-color);
+    margin-bottom: 1vh;
+}
+
+.taskModalDescriptionContainer textarea {
+    width: 100%;
+    height: 10vh;
+    resize: none;
+    background-color: #eeeeee;
+    padding: 1vh .5vw;
+    border-radius: 5px;
+    border: none;
+}
+
+.modalBoard{
+    justify-content: space-around;
+    align-items: center;
+    width: 50vw;
+    height: 50vh;
+    margin-top: 20vh;
+    margin-left: 15vw;
+    background-color: var(--first-color);
+}
+
+.modalBoard span{
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.modalBoard button{
+    transform: scale(1.5);
+}
+
+}
+    
+
 @media (max-width: 799px) {
+    .divEye{
+        position: absolute;
+        right: 5px;
+    }
+
+    .contenedorinput{
+        position: relative;
+        background-color: rgba(177, 177, 177, 0.363) ;
+        border-radius: 10px;
+        margin-bottom: 1vh;
+        border: none;
+        padding: 2vh 2vw;
+        display: flex;
+        align-items: center;
+        width: 30vw;
+    }
+
+   
    .userCompleteName{
         display: none;
     }
@@ -1359,11 +1776,182 @@ body {
         /* color: var(--fourth-color); */
         font-size: .8rem;
         font-weight: bold;
-
     }
+    
+    .deleteCommentModal{
+        position: absolute;
+        background-color: var(--first-color);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1vw;
+    }
+
+    
+    .modalBoard{
+        justify-content: space-around;
+        align-items: center;
+        width: 70vw;
+        height: 50vh;
+        margin-top: 20vh;
+        margin-left: 7vw;
+        background-color: var(--first-color);
+    }
+
+    .modalBoard span{
+        color: white;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .modalBoard button{
+        transform: scale(1.5);
+    }   
+
 }
 
 @media (max-width: 599px) {
+    .deleteButtonsModal{
+        width: 45%;
+        justify-content: space-around;
+    }
+    
+    
+
+    .ModalTaskComponent {
+        position: absolute;
+        width: 90vw;
+        height: 90vh;
+        top: 5vh;
+        left: auto;
+        right: 5%;
+        bottom: auto;
+        /* background-color: white; */
+    }
+
+    .OverlayModal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #00000099;
+    }
+    
+    
+    .modal{
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        border-radius: 5px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 1vh 1vw;
+    }
+
+    .commentTask{
+        border: solid 2px var(--first-color);
+        padding: .7vh 1.7vw;
+        margin: .5vh 0;
+        border-radius: 10px;
+        margin-right: 1vw;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .commentTask div{
+        display: flex;
+        align-items: center;
+    }
+    
+    .userNameComment{
+        font-size: .9rem;
+        font-weight: bold;
+    }
+    
+    .userCommentText{
+        font-size: .85rem;
+    }
+    
+    .closeLateralMenu{
+        /* display: none; */
+        position: absolute;
+        right: 0;
+        font-size: 1.8rem;
+        color: #ffffffaa;
+        visibility: visible;
+    }
+
+    .newBoard{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 75vw;
+        height: 50vh;
+        background-color: var(--first-color);
+        padding: 3vh 0;
+        border-radius: 5px;
+        /* border: solid 1px black; */
+    }
+    
+    .newBoard input {
+        padding: 1vh 1vw;
+        width: 85%;
+        border-radius: 3px;
+        border: none;
+        background-color: #eeeeee;
+        
+    }
+    
+    .newBoard textarea {
+        border-radius: 3px;
+        padding: 1vh 1vw;
+        width: 85%;
+        height: 30%;
+        resize: none;
+        border: none;
+        background-color: #eeeeee;
+    }
+    
+    .newBoard button {
+        width: 50%;
+        height: 15%;
+        border: none;
+        background-color: var(--fourth-color);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .newBoard button:hover {
+        color: var(--fourth-color);
+        background-color: var(--fifth-color);
+    }
+
+
+    .infoRegister1 ,
+    .infoRegister2 {
+        margin-left: 15vw;
+    }
+
+    .homeIconMenu2{
+        width: 10%;
+        color: #ffffff88;
+        font-size: 2rem;
+        /* margin-left: .8vw; */
+        margin-top: 1vh;
+        text-align: end;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+    }
     .notificationCircle{
         position: absolute;
         left: 67vw;
@@ -1380,11 +1968,443 @@ body {
         /* color: var(--fourth-color); */
         font-size: .8rem;
         font-weight: bold;
+    }
+
+
+    .desklyLogoSign{
+        display: none;
+        justify-content: center;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 50vw;
+        max-width: 50vw;
+        height: 100vh;
+        position: absolute;
+        top: -70px;
+    }
+    
+
+    .contenedorHeroLogIn{
+        background-color: var(--first-color);
+        width: 100%;
+        height: 100%;
+        transition: 1s;
+    }
+    .contenedorHeroLogIn h2{
+        color: white;
+        font-size: 1.2em;
+        margin-bottom: 1vh;
+        text-align: center;
+    
+    }
+
+    .buttonSignUp{
+        border-radius: 40px;
+        border: 2px solid var(--third-color);
+        background-color: var(--first-color);
+        font-size: 1em;
+        padding: 1.3vh 2vw;
+        color: white;
+        cursor: pointer;
+        margin-bottom: 1vh;
+    }
+
+    .contenedorLogIn{
+        display: flex;
+        width: 80%;
+        height: 100%;
+        position: absolute;
+        right: 5%;
+    }
+
+    .contenedorLogUp{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 5%;
+    }
+
+    .contenedorinput{
+        background-color: rgba(177, 177, 177, 0.363) ;
+        border-radius: 10px;
+        margin-bottom: 1vh;
+        border: none;
+        padding: 2vh 2vw;
+        display: flex;
+        align-items: center;
+        width: 50vw;
+    }
+
+    .buttonEnviar{
+        border: none;
+        border-radius: 40px;
+        background-color: var(--first-color);
+        font-size: 1.2em;
+        padding: 1vh 1vw;
+        color: white;
+        cursor: pointer;
+        width: 30vw;
+        margin-top: 2vh;
+    }
+
+    .bGoogle{
+        margin-top: 3vh;
+        background-color: rgb(255, 255, 255);
+        border-radius: 40px;
+        border: none;
+        display: inline-flex; 
+        align-items: center; 
+        color: var(--first-color); 
+        font-weight: 450;
+        padding: .5vh .5vw;
+        font-size: .9rem;
+        border: 2px solid var(--first-color);
+        cursor: pointer;
+    }
+    .bGoogle svg{
+        margin-right: 1vw;
+        font-size: 1.5em;
+    }
+
+    .signHeroIniciarSesion{
+        left: 0;
+        bottom: 85vh;
+        position: absolute;
+        background-color: red;
+        width: 100vw;
+        height: 15vh;
+        transition: 2s;
+        z-index: 10;
+      
+    }
+        
+    .signHeroIniciarSesionAnimation{
+        animation-name: transformHero;
+        animation-duration: 2s;
+        /* animation-duration: 1s; */
+        animation-delay: 0s;
+    }
+
+    @keyframes transformHero {
+        0%{
+            width: 100vw;
+            bottom: 85vh;
+            height: 15vh;
+        }
+        25%{
+            bottom: 85vh;
+        }
+        50%{
+            width: 100vw;
+            height: 100%;
+        }
+        75%{
+            bottom: 0;
+
+        }
+        100%{
+            width: 100vw;
+            bottom: 0;
+            height: 15vh;
+        }
+        
+    }
+
+    /* .signHeroRegistrar{
+        left: 50vw;
+        position: absolute;
+        background-color: red;
+        width: 50vw;
+        height: 100vh;
+        transition: 2.5s;
+        animation-delay: .1s;
+        z-index: 10;
+
+    } */
+
+    .signHeroRegistrar{
+        /* display: none; */
+        left: 0;
+        position: absolute;
+        bottom: 0;
+        background-color: red;
+        width: 100vw;
+        height: 15vh;
+        transition: 2.5s;
+        animation-delay: 0;
+        z-index: 10;
+    }
+
+
+
+    .signHeroRegistrarAnimation{
+        animation-name: transformHero2;
+        animation-duration: 2s;
+        /* animation-duration: 1s; */
+        animation-delay: 0s;
+    }
+    @keyframes transformHero2 {
+        0%{
+            width: 100vw;
+            bottom: 0;
+            height: 15vh;
+        }
+        25%{
+            bottom: 0;
+        }
+        50%{
+            width: 100vw;
+            height: 100%;
+        }
+        75%{
+            bottom: 85vh;
+
+        }
+        100%{
+            width: 100vw;
+            bottom: 85vh;
+            height: 15vh;
+        }
+    }
+
+    .registerAnimation{
+        animation-name: moverRegister;
+        animation-duration: 2.5s;
+        animation-delay: .1s;
+    }
+    @keyframes moverRegister {
+        0%{
+            margin-left: 0;
+        }
+        45%{
+            margin-left: 0;
+        }
+        56%{
+            margin-left: 0;
+        }
+        
+    }
+    .registerAnimation2{
+        animation-name: moverRegister2;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+    }
+    @keyframes moverRegister2 {
+        0%{
+            margin-left:0;
+        }
+        30%{
+            margin-left: 0;
+        }
+        100%{
+            margin-left: 0;
+        }
+        
+    }
+
+    .loginAnimation{
+        animation-name: moverLogin;
+        animation-duration: 2s;
+    }
+    @keyframes moverLogin {
+        0%{
+            margin-right: 0;
+        }
+        50%{
+            margin-right: 0;
+        }
+        55%{
+            margin-right: 0;
+        }
+        
+    }
+
+    .loginAnimation2{
+        animation-name: moverLogin2;
+        animation-duration: 2s;
+        animation-delay: .3s;
+        animation-fill-mode: forwards;
+    }
+    @keyframes moverLogin2 {
+        0%{
+            margin-right:0;
+        }
+        20%{
+            margin-right: 0;
+        }
+        100%{
+            margin-right: 0;
+        }
+    }
+
+
+        
+    .responsiveAnimationIn2{
+        visibility: visible;
+        padding-top: 15vh;
+        opacity: 1;
+        transition: 1.5s;
+        transition-delay: 1s;
+        
+    }
+
+    .responsiveAnimationIn{
+        /* display: none;    */
+        visibility: hidden; 
+        opacity: 0;
+        /* transition-delay: 2s; */
+
+        transition: 1s;
+    }
+
+    .responsiveAnimationUp{
+        visibility: visible;
+        opacity: 1;
+        transition: 1.5s;
+        transition-delay: 1s;
 
     }
+
+    .responsiveAnimationUp2{
+        /* display: none;    */
+
+        visibility: hidden; 
+        opacity: 0;
+        /* transition-delay: 2s; */
+
+        transition: 1s;
+
+    }
+
+
+    .deleteCommentModal span{
+        color: white;
+        font-size: .7rem;
+    }
+
+
+    .modalBoard{
+        justify-content: space-around;
+        align-items: center;
+        width: 85vw;
+        height: 50vh;
+        margin-top: 20vh;
+        margin-left: 1vw;
+        background-color: var(--first-color);
+    }
+
+    .modalBoard span{
+        color: white;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .modalBoard button{
+        transform: scale(1.5);
+    }   
+
 }
 
 @media (max-width: 400px) {
+
+    .deleteButtonsModal{
+        width: 50%;
+        justify-content: space-around;
+    }
+
+    .commentTask{
+        border: solid 2px var(--first-color);
+        padding: .7vh 2.8vw;
+        margin: .5vh 0;
+        border-radius: 10px;
+        margin-right: 1vw;
+        position: relative;
+        overflow: hidden;
+    }
+
+
+    .newBoard{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 95vw;
+        height: 50vh;
+        background-color: var(--first-color);
+        padding: 3vh 0;
+        border-radius: 5px;
+        /* border: solid 1px black; */
+    }
+    
+    .newBoard input {
+        padding: 1vh 1vw;
+        width: 95%;
+        border-radius: 3px;
+        border: none;
+        background-color: #eeeeee;
+        
+    }
+    
+    .newBoard textarea {
+        border-radius: 3px;
+        padding: 1vh 1vw;
+        width: 95%;
+        height: 30%;
+        resize: none;
+        border: none;
+        background-color: #eeeeee;
+    }
+    
+    .newBoard button {
+        width: 80%;
+        height: 15%;
+        border: none;
+        background-color: var(--fourth-color);
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .newBoard button:hover {
+        color: var(--fourth-color);
+        background-color: var(--fifth-color);
+    }
+
+    .contenedorLogIn{
+        display: flex;
+        width: 95%;
+        height: 100%;
+        position: absolute;
+        /* z-index: -1; */
+        right: 0;
+    }
+
+    
+    .contenedorLogUp{
+        display: flex;
+        width: 90%;
+        height: 100%;
+        position: absolute;
+        /* z-index: -1; */
+        left: 5%;
+    }
+
+    .buttonSignUp{
+        border-radius: 40px;
+        border: 2px solid var(--third-color);
+        background-color: var(--first-color);
+        font-size: 1em;
+        padding: 1.3vh 2vw;
+        color: white;
+        cursor: pointer;
+        margin-bottom: 1vh;
+        margin-right: 5vw;
+    }
+
+
     .notificationCircle{
         position: absolute;
         left: 77vw;
@@ -1401,8 +2421,93 @@ body {
         /* color: var(--fourth-color); */
         font-size: .8rem;
         font-weight: bold;
+    }
+    .contenedorinput{
+        background-color: rgba(177, 177, 177, 0.363) ;
+        border-radius: 10px;
+        margin-bottom: 1vh;
+        border: none;
+        padding: 2vh 2vw;
+        display: flex;
+        align-items: center;
+        width: 75vw;
+    }
+
+        
+    .contenedorFormularioLogUp h2{
+        color: var(--first-color);
+        font-size: 1.5em;
+        font-weight: bold;
+        /* margin-top: 15vh; */
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+        max-width: 70%;
+        text-align: center;
+    }
+    .contenedorFormularioLogIn h2{
+        color: var(--first-color);
+        font-size: 2.5em;
+        font-weight: bold;
+        /* margin-top: 15vh; */
+        margin-top: 10vh;
+        margin-bottom: 2vh;
+        max-width: 70%;
+        text-align: center;
+    }
+
+        
+    .contenedorFormularioLogUp{
+        /* position: absolute; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* margin-left: 8vw; */
+        width: 100%;
+        /* z-index: -1; */
+    }
+    .infoRegister1 ,
+        .infoRegister2 {
+            margin-left: 10%;
+    }
+
+    
+    .responsiveAnimationIn2{
+        visibility: visible;
+        padding-top: 15vh;
+        opacity: 1;
+        transition: 1.5s;
+        transition-delay: 1s;
+        
+    }
+    
+    .responsiveAnimationIn{
+        /* display: none;    */
+        visibility: hidden; 
+        opacity: 0;
+        /* transition-delay: 2s; */
+
+        transition: 1s;
+    }
+
+    .responsiveAnimationUp{
+        visibility: visible;
+        opacity: 1;
+        transition: 1.5s;
+        transition-delay: 1s;
+
+    }
+    
+    .responsiveAnimationUp2{
+        /* display: none;    */
+
+        visibility: hidden; 
+        opacity: 0;
+        /* transition-delay: 2s; */
+
+        transition: 1s;
 
     }
 }
-}
+
+
 

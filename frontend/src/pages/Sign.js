@@ -30,7 +30,8 @@ const Sign = () => {
                             ? <div className={"contenedorHeroLogIn"}>
                                 <Link to="/"><span className="material-icons-outlined homeIconMenu2">home</span></Link>       
                                 <div className="logoFooter">
-                                  <div className="desklyLogoSign" style={{ backgroundImage: "url(https://webdesing881317710.files.wordpress.com/2021/05/register.png)" }}></div>
+                                  <div className="desklyLogoSign" style={{ backgroundImage: "url('/assets/register.png')" }}></div>
+                                  {/* <div className="desklyLogoSign" style={{ backgroundImage: "url(https://webdesing881317710.files.wordpress.com/2021/05/register.png)" }}></div> */}
                                 </div>
                                 <div className="infoRegister1">
                                     <h2>Already have an account?</h2>
@@ -40,7 +41,8 @@ const Sign = () => {
                             : <div className="contenedorHeroLogIn">
                                 <Link to="/"><span className="material-icons-outlined homeIconMenu3">home</span></Link> 
                                 <div className="logoFooter">
-                                    <div className="desklyLogoSign" style={{ backgroundImage: "url(https://webdesing881317710.files.wordpress.com/2021/05/register.png)" }}></div>
+                                    {/* <div className="desklyLogoSign" style={{ backgroundImage: "url(https://webdesing881317710.files.wordpress.com/2021/05/register.png)" }}></div> */}
+                                    <div className="desklyLogoSign" style={{ backgroundImage: "url('/assets/register.png')" }}></div>
                                 </div>
                                 <div className="infoRegister2">
                                     <h2> Dont have an account yet?</h2>
@@ -51,8 +53,8 @@ const Sign = () => {
 
 
                 </div>
-                <SignUp buttonanimation={buttonanimation} />
-                <LogIn buttonanimation={buttonanimation} />
+                <SignUp buttonanimation={buttonanimation} buttonSign={buttonSign}/>
+                <LogIn buttonanimation={buttonanimation} buttonSign={buttonSign}/>
             </div>
         </>
     )
