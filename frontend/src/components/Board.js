@@ -271,10 +271,10 @@ const Board = (props) => {
                                 </div>
                             } */}
                         </div>
+                        {imOwner &&<> 
                         <div onClick={usersVisible} className="iconoVisible">
                             <span class="material-icons-outlined iconoUsers">people_outline</span>
                         </div>
-                        {imOwner &&
                             <div className="ventanaUser" style={{ visibility: visible ? 'visible' : 'hidden' }} >
                                 {
                                     boardUsers.map((user, i) => {
@@ -286,6 +286,7 @@ const Board = (props) => {
                                     })
                                 }
                             </div>
+                            </>
                         }
                     </div>
                     <div className="contenedorTaskPlanners">
