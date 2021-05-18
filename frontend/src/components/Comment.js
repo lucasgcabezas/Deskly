@@ -13,7 +13,7 @@ const Comment = (props) => {
     // console.log(editionComment)
     const getInput = e => { setEditionComment({ ...editionComment, message: e.target.value }) }
 
-    let imComment = props.commentsUserArray.some(commentId =>commentId === String(props.comment._id))
+    // let imComment = props.commentsUserArray.some(commentId =>commentId === String(props.comment._id))
 
     const sendEditComment = async () => {
         const response = await editComment(idTask, editionComment)

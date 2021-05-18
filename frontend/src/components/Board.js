@@ -67,7 +67,9 @@ const Board = (props) => {
 
     const tasksFetch = async () => {
         const tasks = await props.getTaskPlannerFromBoard(idParams)
+       if (tasks) {
         setAllTasksPlanner(tasks)
+       }
 
     }
     const desklyAlert = async (alertTitle, alertMessage, alertType) => {
@@ -96,10 +98,12 @@ const Board = (props) => {
             setLoading(false)
             await props.addTaskPlanner({ title: newTitle, boardId: board._id }, props.userLogged.token)
             const tasks = await props.getTaskPlannerFromBoard(board._id)
-            setAllTasksPlanner(tasks)
-            setOpen(!open)
-            setNewTitle('')
-            setLoading(true)
+            if (tasks) {
+                setAllTasksPlanner(tasks)
+                setOpen(!open)
+                setNewTitle('')
+                setLoading(true)
+               }
         }
     }
 
