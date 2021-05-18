@@ -17,7 +17,7 @@ const commentActions = {
     getComments: (taskId) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.get('http://localhost:4000/api/task/comment/' + taskId)
+                const response = await axios.get('https://desklyapp.herokuapp.com/api/task/comment/' + taskId)
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
                 } else {
@@ -33,7 +33,7 @@ const commentActions = {
     addComment: (taskId, newComment, userToken) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.post('http://localhost:4000/api/task/comment/' + taskId, newComment, {
+                const response = await axios.post('https://desklyapp.herokuapp.com/api/task/comment/' + taskId, newComment, {
                     headers: { 'Authorization': 'Bearer ' + userToken }
                 })
                 if (!response.data.success) {
@@ -51,7 +51,7 @@ const commentActions = {
     editComment: (taskId, editedComment) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.put('http://localhost:4000/api/task/comment/' + taskId, editedComment)
+                const response = await axios.put('https://desklyapp.herokuapp.com/api/task/comment/' + taskId, editedComment)
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
                 } else{
@@ -68,7 +68,7 @@ const commentActions = {
     deleteComment: (commentId) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.delete('http://localhost:4000/api/task/comment/' + commentId)
+                const response = await axios.delete('https://desklyapp.herokuapp.com/api/task/comment/' + commentId)
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
                 } else{

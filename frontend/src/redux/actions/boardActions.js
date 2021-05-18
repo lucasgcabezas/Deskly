@@ -16,7 +16,7 @@ const boardActions = {
     deleteBoard: (id,token) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.delete("http://localhost:4000/api/board/" + id, {headers: {
+                const response = await axios.delete("https://desklyapp.herokuapp.com/api/board/" + id, {headers: {
                     'Authorization': 'Bearer ' + token
                 }})
                 if (!response.data.success) {
@@ -34,7 +34,7 @@ const boardActions = {
         const { title, description, token } = board
         try {
             return async (dispatch, getState) => {
-                const response = await axios.post('http://localhost:4000/api/board', { title, description }, {
+                const response = await axios.post('https://desklyapp.herokuapp.com/api/board', { title, description }, {
                     headers: {
                         'Authorization': 'Bearer ' + token
                     }
@@ -55,7 +55,7 @@ const boardActions = {
         const {title, description} = updateInput
         try {
             return async (dispatch, getState) => {
-                const response = await axios.put("http://localhost:4000/api/board/" + id, {title, description} ,{headers: {
+                const response = await axios.put("https://desklyapp.herokuapp.com/api/board/" + id, {title, description} ,{headers: {
                     'Authorization': 'Bearer ' + token
                 }})
                 if (!response.data.success) {
@@ -73,7 +73,7 @@ const boardActions = {
     getBoardsFromUser: (token) => {
         try {
             return async (dispatch, getState) => {
-                const response = await axios.get("http://localhost:4000/api/board", {
+                const response = await axios.get("https://desklyapp.herokuapp.com/api/board", {
                     headers: {
                         'Authorization': 'Bearer ' + token
                     }
@@ -93,7 +93,7 @@ const boardActions = {
     getUsersFromBoard: (idBoard) => {
         try {
             return async (dispatch, getState) => {
-                const response = await axios.get("http://localhost:4000/api/board/" +idBoard)
+                const response = await axios.get("https://desklyapp.herokuapp.com/api/board/" +idBoard)
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
                 } else {
@@ -109,7 +109,7 @@ const boardActions = {
     userAdmin: (email,id) => {
         try{
             return async (dispatch, getState) => {
-                const response = await axios.put("http://localhost:4000/api/boardAdmins/" +email, {id})
+                const response = await axios.put("https://desklyapp.herokuapp.com/api/boardAdmins/" +email, {id})
                 return response.data.admins.admins
             }
             // eslint-disable-next-line
@@ -120,7 +120,7 @@ const boardActions = {
     getAdminsFromBoard: (email) => {
         try{
             return async (dispatch, getState) => {
-                const response = await axios.get("http://localhost:4000/api/boardAdmins/" +email)
+                const response = await axios.get("https://desklyapp.herokuapp.com/api/boardAdmins/" +email)
                 return response.data.response.admins
             }
             // eslint-disable-next-line
@@ -131,7 +131,7 @@ const boardActions = {
     getBoard: (id) => {
         try{
             return async (dispatch, getState) => {
-                const response = await axios.get("http://localhost:4000/api/boardSingle/"+id)
+                const response = await axios.get("https://desklyapp.herokuapp.com/api/boardSingle/"+id)
                 return response.data.response
             }
             // eslint-disable-next-line

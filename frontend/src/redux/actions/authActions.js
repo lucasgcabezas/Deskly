@@ -17,7 +17,7 @@ const authActions = {
     signUpUser: (user) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.post('http://localhost:4000/api/newuser', user)
+                const response = await axios.post('https://desklyapp.herokuapp.com/api/newuser', user)
                 if (response.data.validationError) {
                     return response.data.validationError
                 } else if (response.data.error){
@@ -37,7 +37,7 @@ const authActions = {
         return async (dispatch, getState) => {
             
             try {
-                const response = await axios.post('http://localhost:4000/api/login', userToSignIn)
+                const response = await axios.post('https://desklyapp.herokuapp.com/api/login', userToSignIn)
                 if (!response.data.success) {
                     desklyAlert('Oops', response.data.error, 'danger')
                 } else {
@@ -54,7 +54,7 @@ const authActions = {
     signInLocalStorage: (userLocalStorage) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.get('http://localhost:4000/api/relogin', {
+                const response = await axios.get('https://desklyapp.herokuapp.com/api/relogin', {
                     headers: { 'Authorization': 'Bearer ' + userLocalStorage }
                 })
                 dispatch({ type: 'LOG_USER', payload: { ...response.data.response, token: userLocalStorage } })
@@ -77,7 +77,7 @@ const authActions = {
     inviteUserToBoard: (email, boardId) => {
         return async (dispatch, getSate) => {
             try {
-                await axios.put('http://localhost:4000/api/inviteuser/' + email, { boardId })
+                await axios.put('https://desklyapp.herokuapp.com/api/inviteuser/' + email, { boardId })
             } catch (error) {
                 desklyAlert('Error','An error has occurred on the server, try later!', 'danger')
                 console.log(error)
@@ -88,7 +88,7 @@ const authActions = {
     checkNotifications: (userLs) => {
         return async (dispatch, getSate) => {
             try {
-                const response = await axios.get('http://localhost:4000/api/checkNotifications', {
+                const response = await axios.get('https://desklyapp.herokuapp.com/api/checkNotifications', {
                     headers: { 'Authorization': 'Bearer ' + userLs.token }
                 })
                 return response.data.response
@@ -103,7 +103,7 @@ const authActions = {
         
         return async (dispatch, getSate) => {
             try {
-                const response = await axios.get('http://localhost:4000/api/notification/' + boardId, {
+                const response = await axios.get('https://desklyapp.herokuapp.com/api/notification/' + boardId, {
                     headers: { 'Authorization': 'Bearer ' + userLs.token }
                 })
                 dispatch({ type: 'ADD_BOARDS', payload: response.data.response.board })
@@ -118,7 +118,7 @@ const authActions = {
     rejectJoinToBoard: (boardId, userLs) => {
         return async (dispatch, getSate) => {
             try {
-                const response = await axios.get('http://localhost:4000/api/reject/'+ boardId , {
+                const response = await axios.get('https://desklyapp.herokuapp.com/api/reject/'+ boardId , {
                     headers: { 'Authorization': 'Bearer ' + userLs.token }
                 })
                 return response.data.response.notification
@@ -131,7 +131,7 @@ const authActions = {
     setUserComponents: (token) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.get('http://localhost:4000/api/usercomponents', {
+                const response = await axios.get('https://desklyapp.herokuapp.com/api/usercomponents', {
                     headers: { 'Authorization': 'Bearer ' + token }
                 })
                 dispatch({ type: 'USER_COMPONENTS', payload: { ...response.data.response } })

@@ -17,7 +17,7 @@ const taskPlannerActions = {
     getTaskPlannerFromBoard: (idBoard) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.get('http://localhost:4000/api/taskplannerFromBoard/' + idBoard)
+                const response = await axios.get('https://desklyapp.herokuapp.com/api/taskplannerFromBoard/' + idBoard)
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
                 } else {
@@ -33,7 +33,7 @@ const taskPlannerActions = {
     deleteTaskPlanner: (idTaskPlanner) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.delete('http://localhost:4000/api/taskplanner/' + idTaskPlanner)
+                const response = await axios.delete('https://desklyapp.herokuapp.com/api/taskplanner/' + idTaskPlanner)
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
                 } else {
@@ -50,7 +50,7 @@ const taskPlannerActions = {
         console.log(idTaskPlanner, title)
         return async (dispatch, getState) => {
             try {
-                const response = await axios.put('http://localhost:4000/api/taskplanner/' + idTaskPlanner, { title })
+                const response = await axios.put('https://desklyapp.herokuapp.com/api/taskplanner/' + idTaskPlanner, { title })
                 
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
@@ -68,7 +68,7 @@ const taskPlannerActions = {
         console.log(idTaskPlanner, title)
         return async (dispatch, getState) => {
             try {
-                const response = await axios.put('http://localhost:4000/api//taskplannerFromBoard/' + idTaskPlanner, { title })
+                const response = await axios.put('https://desklyapp.herokuapp.com/taskplannerFromBoard/' + idTaskPlanner, { title })
                 
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
@@ -85,7 +85,7 @@ const taskPlannerActions = {
     addTaskPlanner: (taskPlanner, token) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.post('http://localhost:4000/api/taskplanner', taskPlanner , {headers: {
+                const response = await axios.post('https://desklyapp.herokuapp.com/api/taskplanner', taskPlanner , {headers: {
                     'Authorization': 'Bearer ' +token
                 }})
                 if (!response.data.success) {

@@ -16,7 +16,7 @@ const taskActions = {
     tasksFromTaskplanner: (taskPlannerId) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.get('http://localhost:4000/api/task/' + taskPlannerId)
+                const response = await axios.get('https://desklyapp.herokuapp.com/api/task/' + taskPlannerId)
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
                 } else {
@@ -32,7 +32,7 @@ const taskActions = {
     addTask: (taskToAdd , token) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.post('http://localhost:4000/api/task', taskToAdd, {headers: {
+                const response = await axios.post('https://desklyapp.herokuapp.com/api/task', taskToAdd, {headers: {
                     'Authorization': 'Bearer ' + token
                 }})
                 if (!response.data.success) {
@@ -50,7 +50,7 @@ const taskActions = {
     editTask: (taskEditId, taskEdit) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.put('http://localhost:4000/api/task/' + taskEditId, taskEdit)
+                const response = await axios.put('https://desklyapp.herokuapp.com/api/task/' + taskEditId, taskEdit)
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
                 } else {
@@ -66,7 +66,7 @@ const taskActions = {
     deleteTask: (taskEditId, taskEdit) => {
         return async (dispatch, getState) => {
             try {
-                const response = await axios.delete('http://localhost:4000/api/task/' + taskEditId)
+                const response = await axios.delete('https://desklyapp.herokuapp.com/api/task/' + taskEditId)
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
                 } else {
@@ -83,7 +83,7 @@ const taskActions = {
         console.log(taskEditId, recycle)
         return async (dispatch, getState) => {
             try {
-                const response = await axios.put('http://localhost:4000/api/recycletask/' + taskEditId, recycle)
+                const response = await axios.put('https://desklyapp.herokuapp.com/api/recycletask/' + taskEditId, recycle)
                 if (!response.data.success) {
                     desklyAlert('Error', response.data.response, 'danger')
                 } else {
