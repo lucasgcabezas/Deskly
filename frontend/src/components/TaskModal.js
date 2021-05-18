@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import commentActions from '../redux/actions/commentActions'
 import taskActions from '../redux/actions/taskActions'
 import Comment from './Comment'
+import { store } from 'react-notifications-component'
 
 import Modal from 'react-modal'
 
@@ -37,6 +38,19 @@ const TaskModal = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const desklyAlert = async (alertTitle, alertMessage, alertType) => {
+        await store.addNotification({
+            title: alertTitle,
+            message: alertMessage,
+            type: alertType,
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__flipInX"],
+            animationOut: ["animate__animated", "animate__fadeOutDown"],
+            dismiss: { duration: 3000, onScreen: true, pauseOnHover: true, showIcon: true }
+        })
+    }
+
     const getAllComments = async () => {
         const response = await getComments(_id)
         if (response) {
@@ -55,7 +69,9 @@ const TaskModal = (props) => {
     const sendComment = async () => {
         setLoading(false)
         if (Object.values(newComment).some(valor => valor === "")) {
-            alert('comentario vacio')
+            // alert('comentario vacio')
+            desklyAlert('Oops', "You can't send empty comment", 'danger')
+
             setLoading(true)
             return false
         }
@@ -80,6 +96,7 @@ const TaskModal = (props) => {
     }
     let descriptionText = newDescription.description === '' ? 'Add a more detailed description' : newDescription.description
 
+   
     return (
         <>
             <Modal

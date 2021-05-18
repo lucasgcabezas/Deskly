@@ -427,6 +427,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 1vh;
+    min-height: 21vh;
 }
 
 
