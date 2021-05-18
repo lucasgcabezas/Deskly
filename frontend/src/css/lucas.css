@@ -807,15 +807,6 @@ body {
     font-size: .85rem;
 }
 
-.closeLateralMenu{
-    /* display: none; */
-    position: absolute;
-    right: 0;
-    font-size: 1.8rem;
-    color: #ffffffaa;
-    visibility: hidden;
-}
-
 .deleteTaskPlannerModal{
     background-color: var(--first-color);
     position: absolute;
@@ -1108,15 +1099,80 @@ body {
 
 
 
+.colorOwner{
+    background-color: red;
+}
+.colorAdmin{
+    background-color: black;
+}
+.colorUser{
+    background-color: blue;
+}
 
 
 
 
+.modalBoard{
+    justify-content: space-around;
+    align-items: center;
+    width: 40vw;
+    height: 50vh;
+    margin-top: 20vh;
+    margin-left: 8vw;
+    background-color: var(--first-color);
+}
 
+.modalBoard span{
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.modalBoard button{
+    transform: scale(1.5);
+}
+
+/* .modalBoard .deleteButtonsModalTaskPlanner{
+
+
+} */
+
+.warningIcon{
+    color: var(--second-color);
+    font-size: 14vw;
+    margin-top: 40px;
+}
+
+.modalBoardButtons{
+    background-color: #615ee1;
+    font-size: 3vw;
+    margin: 10px;
+}
+
+.contentModalButtons{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+.closeLateralMenu{
+    display: none;
+    position: absolute;
+    right: 0;
+    font-size: 1.8rem;
+    color: #ffffffaa;
+    visibility: hidden;
+    z-index: 55;
+}
 
 
 
 @media (max-width: 1024px) {
+
+    
+
 
 
     .newBoard{
@@ -1467,14 +1523,14 @@ body {
         height: 20vh;
         /* border: solid 1px black; */
         margin: 1vh 0vw 1vh .5vw;
-        background-color: var(--first-color);
+        /* background-color: var(--first-color); */
         /* border: solid 1px black; */
         border: solid 1px white;
         color: white;
         font-size: 1.rem;
         border-radius: 10px;
     }
-
+    
     .newBoardButton{
         display: flex;
         justify-content: space-evenly;
@@ -1646,6 +1702,27 @@ body {
     border-radius: 5px;
     border: none;
 }
+
+.modalBoard{
+    justify-content: space-around;
+    align-items: center;
+    width: 50vw;
+    height: 50vh;
+    margin-top: 20vh;
+    margin-left: 15vw;
+    background-color: var(--first-color);
+}
+
+.modalBoard span{
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.modalBoard button{
+    transform: scale(1.5);
+}
+
 }
     
 
@@ -1701,6 +1778,28 @@ body {
         justify-content: space-between;
         padding: 0 1vw;
     }
+
+    
+    .modalBoard{
+        justify-content: space-around;
+        align-items: center;
+        width: 70vw;
+        height: 50vh;
+        margin-top: 20vh;
+        margin-left: 7vw;
+        background-color: var(--first-color);
+    }
+
+    .modalBoard span{
+        color: white;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .modalBoard button{
+        transform: scale(1.5);
+    }   
+
 }
 
 @media (max-width: 599px) {
@@ -1774,7 +1873,7 @@ body {
         right: 0;
         font-size: 1.8rem;
         color: #ffffffaa;
-        visibility: hidden;
+        visibility: visible;
     }
 
     .newBoard{
@@ -1969,219 +2068,231 @@ body {
         z-index: 10;
       
     }
-      
-.signHeroIniciarSesionAnimation{
-    animation-name: transformHero;
-    animation-duration: 2s;
-    /* animation-duration: 1s; */
-    animation-delay: 0s;
-}
-@keyframes transformHero {
-    0%{
-        width: 100vw;
-        bottom: 85vh;
-        height: 15vh;
+        
+    .signHeroIniciarSesionAnimation{
+        animation-name: transformHero;
+        animation-duration: 2s;
+        /* animation-duration: 1s; */
+        animation-delay: 0s;
     }
-    25%{
-        bottom: 85vh;
+
+    @keyframes transformHero {
+        0%{
+            width: 100vw;
+            bottom: 85vh;
+            height: 15vh;
+        }
+        25%{
+            bottom: 85vh;
+        }
+        50%{
+            width: 100vw;
+            height: 100%;
+        }
+        75%{
+            bottom: 0;
+
+        }
+        100%{
+            width: 100vw;
+            bottom: 0;
+            height: 15vh;
+        }
+        
     }
-    50%{
-        width: 100vw;
-        height: 100%;
-    }
-    75%{
+
+    /* .signHeroRegistrar{
+        left: 50vw;
+        position: absolute;
+        background-color: red;
+        width: 50vw;
+        height: 100vh;
+        transition: 2.5s;
+        animation-delay: .1s;
+        z-index: 10;
+
+    } */
+
+    .signHeroRegistrar{
+        /* display: none; */
+        left: 0;
+        position: absolute;
         bottom: 0;
-
-    }
-    100%{
+        background-color: red;
         width: 100vw;
-        bottom: 0;
         height: 15vh;
+        transition: 2.5s;
+        animation-delay: 0;
+        z-index: 10;
     }
-    
-}
-
-/* .signHeroRegistrar{
-    left: 50vw;
-    position: absolute;
-    background-color: red;
-    width: 50vw;
-    height: 100vh;
-    transition: 2.5s;
-    animation-delay: .1s;
-    z-index: 10;
-
-} */
-
-.signHeroRegistrar{
-    /* display: none; */
-    left: 0;
-    position: absolute;
-    bottom: 0;
-    background-color: red;
-    width: 100vw;
-    height: 15vh;
-    transition: 2.5s;
-    animation-delay: 0;
-    z-index: 10;
-}
 
 
 
-.signHeroRegistrarAnimation{
-    animation-name: transformHero2;
-    animation-duration: 2s;
-    /* animation-duration: 1s; */
-    animation-delay: 0s;
-}
-@keyframes transformHero2 {
-    0%{
-        width: 100vw;
-        bottom: 0;
-        height: 15vh;
+    .signHeroRegistrarAnimation{
+        animation-name: transformHero2;
+        animation-duration: 2s;
+        /* animation-duration: 1s; */
+        animation-delay: 0s;
     }
-    25%{
-        bottom: 0;
+    @keyframes transformHero2 {
+        0%{
+            width: 100vw;
+            bottom: 0;
+            height: 15vh;
+        }
+        25%{
+            bottom: 0;
+        }
+        50%{
+            width: 100vw;
+            height: 100%;
+        }
+        75%{
+            bottom: 85vh;
+
+        }
+        100%{
+            width: 100vw;
+            bottom: 85vh;
+            height: 15vh;
+        }
     }
-    50%{
-        width: 100vw;
-        height: 100%;
+
+    .registerAnimation{
+        animation-name: moverRegister;
+        animation-duration: 2.5s;
+        animation-delay: .1s;
     }
-    75%{
-        bottom: 85vh;
+    @keyframes moverRegister {
+        0%{
+            margin-left: 0;
+        }
+        45%{
+            margin-left: 0;
+        }
+        56%{
+            margin-left: 0;
+        }
+        
+    }
+    .registerAnimation2{
+        animation-name: moverRegister2;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+    }
+    @keyframes moverRegister2 {
+        0%{
+            margin-left:0;
+        }
+        30%{
+            margin-left: 0;
+        }
+        100%{
+            margin-left: 0;
+        }
+        
+    }
+
+    .loginAnimation{
+        animation-name: moverLogin;
+        animation-duration: 2s;
+    }
+    @keyframes moverLogin {
+        0%{
+            margin-right: 0;
+        }
+        50%{
+            margin-right: 0;
+        }
+        55%{
+            margin-right: 0;
+        }
+        
+    }
+
+    .loginAnimation2{
+        animation-name: moverLogin2;
+        animation-duration: 2s;
+        animation-delay: .3s;
+        animation-fill-mode: forwards;
+    }
+    @keyframes moverLogin2 {
+        0%{
+            margin-right:0;
+        }
+        20%{
+            margin-right: 0;
+        }
+        100%{
+            margin-right: 0;
+        }
+    }
+
+
+        
+    .responsiveAnimationIn2{
+        visibility: visible;
+        padding-top: 15vh;
+        opacity: 1;
+        transition: 1.5s;
+        transition-delay: 1s;
+        
+    }
+
+    .responsiveAnimationIn{
+        /* display: none;    */
+        visibility: hidden; 
+        opacity: 0;
+        /* transition-delay: 2s; */
+
+        transition: 1s;
+    }
+
+    .responsiveAnimationUp{
+        visibility: visible;
+        opacity: 1;
+        transition: 1.5s;
+        transition-delay: 1s;
 
     }
-    100%{
-        width: 100vw;
-        bottom: 85vh;
-        height: 15vh;
+
+    .responsiveAnimationUp2{
+        /* display: none;    */
+
+        visibility: hidden; 
+        opacity: 0;
+        /* transition-delay: 2s; */
+
+        transition: 1s;
+
     }
-}
 
-.registerAnimation{
-    animation-name: moverRegister;
-    animation-duration: 2.5s;
-    animation-delay: .1s;
-}
-@keyframes moverRegister {
-    0%{
-        margin-left: 0;
+
+    .deleteCommentModal span{
+        color: white;
+        font-size: .7rem;
     }
-    45%{
-        margin-left: 0;
+
+
+    .modalBoard{
+        justify-content: space-around;
+        align-items: center;
+        width: 85vw;
+        height: 50vh;
+        margin-top: 20vh;
+        margin-left: 1vw;
+        background-color: var(--first-color);
     }
-    56%{
-        margin-left: 0;
+
+    .modalBoard span{
+        color: white;
+        font-size: 1.2rem;
+        text-align: center;
     }
-    
-}
-.registerAnimation2{
-    animation-name: moverRegister2;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-}
-@keyframes moverRegister2 {
-    0%{
-        margin-left:0;
-    }
-    30%{
-        margin-left: 0;
-    }
-    100%{
-        margin-left: 0;
-    }
-    
-}
 
-.loginAnimation{
-    animation-name: moverLogin;
-    animation-duration: 2s;
-}
-@keyframes moverLogin {
-    0%{
-        margin-right: 0;
-    }
-    50%{
-        margin-right: 0;
-    }
-    55%{
-        margin-right: 0;
-    }
-    
-}
-
-.loginAnimation2{
-    animation-name: moverLogin2;
-    animation-duration: 2s;
-    animation-delay: .3s;
-    animation-fill-mode: forwards;
-}
-@keyframes moverLogin2 {
-    0%{
-        margin-right:0;
-    }
-    20%{
-        margin-right: 0;
-    }
-    100%{
-        margin-right: 0;
-    }
-}
-
-
-    
-.responsiveAnimationIn2{
-    visibility: visible;
-    padding-top: 15vh;
-    opacity: 1;
-    transition: 1.5s;
-    transition-delay: 1s;
-    
-}
-
-.responsiveAnimationIn{
-    /* display: none;    */
-    visibility: hidden; 
-    opacity: 0;
-    /* transition-delay: 2s; */
-
-    transition: 1s;
-}
-
-.responsiveAnimationUp{
-    visibility: visible;
-    opacity: 1;
-    transition: 1.5s;
-    transition-delay: 1s;
-
-}
-
-.responsiveAnimationUp2{
-    /* display: none;    */
-
-    visibility: hidden; 
-    opacity: 0;
-    /* transition-delay: 2s; */
-
-    transition: 1s;
-
-}
-
-
-.deleteCommentModal span{
-    color: white;
-    font-size: .7rem;
-}
-
-
-
-
-
-
-
-
-
-
+    .modalBoard button{
+        transform: scale(1.5);
+    }   
 
 }
 
@@ -2386,5 +2497,6 @@ body {
 
     }
 }
+
 
 

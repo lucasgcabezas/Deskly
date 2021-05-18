@@ -47,9 +47,7 @@ const MyDesk = (props) => {
         }, 1000)
 
         return () => { clearInterval(reloadTaskPlanner) }
-        // if (userLogged.token) {
-        //     props.setUserComponents(userLogged.token)
-        // }
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     let userFirstName = props.userLogged.response ? `${props.userLogged.response.firstName}` : `${userLogged.firstName}`
@@ -86,13 +84,13 @@ const MyDesk = (props) => {
                                     <span>New board</span>
                                 </div>
                                 {
-                                    props.boardsOwnerArray.map(board => <BoardIndividual key={board} board={board} />)
+                                    props.boardsOwnerArray.map(board => <BoardIndividual color={'colorOwner'} key={board} board={board} />)
                                 }
                             </div>
                             <h2 className="boardsCategories">Boards that I admin</h2>
                             <div className="boardsSection">
                                 {
-                                    props.boardsAdminArray.map(board => <BoardIndividual key={board} board={board} />)
+                                    props.boardsAdminArray.map(board => <BoardIndividual color={'colorAdmin'} key={board} board={board} />)
 
                                 }
                             </div>
@@ -100,7 +98,7 @@ const MyDesk = (props) => {
                             <div className="boardsSection">
 
                                 {
-                                    props.boardsUserArray.map(board => <BoardIndividual key={board} board={board} />)
+                                    props.boardsUserArray.map(board => <BoardIndividual color={'colorUser'} key={board} board={board} />)
 
                                 }
 
@@ -118,7 +116,7 @@ const MyDesk = (props) => {
                     </div>
                     <input type="text" name="title" placeholder="Title" onChange={readInputBoard} />
                     <textarea name="description" placeholder="Add a description..." onChange={readInputBoard} ></textarea>
-                    <button onClick={loading && addBoard}>Create a new board</button>
+                    <button onClick={loading ? addBoard : null}>Create a new board</button>
                     {/* <button onClick={addBoard}>Crear nuevo tablero</button> */}
                     <span onClick={() => setNewBoardModal(false)} className="material-icons-outlined closeNewBoardModal">close</span>
                 </div>

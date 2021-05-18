@@ -29,7 +29,7 @@ const Home = (props) => {
                     <h2>Free your mental space</h2>
                     <div className="hands" style={{ backgroundImage: "url('https://webdesing881317710.files.wordpress.com/2021/05/6bcf4f9e-7b00-412f-b336-3b6241b86cb3.png')" }}></div>
                     <div className="fraseHero2">
-                        <div class="circulo"></div>
+                        <div className="circulo"></div>
                         <p>Regain clarity and calmness by getting all those tasks out of your head and onto your to-do list (no matter where you are or what device you use).</p>
                     </div>
                 </div>

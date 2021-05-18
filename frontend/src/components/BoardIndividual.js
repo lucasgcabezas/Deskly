@@ -13,11 +13,10 @@ const BoardIndividual = (props) => {
         const oneBoard = await props.getBoard(props.board)
         setBoardSingle(oneBoard)
     }
-
     return (
         boardSingle &&
         <Link to={`/board/${props.board}`}>
-            <div className="boardMyDesk">
+            <div className={`boardMyDesk ${props.color}`}>
                 <span>{boardSingle.title}</span>
             </div>
         </Link>

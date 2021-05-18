@@ -10,22 +10,24 @@ const Task = (props) => {
     const { task, allTasks, setAllTasks, editTask, deleteTask } = props
     const { _id, title, verify } = task
 
+    const [loading, setLoanding] = useState(true)
+
     const [show, setShow] = useState(false)
 
     const [editionTask, setEditionTask] = useState({ title, verify })
 
     const [editButton, setEditButton] = useState(false)
 
-    const [loading, setLoading] = useState(true)
+    // const [loading, setLoading] = useState(true)
 
     const getInput = e => { setEditionTask({ ...editionTask, title: e.target.value }) }
 
     useEffect(() => { sendEdit("verify") }, [editionTask.verify])
 
-    const verifyTask = async (e) => { 
-        setLoading(false)
-        setEditionTask({ ...editionTask, verify: e }) 
-        setLoading(true)
+    const verifyTask = async (e) => {
+        setLoanding(false)
+        setEditionTask({ ...editionTask, verify: e })
+        setLoanding(true)
     }
 
     const sendEdit = async (elementToEdit) => {
@@ -43,9 +45,11 @@ const Task = (props) => {
     }
 
     const sendDeleteTask = async () => {
+        setLoanding(false)
         const response = await deleteTask(_id)
         let arrayFiltered = allTasks.filter(task => task._id != response._id)
         setAllTasks(arrayFiltered)
+        setLoanding(true)
     }
 
     let style = props.imOwner || props.imAdmin ? 'block' : 'none'
@@ -55,19 +59,19 @@ const Task = (props) => {
             <div className="contenedorTask" style={{ backgroundColor: verify ? 'lightgreen' : 'white' }}>
                 <div>
                     <div className="taskInfo">
-                        {editionTask.verify ? <span class="material-icons-outlined iconoTaskPlanner" onClick={loading ? ()=>verifyTask(false) : null}>check_box</span> :<span className="material-icons-outlined iconoTaskPlanner" onClick={loading ? ()=>verifyTask(true) : null}>check_box_outline_blank</span>}
+                        {editionTask.verify ? <span class="material-icons-outlined iconoTaskPlanner" onClick={loading ? () => verifyTask(false) : null}>check_box</span> : <span className="material-icons-outlined iconoTaskPlanner" onClick={loading ? () => verifyTask(true) : null}>check_box_outline_blank</span>}
                         <span onClick={() => setShow(true)} className="taskTitle" style={{ display: editButton ? 'none' : 'block' }}>{title}</span>
                         <div className="contenedorInputEditTask" style={{ display: editButton ? 'flex' : 'none' }}>
                             <input className="inputEditTask" type="text" onChange={getInput} value={editionTask.title}></input><span onClick={() => sendEdit("title")} style={{ display: editButton ? 'block' : 'none' }} class="material-icons-outlined iconoTaskPlanner">send</span>
                         </div>
                         <div className="inputActions">
-                            <span onClick={() => setEditButton(!editButton)} class="material-icons-outlined iconoTaskPlanner">edit</span>
-                            <span onClick={sendDeleteTask} className="material-icons-outlined iconoTaskPlanner">delete</span>
+                            <span onClick={() => setEditButton(!editButton)} className="material-icons-outlined iconoTaskPlanner">edit</span>
+                            <span onClick={loading ? sendDeleteTask : null} className="material-icons-outlined iconoTaskPlanner">delete</span>
                             {/* <input className="inputVerify" type="checkbox" onChange={verifyTask} checked={editionTask.verify}></input> */}
                         </div>
                     </div>
                 </div>
-                <TaskModal task={task} setShow={setShow} show={show} imOwner={props.imOwner}/>
+                <TaskModal task={task} setShow={setShow} show={show} imOwner={props.imOwner} />
             </div>
         </div>
     )

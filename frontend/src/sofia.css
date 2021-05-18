@@ -886,6 +886,7 @@ input:focus{
     padding: 1vh 2vw;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 .contenedorAddTask{
     width: 90%;

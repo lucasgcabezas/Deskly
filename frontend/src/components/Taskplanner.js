@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import taskActions from "../redux/actions/taskActions"
 import { connect } from "react-redux"
 import Task from "./Task"
+import { IoSend } from 'react-icons/io5'
+
 const TaskPlanner = (props) => {
     const [allTasks, setAllTasks] = useState([])
     const [preloader, setPreloader] = useState(true)
@@ -25,8 +27,11 @@ const TaskPlanner = (props) => {
 
     const fetchAllTasks = async () => {
         const response = await props.tasksFromTaskplanner(props.taskplanner._id)
-        const tasksProgress = response.filter(task => task.verify)
-        setProgress(tasksProgress)
+        var tasksProgress;
+        if(response){
+            tasksProgress = response.filter(task => task.verify)
+            setProgress(tasksProgress)
+        }
         setAllTasks(response)
         setPreloader(false)
     }
@@ -56,7 +61,7 @@ const TaskPlanner = (props) => {
         <div className="taskPlanner" style={{ display: props.taskplanner.archived ? "none" : "inline-block" }}>
             <div className="taskPlannerList">
                 <div style={{ display: deleteButton ? 'flex' : 'none' }} className="deleteTaskPlannerModal">
-                    <span>Are you sure you want to delete this comment? This cannot be undone.</span>
+                    <span>Are you sure you want to delete this task planner? This cannot be undone.</span>
                     <div className="deleteButtonsModalTaskPlanner">
                         <button onClick={() => props.erase(props.taskplanner._id)}>Confirm</button>
                         <button onClick={() => setDeleteButton(false)}>Cancel</button>
@@ -95,10 +100,10 @@ const TaskPlanner = (props) => {
                     {
                         !open &&
                         <div className="contenedorAddList">
-                            <input className="inputAddTask" onKeyDown={loading && ((e) => enter(e, 'task'))} type="text" placeholder="Introduce a title for the new task" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
+                            <input className="inputAddTask" onKeyDown={loading ? ((e) => enter(e, 'task')) : null} type="text" placeholder="Introduce a title for the new task" value={newTask} onChange={(e) => setNewTask(e.target.value)} />
                             <div>
-                                <button className="buttonAddList" onClick={() => loading && sendValues}>Add new task</button>
-                                <span onClick={() => setOpen(true)} className="material-icons-outlined iconoAddListClose">close</span>
+                                <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new task</button>
+                                <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>
                             </div>
                         </div>
                     }
