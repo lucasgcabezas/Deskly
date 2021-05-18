@@ -88,10 +88,12 @@ const Board = (props) => {
     }
 
     const enter = (e, condition) => {
-        if (e.key === 'Enter' && condition === 'title') {
+        if (e.key === 'Enter' && condition === 'titleTaskPlanner') {
             sendValues()
         } else if (e.key === 'Enter' && condition === 'invite') {
             addUser()
+        } else if(e.key === 'Enter' && condition === 'titleBoard'){
+            editBoard()
         }
     }
 
@@ -140,9 +142,11 @@ const Board = (props) => {
     }
 
     const editBoard = async () => {
+        setLoading(false)
         const response = await props.editBoard(board._id, updateInput, props.userLogged.token)
         setBoard(response)
-        setUpdate(false)
+        setUpdate(true)
+        setLoading(true)
     }
     const usersFetch = async () => {
         const users = await props.getUsersFromBoard(idParams)
@@ -184,7 +188,7 @@ const Board = (props) => {
                         {!update &&
                             <div className="updateTitle">
                                 <div className="contenedorInputEditTitleBoard">
-                                    <input type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
+                                    <input onKeyDown={loading ? ((e) => enter(e, 'titleBoard')) : null} type="text" name="title" value={updateInput.title} onChange={readUpdateInput} />
                                     <span onClick={editBoard} class="material-icons-outlined iconoUpdateBoard">send</span>
                                 </div>
                                 <span onClick={() => setUpdate(true)} class="material-icons-outlined iconoUpdateBoard">close</span>
@@ -302,7 +306,7 @@ const Board = (props) => {
                                     {
                                         !open &&
                                         <div className="contenedorAddList">
-                                            <input className="inputAddList" onKeyDown={loading ? ((e) => enter(e, 'title')) : null} type="text" placeholder="Introduce a title for the new list" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
+                                            <input className="inputAddList" onKeyDown={loading ? ((e) => enter(e, 'titleTaskPlanner')) : null} type="text" placeholder="Introduce a title for the new list" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
                                             <div>
                                                 <button className="buttonAddList" onClick={loading ? sendValues : null}>Add new list</button>
                                                 <span onClick={() => setOpen(true)} class="material-icons-outlined iconoAddListClose">close</span>

@@ -116,7 +116,7 @@ const MyDesk = (props) => {
                     </div>
                     <input type="text" name="title" placeholder="Title" onChange={readInputBoard} />
                     <textarea name="description" placeholder="Add a description..." onChange={readInputBoard} ></textarea>
-                    <button onClick={loading && addBoard}>Create a new board</button>
+                    <button onClick={loading ? addBoard : null}>Create a new board</button>
                     {/* <button onClick={addBoard}>Crear nuevo tablero</button> */}
                     <span onClick={() => setNewBoardModal(false)} className="material-icons-outlined closeNewBoardModal">close</span>
                 </div>
