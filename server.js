@@ -19,7 +19,7 @@ if(process.env.NODE_ENV === "production"){
     })
 }
 
-const host=process.env.HOST || "0.0.0.0"
+const host=process.env.HOST || '0.0.0.0'
 const port= process.env.PORT
 
-app.listen(port, host, () => console.log('App listening on port 4000'))
+app.listen(port, host, () => console.log("App listening on port "+port+"  on "+ host   ))
