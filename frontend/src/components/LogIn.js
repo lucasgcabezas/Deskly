@@ -84,7 +84,7 @@ const SignIn = (props) => {
                     render={renderProps => (
                         <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="bGoogle"><FcGoogle />Log in with Google</button>
                     )}
-                    clientId="81825591921-124e4vl2b4i29jpfrf8k1vpnj84qb0fq.apps.googleusercontent.com"
+                    clientId="81825591921-b59konhcf778namaal4as1c11cpavod7.apps.googleusercontent.com"
                     onSuccess={respuestaGoogle}
                     onFailure={respuestaGoogle}
                     cookiePolicy={'single_host_origin'}

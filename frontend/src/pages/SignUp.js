@@ -103,7 +103,7 @@ const SignUp = (props) => {
                 {mistakes.img ? <h6>{mistakes.img}</h6> : null}
                 <button className="buttonEnviar" onClick={sendValueUser}>Register</button>
                 <GoogleLogin
-                    clientId="81825591921-124e4vl2b4i29jpfrf8k1vpnj84qb0fq.apps.googleusercontent.com"
+                    clientId="81825591921-b59konhcf778namaal4as1c11cpavod7.apps.googleusercontent.com"
                     render={renderProps => (
                         <button onClick={renderProps.onClick} disabled={renderProps.disabled} className="bGoogle"><FcGoogle />Register with Google</button>
                     )}
