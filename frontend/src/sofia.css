@@ -752,7 +752,6 @@ input:focus{
 .logoLink{
     color: rgba(255, 255, 255, 0.521);
     text-decoration: none;
-    cursor: pointer;
 }
 .logoLink:hover{
     color: rgba(255, 255, 255, 0.815); 

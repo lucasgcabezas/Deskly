@@ -169,11 +169,6 @@ const Board = (props) => {
         tasksFetch()
     }
 
-    // const progressBar = async (allTasks) => {
-    //     const task = await props.tasksFromTaskplanner(id)
-    //     // console.log(task)
-    // }
-
     let imAdmin = props.boardsAdminArray.some(boardId => boardId === String(board._id))
     let imOwner = props.boardsOwnerArray.some(boardId => boardId === String(board._id))
 
@@ -192,7 +187,7 @@ const Board = (props) => {
                 <div className="contenedorInfoBoard">
                     <div className="boardMarca">
                         <span className="hamburguerIcon" onClick={() => setMenuLateral(!menuLateral)}>&#9776; </span>
-                        {update && <h2 className="logoLink" onClick={() => { setUpdate(!update); setUpdateInput({ title: board.title }) }}>{board.title}</h2>}
+                        {update && <h2 className="logoLink" style={{cursor:`${imOwner ? 'pointer' : ''}`}} onClick={imOwner ? (() => { setUpdate(!update); setUpdateInput({ title: board.title }) }) : null}>{board.title}</h2>}
                         {!update &&
                             <div className="updateTitle">
                                 <div className="contenedorInputEditTitleBoard">
@@ -209,7 +204,6 @@ const Board = (props) => {
                     </div>
                     <div className="contenedorMenuBoard">
                         <div className="contenedorInfoOwner">
-                            {/* {(imAdmin || imOwner) && <button className="buttonOptionsBoard" onClick={() => setOpenArchive(!openArchive)}><span className="material-icons-outlined iconoBoard">add</span>Archive</button>} */}
                             {
                                 openInvite &&
                                 <div className="inviteUsersVentana">
@@ -233,9 +227,7 @@ const Board = (props) => {
                                         
                                         <Modal
                                             isOpen={openModal}
-                                            // onAfterOpen={afterOpenModal}
                                             onRequestClose={() => setOpenModal(!openModal)}
-                                            // style={customStyles}
                                             contentLabel="Example Modal"
                                             className="ModalTaskComponent"
                                             overlayClassName="OverlayModal"
@@ -256,15 +248,7 @@ const Board = (props) => {
                                 </>
                             }
                             {(imAdmin || imOwner) && <button className="buttonOptionsBoard" onClick={() => setOpenInvite(!openInvite)}><span className="material-icons-outlined iconoBoard">add</span>Invite</button>}
-                            {/* {
-                                openArchive &&
-                                <div className="inviteUsersVentana"  >
-                                    <h3>Archived taskplanners</h3>
-                                    <div  style={{ display: 'flex', margin: '2rem' , flexDirection:"column"}}> <Archive  allTasksPlanner={allTasksPlanner}/></div>
-                                </div>
-                            } */}
-                            {/* </>
-                            } */}
+                            
                         </div>
                         {imOwner && <>
                             <div onClick={usersVisible} className="iconoVisible">
