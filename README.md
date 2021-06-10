@@ -29,5 +29,5 @@ npm start
 * **Lucas Cabezas** - [Lucas](https://github.com/lucasgcabezas)
 * **Sofia Parra** - [Sofia](https://github.com/parradiana)
 * **Pablo Ceresola** - [Pablo](https://github.com/PabloCeresola)
-* **Adriel Baez** - [Adriel](hhttps://github.com/adrielbaez)
+* **Adriel Baez** - [Adriel](https://github.com/adrielbaez)
 * **Kevin Baez** - [Kevin](https://github.com/soykevinkalen)
